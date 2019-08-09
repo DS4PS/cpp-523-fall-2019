@@ -2,12 +2,9 @@ button {
     border-radius: 5px;
     border-color: darkgray;
     background-color: transparent;
-    color: rgb(140,29,64);
+    color: rgb(38, 184, 239);
 }
 
-i.fas.fa-chevron-circle-down {
-    color: blue;
-}
 
 
 table#t02 th {
@@ -91,7 +88,7 @@ a{
 
 
  i#github_icon {
-    color: white; /* black;  */
+    color: black; 
     font-size: 1.2em;
  }
 
