@@ -9,7 +9,7 @@ title:              DS4PS
 description:        Intro. course in data-drive management
 
 # Site subpath, e.g. /blog
-baseurl:            "/paf-586-summer-2019"
+baseurl:            "/cpp-523-fall-2019"
 
 # Permalink URLs structure, for permalink style options see: https://jekyllrb.com/docs/permalinks/
 permalink:          /:title/
@@ -20,7 +20,7 @@ url :               "https://ds4ps.github.io"
 # Site logo, image or text
 brand:
     image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
-    text:           Data Analytics for the Public Good      # if the above "logo:" image variable  is not set, this text logo is displayed instead
+    text:           Program Evaluation I      # if the above "logo:" image variable  is not set, this text logo is displayed instead
 
 # Default author settings
 author:
@@ -31,15 +31,15 @@ author:
 github_info:
     username:          DS4PS # Github location of the course
     branch:            master
-    website-repo:      paf-586-summer-2019
-    course-repo:       Data-Science-Class
+    website-repo:      cpp-523-fall-2019
+    course-repo:       cpp-523-fall-2019
     
-course_url: "http://ds4ps.org/paf-586-summer-2019/"
+course_url: "http://ds4ps.org/cpp-523-fall-2019/"
 
 index:
     title: Data Analytics for the Public Good
     image: books.svg
-    subtitle: Reading seminar in data analytics for public and nonprofit organizations.
+    subtitle: Foundations of regression analysis for program evaluation.
     
 
 
@@ -59,8 +59,8 @@ header:
 - title: Collaborative Text
   url: http://ds4ps.org/ddm-textbook-summer-2019/
   
-# - title: Get Help
-#   url: discussions/
+- title: Get Help
+  url: discussions/
 
 
 footer:
