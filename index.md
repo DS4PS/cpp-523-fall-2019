@@ -3,10 +3,10 @@ layout: index
 title: Syllabus
 
 info: 
- program_title: Public Affairs Executive Education
+ program_title: Program Evaluation and Data Analytics
  program_website: 
- course_title: Data Analytics for the Public Good
- course_number: PAF 586  
+ course_title: Program Evaluation I: Regression Tools
+ course_number: CPP 523 
  course_level: Graduate 
  course_website: https://canvas.asu.edu/courses/26991
  course_start_end_dates: July 3 to August 13, 2019  
