@@ -1,0 +1,160 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site title and description
+title:              DS4PS
+description:        Intro. course in data-drive management
+
+# Site subpath, e.g. /blog
+baseurl:            "/paf-586-summer-2019"
+
+# Permalink URLs structure, for permalink style options see: https://jekyllrb.com/docs/permalinks/
+permalink:          /:title/
+
+# Site base hostname & protocol, e.g. http://example.com
+url :               "https://ds4ps.github.io"
+
+# Site logo, image or text
+brand:
+    image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
+    text:           Data Analytics for the Public Good      # if the above "logo:" image variable  is not set, this text logo is displayed instead
+
+# Default author settings
+author:
+    name:       Jesse Lecy
+    github:     lecy   # Github username for avatar
+
+
+github_info:
+    username:          DS4PS # Github location of the course
+    branch:            master
+    website-repo:      paf-586-summer-2019
+    course-repo:       Data-Science-Class
+    
+course_url: "http://ds4ps.org/paf-586-summer-2019/"
+
+index:
+    title: Data Analytics for the Public Good
+    image: books.svg
+    subtitle: Reading seminar in data analytics for public and nonprofit organizations.
+    
+
+
+header:
+- title: Syllabus
+  url: /
+  
+- title: Course Schedule
+  url: schedule/
+
+- title: Canvas
+  url: https://canvas.asu.edu/courses/26991
+  
+- title: Yellowdig
+  url: https://asu.instructure.com/courses/26991/assignments/569550
+  
+- title: Collaborative Text
+  url: http://ds4ps.org/ddm-textbook-summer-2019/
+  
+# - title: Get Help
+#   url: discussions/
+
+
+footer:
+- title: Home
+  url: /
+
+- title: Course Schedule
+  url: /schedule/
+
+- title: Yellowdig
+  url: https://asu.instructure.com/courses/26991/assignments/569550
+  
+
+
+
+
+
+# Author settings, displayed on post and doc pages if front matter references author name e.g. author: peter
+authors:
+    jesse:
+        name:       Jesse Lecy
+        github:     lecy    # Github username for avatar
+
+# Social icons displayed in footer
+social:
+    email:
+    website:
+    facebook:       
+    flickr:
+    dribbble:
+    github:
+    googleplus:
+    instagram:      
+    linkedin:       
+    pinterest:
+    twitter:        
+    vimeo:          
+    youtube:        
+
+# Twitter share button
+twitter_username:
+
+# Default footer image settings
+footer:
+    copyright:      Made by a <a href="https://www.youtube.com/watch?v=WUAcN9UCnbU">human</a> somewhere on the planet earth.
+
+# Disqus comments shortname, requires Disqus account https://disqus.com/
+disqus:
+    shortname:      1234
+
+# Google analytics code, get your code here https://www.google.com/analytics/
+google_analytics:   UA-123960540-1
+
+# Google maps API key, get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key
+google_maps_api_key:
+
+# Number of posts displayed on blog page
+paginate: 10
+
+# Blog path
+paginate_path:      "layouts/datasets/:num/"
+
+# Path to post content assets directory i.e post images, pdfs etc
+post_assets:        /assets/posts/
+
+post_css: /assets/css/posts
+
+# Build settings
+markdown:           kramdown
+highlighter:        rouge
+
+gems:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-avatar
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+
+sass:
+  style:            compressed
+
+collections:
+  docs:
+    output: true
+
+
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+
+
+
+
+

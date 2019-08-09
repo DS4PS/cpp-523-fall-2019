@@ -1,0 +1,74 @@
+---
+title: "Lab 01 - Your First Markdown Document"
+output: html_document
+---
+*Spring 2019 Evans School*
+
+##Due Date: April 7th at Midnight (PDT)
+
+This lab introduces you to Markdown, a popular ‘language’ for creating data-driven reports. This week you will practice some simple formatting rules using the [Markdown Tutorial](https://rmarkdown.rstudio.com/authoring_basics.html) created by Adam Pritchard.
+
+#Lab Instructions
+Create a short bio for the class. Each question requires a different type of text or media. Use Markdown to format each answer correctly.
+
+* Add a picture and a brief biography
+* Write a short paragraph about why you joined this class and what you hope to gain from it.
+* Create a list of three fun facts about yourself.
+* Add a link to the website of your degree program of study at ASU.
+* Post your favorite quote as a block
+* Display some data and see how the code is written out
+
+Below  is Eric's rendered document to help guide you on what it should look like at the end.
+
+#R Markdown Template
+
+To help you get started, I have created a simple R Markdown file for the assignment. You can download the template from the course website, then open the file in R Studio.
+
+You can see Eric's final output below
+
+---
+output: html_document
+---
+
+
+# Picture and a Brief Biography
+
+I was born in Madison, Wisconsin, grew up in Sacramento, California, did by PhD in Atlanta, Georgia, and now live in Phoenix, Arizona (I would take a dry heat over the humidity any day). I try to avoid driving whenever possible, having walked to work everywhere I've lived. I am still searching for the best taco in Phoenix if anyone has recommendations.
+
+![](https://csteps.asu.edu/sites/default/files/styles/asu_directory_profile_image/public/asu_directory_feed/van_holm_headshot_aysps_2016.jpg?itok=yDMwRTDG)
+
+
+## Your Home Department
+
+
+I currently work at the Center for Science, Technology, and Environment Policy Studies [CSTEPS](https://csteps.asu.edu/content/eric-van-holm) at Arizona State University. Next Fall I will be moving to a tenure-track position at the University of New Orleans in the [Political Science Department](http://new.uno.edu/academics/colaehd/la/political-science).
+
+
+## Interest In The Course And What Scares You About It
+
+I really enjoy studying and teaching data science because it's so malleable to one's interests. My research has always been very broad encompassing everything from neighborhood change to disasters to entrepreneurship, but understanding how to collect, manage, and study data helps me regardless of the research question. My regret is not getting interested in computer science earlier in my academic career and waiting until I was doing my PhD. Coding is similar to learning another language, but it's always been more comfortable because it's not as embarrassing to mispronounce something when you are only talking to your computer (even if it's just as frustrating when it doesn't understand what you're trying to say). I am afraid of bears, and since I can't actively see all of you I'm concerned one of you is a bear that has enrolled in the class and is setting a trap for me. Nice try bear, but I'm ready.
+
+
+## Three Things About Me
+
+* All four cities listed in my biography are state capitals, which is partially a coincidence but also makes sense considering my interest in policy/politics
+* One of my life goals is to see a professional baseball game in every state (I'm currently at 23)
+* For my honeymoon my wife and I walked across England on a pilgrimage route that ended at Canterbury Cathedral
+
+<img src="http://www.ukstudentinvestmentproperty.com/wp-content/uploads/2012/12/Canterbury-Cathedral-city1.jpg" width="500" />
+
+
+## Favorite Quote
+
+>Each time a man stands up for an ideal, or acts to improve the lot of others, or strikes out against injustice, he sends forth a tiny ripple of hope, and crossing each other from a million different centers of energy and daring, those ripples build a current that can sweep down the mightiest walls of oppression and resistance.
+>
+-Robert F Kennedy
+
+## Display Some Data
+
+Using a pre-loaded package, either print summary statistics or some sort of graph
+
+```{r, ech=F }
+data(cars)
+plot(cars$speed, cars$dist)
+```

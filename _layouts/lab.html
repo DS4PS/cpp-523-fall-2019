@@ -1,0 +1,75 @@
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+
+
+<body>
+</body>
+</html>
+
+
+<head>
+  <style> 
+    td {
+      padding-left: 8px;
+    }
+    .fa{
+      /* Adjust these values accordingly */
+      style="height: 27px"
+      padding-right: 8px;
+    }
+    .button{
+        padding-right: 8px;
+    }
+    em {
+        color: black;
+        font-style: italic;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<div class="uk-section section-hero .uk-width-1-1"  data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">
+    <div class="uk-container uk-container-small">
+        {% if page.image %}
+        <p class="hero-image uk-text-center"><img src="{{ site.post_assets | absolute_url }}{{ page.image }}" alt="Hero" style="width:{{ page.image-width }};"></p> 
+        {% endif %}
+        <h2 class="uk-heading-hero uk-text-center uk-margin-remove-top uk-margin-remove-bottom " >{{ page.title }}</h2>
+
+</div>
+</div>
+
+<br>
+<br>
+
+
+<article class="uk-article">
+
+
+<div class="uk-section-muted uk-padding-large">
+<div class="uk-container uk-container-small">
+
+{{content}}
+
+<br>
+<br>
+</div>
+</div>
+
+</article>
+  
+<br>
+<br>
+<br>
+<br>
+  
+</body>
+</html>

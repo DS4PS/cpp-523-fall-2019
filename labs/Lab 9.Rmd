@@ -1,0 +1,75 @@
+---
+title: "Lab 09"
+author: "Pubpol 599"
+date: "Due June 10th"
+output: html_document
+---
+
+
+## Directions
+
+1. You are to submit this lab once completed by email to Eric (evanholm@asu.edu) so that he can run your analysis on his computer.
+2. Once you submit the lab, fill in he date you submitted the assignment on the Google Sheet.
+
+For this assignment you will create a 3 tab flex dashboard. Directions for what to do on each tab is below.
+
+Make sure that you have installed the shiny package on to your computer and have it loaded in the Markdown document.
+
+Be prepapred to spend time experimenting with the different aspects of shiny and doing the reading listed on the class website.
+
+### Tab 1: Inputs
+
+Let's begin by practicing inputs. You'll add three inputs to tab 1, but no outputs for now.
+
+1. Create a check box with four options for animals: dog, cat, pig, goat.
+2. Create a slider that I can adjust between 1953 and 1971.
+3. Create a select box that I can choose my level of education: No degree, some college, college, advanced.
+
+You'll want to start by looking at the list of inputs in the lecture notes, and may want to use the help files for those inputs.
+
+### Tab 2: Phones
+
+Let's recreate the page from the lecture about phones by region.
+
+Instead of  showing the different number of phones in regions over time, we'd rather see how many phones were owned across regions for each given year. 
+
+The command t() transposes you data, making the rows columns and the columns rows. Run the line of code below, and rewrite the input and rendering  for WorldPhonesT so that the labels and id's make sense for the new dashboard that is focused on displaying the data organized by year.
+
+Use the code below to start.
+
+```{r, eval=FALSE, echo=T}
+
+library(datasets)
+WorldPhonesT <- t(WorldPhones)
+
+selectInput("region", "Region:", 
+                  choices=colnames(WorldPhones))
+
+renderPlot({
+    
+    # Render a barplot
+    barplot(WorldPhones[,input$region]*1000, 
+            main=input$region,
+            ylab="Number of Telephones",
+            xlab="Year")
+  })
+
+
+```
+
+### Tab 3 Cars
+
+Create a data frame that displays selected rows from the mtcars data set. You'll need to figure out what type of input is needed and create that, then add the input id to the renderDataTable below.
+
+```{r, eval=FALSE, echo=T}
+
+data("mtcars")
+   
+renderDataTable({
+      columns = names(mtcars)
+      if (!is.null(input$)) {
+        columns = input$
+      }
+      mtcars[,columns,drop=FALSE]
+    })
+```

@@ -1,0 +1,33 @@
+#Data
+
+*In this lab you'll use data on code violations from Seattle's Open Data Portal, avaliable at:*
+
+https://data.seattle.gov/Community/Code-Complaints-and-Violations/ez4a-iug7
+
+You'll need to click export to download the data. Save as a CSV file to your machine, preferrably in your class folder.
+
+```{r}
+
+```
+
+
+#Where are these Reported From?
+
+```{r}
+
+
+```
+
+
+# What Type of Violations
+
+```{r}
+
+```
+
+
+# How are dates formatted
+
+```{r}
+
+```

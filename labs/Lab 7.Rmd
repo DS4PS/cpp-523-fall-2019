@@ -1,0 +1,155 @@
+---
+title: "Lab 7"
+author: "Eric van Holm"
+date: "5/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Part 1
+
+Copy this code from Eric's example dashboard into a new R Markdown document. Make sure to change the output of your Mardown document. You may need to install the flexdashboard packages as well.
+
+---
+title: "Pets of Seattle"
+output: flexdashboard::flex_dashboard
+---
+
+```{r}
+library(stringr) 
+library(dplyr)
+library(ggplot2)
+library(utils)
+library(rgdal)
+#library(tmap)
+library(rmapshaper)
+
+```
+
+All Pets
+=====================================  
+    
+Column {data-width=600}
+-------------------------------------
+    
+### Number of Pets Registered by Species
+
+    
+    
+```{r}
+pet <- read.csv("Seattle_Pet_Licenses.csv")
+species <- as.data.frame(table(pet$Species))
+species %>%
+  ggplot(aes(x=Var1, y=Freq, label = Freq)) +
+  geom_bar(stat="identity", fill="steelblue") +
+  ##Changing labels from default names
+  xlab("Species") +  ylab("Count") +
+  ## Move text above bars
+  geom_text(nudge_y = 1000) +
+  ## Change background color
+  theme_bw() + theme(legend.position = "none")
+```
+   
+Column {data-width=400}
+-------------------------------------
+   
+### Pets Registered by Year
+
+
+```{r}
+pet$Year <- str_sub(pet$License.Issue.Date, start= -4)
+
+pet  %>% 
+  group_by(Species) %>% 
+  count(Year, name="count_year")  %>% 
+  ggplot(aes(x=Year, y=count_year, group = Species, colour = Species)) +
+  geom_line() +
+  geom_point( size=4, shape=21, fill="white")
+
+
+
+```   
+ 
+### Locations of Pets
+    
+```{r, etcho=F}
+pet$Zip5 <- str_sub(pet$ZIP.Code, start = 1, end = 5)
+SEA_zip_pets <- 
+  pet  %>% 
+  count(Zip5, name="count_zip") 
+
+link='https://github.com/EvansDataScience/DataDriven_ManagementAndPolicy/raw/master/Session6/contriWA_2016.RData'
+load(file=url(link))
+zippedSHP <- "https://github.com/EvansDataScience/data/raw/master/WAzips.zip"
+
+temp=tempfile()
+download.file(zippedSHP, temp)
+unzip(temp)
+
+
+wazipMap <- readOGR("SAEP_ZIP_Code_Tabulation_Areas.shp",stringsAsFactors=F,
+                    verbose = FALSE) 
+waZips = tm_shape(wazipMap) + tm_polygons()
+layerContrib=merge(wazipMap,SEA_zip_pets,  # use map first
+                   by.x='ZCTA5CE10', 
+                   by.y='Zip5',all.x=F)
+baseMap <- ms_dissolve(wazipMap)
+waBorder = tm_shape(baseMap) + tm_polygons(col = 'white',   lwd = 1)
+
+library(RColorBrewer)
+library(classInt)
+varToPLot=layerContrib$count_zip
+colorForPalette='YlGnBu'
+layer1 <- waBorder +  
+  tm_shape(layerContrib) +
+  tm_polygons("count_zip", 
+              style="quantile", # classification method
+              n=50, # number of groups for classification
+              title="Pet Licenses Total", # title of legend
+              palette=colorForPalette,
+              bty="n")
+
+fullMap= layer1
+fullMap
+```
+
+Page 2 {data-orientation=rows}
+=====================================     
+   
+Row {data-height=600}
+-------------------------------------
+
+### Chart 1
+
+```{r}
+```
+
+Row {data-height=400}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+```   
+    
+### Chart 3
+
+```{r}
+```
+
+#Part 2
+
+Change the layout of the front dashboard, to practice changing those features. Redo the charts Licenses over Time and Species to better communicate the information. 
+
+**Bonus**
+If you would like to practice working with GIS and mapping in R, change the map plot. If not, remove the map and change the dashboard to only have two charts.
+
+#Part 3
+Add a second tab for either cats or dogs (sorry, no goats or pigs tabs).
+
+First, re arrange the charts in a different layout 
+
+Fill in the charts as you chose. What information is interesting? How would you communicate it? You can use parts of the code produced on the tab of the dashboartd, but do not reproduce it directly for dogs or cats, think about different ways to use the data or create different displays. Choose your own adventure. 
