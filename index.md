@@ -5,7 +5,7 @@ title: Syllabus
 info: 
  program_title: Program Evaluation and Data Analytics
  program_website: 
- course_title: Program Evaluation I: Regression Tools
+ course_title: Foundations of Program Evaluation I
  course_number: CPP 523 
  course_level: Graduate 
  course_website: https://canvas.asu.edu/courses/26991
