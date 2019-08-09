@@ -40,7 +40,7 @@ header {
 }
 
 footer {
-    background-color: #ff8c00;  /* rgb(38, 184, 239); */
+    background-color: #f08d14  /* #ff8c00;  rgb(38, 184, 239); */
     color: rgb(255,255,255);
     margin-top: 0px;
 }
@@ -73,7 +73,7 @@ p.i {
 
 #default_nav {
     /* background-color:rgb(38, 184, 239); */
-    background-color: #ffaf4d;
+    background-color: #f08d14; /* #ffaf4d; */
     font-size: 1.7em;
 }
 
