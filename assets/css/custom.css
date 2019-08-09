@@ -5,6 +5,10 @@ button {
     color: rgb(140,29,64);
 }
 
+i.fas fa-chevron-circle-down {
+    color: blue;
+}
+
 
 table#t02 th {
     font-size: 1.5em;
