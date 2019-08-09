@@ -87,7 +87,7 @@ a{
 
 
  i#github_icon {
-    color: black; 
+    color: white; /* black;  */
     font-size: 1.2em;
  }
 
@@ -100,7 +100,7 @@ a{
 
  td#footer {
     padding-left:6em;
-    color: black;
+    color: white; /* black; */
     align-items: center;
     align-self: center;
  }
