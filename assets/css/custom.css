@@ -41,7 +41,7 @@ header {
 }
 
 footer {
-    background-color: rgb( 255, 102, 0 ); /* #f08d14;   #ff8c00;  rgb(38, 184, 239); */
+    background-color: #f08d14; /* #f08d14;   #ff8c00;  rgb(38, 184, 239); */
     color: white; /* rgb(255,255,255); */
     margin-top: 0px;
 }
