@@ -42,13 +42,13 @@ header {
 
 #default_nav {
     /* background-color:rgb(38, 184, 239); */
-    background-color: site.header.color; /* #f08d14;  #ffaf4d; */
+    background-color: #f08d14;  /*  #ffaf4d; */
     font-size: 1.7em;
     color: white;
 }
 
 footer {
-    background-color: site.header.color; /* #f08d14;  #f08d14;   #ff8c00;  rgb(38, 184, 239); */
+    background-color: #f08d14;  /* #f08d14;   #ff8c00;  rgb(38, 184, 239); */
     color: white; /* rgb(255,255,255); */
     margin-top: 0px;
 }
