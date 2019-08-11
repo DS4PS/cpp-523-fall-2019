@@ -36,13 +36,6 @@ github_info:
     
 course_url: "http://ds4ps.org/cpp-523-fall-2019/"
 
-index:
-    title: Foundations of Program Evaluation I
-    image: books.svg
-    subtitle: Foundations of regression analysis for program evaluation.
-    
-
-
 header:
 - title: Syllabus
   url: /
