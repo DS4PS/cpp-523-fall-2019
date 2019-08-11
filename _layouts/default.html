@@ -141,20 +141,16 @@
                    {% if link.url contains 'http' %} 
                     <tr>
                       <td id="footer" ><a href="{{ link.url }}" target="_blank"; style="color: black" >{{ link.title }}</a></td>
-                 </tr>
+                    </tr>
                    {% else %} 
                     <tr>
                       <td id="footer" ><a href="{{ domain }}/{{ site.github_info.website-repo }}/{{ link.url }}" style="color: black">{{ link.title }}</a></td>
-                 </tr>
-                 {% endif %}
-                    {% endif %}
+                    </tr>
+                   {% endif %}
+                   {% endif %}
                 {% endfor %}
-                  <tr>
-                 <td id="footer">
-                   <a href="https://github.com/{{ site.github_info.username }}/{{ site.github_info.website-repo }}/edit/master/{{page.path}}" target = "_blank"> <i id="github_icon" class="fab fa-github" ></i></a>
-                </td>
-               </tr>
-              </table>
+            </table>
+         
         </div>
       </div>
        <div class="row">
