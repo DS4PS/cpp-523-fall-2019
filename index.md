@@ -2,10 +2,15 @@
 layout: index
 title: Syllabus
 
+index:
+    title: Foundations of Program Evaluation I
+    image: books.svg
+    subtitle: Regression analysis for the study of program impact.
+    
 info: 
  program_title: Program Evaluation and Data Analytics
  program_website: 
- course_title: Foundations of Program Evaluation I
+ course_title: Foundations of Program Evaluation Part I
  course_number: CPP 523 
  course_level: Graduate 
  course_website: https://canvas.asu.edu/courses/26991
