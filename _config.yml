@@ -23,8 +23,10 @@ brand:
     image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
     text:           "Program Evaluation  &nbsp;&nbsp;"    # if the above "logo:" image variable  is not set, this text logo is displayed instead
 
+
+# header color set at assets/css/custom.css under default_nav and footer background-color
+
 header:
-- color: "#f08d14"   # orange
 - title: Syllabus
   url: /
 - title: Course Schedule
