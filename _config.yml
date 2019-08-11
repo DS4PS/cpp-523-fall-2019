@@ -20,7 +20,7 @@ url :               "https://ds4ps.github.io"
 # Site logo, image or text
 brand:
     image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
-    text:           Program Evaluation I      # if the above "logo:" image variable  is not set, this text logo is displayed instead
+    text:           Program Evaluation       # if the above "logo:" image variable  is not set, this text logo is displayed instead
 
 # Default author settings
 author:
