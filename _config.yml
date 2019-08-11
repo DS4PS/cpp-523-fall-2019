@@ -21,7 +21,8 @@ permalink:          /:title/
 # Header text on the left
 brand:
     image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
-    text:           "Program Evaluation I"    # if the above "logo:" image variable  is not set, this text logo is displayed instead
+    text:           "Program Evaluation"    # if the above "logo:" image variable  is not set, this text logo is displayed instead
+       # in the default html file add extra fav icons to header for parts II and III
 
 
 # header color set at assets/css/custom.css under default_nav and footer background-color
