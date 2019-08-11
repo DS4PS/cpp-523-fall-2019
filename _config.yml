@@ -9,67 +9,54 @@ title:              DS4PS
 description:        Intro. course in data-drive management
 
 # Site subpath, e.g. /blog
+url :               "https://ds4ps.github.io"
 baseurl:            "/cpp-523-fall-2019"
+course_url:         "http://ds4ps.org/cpp-523-fall-2019/"
 
 # Permalink URLs structure, for permalink style options see: https://jekyllrb.com/docs/permalinks/
 permalink:          /:title/
 
-# Site base hostname & protocol, e.g. http://example.com
-url :               "https://ds4ps.github.io"
 
-# Site logo, image or text
+
+# Header text on the left
 brand:
     image:          # logo.svg  # e.g. logo.png, upload logo image file to /assets/img/ folder
     text:           "Program Evaluation  "    # if the above "logo:" image variable  is not set, this text logo is displayed instead
+
+header:
+- title: Syllabus
+  url: /
+- title: Course Schedule
+  url: schedule/
+- title: Canvas
+  url: https://canvas.asu.edu/courses/26991
+- title: Yellowdig
+  url: https://asu.instructure.com/courses/26991/assignments/569550
+- title: Collaborative Text
+  url: http://ds4ps.org/ddm-textbook-summer-2019/
+- title: Get Help
+  url: discussions/
+
+footer:
+- title: Home
+  url: /
+- title: Course Schedule
+  url: /schedule/
+
+# Default footer image settings
+footer:
+    copyright:      Made by a <a href="https://www.youtube.com/watch?v=WUAcN9UCnbU">human</a> somewhere on the planet earth.
 
 # Default author settings
 author:
     name:       Jesse Lecy
     github:     lecy   # Github username for avatar
 
-
 github_info:
     username:          DS4PS # Github location of the course
     branch:            master
     website-repo:      cpp-523-fall-2019
     course-repo:       cpp-523-fall-2019
-    
-course_url: "http://ds4ps.org/cpp-523-fall-2019/"
-
-header:
-- title: Syllabus
-  url: /
-  
-- title: Course Schedule
-  url: schedule/
-
-- title: Canvas
-  url: https://canvas.asu.edu/courses/26991
-  
-- title: Yellowdig
-  url: https://asu.instructure.com/courses/26991/assignments/569550
-  
-- title: Collaborative Text
-  url: http://ds4ps.org/ddm-textbook-summer-2019/
-  
-- title: Get Help
-  url: discussions/
-
-
-footer:
-- title: Home
-  url: /
-
-- title: Course Schedule
-  url: /schedule/
-
-- title: Yellowdig
-  url: https://asu.instructure.com/courses/26991/assignments/569550
-  
-
-
-
-
 
 # Author settings, displayed on post and doc pages if front matter references author name e.g. author: peter
 authors:
@@ -96,9 +83,6 @@ social:
 # Twitter share button
 twitter_username:
 
-# Default footer image settings
-footer:
-    copyright:      Made by a <a href="https://www.youtube.com/watch?v=WUAcN9UCnbU">human</a> somewhere on the planet earth.
 
 # Disqus comments shortname, requires Disqus account https://disqus.com/
 disqus:
