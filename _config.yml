@@ -24,6 +24,7 @@ brand:
     text:           "Program Evaluation  "    # if the above "logo:" image variable  is not set, this text logo is displayed instead
 
 header:
+- color: "#f08d14" 
 - title: Syllabus
   url: /
 - title: Course Schedule
