@@ -118,7 +118,6 @@ gems:
   - jekyll-seo-tag
   - jekyll-gist
   - jekyll-avatar
-  - jekyll-scholar
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -136,8 +135,6 @@ markdown: kramdown
 kramdown:
   parse_block_html: true
 
-plugins: 
-  - jekyll-scholar
 
 
 
