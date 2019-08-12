@@ -23,7 +23,7 @@ instructor:
 -  name: Jesse Lecy, PhD
    title: Professor
    email: jdlecy@asu.edu
-   office: UCENT 517
+   office_location: UCENT 517
    website_url: www.lecy.info
    github_url: 'https://github.com/lecy' 
    twitter_url: 
