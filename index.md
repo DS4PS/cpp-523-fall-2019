@@ -14,23 +14,24 @@ info:
  course_number: CPP 523 
  course_level: Graduate 
  course_website: https://canvas.asu.edu/courses/26991
- course_start_end_dates: July 3 to August 13, 2019  
- course_prerequisites: None  
+ course_start_end_dates: Aug 22 to Oct 11, 2019  
+ course_prerequisites: College Level Intro. to Stats 
  class_meets_when:  Asynchronous  
- class_meets_where: https://asu.zoom.us/j/212294195  
+ class_meets_where: https://asu.zoom.us/j/836463264  
 
 instructor:
 -  name: Jesse Lecy, PhD
    title: Professor
    email: jdlecy@asu.edu
    website_url: www.lecy.info
-   office_hours_times: Flexible, by appointment
-   office_hours_location:  Virtual
-   office_hours_app_url:  'mailto:jdlecy@asu.edu'
-   github_url: https://github.com/lecy 
+   github_url: 'https://github.com/lecy' 
    twitter_url: 
-   scholar_url: https://scholar.google.com/citations?user=Ir8H4wMAAAAJ&hl=en
+   scholar_url: 'https://scholar.google.com/citations?user=Ir8H4wMAAAAJ&hl=en'
    linked_in_url:
+   office_hours_time: Flexible, request appointment
+   office_hours_location:  Virtual
+   office_hours_app_url:  'https://calendly.com/lecy/15min'
+   office_hours_discussion_board: https://ds4ps.org/cpp-523-fall-2019/help/
 
 textbooks:
 - title: Social Physics; How social networks can make us smarter. Penguin.
