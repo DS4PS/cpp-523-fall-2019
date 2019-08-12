@@ -141,12 +141,27 @@ layout: default
 <td><b> {{page.info.class_meets_where }} </b></td>
 </tr>
 {% endif %}
+  
+{% if page.info.discussion_session_when %}
+<tr>
+<td>Discussion Session Time:</td>
+<td><b> {{page.info.discussion_session_when }} </b></td>
+</tr>
+{% endif %}
 
-{% if office_hours_discussion_board %}  
+{% if page.info.discussion_session_where %}
+<tr>
+<td>Discussion Session Location:</td>
+<td><b> {{page.info.discussion_session_where }} </b></td>
+</tr>
+{% endif %}  
+
+
+{% if page.instructor.office_hours_discussion_board %}  
 <tr>
 <td>Assignment Discussion Board:</td>
 <td>
-  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{item.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
+  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{page.instructor.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
 </td>
 </tr>
 {% endif %}  
