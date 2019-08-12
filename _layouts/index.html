@@ -193,28 +193,28 @@ layout: default
 <td><a href="{{item.webpage_url}}">{{item.name}}</a></td>
 <td>{{item.title}}</td>
 <td>{{item.phone}}</td>
-<td> <a href="mailto:{{item.email}}" title="email"><i id="general" class="fa fa-envelope fa-2x" ></i></a> </td>
+<td> <a href="mailto:{{item.email}}" title="email"><i id="fa-icon" class="fa fa-envelope fa-2x" ></i></a> </td>
 
 {% if item.github_url %}
-<td> <a href="{{item.github_url}}" title="email"><i id="general" class="fab fa-github fa-2x" "></i></a> </td>
+<td> <a href="{{item.github_url}}" title="github"><i id="fa-icon" class="fab fa-github fa-2x" "></i></a> </td>
 {% endif %}
 
 {% if item.twitter_url %}
 <td>
- <a href="{{item.twitter_url}}" title="email"><i id="general" class="fab fa-twitter fa-2x"></i></a> 
+ <a href="{{item.twitter_url}}" title="twitter"><i id="fa-icon" class="fab fa-twitter fa-2x"></i></a> 
 </td>
 {% endif %}
 
 {% if item.scholar_url %}
 <td>
- <a href="{{item.scholar_url}}" title="email"><i id="general" class="fa fa-graduation-cap fa-2x" ></i></a> 
+ <a href="{{item.scholar_url}}" title="scholar"><i id="fa-icon" class="fa fa-graduation-cap fa-2x" ></i></a> 
 </td>
 {% endif %}
 
 
 {% if item.linked_in_url %}
 <td>
- <a href="{{item.linked_in_url}}" title="email"><i id="general" class="fa fa-linkedin" ></i></a> 
+ <a href="{{item.linked_in_url}}" title="linkedin"><i id="fa-icon" class="fa fa-linkedin" ></i></a> 
 </td>
 {% endif %}
 </tr>
