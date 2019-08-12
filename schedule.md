@@ -91,7 +91,7 @@ Lab 03 is available here:
 
 When ready, you can submit your lab via Canvas:
 
-<a class="uk-button uk-button-secondary" href="{{page.canvas.assignment_url}}">Submit Lab 03</a>
+<a class="uk-button uk-button-danger" href="{{page.canvas.assignment_url}}">Submit Lab 03</a>
 
 
 
