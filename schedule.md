@@ -3,7 +3,7 @@ layout: schedule
 title: Schedule
 
 canvas: 
-  assignment_url: www.google.com 
+  assignment_url: 'https://www.google.com/'
 ---
  
 <!--- 
