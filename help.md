@@ -3,6 +3,27 @@ layout: discussions
 ---
 
 
+
+<h2> Office Hours </h2>
+
+<table class="table table-condensed" cellspacing="10">
+<tbody>
+{% for item in index.instructor %}
+<tr>
+<td>{{item.name}}</td>
+<td>{{item.office_hours_time}}</td>
+<td>{{item.office_hours_location}}</td>
+<td>
+<a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
+</td>
+<td>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
 ## Discussion Board Etiquette
 
 We are using GitHub Issues for discussion boards to practice posting questions in a style simiilar to popular data science forums like StackOverflow. These discussion boards are amazing resources because you can post complex questions and talented professionals from around the world will help solve your problems FOR FREE! There is some skill involved in asking questions so that they are clear, and providing a simple example that demonstrate your particular problem. This will improve the responses that you receive and avoid annoying community members.
