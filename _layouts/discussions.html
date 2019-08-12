@@ -33,25 +33,9 @@ When you get stuck on labs or projects you have several options to get help:
 </ul>
 
 
+<br>
 	
-<h2> Office Hours </h2>
-
-<table class="table table-condensed" cellspacing="10">
-<tbody>
-{% for item in syllabus.instructor %}
-<tr>
-<td>{{item.name}}</td>
-<td>{{item.office_hours_time}}</td>
-<td>{{item.office_hours_location}}</td>
-<td>
-<a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
-</td>
-<td>
-</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+<a class="uk-button uk-button-default" href="https://github.com/{{site.github_info.username}}/{{ site.github_info.website-repo}}">Get Office Hours Info</a>
 	
 </div>
 	
