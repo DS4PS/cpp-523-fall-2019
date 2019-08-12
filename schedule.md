@@ -3,7 +3,7 @@ layout: schedule
 title: Schedule
 
 canvas: 
-  assignment_url: 'https://www.google.com/'
+  assignment_url: 'https://canvas.asu.edu/courses/29527/assignments'
 ---
  
 <!--- 
