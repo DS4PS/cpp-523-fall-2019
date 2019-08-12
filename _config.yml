@@ -29,7 +29,7 @@ brand:
 
 header:
 - title: Syllabus
-  url: /
+  url: 
 - title: Course Schedule
   url: schedule/
 - title: Canvas
@@ -39,7 +39,7 @@ header:
 - title: Collaborative Text
   url: http://ds4ps.org/ddm-textbook-summer-2019/
 - title: Get Help
-  url: discussions/
+  url: help/
 
 footer:
 - title: Home
