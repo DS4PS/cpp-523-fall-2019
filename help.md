@@ -32,6 +32,8 @@ This question is difficult to answer because we don't know how the error was gen
 
 You need to show the code that generated the error message. Try something like: 
 
+--- 
+
 > I am trying to merge my data, but I keep getting the error message, "cannot merge object type list". Here is my code:
 
 ```r
@@ -40,6 +42,8 @@ y <- data.frame( id=letters[1:10], v2=rbinom(10) )
 z <- list( x, y )
 merge( y, z )
 ```
+
+--- 
 
 GitHub speaks Markdown, which allows you to include reproducible code.
 
