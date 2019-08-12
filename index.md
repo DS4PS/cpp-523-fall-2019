@@ -71,7 +71,7 @@ p.italic {
   color: black !important;
 }
 
-i {
+#fa-icon {
   font-style: normal;
 }
 </style>
