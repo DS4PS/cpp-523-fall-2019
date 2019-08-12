@@ -8,7 +8,7 @@ layout: discussions
 
 <table class="table table-condensed" cellspacing="10">
 <tbody>
-{% for item in index.instructor %}
+{% for item in site.instructor %}
 <tr>
 <td>{{item.name}}</td>
 <td>{{item.office_hours_time}}</td>
