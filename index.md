@@ -17,9 +17,9 @@ info:
  course_start_end_dates: Aug 22 to Oct 11, 2019  
  course_prerequisites: College Level Intro. to Stats 
  class_meets_when:  Asynchronous  
- class_meets_where:  
+ class_meets_where:  https://asu.zoom.us/j/836463264
  review_sessions_when: TBD 
- review_sessions_where: https://asu.zoom.us/j/836463264
+ review_sessions_where: UCENT Policy Analytics Lab 4th Floor
 
 instructor:
 -  name: Jesse Lecy, PhD
