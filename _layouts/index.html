@@ -282,16 +282,20 @@ layout: default
 {% for item in page.textbooks %}
 <tr align="left">
 <td align="left"><a onclick="location.href='{{ item.link }}'"> <i id="fa-icon" class="fa fa-book fa-2x"></i></a></td>
+<td align="left"><a href='{{ item.link }}'>{{ item.title }}</a></td>
+  
 {% if item.authors %}
-<td>{{item.authors}}</td>
+  <td>{{item.authors}}</td>
 {% endif %}
+  
 {% if item.edition %}
-<td>{{item.edition}}</td>
+  <td>{{item.edition}}</td>
 {% endif %}
-  <td><a href='{{ item.link }}'>{{ item.title }}</a></td>
+  
 {% if item.required %}
   <td><i>{{item.required}}</i></td>
 {% endif %}
+  
 </tr>
 {% endfor %}
 </tbody>
