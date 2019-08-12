@@ -39,7 +39,7 @@ td.i {
   text-align: center;
 }
 iframe {
-  align: center;
+  align: middle;
 }
 </style>
 
