@@ -87,11 +87,11 @@ So how can we get better at using data?
 
 Lab 03 is available here:
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/paf-586-summer-2019/lab-03-feature-selection/">LAB 03</a>
+<a class="uk-button uk-button-primary" href="https://ds4ps.org/paf-586-summer-2019/lab-03-feature-selection/">LAB 03</a>
 
 When ready, you can submit your lab via Canvas:
 
-<a class="uk-button uk-button-default" href="{{page.canvas.assignment_url}}">Submit Lab 03</a>
+<a class="uk-button uk-button-secondary" href="{{page.canvas.assignment_url}}">Submit Lab 03</a>
 
 
 
