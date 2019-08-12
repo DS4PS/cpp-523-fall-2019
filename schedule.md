@@ -34,6 +34,9 @@ p.italic {
 td {
   text-align: left;
 }
+td.i {
+  text-align: center;
+}
 </style>
 
 
