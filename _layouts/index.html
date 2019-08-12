@@ -290,8 +290,7 @@ layout: default
 {% endif %}
   <td><a href='{{ item.link }}'>{{ item.title }}</a></td>
 {% if item.required %}
-<td>Required: </td>
-<td>{{item.required}}</td>
+  <td><i>{{item.required}}</i></td>
 {% endif %}
 </tr>
 {% endfor %}
