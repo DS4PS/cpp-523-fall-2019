@@ -19,7 +19,7 @@ info:
  class_meets_when:  Asynchronous  
  class_meets_where:  'https://asu.zoom.us/j/836463264'
  review_sessions_when: TBD 
- review_sessions_where: UCENT Policy Analytics Lab 4th Floor + [Zoom](https://asu.zoom.us/j/836463264)
+ review_sessions_where: UCENT Policy Analytics Lab 4th Floor + Zoom
  discussion_board_url: 'https://ds4ps.org/cpp-523-fall-2019/help/'
 
 instructor:
