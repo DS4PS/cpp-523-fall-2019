@@ -20,11 +20,11 @@ For example, StackOverflow has a succinct guide on [asking clear questions](http
 
 ## Simple Rules for Clear Questions
 
-#### Don't Repeat Questions
+#### (1) Don't Repeat Questions
 
 Check the existing list of questions and topics to make sure your questions has not been asked already. Often times the answer already exists, you just need to read a couple of previous discussions.
 
-#### Include Your Code 
+#### (2) Include Your Code 
 
 This question is difficult to answer because we don't know how the error was generated unless you share your code:
 
@@ -56,7 +56,7 @@ alt="Issues" width="800" />
 <br>
  
 
-#### Include Data
+#### (3) Include Data
 
 You can include data in your questions in a few ways. 
 
