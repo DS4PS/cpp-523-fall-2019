@@ -69,6 +69,9 @@ p.italic {
   color: black !important;
 }
 
+i {
+  font-style: normal;
+}
 </style>
 
 
