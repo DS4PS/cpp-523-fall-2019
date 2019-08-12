@@ -4,24 +4,7 @@ layout: discussions
 
 
 
-<h2> Office Hours </h2>
 
-<table class="table table-condensed" cellspacing="10">
-<tbody>
-{% for item in site.instructor %}
-<tr>
-<td>{{item.name}}</td>
-<td>{{item.office_hours_time}}</td>
-<td>{{item.office_hours_location}}</td>
-<td>
-<a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
-</td>
-<td>
-</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
 
 
 ## Discussion Board Etiquette
