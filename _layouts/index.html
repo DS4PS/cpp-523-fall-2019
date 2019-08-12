@@ -195,6 +195,14 @@ layout: default
 {% endif %}
 </tr>
 
+{% if item.office_location %}
+<tr>
+  <td>Office Location:</td>
+  <td> {{item.office_location }} </td>
+</tr>
+{% endif %} 
+  
+  
 {% endfor %}
 
 </tbody>
@@ -224,22 +232,20 @@ layout: default
 <td>
   <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
 </td>
-</tr>
-  
-{% if item.office_location %}
-<tr>
-  <td>Office Location:</td>
-  <td> {{item.office_location }} </td>
-</tr>
-{% endif %}  
+</tr> 
 
-<tr>
-<td>Discussion Board for Assignments:</td>
-<td>
-  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{item.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
-</td>
-</tr>
+
 {% endfor %}
+
+{% for office_hours_discussion_board %}  
+  <tr>
+  <td>Assignment Discussion Board:</td>
+  <td>
+    <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{item.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
+  </td>
+  </tr>
+{% endif %}  
+  
 </tbody>
 </table>
 
