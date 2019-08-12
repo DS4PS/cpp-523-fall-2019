@@ -121,10 +121,10 @@ layout: default
 </tr>
 {% endif %}
 
-{% if page.info.course_prerequipages %}
+{% if page.info.course_prerequisites %}
 <tr>
-<td>Course Prerequipages</td>
-<td><b> {{page.info.course_prerequipages }} </b></td>
+<td>Course Prerequisites</td>
+<td><b> {{page.info.course_prerequisites }} </b></td>
 </tr>
 {% endif %}
 
@@ -142,26 +142,26 @@ layout: default
 </tr>
 {% endif %}
   
-{% if page.info.discussion_session_when %}
+{% if page.info.review_sessions_when %}
 <tr>
 <td>Discussion Session Time</td>
-<td><b> {{page.info.discussion_session_when }} </b></td>
+<td><b> {{page.info.review_sessions_when }} </b></td>
 </tr>
 {% endif %}
 
-{% if page.info.discussion_session_where %}
+{% if page.info.review_sessions_where %}
 <tr>
 <td>Discussion Session Location</td>
-<td><b> {{page.info.discussion_session_where }} </b></td>
+<td><b> {{page.info.review_session_where }} </b></td>
 </tr>
 {% endif %}  
 
 
-{% if page.instructor.office_hours_discussion_board %}  
+{% if page.info.discussion_board_url %}  
 <tr>
-<td>Assignment Discussion Board:</td>
+<td>Assignment Discussion Board</td>
 <td>
-  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{page.instructor.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
+  <a class="uk-button uk-button-text uk-button-small" class="uk-align-center" onclick="location.href='{{page.info.discussion_board_url}}'" target="_blank">SUBMIT A QUESTION</a>
 </td>
 </tr>
 {% endif %}  
