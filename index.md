@@ -13,13 +13,14 @@ info:
  course_title: Foundations of Program Evaluation Part I
  course_number: CPP 523 
  course_level: Graduate 
- course_website: https://canvas.asu.edu/courses/26991
+ course_website: 'https://canvas.asu.edu/courses/26991'
  course_start_end_dates: Aug 22 to Oct 11, 2019  
  course_prerequisites: College Level Intro. to Stats 
  class_meets_when:  Asynchronous  
- class_meets_where:  https://asu.zoom.us/j/836463264
+ class_meets_where:  'https://asu.zoom.us/j/836463264'
  review_sessions_when: TBD 
  review_sessions_where: UCENT Policy Analytics Lab 4th Floor
+ discussion_board_url: 'https://ds4ps.org/cpp-523-fall-2019/help/'
 
 instructor:
 -  name: Jesse Lecy, PhD
@@ -34,7 +35,7 @@ instructor:
    office_hours_time: Flexible
    office_hours_location:  Zoom or Office
    office_hours_app_url:  'https://calendly.com/lecy/15min'
-   office_hours_discussion_board: https://ds4ps.org/cpp-523-fall-2019/help/
+   
 
 textbooks:
 - title: R Cookbook. Proven recipes
