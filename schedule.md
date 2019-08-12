@@ -99,8 +99,6 @@ When ready, you can submit your lab via Canvas:
 
 here is some text
 
-{% reference ruby %}
-
 and some more
 
 
