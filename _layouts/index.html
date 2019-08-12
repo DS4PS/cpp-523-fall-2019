@@ -281,14 +281,14 @@ layout: default
 <tbody>
 {% for item in page.textbooks %}
 <tr align="left">
-<td align="left"><a onclick="location.href='{{ item.link }}'"> <i id="general" class="fa fa-book fa-1x"></i></button></td>
+<td align="left"><button onclick="location.href='{{ item.link }}'"> <i id="fa-icon" class="fa fa-book fa-2x"></i></button></td>
 {% if item.authors %}
 <td>{{item.authors}}</td>
 {% endif %}
 {% if item.edition %}
 <td>{{item.edition}}</td>
 {% endif %}
-<td>{{ item.title }}</td>
+  <td><a href='{{ item.link }}'>{{ item.title }}</a></td>
 {% if item.required %}
 <td>Required: </td>
 <td>{{item.required}}</td>
