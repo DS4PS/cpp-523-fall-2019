@@ -34,14 +34,12 @@ header:
   url: schedule/
 # - title: Yellowdig
 #   url: https://asu.instructure.com/courses/26991/assignments/569550
+- title: Resources 
+  url: resources/
 - title: Get Help
   url: help/
 
-footer:
-- title: Home
-  url: /
-- title: Course Schedule
-  url: /schedule/
+
 
 
 # Default author settings
