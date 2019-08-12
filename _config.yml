@@ -32,12 +32,8 @@ header:
   url: 
 - title: Course Schedule
   url: schedule/
-- title: Canvas
-  url: https://canvas.asu.edu/courses/26991
-- title: Yellowdig
-  url: https://asu.instructure.com/courses/26991/assignments/569550
-- title: Collaborative Text
-  url: http://ds4ps.org/ddm-textbook-summer-2019/
+# - title: Yellowdig
+#   url: https://asu.instructure.com/courses/26991/assignments/569550
 - title: Get Help
   url: help/
 
@@ -47,9 +43,6 @@ footer:
 - title: Course Schedule
   url: /schedule/
 
-# Default footer image settings
-footer:
-    copyright:      Made by a <a href="https://www.youtube.com/watch?v=WUAcN9UCnbU">human</a> somewhere on the planet earth.
 
 # Default author settings
 author:
