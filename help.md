@@ -39,21 +39,11 @@ Check the existing list of questions and topics to make sure your questions has 
 
 #### Include Your Code 
 
-There are a million ways to do something incorrectly, so we cannot guess what you are doing wrong unless you show us. Don't write questions like:
+This question is difficult to answer because we don't know how the error was generated unless you share your code:
 
-> I am trying to merge my data, but I keep getting the error message, "x is not a factor".
+> I am trying to merge my data but I keep getting the error message, "x is not a factor".
 
-You need to show the code that generated the error message. GitHub speaks Markdown, which allows you to write questions that include reproducible code so that others can easily diagnose the problem and offer you solutions.
-
-<br>
-<img src="https://raw.githubusercontent.com/hasi96/course_website/master/assets/img/github-issue.png" 
-alt="Issues" width="800" />
-<br>
-<img src="https://raw.githubusercontent.com/hasi96/course_website/master/assets/img/github-issue-preview.png" 
-alt="Issues" width="800" />
-<br>
-
-So instead of the cryptic phrase above, try something like: 
+You need to show the code that generated the error message. Try something like: 
 
 > I am trying to merge my data, but I keep getting the error message, "cannot merge object type list". Here is my code:
 
@@ -64,9 +54,16 @@ z <- list( x, y )
 merge( y, z )
 ```
 
-#### State Your Goal
+GitHub speaks Markdown, which allows you to include reproducible code.
 
-Often times people will post code without explaining what they are trying to do. Be clear about your goal so that the problem is easier to spot. 
+<br>
+<img src="https://raw.githubusercontent.com/hasi96/course_website/master/assets/img/github-issue.png" 
+alt="Issues" width="800" />
+<br>
+<img src="https://raw.githubusercontent.com/hasi96/course_website/master/assets/img/github-issue-preview.png" 
+alt="Issues" width="800" />
+<br>
+ 
 
 #### Include Data
 
