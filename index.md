@@ -37,26 +37,31 @@ instructor:
    office_hours_discussion_board: https://ds4ps.org/cpp-523-fall-2019/help/
 
 textbooks:
-- title: Social Physics; How social networks can make us smarter. Penguin.
-  authors: Sandy Pentland
+- title: R Cookbook. Proven recipes
+  authors: Paul Teetor
   edition: 2015
-  link: https://www.penguinrandomhouse.com/books/314230/social-physics-by-alex-pentland/9780143126331/
-  required (y/n): 
-- title: Digital humanitarians; how big data is changing the face of humanitarian response. Routledge.  
-  authors: Patrick Meier
-  edition: 2015
-  link: http://www.digital-humanitarians.com/
-  required (y/n): 
-- title: Reality mining; Using big data to engineer a better world. MIT Press. 
-  authors: Nathan Eagle & Kate Greene
-  edition: 2014
-  link: https://mitpress.mit.edu/books/reality-mining
-  required (y/n): 
-- title: Weapons of math destruction; How big data increases inequality and threatens democracy. Broadway Books.
-  authors: Cathy O'Neil
-  edition: 2016
-  link: https://weaponsofmathdestructionbook.com/
-  required (y/n):  
+  link: http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/R_Cookbook.pdf
+  required: Not Required
+- title: R for Data Science
+  authors: Wickham, H., & Grolemund, G.
+  edition: Free Online
+  link: http://r4ds.had.co.nz/
+  required: Not Required
+- title: The Art of Data Science
+  authors: Peng, R. D., & Matsui, E.
+  edition: Free Online
+  link: https://leanpub.com/artofdatascience
+  required: Not Required
+- title: Modern Dive, Intro to Stats and Data Sciences via R
+  authors: Chester Ismay & Albert Y. Kim
+  edition: Free Online
+  link: https://moderndive.com/4-tidy.html
+  required: Not Required  
+- title: Big Book of Dashboards
+  authors: Smith, Smith, and Johnson
+  edition: 2017
+  link: https://www.amazon.com/Big-Book-Dashboards-Visualizing-Real-World/dp/1119282713/
+  required: Not Required 
   
 --- 
 
