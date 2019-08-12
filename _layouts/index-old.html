@@ -15,7 +15,7 @@ layout: default
 
 
 <head>
-  <style>
+  <style> 
     td {
       padding-left: 8px;
     }
@@ -36,10 +36,10 @@ layout: default
 <div class="uk-section section-hero .uk-width-1-1"  data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat: true">
     <div class="uk-container uk-container-small">
         {% if page.index.image %}
-        <p class="hero-image uk-text-center"><img src="{{ site.post_assets | absolute_url }}{{ page.index.image }}" alt="Hero"></p>
+        <p class="hero-image uk-text-center"><img src="{{ site.post_assets | absolute_url }}{{ page.index.image }}" alt="Hero"></p> 
         {% endif %}
         <h2 class="uk-heading-hero uk-text-center uk-margin-remove-top uk-margin-remove-bottom " >{{ page.index.title }}</h2>
-
+        
          {% if page.index.subtitle %}<p class="subtitle uk-text-lead uk-text-center">{{ page.index.subtitle }}</p>
             {% endif %}
 </div>
@@ -55,38 +55,13 @@ layout: default
 <div class="uk-section-muted uk-padding-large">
 <div class="uk-container uk-container-small">
 
-
+  
 <a class="uk-button uk-button-default" class="uk-align-center" onclick="onlyprint();">PRINT THE SYLLABUS</a>
 
 
-  <h2></a> Program Info </h2>
+<h2></a> Course Info </h2> 
 
-
-<table id="index" class="table table-condensed" cellspacing="10">
-<thead>
-<tr>
-<th><span></span></th>
-<th><span></span></th>
-</tr>
-</thead>
-
-<tbody>
-
-{% if page.info.program_title %}
-<tr>
-<td>Program Title </td>
-  <td> <b><a onclick="location.href='{{ page.info.program_website }}'">{{page.info.program_title}}</a></b> </td>
-</tr>
-{% endif %}
-
-</tbody>
-</table>
-
-
-
-<h2></a> Course Info </h2>
-
-
+  
 <table id="index" class="table table-condensed" cellspacing="10">
 <thead>
 <tr>
@@ -166,7 +141,31 @@ layout: default
 <td><b> {{page.info.class_meets_where }} </b></td>
 </tr>
 {% endif %}
+  
+{% if page.info.review_sessions_when %}
+<tr>
+<td>Discussion Session Time</td>
+<td><b> {{page.info.review_sessions_when }} </b></td>
+</tr>
+{% endif %}
 
+{% if page.info.review_sessions_where %}
+<tr>
+<td>Discussion Session Location</td>
+<td><b> {{page.info.review_sessions_where }} </b></td>
+</tr>
+{% endif %}  
+
+
+{% if page.info.discussion_board_url %}  
+<tr>
+<td>Assignment Discussion Board</td>
+<td>
+  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{page.info.discussion_board_url}}'" target="_blank">SUBMIT A QUESTION</a>
+</td>
+</tr>
+{% endif %}  
+  
 </tbody>
 </table>
 
@@ -202,20 +201,20 @@ layout: default
 
 {% if item.twitter_url %}
 <td>
- <a href="{{item.twitter_url}}" title="twitter"><i id="fa-icon" class="fab fa-twitter fa-2x"></i></a>
+ <a href="{{item.twitter_url}}" title="twitter"><i id="fa-icon" class="fab fa-twitter fa-2x"></i></a> 
 </td>
 {% endif %}
 
 {% if item.scholar_url %}
 <td>
- <a href="{{item.scholar_url}}" title="scholar"><i id="fa-icon" class="fa fa-graduation-cap fa-2x" ></i></a>
+ <a href="{{item.scholar_url}}" title="scholar"><i id="fa-icon" class="fa fa-graduation-cap fa-2x" ></i></a> 
 </td>
 {% endif %}
 
 
 {% if item.linked_in_url %}
 <td>
- <a href="{{item.linked_in_url}}" title="linkedin"><i id="fa-icon" class="fa fa-linkedin" ></i></a>
+ <a href="{{item.linked_in_url}}" title="linkedin"><i id="fa-icon" class="fa fa-linkedin" ></i></a> 
 </td>
 {% endif %}
 </tr>
@@ -225,9 +224,9 @@ layout: default
   <td>Office Location:</td>
   <td> {{item.office_location }} </td>
 </tr>
-{% endif %}
-
-
+{% endif %} 
+  
+  
 {% endfor %}
 
 </tbody>
@@ -258,55 +257,13 @@ layout: default
 <td>
   <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
 </td>
-</tr>
+</tr> 
 {% endfor %}
 
 </tbody>
 </table>
 
 <br>
-
-
-<h2> Lab Sessions </h2>
-
-<table id="index" class="table table-condensed" cellspacing="10">
-<thead>
-<tr>
-<th><span></span></th>
-<th><span></span></th>
-</tr>
-</thead>
-
-<tbody>
-
-{% if page.info.review_sessions_when %}
-<tr>
-<td>Discussion Session Time</td>
-<td><b> {{page.info.review_sessions_when }} </b></td>
-</tr>
-{% endif %}
-
-{% if page.info.review_sessions_where %}
-<tr>
-<td>Discussion Session Location</td>
-<td><b> {{page.info.review_sessions_where }} </b></td>
-</tr>
-{% endif %}
-
-{% if page.info.discussion_board_url %}
-<tr>
-<td>Assignment Discussion Board</td>
-<td>
-  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{page.info.discussion_board_url}}'" target="_blank">SUBMIT A QUESTION</a>
-</td>
-</tr>
-{% endif %}
-
-</tbody>
-</table>
-
-<br>
-
 
 
 
@@ -326,19 +283,19 @@ layout: default
 <tr align="left">
 <td align="left"><a onclick="location.href='{{ item.link }}'"> <i id="fa-icon" class="fa fa-book fa-2x"></i></a></td>
 <td align="left"><a href='{{ item.link }}'>{{ item.title }}</a></td>
-
+  
 {% if item.authors %}
   <td>{{item.authors}}</td>
 {% endif %}
-
+  
 {% if item.edition %}
   <td>{{item.edition}}</td>
 {% endif %}
-
+  
 {% if item.required %}
   <td><i>{{item.required}}</i></td>
 {% endif %}
-
+  
 </tr>
 {% endfor %}
 </tbody>
@@ -347,7 +304,7 @@ layout: default
 <br>
 
 
-
+  
 </div>
 </div>
 
@@ -380,7 +337,7 @@ layout: default
             var divC = document.getElementsByTagName("article")[0].cloneNode(true);
 
             var secs = divC.getElementsByTagName("section");
-
+           
             for(var j=0;j<secs.length-1;j++){
               var hr = document.createElement("hr");
              secs[j].appendChild(hr);
@@ -398,5 +355,5 @@ layout: default
             printWindow.document.close();
             printWindow.print();
         }
-
+  
 </script>
