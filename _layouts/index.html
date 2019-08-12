@@ -142,6 +142,15 @@ layout: default
 </tr>
 {% endif %}
 
+{% if office_hours_discussion_board %}  
+<tr>
+<td>Assignment Discussion Board:</td>
+<td>
+  <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{item.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
+</td>
+</tr>
+{% endif %}  
+  
 </tbody>
 </table>
 
@@ -224,6 +233,7 @@ layout: default
 </thead>
 
 <tbody>
+
 {% for item in page.instructor %}
 <tr>
 <td>{{item.name}}</td>
@@ -233,19 +243,8 @@ layout: default
   <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{ item.office_hours_app_url }}'" target="_blank">SCHEDULE</a>
 </td>
 </tr> 
-
-
 {% endfor %}
 
-{% for office_hours_discussion_board %}  
-  <tr>
-  <td>Assignment Discussion Board:</td>
-  <td>
-    <a class="uk-button uk-button-default uk-button-small" class="uk-align-center" onclick="location.href='{{item.office_hours_discussion_board}}'" target="_blank">GET HELP</a>
-  </td>
-  </tr>
-{% endif %}  
-  
 </tbody>
 </table>
 
