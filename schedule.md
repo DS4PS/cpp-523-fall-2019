@@ -38,6 +38,9 @@ td {
 td.i {
   text-align: center;
 }
+iframe {
+  align: center;
+}
 </style>
 
 
