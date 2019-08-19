@@ -72,10 +72,14 @@ body {
    font-family: "Roboto", sans-serif;
 }
  
-p.italic em {
+p.italic {
   font-style: italic;
   color: black !important;
 }
+
+em {
+  color: black !important;
+  }
 
 #fa-icon {
   font-style: normal;
