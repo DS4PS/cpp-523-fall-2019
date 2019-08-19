@@ -72,7 +72,7 @@ body {
    font-family: "Roboto", sans-serif;
 }
  
-p.italic {
+p.italic em {
   font-style: italic;
   color: black !important;
 }
