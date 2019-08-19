@@ -100,9 +100,7 @@ The five main learning objectives for the course are:
 
 ## Course Prerequisites:
 
-# Prior completion of inferential statistics course
-
-# To be successful in this program you need some basic background in statistics including familiarity with the following topics:
+To be successful in this program you need some basic background in statistics including familiarity with the following topics:
 
 - Variable types – numeric, categorical, binary
 - Descriptive statistics such as the mean, median, mode, quantiles, and standard deviation
@@ -110,7 +108,6 @@ The five main learning objectives for the course are:
 - Basic probability and sampling
 - Confidence intervals
 - Hypothesis testing
-- Basic bivariate regression
 
 If you need a refresher, you can try one of the free online statistics courses on Khan Academy, EdEx, Coursera, Udacity or other sites, or visit the OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de) and review:
 
@@ -121,13 +118,25 @@ If you need a refresher, you can try one of the free online statistics courses o
 - Chapter 10 – Hypothesis Testing with Two Samples
 - Chapter 12 – Linear Regression and Correlation
 
-This course utilizes algebra and some geometry, specifically the equation of a line and the calculation of a slope, as well as basic probability, logarithms, and exponents, all at a high school level. We will not be using calculus, matrix algebra, or proofs for this course. We will rely heavily on visual reasoning with the data, an intuitive understanding of regression mechanics, and a strong understanding of the interpretation of results, but for the most part we will rely on software for advanced mathematical calculations.
+This course utilizes algebra and some geometry, specifically the equation of a line:
+
+```
+y = mx + b
+```
+
+Or in statistical terms:
+
+```
+y = b0 + b1*x + e
+```
+
+We will use basic probability, logarithms, and exponents, all at a high school level. We will not be using calculus, matrix algebra, or proofs for this course. We will rely heavily on visual reasoning with the data, an intuitive understanding of regression mechanics, and a strong understanding of the interpretation of results, but for the most part we will rely on software for advanced mathematical calculations.
 
 
 
-# II.        Assessment of Student Learning Performance &amp; Proficiency: Keys to Student Success
+# II. Assessment of Student Learning Performance &amp; Proficiency: Keys to Student Success
 
-# Assessment of student performance in this course is based on indications that the course learning objectives stated above have been achieved.  Several areas of measurement will be used to produce a final student performance rating.  These areas of performance assessment include the following:
+Assessment of student performance in this course is based on indications that the course learning objectives stated above have been achieved.  Several areas of measurement will be used to produce a final student performance rating.  These areas of performance assessment include the following:
 
 - Knowledge of key concepts associated with regression models, the interpretation of program impact in quantitative studies, the mechanics of control variables, and the differentiation between correlational and causal analysis.
 - Ability to run and interpret program evaluation models by correctly specifying a multiple regression equation, diagnosing problems, and presenting findings to stakeholders.
@@ -135,13 +144,13 @@ This course utilizes algebra and some geometry, specifically the equation of a l
 
 Students will demonstrate competency in understanding, producing and communicating results of their analyses through the following assignments:
 
-- Short (1-5 question) assessments associated with each lecture to ensure basic comprehension of key concepts and to help students and instructors track progress through the course.
-- Weekly labs that provide opportunities to consolidate and apply material from the lectures.
-- A final examination that tests mastery of the learning objectives above.
+- Short (1-5 question) assessments associated with lectures to ensure basic comprehension of key concepts and to help students and instructors track progress through the course.
+- Weekly labs that provide opportunities to consolidate and apply material from the lectures.
+- A final examination that tests mastery of the learning objectives above.
 
 Assigned work, including the course final exam, and the quality of active participation in the regular online discussion sessions that are a critical part of the course learning strategy are the tools the instructors will use to measure comprehension and skill; the student&#39;s course grade is a direct reflection of demonstrated performance. Students should take stated expectations seriously regarding preparation, conduct, and academic honesty in order to receive a grade reflective of outstanding performance.  Students should be aware that merely completing assigned work in no way guarantees an outstanding grade in the course. To receive an outstanding course grade (using the grading scheme described below and the performance assessment approach noted above) all assigned work should completed on time with careful attention to assignment details.
 
-# III.        Course Structure and Operations; Performance Expectations
+# III. Course Structure and Operations; Performance Expectations
 
 ## A. Format and Pedagogical Theory
 
@@ -167,7 +176,7 @@ There are two required texts for this course, both available online:
 - Lewis-Beck, C., &amp; Lewis-Beck, M. (2015). _Applied Regression: An Introduction_ (Vol. 22). Sage publications.
 
 
-Each author approaches material in a slightly different way, so different textbooks work for different people. The following texts are recommended as good resources if you would like additional reference texts:
+Each author approaches material in a slightly different way, so different textbooks work for different people. The following texts are recommended as good resources if you would like additional references:
 
 - Bailey, M. A. (2016). _Real Stats: Using Econometrics for Political Science and Public Policy_. Oxford University Press.
 - Bingham, R., &amp; Felbinger, C. (2002). _Evaluation in Practice: A Methodological Approach._ CQ Press.
@@ -179,15 +188,15 @@ Each author approaches material in a slightly different way, so different textbo
 - Stock, J. H., &amp; Watson, M. W. (2007). _Introduction to Econometrics._
 - Wooldridge, J. M. (2015). _Introductory Econometrics: A Modern Approach_. Nelson Education.
 
-In addition to the required textbooks, the instructor will supplement the assigned unit readings with various journal articles, policy reports, or other related material.  These will be made available in the course shell in Blackboard.
+In addition to the required textbooks, the instructor will supplement the assigned unit readings with various journal articles, policy reports, or other related material.  These will be made available in the course shell.
 
 ## C.  Course Grading System for Assigned Work, including Final Exam:
 
 Your grade will be based on your performance in the following areas:
 
-- ··Short graded quizzes after each lecture
-- ··Seven weekly labs
-- ··Final exam
+- Short assessments of lectures 
+- Weekly labs
+- Final exam
 
 Letter grades comport with a traditional set of intervals (100 – 98% = A+, 97 – 94% = A, 93 – 90% = A-,  89 – 87% = B+, 86 – 84% = B, 83 – 80% = B-,etc.).  The assigned work for the term comes in the form of four elements, described below:
 
