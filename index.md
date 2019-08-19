@@ -128,11 +128,6 @@ This course utilizes algebra and some geometry, specifically the equation of a l
 y = mx + b
 ```
 
-Or in statistical terms:
-
-```
-y = b0 + b1*x + e
-```
 
 We will use basic probability, logarithms, and exponents, all at a high school level. We will not be using calculus, matrix algebra, or proofs for this course. We will rely heavily on visual reasoning with the data, an intuitive understanding of regression mechanics, and a strong understanding of the interpretation of results, but for the most part we will rely on software for advanced mathematical calculations.
 
