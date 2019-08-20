@@ -121,6 +121,13 @@ Caffeine and Heart Rates
 ```r
 url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/lectures/data/caffeine.csv"
 dat <- read.csv( url, stringsAsFactors=F ) 
+
+summary( dat )
+
+plot( dat$caffeine, dat$heart.rate )
+
+model.01 <- lm( heart.rate ~ caffeine, data=dat )
+summary( model.01 )
 ```
 
 ## Lecture Materials
