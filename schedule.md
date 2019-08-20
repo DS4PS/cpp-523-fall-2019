@@ -60,6 +60,8 @@ article {
 
 *** { @unit = "", @title = "Overview of the Program Evaluation", @lecture, @foldout  }
 
+## Evidence-Based Practices 
+
 What does it mean to live in an evidence-based world? How do we become more data-driven? 
 
 It turns out that using data to improve decision-making and organizatoinal performance is not a trivial affair because of a little problem called omitted variable bias (correlation does not equal causation). As a result, we need to combine judicious analytical techniques with feasible approaches to research design in order to understand **causal impact** of social programs. 
@@ -111,9 +113,13 @@ Just listen to this summary of current knowledge on the topic, then try to succi
 
 *** { @unit = "", @title = "Some Background Reading", @reading, @foldout  }
 
+## Understanding Program Impact 
+
 This course provides foundational skills in quantitative program evaluation:
 
 Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
+
+## Broader Field of Evaluation 
 
 Program evaluation is a large field that deploys a diversity of methodologies beyond quantitative modeling and impact analysis. We focus heavily on the quantitative skills in the Foundations of Eval I, II, and III in this program because data is hard to use, so you need several courses to build a skill set. Qualitative and case-study approaches build from the same foundations in research design, so you can more fully develop some of those skills drawing from knowledge of formal modeling and inference.
 
