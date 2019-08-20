@@ -105,27 +105,24 @@ Once you have completed this section you should be able to…
 
 ### Required:
 
-Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455.
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
 
 
 ### Recommended:
 
-Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf]() ]
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
-Multiple Regression overview chapter [ [pdf]() ]
+Multiple Regression overview chapter [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Multiple%20Regression.pdf) ]
 
 ## Data Used in this Section
 
-Caffeine and Heart Rates
+Caffeine and Heart Rates based off of this [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate):
 
 ```r
 url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/lectures/data/caffeine.csv"
 dat <- read.csv( url, stringsAsFactors=F ) 
-
 summary( dat )
-
 plot( dat$caffeine, dat$heart.rate )
-
 model.01 <- lm( heart.rate ~ caffeine, data=dat )
 summary( model.01 )
 ```
@@ -134,7 +131,7 @@ summary( model.01 )
 
 Building a regression model from a [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate).
 
-[lecture](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html)
+[ [lecture](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
 
 ## Lab Preview 
