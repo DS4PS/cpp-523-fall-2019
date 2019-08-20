@@ -48,42 +48,64 @@ em {
 
 
 
+![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
+
+
+
 ** Welcome
 
 
-*** { @unit = "", @title = "Video Example", @reading, @foldout }
+*** { @unit = "", @title = "Overview of the Program Evaluation", @lecture, @foldout  }
+
+What does it mean to live in an evidence-based world? How do we become more data-driven? 
+
+It turns out that using data to improve decision-making and organizatoinal performance is not a trivial affair because of a little problem called omitted variable bias (correlation does not equal causation). As a result, we need to combine judicious analytical techniques with feasible approaches to research design in order to understand **causal impact** of social programs. 
+
+Here is a great introduction to a case study that uses evaluation to better understant the impact of a government program by getting past anecdotes to measure program impact.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/N8rD844McrA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br>
+<br>
+
+In most instances, though, we don't have resources for large-scale Randomized Control Studies (they typically cost millions of dollars, are sometime unethical, and are often times not feasible - does free trade prevent war? How do you randomized free trade across countries?). 
+
+Statistics and econometricians have spent 75 years developing powerful regression tools that can be used with observational data and clever quasi-experimental research designs to tease out program impact when RCT's are not possible. The courses in the Foundations of Program Evaluation sequence build the tools to deploy these methods.
+
+* Foundations of Eval I covers the mechanics of regression.
+* Foundations of Eval II covers counterfactual analysis and quasi-experimental approaches to research design. 
+* Foundations of Eval III covers seven regression models used in causal analysis (eg. [interrupted time series](https://ds4ps.org/PROG-EVAL-III/TimeSeries.html)).
+
+Let's start with a simple example. Is caffeine good for you? 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2TRcFpytYT8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br> 
+
+What evidence is used to create these assertions? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the-news/coffee-depression-women-ascherio-lucas/) ]
+
+Can you conduct a Randomized Control Trial to study the effects of caffeine on mental health over a long period of time? Is this correlation or causation?  
+
+How can we be sure we are measuring the causal impact of coffee on health? 
+
+<br>
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cDbD_JSCrNo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+*** { @unit = "", @title = "Some Background Reading", @reading, @foldout  }
 
+This course provides foundational skills in quantitative program evaluation:
 
-*** { @unit = "", @title = "Image Example", @lecture, @foldout }
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
 
-![](https://raw.githubusercontent.com/DS4PS/paf-586-summer-2019/master/assets/img/course-cadence.png)
+Program evaluation is a large field that deploys a diversity of methodologies beyond quantitative modeling and impact analysis. We focus heavily on the quantitative skills in the Foundations of Eval I, II, and III in this program because data is hard to use, so you need several courses to build a skill set. Qualitative and case-study approaches build from the same foundations in research design, so you can more fully develop some of those skills drawing from knowledge of formal modeling and inference.
 
+For some useful context on evaluation as a field, this short (6-page overview) is helpful:
 
+McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf]() ]
 
+And to get a flavor for debates around approaches to measuring program impact in evaluation:
 
-*** { @unit = "", @title = "Lab Example", @assignment, @foldout }
-
-## Data Labs
-
-This class highlights two themes:
-
-1. Data is easier to obtain than ever before.
-2. Organizations that use data effectively perform better.
-
-So how can we get better at using data? 
-
-**Learning Objectives**: These labs are designed to better understand the process of collecting and utilizing data. The emphasis is on building a strategy to identify high-value data that is most useful for the organization, which requires basic knowledge about data quality. Does the data provide the type of information that is useful for discovery or prediction, and does it measure outcomes precisely?
-
-Lab 03 is available here:
-
-<a class="uk-button uk-button-default" href="https://ds4ps.org/paf-586-summer-2019/lab-03-feature-selection/">LAB 03</a>
-
-When ready, you can submit your lab via Canvas:
-
-<a class="uk-button uk-button-default" href="https://canvas.asu.edu/courses/26991/assignments/588320">Submit</a>
+White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf]() ]
 
 
 
@@ -91,7 +113,7 @@ When ready, you can submit your lab via Canvas:
 
 
 
-** Week 1 - Regression Review
+** Week 1 - Nuts and Bolts of Regression Models
 
 *** { @unit = "", @title = "Overview of the Week", @foldout  }
 
@@ -171,7 +193,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 
 
-** Week 2 - Regression Review
+** Week 2 - Effect Size and Confidence Intervals 
 
 *** { @unit = "", @title = "Overview of the Week" }
 
@@ -219,7 +241,7 @@ Include a description of problems
 
 
 
-** Week 3 - Regression Review
+** Week 3 - Control Variables 
 
 *** { @unit = "", @title = "Overview of the Week"  }
 
@@ -269,9 +291,9 @@ Include a description of problems
 
 
 
-** Week 4
+** Week 4 - Omitted Variable Bias 
 
-*** { @unit = "", @title = "Overview of the Week"  }
+*** { @unit = "", @title = "Overview of the Week", @reading  }
 
 ## Description 
 
@@ -279,7 +301,12 @@ Include a description of problems
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you should be able to:
+
+* identify three types of control variables 
+* diagnose the implications of omitting each type from a model 
+* calculate omitted variable bias 
+
 
 
 ## Assigned and Recommended Articles or Chapters
@@ -306,7 +333,6 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
 
 
 *** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
@@ -317,9 +343,9 @@ Include a description of problems
 
 
 
-** Week 5
+** Week 5 - Dummy Variables: Revisiting Hypothesis Tests 
 
-*** { @unit = "", @title = "Overview of the Week"  }
+*** { @unit = "", @title = "Overview of the Week", @reading  }
 ## Description 
 
 2-5 sentence overview of what is covered in the section.
@@ -333,11 +359,13 @@ Once you have completed this section you should be able to…
 
 ### Required:
 
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
 
 ### Recommended:
 
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
+Brambor, T., Clark, W. R., & Golder, M. (2006). Understanding interaction models: Improving empirical analyses. Political analysis, 14(1), 63-82. [ [pdf]() ]
+
+advanced tutorial on categorical variables in R [ [link](https://sejdemyr.github.io/r-tutorials/statistics/tutorial2.html) ]
+
 
 ## Data Used in this Section
 
@@ -352,10 +380,17 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
+*** { @unit = "Due DATE", @title = "Dummy Variables", @reading }
 
 
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
+
+
+
+*** { @unit = "Due DATE", @title = "Groups in Your Data", @lecture  }
+
+
+*** { @unit = "Due DATE", @title = "A Taxonomy of Hypotheses", @lecture  }
+
 
 
 *** { @unit = "Due DATE", @title = "Lab 05", @assignment  }
@@ -372,7 +407,11 @@ Include a description of problems
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you will have mastered:
+
+* quadratic regression terms 
+* marginal effects in non-linear models 
+* diagnostics of specification problems 
 
 
 ## Assigned and Recommended Articles or Chapters
@@ -399,10 +438,10 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
+*** { @unit = "Due DATE", @title = "Specification", @reading }
 
 
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
+*** { @unit = "Due DATE", @title = "The Seven Deadly Sins of Regression", @lecture  }
 
 
 *** { @unit = "Due DATE", @title = "Lab 06", @assignment  }
