@@ -155,6 +155,24 @@ And to get a flavor for debates around approaches to measuring program impact in
 
 
 
+*** { @unit = "", @title = "Review of Basic Stats", @reading, @foldout  }
+
+
+If you need a refresher on stats, you can try one of the free online statistics courses on Khan Academy, EdEx, Coursera, Udacity or other sites, or visit the OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de) and review:
+
+Chapter 1 – Sampling Data
+Chapter 2 – Descriptive Statistics
+Chapter 8 – Confidence Intervals
+Chapter 9 – Hypothesis Testing with One Sample
+Chapter 10 – Hypothesis Testing with Two Samples
+Chapter 12 – Linear Regression and Correlation
+
+*OpenIntro Statistics* is also an excellent resource [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf). 
+
+Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. 
+
+
+
 
 ** Week 1 - Nuts and Bolts of Regression Models
 
