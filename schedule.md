@@ -64,6 +64,8 @@ article {
 
 ## Evidence-Based Practices 
 
+![](https://physics.aps.org/assets/73b0590c-2226-44f6-852a-fa23e6ef3b76/e86_2.png) 
+
 What does it mean to live in an evidence-based world? How do we become more data-driven? 
 
 It turns out that using data to improve decision-making and organizatoinal performance is not a trivial affair because of a little problem called omitted variable bias (correlation does not equal causation). As a result, we need to combine judicious analytical techniques with feasible approaches to research design in order to understand **causal impact** of social programs. 
@@ -441,6 +443,10 @@ Include a description of problems
 ** Week 6 - Specification
 
 *** { @unit = "", @title = "Overview of the Week"  }
+
+
+![](http://www.papaa.org/sites/default/files/Causality%20and%20Correlation.jpg)
+
 
 ## Description 
 
