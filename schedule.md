@@ -94,11 +94,18 @@ When ready, you can submit your lab via Canvas:
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This section provides a review of the basic building blocks of a bivariate regression model:
+
+* sample variance and standard deviation 
+* slope 
+* intercept 
+* regression line 
+* the "error term" or "residual"
+* standard errors 
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you will be able to conceptually understand what a regression slope represents (the conditional mean), how residuals are created, and what the standard error is measuring. 
 
 
 ## Assigned and Recommended Articles or Chapters
