@@ -129,7 +129,9 @@ summary( model.01 )
 
 Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
-Is caffiene good for you? [ [link](https://www.health.harvard.edu/staying-healthy/the-buzz-about-caffeine-and-health) ]
+Is caffeine good for you? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the-news/coffee-depression-women-ascherio-lucas/) ]
+
+*Is caffeine a treatment in this study? How do we know caffeine is the cause of the outcomes we see here?*
 
 
 
