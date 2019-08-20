@@ -68,7 +68,10 @@ Here is a great introduction to a case study that uses evaluation to better unde
 <br>
 <br>
 
-In most instances, though, we don't have resources for large-scale Randomized Control Studies (they typically cost millions of dollars, are sometime unethical, and are often times not feasible - does free trade prevent war? How do you randomized free trade across countries?). 
+
+## Understanding Causal Impact Without Randomized Control Trials
+
+In most cases we don't have resources for large-scale Randomized Control Studies. They typically cost millions of dollars, are sometime unethical, and are often times not feasible. For example, does free trade prevent war? How do you randomized free trade across countries?
 
 Statistics and econometricians have spent 75 years developing powerful regression tools that can be used with observational data and clever quasi-experimental research designs to tease out program impact when RCT's are not possible. The courses in the Foundations of Program Evaluation sequence build the tools to deploy these methods.
 
@@ -89,6 +92,18 @@ Can you conduct a Randomized Control Trial to study the effects of caffeine on m
 How can we be sure we are measuring the causal impact of coffee on health? 
 
 <br>
+
+### Why is evidence-based management hard?
+
+Just listen to this summary of current knowledge on the topic, then try to succinctly translate it to a rule of thumb physicians should use on whether to recommend coffee to patients. 
+
+<br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OvDuBVBoV3Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br>
+<br>
+
 
 
 *** { @unit = "", @title = "Some Background Reading", @reading, @foldout  }
