@@ -242,50 +242,56 @@ Please note: the course instructor may from time to time adjust assigned reading
 
 ## Couse Schedule
 
-### Unit 1
+### Unit 1 - Regression Review
 
 **Regression Mechanics: Variance, Slopes and Residuals**
 - Using Regression Models to Estimate Program Effects&quot; Read 417-431, Skim 431-455
 - Lewis-Beck pp 9-25
 - Lab #1 – Regression Review
 
-### Unit 2
+### Unit 2 - Effects: Size and Confidence 
 
 **Hypothesis Testing: Standard Errors, Confidence Intervals, and p-values**
 - Skim The New Statistics, CH3: Confidence Intervals; CH4: Error Bars and p-values.
 - Lewis-Beck pp 30-54
 - Lab #2 - Confidence Intervals
 
-### Unit 3
+### Unit 3 - Control Variables 
 
 **Control Variables &amp; Partitioned Regressions**
 - Baily CH5: Section 5.1-Multivariate OLS
 - Lab #3 - Partitioned Regression
 
-### Unit 4
-
-**Model Specification**
-- Baily CH6: Dummy Variables; CH7: Transforming Variables
-- Lab #4 – Model Specification
-
-### Unit 5
+### Unit 4 - Omitted Variable Bias
 
 **Omitted Variable Bias**
 - Baily Section 5.2-Omitted Variable Bias
-- Lab #5 – Omitted Variable Bias
+- Lab #4 – Omitted Variable Bias
 
-### Unit 6
+Preview of Program Eval III:
 
 **Correcting Bias – Instrumental Variables and Fixed Effects**
-
 - Baily CH8: Fixed Effect Models; CH9 – Instrumental Variable Models
+
+### Unit 5 - Dummy Variables 
+
+**Model Specification**
+- Baily CH6: Dummy Variables; CH7: Transforming Variables
+- Lab #5 – Omitted Variable Bias
+
+### Unit 6 - Specification
+
+**Model Specification**
+- Baily CH7: Transforming Variables
 - Lab #6 – More Model Specification
+
+**Seven Sins in Regression Analysis** 
+- Readings posted on Course Shell
 
 ### Unit 7
 
-**Seven Sins in Regression Analysis – Review for Final**
-- Readings posted on Course Shell
-- Lab #7 – Instrumental Variables
+**Review for Final**
+- Practice final exam 
 
 ### Final Exam
 
