@@ -11,7 +11,7 @@
 
 
 
-<title>caffeine.utf8.md</title>
+<title>Building a Regression Model</title>
 
 <script src="caffeine_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -172,9 +172,25 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Building a Regression Model</h1>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#effect-of-caffeine-on-heart-rate">Effect of Caffeine on Heart Rate</a><ul>
+<li><a href="#mcguyvers-regression-model">McGuyver’s Regression Model</a><ul>
+<li><a href="#residual-standard-error">Residual Standard Error</a></li>
+<li><a href="#residual-standard-error-1">Residual Standard Error</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#regression">Regression</a></li>
+<li><a href="#examining-fit">Examining Fit</a><ul>
+<li><a href="#residual-standard-error-2">Residual Standard Error</a></li>
+<li><a href="#the-standard-deviation">The Standard Deviation</a></li>
+</ul></li>
+</ul>
+</div>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>( stargazer )</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>( pander )</a>
@@ -193,6 +209,8 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">plot</span>( caffeine, heart.rate, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, </a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">      <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="dt">cex=</span><span class="fl">1.5</span> )</a></code></pre></div>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-3-1.png" width="864" /></p>
+<div id="mcguyvers-regression-model" class="section level2">
+<h2>McGuyver’s Regression Model</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">ave.caffeine &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">ave.heart &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
@@ -213,6 +231,7 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb3-18" data-line-number="18"></a>
 <a class="sourceLine" id="cb3-19" data-line-number="19"><span class="kw">points</span>( ave.caffeine, ave.heart, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;b&quot;</span> )</a></code></pre></div>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+<p>Or alternatively, we could look at box and whisker plots calculated for each group.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">caffeine.group &lt;-<span class="st"> </span><span class="kw">cut</span>( caffeine, <span class="kw">seq</span>( <span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">500</span>, <span class="dt">by=</span><span class="dv">50</span> ) )</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">boxplot</span>( heart.rate <span class="op">~</span><span class="st"> </span>caffeine.group, </a>
@@ -274,6 +293,7 @@ $(document).ready(function () {
 <h3>Residual Standard Error</h3>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">sd</span>( heart.rate <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(heart.rate) )</a></code></pre></div>
 <pre><code>## [1] 22.01389</code></pre>
+</div>
 </div>
 </div>
 <div id="regression" class="section level1">
@@ -697,8 +717,6 @@ residual
 <a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">mean</span>( <span class="kw">abs</span>(e) )</a></code></pre></div>
 <pre><code>## [1] 14.77745</code></pre>
 <p>On average our predicted heart rate was 14.7774456 from the true heart rate.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">jplot</span>( caffeine, heart.rate, <span class="dt">lab1=</span><span class="st">&quot;Caffeine&quot;</span>, <span class="dt">lab2=</span><span class="st">&quot;Heart Rate&quot;</span> )</a></code></pre></div>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="864" /></p>
 </div>
 </div>
 

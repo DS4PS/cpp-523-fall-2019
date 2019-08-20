@@ -1,8 +1,10 @@
 ---
+title: "Building a Regression Model"
 output:
   html_document:
     theme: readable
     highlight: tango
+    toc: true
     self_contained: false
     css: textbook.css
 ---
@@ -117,6 +119,8 @@ plot( caffeine, heart.rate, bty="n",
 
 
 
+## McGuyver's Regression Model
+
 
 ```{r}
 ave.caffeine <- NULL
@@ -141,6 +145,8 @@ points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
 ```
 
 
+
+Or alternatively, we could look at box and whisker plots calculated for each group.
 
 ```{r}
 
@@ -394,7 +400,15 @@ On average our predicted heart rate was `r mean(abs(e))` from the true heart rat
 
 
 
-```{r}
-jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate" )
+
+```{r, eval=F, echo=F}
+d1 <- data.frame( caffeine, heart.rate, 
+                  mean.heart.rate=pred.y$mean.hr, group="treatment" )
+d2 <- data.frame( caffeine=0, heart.rate=heart.rate.control, 
+                  mean.heart.rate=mean(heart.rate.control), group="control" )
+d3 <- rbind( d1, d2 )
+
+write.csv( d3, "data/caffeine.csv", row.names=F )
+
 ```
 
