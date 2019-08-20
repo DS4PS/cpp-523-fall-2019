@@ -60,6 +60,9 @@ article {
 
 *** { @unit = "", @title = "Overview of the Program Evaluation", @lecture, @foldout  }
 
+<br>
+<br>
+
 ## Evidence-Based Practices 
 
 What does it mean to live in an evidence-based world? How do we become more data-driven? 
@@ -67,6 +70,8 @@ What does it mean to live in an evidence-based world? How do we become more data
 It turns out that using data to improve decision-making and organizatoinal performance is not a trivial affair because of a little problem called omitted variable bias (correlation does not equal causation). As a result, we need to combine judicious analytical techniques with feasible approaches to research design in order to understand **causal impact** of social programs. 
 
 Here is a great introduction to a case study that uses evaluation to better understant the impact of a government program by getting past anecdotes to measure program impact.
+
+<br>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/N8rD844McrA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -85,6 +90,8 @@ Statistics and econometricians have spent 75 years developing powerful regressio
 * Foundations of Eval III covers seven regression models used in causal analysis (eg. [interrupted time series](https://ds4ps.org/PROG-EVAL-III/TimeSeries.html)).
 
 Let's start with a simple example. Is caffeine good for you? 
+
+<br>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2TRcFpytYT8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
