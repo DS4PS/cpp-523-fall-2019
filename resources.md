@@ -32,15 +32,16 @@ title: Resources
 * xtable gallery 
 
 
-## Packages
+## Useful R Packages
 
 * plm: panel linear models 
+* coefplot: create coefficient plots 
+* dplyr: data wrangling 
 * stargazer: nice regression tables 
-* 
+* pander: formatting tables 
+* xtable: formatting tables 
 
-## Templates
 
-* Tables in RMD
  
 
 
