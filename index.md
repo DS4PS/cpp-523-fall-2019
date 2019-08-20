@@ -38,31 +38,17 @@ instructor:
    
 
 textbooks:
-- title: R Cookbook. Proven recipes
-  authors: Paul Teetor
+
+- title: Applied Regression: An Introduction
+  authors: Lewis-Beck, C., & Lewis-Beck, M.
   edition: 2015
-  link: http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/R_Cookbook.pdf
-  required: Not Required
-- title: R for Data Science
-  authors: Wickham, H., & Grolemund, G.
-  edition: Free Online
-  link: http://r4ds.had.co.nz/
-  required: Not Required
-- title: The Art of Data Science
-  authors: Peng, R. D., & Matsui, E.
-  edition: Free Online
-  link: https://leanpub.com/artofdatascience
-  required: Not Required
-- title: Modern Dive, Intro to Stats and Data Sciences via R
-  authors: Chester Ismay & Albert Y. Kim
-  edition: Free Online
-  link: https://moderndive.com/4-tidy.html
-  required: Not Required  
-- title: Big Book of Dashboards
-  authors: Smith, Smith, and Johnson
-  edition: 2017
-  link: https://www.amazon.com/Big-Book-Dashboards-Visualizing-Real-World/dp/1119282713/
-  required: Not Required 
+  link: https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf
+  required: Required (llink to chapter here)
+- title: Impact Evaluation in Practice
+  authors: Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., & Vermeersch, C. M. J.
+  edition: 2011
+  link: https://siteresources.worldbank.org/EXTHDOFFICE/Resources/5485726-1295455628620/Impact_Evaluation_in_Practice.pdf
+  required: Free online
   
 --- 
 
