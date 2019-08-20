@@ -38,18 +38,17 @@ instructor:
    
 
 textbooks:
-
-- title: Applied Regression: An Introduction
-  authors: Lewis-Beck, C., & Lewis-Beck, M.
+- title: 'Applied Regression: An Introduction'
+  authors: 'Lewis-Beck, C., & Lewis-Beck, M.'
   edition: 2015
   link: https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf
-  required: Required (llink to chapter here)
-- title: Impact Evaluation in Practice
-  authors: Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., & Vermeersch, C. M. J.
+  required: Required (follow link)
+- title: 'Impact Evaluation in Practice'
+  authors: 'Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., & Vermeersch, C. M. J.'
   edition: 2011
   link: https://siteresources.worldbank.org/EXTHDOFFICE/Resources/5485726-1295455628620/Impact_Evaluation_in_Practice.pdf
   required: Free online
-  
+ 
 --- 
 
 
