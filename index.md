@@ -107,6 +107,13 @@ If you need a refresher, you can try one of the free online statistics courses o
 - Chapter 10 – Hypothesis Testing with Two Samples
 - Chapter 12 – Linear Regression and Correlation
 
+The **OpenIntro Statistics** textbook does a great job of covering regression using simple notation (see CH-08). It is [free online](https://leanpub.com/openintro-statistics) through LeanPub.
+
+* Chapter 8 - Introduction to Linear Regression
+
+*Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro.*
+
+
 This course utilizes algebra and some geometry, specifically the equation of a line:
 
 ```
