@@ -51,7 +51,6 @@ article {
 
 
 
-![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
 
 
 
@@ -118,27 +117,38 @@ Just listen to this summary of current knowledge on the topic, then try to succi
 
 
 
-*** { @unit = "", @title = "Some Background Reading", @reading, @foldout  }
+*** { @unit = "", @title = "Background Reading", @reading, @foldout  }
 
-## Understanding Program Impact 
+
+<br>
+<br>
+
+![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
+
+<br>
+<br>
+
+## Program Impact 
 
 This course provides foundational skills in quantitative program evaluation:
 
-Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
+**Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]**
 
-## Broader Field of Evaluation 
+## The Broader Field of Evaluation 
 
 Program evaluation is a large field that deploys a diversity of methodologies beyond quantitative modeling and impact analysis. We focus heavily on the quantitative skills in the Foundations of Eval I, II, and III in this program because data is hard to use, so you need several courses to build a skill set. Qualitative and case-study approaches build from the same foundations in research design, so you can more fully develop some of those skills drawing from knowledge of formal modeling and inference.
 
 For some useful context on evaluation as a field, this short (6-page overview) is helpful:
 
-McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf]() ]
+**McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf]() ]**
 
 And to get a flavor for debates around approaches to measuring program impact in evaluation:
 
-White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf]() ]
+**White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf]() ]**
 
 
+<br>
+<br>
 
 
 
