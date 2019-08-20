@@ -140,11 +140,11 @@ Program evaluation is a large field that deploys a diversity of methodologies be
 
 For some useful context on evaluation as a field, this short (6-page overview) is helpful:
 
-**McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf]() ]**
+**McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/A-Basic-Guide-to-Program-Evaluation.pdf) ]**
 
 And to get a flavor for debates around approaches to measuring program impact in evaluation:
 
-**White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf]() ]**
+**White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Reflections-on-Impact-Evaluation-White.pdf) ]**
 
 
 <br>
