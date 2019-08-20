@@ -13,6 +13,9 @@ title: Resources
 * A thorough regression tutorial by Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
 * Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
 * regression animations [ [link](https://github.com/lecy/regression-simulations) ]
+* much nicer but more complex animations [ [link](https://rpsychologist.com/archives) ]
+  - [Correlation w Venn Diagrams](https://rpsychologist.com/d3/correlation/)
+  - [confidence intervals](https://rpsychologist.com/d3/CI/)
 
 ## Handouts 
 
