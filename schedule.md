@@ -493,7 +493,7 @@ Include a description of problems
 
 
 
-** Week 7  
+** Week 7 - Review!
 
 *** { @unit = "", @title = "Review", @lecture }
 
