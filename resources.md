@@ -11,7 +11,8 @@ title: Resources
 
 * Regression Quick Start in R 
 * A thorough regression tutorial by Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
-* fun simulations [ [link](https://github.com/lecy/regression-simulations) ]
+* Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
+* regression animations [ [link](https://github.com/lecy/regression-simulations) ]
 
 ## Handouts 
 
