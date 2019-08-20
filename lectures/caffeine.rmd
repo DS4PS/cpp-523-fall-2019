@@ -1,0 +1,400 @@
+---
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    self_contained: false
+    css: textbook.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=9, warning=F, message=F )
+```
+
+
+```{r}
+library( stargazer )
+library( pander )
+library( dplyr )
+```
+
+
+# Effect of Caffeine on Heart Rate
+
+```{r, echo=F}
+dat <- 
+structure(list(caffeine = c(320.78657974489, 204.762143199332, 
+460.468665347435, 225.710971979424, 457.136312266812, 13.1775442278013, 
+170.969654223882, 128.038750728592, 388.565812492743, 148.027310613543, 
+128.729215008207, 235.667948145419, 35.1435731863603, 113.297758391127, 
+57.3732610791922, 39.9893616558984, 220.443549682386, 491.212779539637, 
+481.918572913855, 398.797751637176, 270.868101739325, 227.887853514403, 
+105.517098680139, 115.319474018179, 295.549898175523, 129.119025659747, 
+378.701823879965, 275.773034663871, 48.8126637646928, 75.2531978068873, 
+72.8928972966969, 495.28410541825, 13.0461587104946, 303.367173182778, 
+51.060299621895, 254.712800960988, 93.7106728088111, 253.610945539549, 
+192.587757366709, 294.332663528621, 460.372022702359, 291.778963059187, 
+406.451043440029, 383.766523795202, 303.781759459525, 266.891154809855, 
+142.739448696375, 62.0942353270948, 241.982037201524, 183.678396162577, 
+354.010452283546, 475.784285110421, 153.559489990585, 410.362537368201, 
+427.608042606153, 22.9700598865747, 431.889208150096, 238.07019344531, 
+60.8526171417907, 327.947845216841, 113.779274979606, 230.094960425049, 
+443.116803769954, 396.664506755769, 22.8902720846236, 33.8958110660315, 
+331.32565242704, 114.436748553999, 296.156467753462, 165.085852728225, 
+499.651512713172, 354.395903763361, 1.5848942566663, 384.866981068626, 
+100.115584325977, 344.749627634883, 374.926729826257, 119.163559516892, 
+476.483388920315, 292.391637456603, 399.729033815674, 467.301251250319, 
+38.296460872516, 331.800814950839, 493.717333651148, 126.165533089079, 
+19.7181096300483, 492.810985655524, 66.4253812283278, 88.0953661398962, 
+241.39740539249, 318.042521947064, 493.48953505978, 49.7673434438184, 
+346.841395949014, 0.654351082630455, 383.712967857718, 159.989772830158, 
+479.006422450766, 97.6987896719947), heart.rate = c(116.566391543331, 
+61.9338353686546, 123.636704242586, 86.1295876265869, 144.79442601178, 
+64.3170853884426, 52.8451284350571, 89.3601749949057, 110.060996342887, 
+80.9699310026113, 58.4546229083941, 72.4318220115224, 70.9104072569639, 
+98.959001175288, 65.8744392190261, 54.170053105323, 87.3166470670555, 
+122.09414688938, 119.919478062229, 130.07561484954, 121.712582002753, 
+85.648785490404, 103.466813405427, 78.4050236127545, 81.0712893220854, 
+62.6567803716679, 95.1443421410481, 97.3691619802898, 71.8451116666001, 
+78.7903436143205, 78.5392141931586, 126.867556609316, 63.7105187861475, 
+128.009994745085, 81.3493046955634, 67.0534350715073, 70.9009644688094, 
+101.142646109262, 77.111791521277, 101.389840707027, 118.121399259835, 
+120.329660335427, 91.5466756949411, 102.201369895008, 83.9865092454855, 
+69.4775465376213, 43.8671441590931, 77.4990622830763, 101.809687852049, 
+97.3142188504306, 72.0610843562775, 88.2270285919862, 58.9972702024013, 
+91.1591983711203, 109.888680197596, 81.9569739349399, 90.5693757190095, 
+87.3166470670555, 92.5532051769264, 109.821001481785, 64.2227207371593, 
+67.2353196088586, 101.880688403301, 105.861936864071, 84.5241397593696, 
+98.8525249174282, 80.8416407508655, 84.1137642627299, 121.33760277186, 
+64.8308836403586, 108.513367885528, 64.4662707746345, 73.8910854853889, 
+89.8141930496964, 58.511649744559, 83.427917103433, 110.633473156251, 
+87.3166470670555, 102.373287004409, 74.0408941870034, 84.7332324773358, 
+119.549805158076, 78.4817668706172, 95.7216662206359, 123.18490516061, 
+67.3128000090545, 87.3166470670555, 135.44141432096, 69.3644243566673, 
+68.6268075882925, 92.8761250728386, 111.942471434924, 120.935797479426, 
+91.0243689092499, 100.138417492221, 57.9731787356145, 96.5251789400834, 
+98.8573991276317, 94.1252020979882, 57.7206891568556)), class = "data.frame", row.names = c(NA, 
+-100L))
+
+
+jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
+{
+
+	plot( x1, x2,
+	      pch=19, 
+	      col=gray(0.6, alpha = 0.2), 
+	      cex=3.5,  
+	      bty = "n",
+	      xlab=lab1, 
+	      ylab=lab2, cex.lab=1.5,
+        ... )
+
+	if( draw.line==T ){ 
+		ok <- is.finite(x1) & is.finite(x2)
+		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
+
+}
+
+
+```
+
+
+
+```{r}
+# https://www.theodysseyonline.com/caffeine-affect-heart-rate
+
+set.seed( 1234 )
+
+caffeine <- runif( n=100, min=0, max=500 )
+
+heart.rate <- 68 + (9/100)*caffeine + rnorm(100,0,20) 
+heart.rate[ heart.rate < 40 ] <- mean(heart.rate)
+
+plot( caffeine, heart.rate, bty="n", 
+      pch=19, col=gray(0.5,0.5), cex=1.5 )
+
+```
+
+
+
+
+```{r}
+ave.caffeine <- NULL
+ave.heart <- NULL
+
+for( i in seq( from=0, to=450, by=50 ) )
+{
+   sub.heart <- heart.rate[ caffeine > i & caffeine < i+50 ]
+   sub.caffeine <- caffeine[ caffeine > i & caffeine < i+50 ]
+
+   ave.heart <- c( ave.heart, mean(sub.heart) )
+   ave.caffeine <- c( ave.caffeine, mean(c(i,i+50)) )
+
+}
+
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
+```
+
+
+
+```{r}
+
+caffeine.group <- cut( caffeine, seq( from=0, to=500, by=50 ) )
+
+boxplot( heart.rate ~ caffeine.group, 
+         las=2, frame.plot=F, outline=F, main="Heart Rate by Caffeine Intake",
+         col="steelblue", xaxt="n" )
+```
+
+
+
+The blue line is the average heart rate for the whole sample. This red dots then are what is known asd a conditional mean. 
+
+Is this a good model of heart rate, though? 
+
+If you tell me the caffeine intake of the subject, I can give you a pretty good guess of their heart rate. 
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( h=mean(heart.rate), col="steelblue", lwd=3 )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
+```
+
+
+compare residuals of base model to residuals of conditional mean. 
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+# abline( h=mean(heart.rate), col="steelblue", lwd=3 )
+
+bins <- seq( from=0, to=500, by=50 )
+
+abline( v=seq( from=0, to=500, by=50 ), col="darkgray", lty=3 )
+
+# points( ave.caffeine, ave.heart, pch=19, col="darkgray", cex=2, type="b" )
+
+segments( x0=bins[-length(bins)], x1=bins[-1], 
+          y0=ave.heart, col="darkgray", lwd=3 )
+
+caffeine.group <- cut( caffeine, seq( from=0, to=500, by=50 ) )
+d2 <- data.frame( caffeine, heart.rate, caffeine.group )
+
+pred.y <- 
+  d2 %>%
+  group_by( caffeine.group ) %>%
+  mutate( mean.hr = mean(heart.rate), residual=heart.rate-mean.hr ) %>%
+  ungroup()
+
+segments( x0=caffeine, y0=pred.y$mean.hr, y1=pred.y$heart.rate, col="firebrick", lwd=2 )
+
+```
+
+
+### Residual Standard Error
+
+```{r}
+sd( pred.y$heart.rate - pred.y$mean.hr )
+```
+
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( h=mean(heart.rate), col="darkgray", lwd=3 )
+
+
+segments( x0=caffeine, y0=mean(heart.rate), y1=heart.rate, col="firebrick", lwd=2 )
+
+```
+
+
+
+### Residual Standard Error
+
+```{r}
+sd( heart.rate - mean(heart.rate) )
+```
+
+
+
+
+
+# Regression
+
+Why don't we just use these groups?
+
+Part of the reason is that when we try to get more granular estimates of the treatment we begin to get noisy data with lots of holes in it as we try to slice the data thinner and thinner. 
+
+```{r}
+caffeine.group <- cut( caffeine, seq( from=0, to=500, by=10 ) )
+
+boxplot( heart.rate ~ caffeine.group, 
+         las=2, frame.plot=F, outline=F, main="Heart Rate by Caffeine Intake",
+         col="steelblue", xaxt="n" )
+```
+
+
+
+The more important reason we will discuss in a couple of weeks. That is the ability to add control variables. 
+The regression model gives us a very clear estimate of the "average effect" of one mg of caffeine on heart rate. 
+
+```{r, results="asis"}
+mod <- lm( heart.rate ~ caffeine )
+
+stargazer( mod, header=F, type="html" )
+```
+
+
+
+
+As you can see, the regression model is another form of the conditional mean. If you tell me the caffeine intake of the subject, I can give you a good guess of their heart rate. 
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+```
+
+
+
+```{r, results="asis"}
+
+b0 <- coefficients( mod )["(Intercept)"]
+b1 <- coefficients( mod )["caffeine"]
+
+predicted.heart <- b0 + b1*ave.caffeine
+
+residual <- ave.heart - predicted.heart
+
+data.frame( ave.caffeine, ave.heart, predicted.heart, residual ) %>%
+  stargazer( summary=F, type="html" )
+```
+
+
+
+# Examining Fit
+
+
+```{r}
+
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( lm( heart.rate ~ caffeine ), col="darkgray", lwd=2 )
+
+segments( x0=caffeine, y0=predict(mod), y1=heart.rate, col="firebrick", lwd=2 )
+
+```
+
+
+## Residual Standard Error
+
+
+```{r}
+set.seed( 2345 )
+
+heart.rate.control <- 68 + (9/100)*0 + rnorm(100,0,20)  # no caffeine
+heart.rate.control[ heart.rate.control < 40 ] <- mean(heart.rate.control)
+
+y.hat <- mean(heart.rate.control)
+```
+
+
+
+
+
+```{r}
+d <- density( heart.rate.control ) # returns the density data 
+plot( d , bty="n", main="Distribution of Resting Heart Rates in Population", 
+      xlab="", yaxt="n", ylab="" )
+polygon( d, col=gray(0.5,0.5), border="gray" ) 
+abline( v=mean(heart.rate.control), col="firebrick", lwd=2 )
+abline( v=mean(heart.rate.control)+sd(heart.rate.control), col="firebrick", lty=2 )
+abline( v=mean(heart.rate.control)-sd(heart.rate.control), col="firebrick", lty=2 )
+```
+
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+y.hat <- mean( heart.rate.control )
+sd.y <-  sd( heart.rate.control )
+
+abline( h=y.hat, col="firebrick", lwd=2 )
+abline( h=c( y.hat+sd.y, y.hat-sd.y ), lty=2, col="firebrick" )
+```
+
+
+
+
+
+
+## The Standard Deviation
+
+Standard deviation is the "average" distance from each data point to the mean. 
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+y.hat <- mean(heart.rate.control)
+abline( h=y.hat, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate.control, col="firebrick", lwd=2 )
+
+```
+
+
+We use squared deviations for the variance instead of absolute values, but the intuition is the same and the measures will often be close:
+
+```{r}
+sd( heart.rate.control )
+mean( abs( heart.rate.control - y.hat ) ) %>% round(2)
+```
+
+
+```{r}
+# why is this zero?
+mean( heart.rate.control - y.hat ) %>% round(2)
+```
+
+
+
+
+```{r}
+e <-  heart.rate - predict(mod)
+mean( abs(e) )
+```
+
+
+On average our predicted heart rate was `r mean(abs(e))` from the true heart rate. 
+
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate" )
+```
+
