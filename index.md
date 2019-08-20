@@ -162,6 +162,7 @@ There are two required texts for this course, both available online:
 
 Each author approaches material in a slightly different way, so different textbooks work for different people. The following texts are recommended as good resources if you would like additional references:
 
+- Field, A., Miles, J., & Field, Z. (2012). Discovering statistics using R. Sage publications. 
 - Bailey, M. A. (2016). _Real Stats: Using Econometrics for Political Science and Public Policy_. Oxford University Press.
 - Bingham, R., &amp; Felbinger, C. (2002). _Evaluation in Practice: A Methodological Approach._ CQ Press.
 - Fox, J. (1991). _Regression diagnostics: An introduction_ (Vol. 79). Sage.
