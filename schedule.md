@@ -105,24 +105,39 @@ Once you have completed this section you should be able to…
 
 ### Required:
 
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455.
+
 
 ### Recommended:
 
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf]() ]
+
+Multiple Regression overview chapter [ [pdf]() ]
 
 ## Data Used in this Section
 
-The following data will be used for lectures in this section (link to dataset page)…
+Caffeine and Heart Rates
+
+```r
+url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/lectures/data/caffeine.csv"
+dat <- read.csv( url, stringsAsFactors=F ) 
+```
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
+Building a regression model from a [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate).
+
+[lecture](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html)
+
 
 ## Lab Preview 
 
+Lab-01 Regression Review covers the following topics:
 
+* Regression slopes 
+* Intercept 
+* Residuals 
+* Explained variance 
 
 
 
