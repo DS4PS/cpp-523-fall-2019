@@ -10,6 +10,7 @@ title: Resources
 ## Regression Tutorial for R
 
 * Regression Quick Start in R 
+* Learning regression in R using Moneyball models [ [link](https://towardsdatascience.com/linear-regression-moneyball-part-1-b93b3b9f5b53) ]
 * A thorough regression tutorial by Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
 * Intro to Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
 * regression animations [ [link](https://github.com/lecy/regression-simulations) ]
