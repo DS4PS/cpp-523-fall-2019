@@ -110,8 +110,6 @@ Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate p
 
 ### Recommended:
 
-Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
-
 Multiple Regression overview chapter [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Multiple%20Regression.pdf) ]
 
 ## Data Used in this Section
@@ -131,6 +129,9 @@ summary( model.01 )
 
 Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
+Is caffiene good for you? [ [link](https://www.health.harvard.edu/staying-healthy/the-buzz-about-caffeine-and-health) ]
+
+
 
 ## Lab Preview 
 
@@ -140,6 +141,8 @@ Lab-01 Regression Review covers the following topics:
 * Intercept 
 * Residuals 
 * Explained variance 
+
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
 
