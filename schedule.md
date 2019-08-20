@@ -94,35 +94,64 @@ When ready, you can submit your lab via Canvas:
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This section provides a review of the basic building blocks of a bivariate regression model:
+
+* sample variance and standard deviation 
+* slope 
+* intercept 
+* regression line 
+* the "error term" or "residual"
+* standard errors 
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you will be able to conceptually understand what a regression slope represents (the conditional mean), how residuals are created, and what the standard error is measuring. 
 
 
 ## Assigned and Recommended Articles or Chapters
 
 ### Required:
 
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
+
 
 ### Recommended:
 
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
+Multiple Regression overview chapter [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Multiple%20Regression.pdf) ]
 
 ## Data Used in this Section
 
-The following data will be used for lectures in this section (link to dataset page)…
+Caffeine and Heart Rates based off of this [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate):
+
+```r
+url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/lectures/data/caffeine.csv"
+dat <- read.csv( url, stringsAsFactors=F ) 
+summary( dat )
+plot( dat$caffeine, dat$heart.rate )
+model.01 <- lm( heart.rate ~ caffeine, data=dat )
+summary( model.01 )
+```
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
+Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
+
+Is caffeine good for you? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the-news/coffee-depression-women-ascherio-lucas/) ]
+
+*Is caffeine a treatment in this study? How do we know caffeine is the cause of the outcomes we see here?*
+
+
 
 ## Lab Preview 
 
+Lab-01 Regression Review covers the following topics:
 
+* Regression slopes 
+* Intercept 
+* Residuals 
+* Explained variance 
+
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
 
