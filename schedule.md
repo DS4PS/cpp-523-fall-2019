@@ -41,6 +41,9 @@ td.i {
 iframe {
   align: middle;
 }
+em {
+  color: black !important;
+}
 </style>
 
 
