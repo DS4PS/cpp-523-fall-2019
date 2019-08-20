@@ -129,9 +129,7 @@ summary( model.01 )
 
 ## Lecture Materials
 
-Building a regression model from a [caffeine study](https://www.theodysseyonline.com/caffeine-affect-heart-rate).
-
-[ [lecture](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
+Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
 
 ## Lab Preview 
