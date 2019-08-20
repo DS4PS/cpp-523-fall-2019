@@ -128,7 +128,6 @@ Just listen to this summary of current knowledge on the topic, then try to succi
 ![](https://image.shutterstock.com/image-vector/banner-evaluation-concept-assessment-analysis-260nw-1339409468.jpg)
 
 <br>
-<br>
 
 ## Program Impact 
 
@@ -156,6 +155,9 @@ And to get a flavor for debates around approaches to measuring program impact in
 
 
 *** { @unit = "", @title = "Review of Basic Stats", @reading, @foldout  }
+
+
+### Sampling Distributions
 
 <br>
 
