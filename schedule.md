@@ -199,6 +199,20 @@ If you want to invest in a textbook, these are some texts that present this cont
 
 You are investing in a skill-set that you will build over time. I will reference material throughout the semester that you can add to your reference library for this purpose. 
 
+I will also add books, articles, tutorials and reference sheets to the [Resources](https://ds4ps.org/cpp-523-fall-2019/resources/) page, but I suggest you create your own catalog to do the same! 
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
 
 ** Week 1 - Nuts and Bolts of Regression Models
 
