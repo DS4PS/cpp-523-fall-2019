@@ -56,9 +56,12 @@ title: Resources
   - Chapter 9 – Hypothesis Testing with One Sample
   - Chapter 10 – Hypothesis Testing with Two Samples
   - Chapter 12 – Linear Regression and Correlation
-* *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf), especially CH-08 Intro to Regression 
-* [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) as a comprehensive guide to using R for a variety of statistical models 
-* [Real Stats: Using Econometrics for Political Science and Public Policy](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949) for material that presents regression models from a causal and evaluation perspective
+* *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf)
+  - CH-08 Intro to Regression 
+* [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469)
+  - Comprehensive guide to using R for a variety of statistical models 
+* [Real Stats: Using Econometrics for Political Science and Public Policy](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949) 
+  - Regression models from a causal inference and evaluation perspective
 
 
  
