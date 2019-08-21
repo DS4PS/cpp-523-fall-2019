@@ -50,7 +50,7 @@ title: Resources
 ## Reference Books
 
 
-* *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf)
+* [OpenIntro Statistics](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf)
   - CH-08 Intro to Regression 
 * [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469)
   - Comprehensive guide to using R for a variety of statistical models 
