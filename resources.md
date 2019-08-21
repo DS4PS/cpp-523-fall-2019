@@ -49,20 +49,21 @@ title: Resources
 
 ## Reference Books
 
-* OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de) for review of basic statistics:
-  - Chapter 1 – Sampling Data
-  - Chapter 2 – Descriptive Statistics
-  - Chapter 8 – Confidence Intervals
-  - Chapter 9 – Hypothesis Testing with One Sample
-  - Chapter 10 – Hypothesis Testing with Two Samples
-  - Chapter 12 – Linear Regression and Correlation
+
 * *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf)
   - CH-08 Intro to Regression 
 * [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469)
   - Comprehensive guide to using R for a variety of statistical models 
 * [Real Stats: Using Econometrics for Political Science and Public Policy](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949) 
   - Regression models from a causal inference and evaluation perspective
-
+* OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de) 
+  - Good review of intro statistics:
+  - Chapter 1 – Sampling Data
+  - Chapter 2 – Descriptive Statistics
+  - Chapter 8 – Confidence Intervals
+  - Chapter 9 – Hypothesis Testing with One Sample
+  - Chapter 10 – Hypothesis Testing with Two Samples
+  - Chapter 12 – Linear Regression and Correlation
 
  
 
