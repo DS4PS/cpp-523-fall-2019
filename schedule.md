@@ -88,7 +88,7 @@ Statistics and econometricians have spent 75 years developing powerful regressio
 
 * Foundations of Eval I covers the mechanics of regression.
 * Foundations of Eval II covers counterfactual analysis and quasi-experimental approaches to research design. 
-* Foundations of Eval III covers seven regression models used in causal analysis (eg. [interrupted time series](https://ds4ps.org/PROG-EVAL-III/TimeSeries.html)).
+* Foundations of Eval III covers seven regression models used in causal analysis (for example, [interrupted time series](https://ds4ps.org/PROG-EVAL-III/TimeSeries.html)).
 
 Let's start with a simple example. Is caffeine good for you? 
 
