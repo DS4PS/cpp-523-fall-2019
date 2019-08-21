@@ -98,6 +98,8 @@ To be successful in this program you need some basic background in statistics in
 - Confidence intervals
 - Hypothesis testing
 
+### Intro Stats Review 
+
 If you need a refresher, you can try one of the free online statistics courses on Khan Academy, EdEx, Coursera, Udacity or other sites, or visit the OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de) and review:
 
 - Chapter 1 – Sampling Data
@@ -107,21 +109,34 @@ If you need a refresher, you can try one of the free online statistics courses o
 - Chapter 10 – Hypothesis Testing with Two Samples
 - Chapter 12 – Linear Regression and Correlation
 
-The **OpenIntro Statistics** textbook does a great job of covering regression using simple notation (see CH-08). It is [free online](https://leanpub.com/openintro-statistics) through LeanPub.
+### Basic Regression
 
-* Chapter 8 - Introduction to Linear Regression
+The **OpenIntro Statistics** textbook does a great job of covering regression using simple notation (see CH-08). 
 
 *Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro.*
 
+* Chapter 8 - Introduction to Linear Regression
 
-This course utilizes algebra and some geometry, specifically the equation of a line:
+It is [free online](https://leanpub.com/openintro-statistics) through LeanPub.
+
+
+### Math
+
+This course utilizes algebra and some geometry, specifically the slope-intercept equation of a line:
 
 ```
 y = mx + b
 ```
 
 
-We will use basic probability, logarithms, and exponents, all at a high school level. We will not be using calculus, matrix algebra, or proofs for this course. We will rely heavily on visual reasoning with the data, an intuitive understanding of regression mechanics, and a strong understanding of the interpretation of results, but for the most part we will rely on software for advanced mathematical calculations.
+We will use basic probability, logarithms, and exponents, all at a high school level. We will NOT be using calculus, matrix algebra, or proofs for this course. 
+
+We will rely heavily on visual reasoning with the data, an intuitive understanding of regression mechanics, and a strong understanding of the interpretation of results, but for the most part we will rely on software for advanced mathematical calculations.
+
+**Sampling distribution of the slope**
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/sampling_dist_slope.gif)
+
 
 
 
@@ -139,19 +154,23 @@ Students will demonstrate competency in understanding, producing and communicati
 - Weekly labs that provide opportunities to consolidate and apply material from the lectures.
 - A final examination that tests mastery of the learning objectives above.
 
-Assigned work, including the course final exam, and the quality of active participation in the regular online discussion sessions that are a critical part of the course learning strategy are the tools the instructors will use to measure comprehension and skill; the student&#39;s course grade is a direct reflection of demonstrated performance. Students should take stated expectations seriously regarding preparation, conduct, and academic honesty in order to receive a grade reflective of outstanding performance.  Students should be aware that merely completing assigned work in no way guarantees an outstanding grade in the course. To receive an outstanding course grade (using the grading scheme described below and the performance assessment approach noted above) all assigned work should completed on time with careful attention to assignment details.
+Assigned work including the course final exam are used to measure comprehension and skill; the student&#39;s course grade is a direct reflection of demonstrated performance. Students should take stated expectations seriously regarding preparation, conduct, and academic honesty in order to receive a grade reflective of outstanding performance.  
+
+Students should be aware that merely completing assigned work in no way guarantees an outstanding grade in the course. To receive an outstanding course grade (using the grading scheme described below and the performance assessment approach noted above) all assigned work should completed on time with careful attention to assignment details.
 
 # III. Course Structure and Operations; Performance Expectations
 
 ## A. Format and Pedagogical Theory
 
-Mastering advanced analytical techniques and data programming is like learning a language. You start by mastering basic vocabulary that is specific to statistics and data science. Through your coursework you will become conversant in the domains of regression analysis, research design, and data science. Progress might be slow at first as you work to master core concepts, integrate the building blocks into a coherent mental model of real-world problems, learn to translate technical results into clear narratives for non-technical audiences, and become comfortable with data programming skills. Over time you will find that your thought processes change as you approach problem-solving in a more structured and evidence-based manner, you apply counter-factual reasoning to performance problems, and you start reading the news and viewing scientific evidence differently. You begin to think and speak like a program evaluator.
+Mastering advanced analytical techniques is like learning a language. You start by mastering basic vocabulary that is specific to statistics. Through your coursework you will become conversant in the domains of regression analysis, research design, and data analysis. 
+
+Progress might be slow at first as you work to master core concepts, integrate the building blocks into a coherent mental model of real-world problems, learn to translate technical results into clear narratives for non-technical audiences, and become comfortable with data programming skills. Over time you will find that your thought processes change as you approach problem-solving in a more structured and evidence-based manner, you apply counter-factual reasoning to performance problems, and you start reading the news and viewing scientific evidence differently. You begin to think and speak like a program evaluator.
 
 By the end of this degree you will be conversant in statistics, research design, and data programming. Fluency takes time and will be developed through professional experience. It requires you to practice these skills to develop muscle memory. You can do this through participating in evaluations on the job and gaining experience building and cleaning data sets from scratch. Understand, though, that this degree focuses on building foundations for your career. Don&#39;t be nervous if it feels like it&#39;s impossible to master all of the material in this program – it is impossible to learn everything in this field in a year.
 
 Similar to immersion in a language, the best way to learn the material is to be consistent in doing course work each day. The more frequently you revisit concepts and practice data programming the more you will absorb. The curriculum has been designed around this approach. Lectures are split into small units, and each unit includes questions to test your understanding of the material. Weekly labs allow you to spend some time applying the material to a specific problem. The final exam at the end of the semester is designed to help you make connections between concepts and consolidate knowledge. You will be much better off spending a small amount of time each day on the material instead of trying to cram everything into a couple of days a week.
 
-Online discussion boards are design for students to engage with the material together. The purpose of online discussion sessions is threefold: (1) the online discussion sessions allow students to interact with their peers and share ideas and interpretations of the assigned material, (2) such peer-to-peer discussion online helps build professional relationships with potential future colleagues in the field, and (3) the discussions permit the instructor to assess student engagement with the assigned material.
+Online discussion boards, when used, are design to accomplish three things: (1) allow students to interact with their peers and share ideas and interpretations of the assigned material, (2) such peer-to-peer discussion online helps build professional relationships with potential future colleagues in the field, and (3) the discussions permit the instructor to assess student engagement with the assigned material.
 
 The online discussions are explicitly intended to meet the objectives stated above.  They are not intended as another form of &quot;lecture&quot; where the instructor provides commentary and students simply react to that.  Rather, the discussions are a chance for peer-to-peer interaction and proactive engagement by each individual student.
 
@@ -163,9 +182,15 @@ The purpose of all exams and assigned written work is also threefold: (1) the as
 
 There are two required texts for this course, both available online:
 
-- Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., &amp; Vermeersch, C. M. J. (2011). _Impact Evaluation in Practice._ The World Bank. Washington. Available free online.
+### Needed for Lab-01 only:
+
 - Lewis-Beck, C., &amp; Lewis-Beck, M. (2015). _Applied Regression: An Introduction_ (Vol. 22). Sage publications.
 
+### For use in CPP 524: Foundations in Prog Eval II
+
+- Gertler, P. J., Martinez, S., Premand, P., Rawlings, L. B., &amp; Vermeersch, C. M. J. (2011). _Impact Evaluation in Practice._ The World Bank. Washington. Available free online.
+
+### Reference Texts
 
 Each author approaches material in a slightly different way, so different textbooks work for different people. The following texts are recommended as good resources if you would like additional references:
 
@@ -186,50 +211,43 @@ In addition to the required textbooks, the instructor will supplement the assign
 
 Your grade will be based on your performance in the following areas:
 
-- Short assessments of lectures 
+- Short multiple choice assessments  
 - Weekly labs
 - Final exam
 
 Letter grades comport with a traditional set of intervals (100 – 98% = A+, 97 – 94% = A, 93 – 90% = A-,  89 – 87% = B+, 86 – 84% = B, 83 – 80% = B-,etc.).  The assigned work for the term comes in the form of four elements, described below:
 
-- **Short Quizzes (30%):** Each lecture is accompanied by a short (1-5 question) multiple choice or regression-based quiz. These are designed to ensure that you are grasping the important concepts associated with each lecture. The content in this class is cumulative, the material each week building upon the previous week. We cover complex topics with a lot of nuances, so you may feel uncomfortable if you don&#39;t understand everything from a lecture. Don&#39;t worry – we will revisit a lot of this material many times through the program to reinforce important ideas and introduce more detail in subsequent stages. These quizzes are designed to give you immediate feedback about whether you grasped the core concepts so that you can spend more time on some material or seek help when necessary.
+- **Rapid Assessments (10%):** Some lecturse will be accompanied by a short (1-5 question) multiple choice or regression-based quiz. These are designed to ensure that you are grasping the important concepts associated with each lecture. The content in this class is cumulative, the material each week building upon the previous week. We cover complex topics with a lot of nuances, so you may feel uncomfortable if you don&#39;t understand everything from a lecture. Don&#39;t worry – we will revisit a lot of this material many times through the program to reinforce important ideas and introduce more detail in subsequent stages. These quizzes are designed to give you immediate feedback about whether you grasped the core concepts so that you can spend more time on some material or seek help when necessary.
 
-- **Weekly Labs (40%):**  Each week you will receive a short lab that will help you synthesize the lectures from the week though exercises that involve data, analysis, and important formulas from the lectures. These labs contain exercises that are similar in form or difficulty to what will be presented on the final exam. They are graded pass / fail by the instructors based upon an assessment of whether you have sincerely attempted the lab and answered over half of the questions correctly. This is designed to hold you accountable for the material, but not create anxiety about perfection.
+- **Weekly Labs (50%):**  Each week you will receive a lab that will help you synthesize the lectures from the week though exercises that involve data, analysis, and important formulas from the lectures. These labs contain exercises that are similar in form or difficulty to what will be presented on the final exam. They are graded pass / fail by the instructors based upon an assessment of whether you have sincerely attempted the lab and answered over half of the questions correctly. This is designed to hold you accountable for the material, but not create anxiety about perfection. Each lab is worth 10 points so that you can drop one lab in case you get sick or busy. 
 
-- **Final Exam (30%):**  The course will close with a written final exam which will be comprehensive in nature. The exam will be an individual effort with no exceptions.  In no way shape or form should will it be permissible to discuss any aspect of the exam with anyone else; neither classmates nor anyone else should be consulted while students complete the exam. Notes and textbooks are permitted during the exam. It will be designed as a means of testing overall comprehension of key concepts and issues covered during the term, and as a check on course learning objectives being met.
+- **Final Exam (40%):**  The course will close with a written final exam which will be comprehensive in nature. The exam will be an individual effort with no exceptions.  In no way shape or form should will it be permissible to discuss any aspect of the exam with anyone else; neither classmates nor anyone else should be consulted while students complete the exam. Notes and textbooks are permitted during the exam. It will be designed as a means of testing overall comprehension of key concepts and issues covered during the term, and as a check on course learning objectives being met.
 
 - **Discussion Sessions (0%):**  Each student in the course will be given the opportunity to participate in discussion sessions designed to answer questions related to labs, review key concepts, and prepare for the final exam. New material will not be presented, but we will review content pertaining to assigned reading materials, video, or other similar materials provided. Students are encouraged to bring questions, respond to discussion topics that are provided, as well as responding meaningfully to other students&#39; responses. More details on the mechanics of discussion session operations, including group designations and instructor assessment of student performance, will be provided at the time of the first discussion session.
 
 ## D. General Grading Rubric for Written Work
 
-Individual assignment grading rubrics will be provided. However, in order to understand the assessment approach for assigned work, in general there are several core elements for the instructor&#39;s assessment when grading students&#39; submitted written assignments and/or exams. First, the submitted work is assessed on whether or not it directly addresses the elements requested in the assignment. That is, when assigning a grade, the instructor will ask: did the submitted work actually address clearly and cogently the assigned questions?  Second, it is assessed in terms of the quality of the writing in the submitted work.  The relevant question: is the submitted work well-written, is it coherent and well organized, does it convey its key content clearly, concisely and effective? Third, does the provided appropriate documentation (where applicable), and is it properly punctuated and adhere to basic standards of appropriate grammar and syntax? (This course will use the APA citation format; additional details on this method of sourcing materials will be provided later.) Fourth, it is assessed by the quality of analytic rigor.  That is, the instructor will ask: is any requested analysis performed in the submitted work, and if so, is it done carefully and completely?  Fifth and finally, the submitted work is assessed on the author&#39;s creativity in completing the assignment.  The relevant question here is: did the submitted work provide an original or innovative way of approaching the subject matter and the questions posed in this assessment or research area?
-
-To summarize, in general any submitted work written work (assignments and/or exams) is assessed on these evaluative criteria:
+In general, any submitted work written work (assignments and/or exams) is assessed on these evaluative criteria:
 
 - Assignment completeness – all elements of the assignment are addressed
 - Quality of analysis – substantively rigorous in addressing the assignment
 - Demonstrated synthesis of core concepts from lecture notes and ability to apply to new problems
 
-However, again, to be clear: assignments are distributed with an accompanying specific assessment rubric.
+Most assignments in this course are labs that are graded pass-fail based upon completeness and correctness of responses (every attempt must be made to complete labs, and they must be more than 50% correct to receive credit). Discussion boards that accumulate points through each activity on the board. 
+
+The final project will be accompanied by a rubric describing the allocation of points and criteria for evaluation. 
 
 ## E. Late and Missing Assignments
 
-This course is based on students reading course material, participating in discussion with colleagues and producing analytic essays, through assignments and an essay-based final exam. Accordingly, if students do not participate fully and completely, assessment of student performance will reflect that directly. For example, points lost for lack of participation in a weekly discussion session are not eligible for remedial action. All assigned work is accompanied by detailed instructions, adequate time for completion and opportunities to consult the instructor with questions. As a result, each assignment element in the course is expected to be completed in a timely fashion by the due date.
+Grades for the course are largely based on weekly labs. Assigned work is accompanied by detailed instructions, adequate time for completion and opportunities to consult the instructor with questions. As a result, each assignment element in the course is expected to be completed in a timely fashion by the due date. Once solutions are posted it is no longer possible to receive points for assignments. 
 
 ## F.  Course Communications and Instructor Feedback:
 
-The course is supported on the university&#39;s BlackBoard platform; as such, electronic course materials will be supported through that course site. Lecture files, assignments and other course communications will be transmitted via BlackBoard and/or through the class email list.
+**Course content** is hosted on this website. Lecture files, assignments and other course communications will be transmitted via this site and/or through the class email list. **All assignment submissions** will be made through the [Canvas shell](https://canvas.asu.edu). 
+
+Please post lab questions on the [Get Help](https://ds4ps.github.io/cpp-523-fall-2019/help/) page on this site, schedule individual office hours using the Calendly link provided above, and email the instructor directly instead of using the Canvas system. 
 
 Students should be aware that the course instructor will attempt to respond to any course-related email as quickly as possible. Students are asked to allow between 24 and 48 hours for replies to direct instructor emails, generally, as a reasonable time to reply to questions or other issues posed in an email. Additionally, the general timeline for instructor grading or other feedback on assignments, either writer work or online discussion work, is between 5 and 10 work days.
-
-## G.  Student Conduct: Expectation of Professional Behavior:
-
-Respectful conversations and tolerance of others&#39; opinions will be strictly enforced. Any inappropriate language, threatening, harassing, or otherwise inappropriate behavior during discussion could result in the student(s) being administratively dropped from the course with no refund, per ASU policy [USI 201-10](http://www.asu.edu/aad/manuals/usi). Students are required to adhere to the behavior standards listed in the [Arizona Board of Regents Policy Manual Chapter V—Campus and Student Affairs](http://azregents.asu.edu/rrc/Policy%20Manual/5-308-Student%20Code%20of%20Conduct.pdf) .
-
-## H.  Academic Integrity and Honesty
-
-ASU expects the highest standards of academic integrity. Violations of academic integrity include but are not limited to cheating, plagiarism, fabrication, etc. or facilitating any of these activities. This course relies heavily on writing and original critical thought. Any student who is suspected of not producing his or her own original work will be reported to the College of Public Programs for investigation. **Plagiarism will not be tolerated**. **Any student who plagiarizes or otherwise fabricates his or her work will receive no credit for that assignment. It will be recorded as zero points—and the student will risk a failing grade for the course.** For more information, refer to [http://provost.asu.edu/academicintegrity](http://provost.asu.edu/academicintegrity).
-
 
 
 # I. Student Learning Environment: Accommodations
@@ -239,6 +257,8 @@ ASU expects the highest standards of academic integrity. Violations of academic 
 **Religious accommodations:** Students will not be penalized for missing an assignment due solely to a religious holiday/observance, but as this class operates with a fairly flexible schedule, all efforts should be made to complete work within the required timeframe. If this is not possible, students must notify the instructor as far in advance as possible in order to make an alternative arrangement.
 
 **Military Accommodations:** A student who is a member of the National Guard, Reserve, or other branch of the armed forces and is unable to complete classes because of military activation may request complete or partial unrestricted administrative withdrawals or incompletes depending on the timing of the activation. For more information see ASU policy [USI 201-18](http://www.asu.edu/aad/manuals/usi).
+
+
 
 # IV. Course Schedule and Unit-specific Learning Objectives
 
@@ -293,7 +313,7 @@ Preview of Program Eval III:
 - Baily CH7: Transforming Variables
 - Lab #6 – More Model Specification
 
-**Seven Sins in Regression Analysis** 
+**Seven Sins of Regression Analysis** 
 - Readings posted on Course Shell
 
 ### Unit 7
