@@ -374,6 +374,21 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 *** { @unit = "MONDAY Aug-26", @title = "Lab 01", @assignment, @foldout   }
 
+
+## Lab 03 - Regression Review
+
+This lab will review the following topics:
+
+* Calculating a bivariate regression slope b1
+* Basic interpretation of the slope
+* Intercept bo
+* What is a residual?
+  - residual (or error) sum of squares
+  - regression (or explained) sum of squares 
+* R-squared: the measure of variance explained 
+
+-----
+
 This first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. 
 
 The lecture notes needed for the lab are available on the course shell:
