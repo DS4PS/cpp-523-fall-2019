@@ -313,7 +313,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 ** Week 2 - Effect Size and Confidence Intervals 
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview" }
 
 ## Description 
 
@@ -358,7 +358,7 @@ Include a description of problems
 
 ** Week 3 - Control Variables 
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview" }
 
 ## Description 
 
@@ -403,7 +403,7 @@ Include a description of problems
 
 ** Week 4 - Omitted Variable Bias 
 
-*** { @unit = "", @title = "Unit Overview", @reading  }
+*** { @unit = "", @title = "Unit Overview"  }
 
 ## Description 
 
@@ -443,8 +443,6 @@ Include a description of problems
 
 
 
-
-
 *** { @unit = "THURS Sept-12", @title = "Mini-Assessment", @assignment  }
 
 *** { @unit = "MON Sept-16", @title = "Lab 04", @assignment  }
@@ -452,9 +450,11 @@ Include a description of problems
 
 
 
+
+
 ** Week 5 - Dummy Variables: Revisiting Hypothesis Tests 
 
-*** { @unit = "", @title = "Unit Overview", @reading  }
+*** { @unit = "", @title = "Unit Overview"  }
 
 
 ## Description 
@@ -574,4 +574,4 @@ Include a description of problems
 
 ** FINAL EXAM
 
-*** { @unit = "Open MON Oct-06 to WED Oct-09", @title = "Final Exam", @assignment }
+*** { @unit = "Open Oct-06 to 09", @title = "Final Exam", @assignment }
