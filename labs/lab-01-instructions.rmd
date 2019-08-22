@@ -1,0 +1,124 @@
+---
+title: 'Lab 01 - Regression Review'
+output:
+  html_document:
+    theme: readable
+    df_print: paged
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
+
+library( pander )
+library( dplyr )
+```
+
+#### [Program Eval I](https://ds4ps.org/cpp-523-fall-2019/schedule/)
+
+<br>
+
+In this assignment you will be working with a very small data set.  You need to build a regression from the ground up.  I want you to focus on your understanding of the regression error term.  Specifically, can you have an error term without first having a regression line?  
+
+Read pages 9-25 in the Lewis-Beck book **Applied Regression** for help.  
+
+
+```{r, echo=F}
+x <- c(2,4,6,8,10)
+y <- c(1,5,6,7,11)
+
+plot( x, y, bty="n", pch=19, col=gray(0.5,0.5), cex=4, cex.axis=1.5, cex.lab=2,
+      xlab="X", ylab="Y" )
+abline( lm( y ~ x ), col="firebrick", lwd=2 )
+```
+
+
+
+
+<br><br>
+
+
+| X | Y | $\hat{Y}$ | e | $e^2$ |
+|---|---|-----------|---|-------|
+| 2 | 1 |           |   |       |
+| 4 | 5 |           |   |       |
+| 6 | 6 |           |   |       |
+| 8 | 7 |           |   |       |
+| 10 | 11 |           |   |       |
+
+<br><br>
+
+
+Our regression model is: $y = b_0 + b_1 x + e$
+
+The variance/covariance of our data is:
+
+var(x):		**`r var(x)`**  
+var(y):		**`r var(y)`**  
+cov(x,y):	**`r cov(x,y)`**  
+
+## Answer the following:
+
+(1) Calculate $b_1$ using the knowledge the slope can be calculated as cov(x,y) / var(x).  
+
+(2) Interpret the coefficient $b_1$ in plain English.
+
+(3) Calculate $b_0$. Recall that the regression line always passes through the mean of X and Y:  ($\bar{y} = b_0 + b_1 \bar{x}$). 
+
+(4) What is the predicted value of Y when X has a value of 14?
+
+(5) Calculate the sum of the squared errors (see page Lewis-Beck, p14).
+
+(6) Consider the output in the table below. Calculate the regression sum of squares (Lewis-Beck p21). 
+
+(7) Calculate the $R^2$ using the sum of squares in the table.
+
+
+```{r}
+library( dplyr )
+library( knitr )
+options( digits=2 )
+m <- lm( y ~ x )
+anova( m ) %>% pander()
+```
+
+
+
+# Lab Instructions
+
+In this lab you will practice your logical statements, data verbs (dplyr functions), and recipes to conduct analysis looking for types of accidents that cause serious injury. You will need to pay attention to the difference between counts of events, and severity of events. We will define "harm" as any accident that causes at least one injury or fatality.
+
+You can create a new RMarkdown file, or download the lab template: [RMD Template](https://cdn.rawgit.com/DS4PS/Data-Science-Class/c464d527/TEMPLATES/MarkdownTemplateSimple.Rmd)
+
+
+<br><br>
+
+**PART 1: Summary Stats** 
+
+Practice writing logical statements and basic data recipes for the following:
+
+**1) How many accidents happen on Mondays?** 
+
+**2) What proportion of accidents each week occur on Monday?**
+
+**3) What proportion of accidents on Mondays result in harm?**
+
+**4) What is the most typical type of accident (Collisionmanner) that occurs on Mondays?**
+
+
+
+<br><br>
+
+
+<br><br>
+
+# Submission Instructions
+
+After you have completed your lab, knit your RMD file. Login to Canvas at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link.
+
+Remember to:
+
+* name your files according to the convention: **Lab-##-LastName.Rmd**
+* show your solution, include your code.
+* do not print excessive output (like a full data set).
+* follow appropriate style guidelines (spaces between arguments, etc.).

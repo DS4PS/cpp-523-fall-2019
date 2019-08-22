@@ -6,11 +6,12 @@ output:
     highlight: tango
     toc: true
     self_contained: false
+    number_sections: true
     css: textbook.css
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, fig.width=9, warning=F, message=F )
+knitr::opts_chunk$set(echo=F, fig.width=9, warning=F, message=F )
 ```
 
 
@@ -21,7 +22,6 @@ library( dplyr )
 ```
 
 
-# Effect of Caffeine on Heart Rate
 
 ```{r, echo=F}
 dat <- 
@@ -101,6 +101,12 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 ```
 
 
+# Effect of Caffeine on Heart Rate
+
+We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.
+
+The relationship looks as follows:
+
 
 ```{r}
 # https://www.theodysseyonline.com/caffeine-affect-heart-rate
@@ -119,7 +125,14 @@ plot( caffeine, heart.rate, bty="n",
 
 
 
-## McGuyver's Regression Model
+
+## DIY Regression
+
+
+It looks as though heart rate does increase with the level of caffeine administered. But by how much? 
+
+One simplistic way we can analyze the data is by splitting it into several ranges of treatment and calculating the average heart rate for each group:
+
 
 
 ```{r}
@@ -146,7 +159,7 @@ points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
 
 
 
-Or alternatively, we could look at box and whisker plots calculated for each group.
+Or alternatively, we could look at box and whisker plot of each group.
 
 ```{r}
 
@@ -157,6 +170,207 @@ boxplot( heart.rate ~ caffeine.group,
          col="steelblue", xaxt="n" )
 ```
 
+## The Conditional Mean
+
+Either way, what we are doing here is basically a mathematically imprecise do-it-yourself regression model. Although this is a fairly blunt way to analyze the data, it is actually not too far off from our more mathematically elegant regression line:
+
+
+```{r}
+mod <- lm( heart.rate ~ caffeine )
+
+b0 <- coefficients( mod )["(Intercept)"]
+b1 <- coefficients( mod )["caffeine"]
+
+predicted.heart <- b0 + b1*ave.caffeine
+
+residual <- ave.heart - predicted.heart
+
+```
+
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+```
+
+
+This does demonstrate an important point, however. The regression model is a **conditional mean**: it gives you the average heart rate of a subject conditional on how much caffeine they consumed. 
+
+In other words, if you tell me the caffeine intake of the subject, I can give you a good guess of their heart rate. 
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
+points( ave.caffeine, predicted.heart, pch=19, col="firebrick", cex=1 )
+
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+
+text( ave.caffeine, ave.heart, round(ave.heart,0), pos=c(3,1,3,1,3,3,1,3,1,3), cex=1.2 )
+text( ave.caffeine, predicted.heart, round(predicted.heart,0), 
+      pos=c(1,3,1,3,1,1,3,1,3,1), cex=1.2, col="firebrick" )
+```
+
+<center> The models give us a guess for what the heart rate will be for subjects within a specific treatment group (level of caffeine). Both models return similar results. </center>
+
+<br>
+<br>
+
+<div class="tip">
+
+<br>
+
+The regression line represents the average value of Y conditional on each level of X.
+
+In other words, a regression is just a fancy average. 
+
+<br>
+
+</div>
+
+<br>
+
+
+```{r, results="asis"}
+data.frame( ave.caffeine, ave.heart, predicted.heart, difference=residual ) %>%
+  stargazer( summary=F, type="html" )
+```
+
+
+
+# Formula for the Regression 
+
+Our regression **line** can be written as:
+
+> $Y = b_0 + b_1 X + e$ 
+
+The regression **model** needs to include the residual *e*. 
+
+> $Y = b_0 + b_1 X + e$ 
+
+The slope of a regression line can be calculated as a ratio of the covariance of X and Y to the variance of X. 
+
+> $b_1 = cov(x,y) / var(x)$
+
+
+
+If you give it some thought, this is a pretty intuitive formula. When X varies by one unit, how much do we expect Y to covary? 
+
+Finding the intercept of the regression is a little tricky because after solving for $b_1$ we have three unknown variables (X, Y, and $b_0$ ) and only one equation. We need to draw upon the fact that the OLS regression line always passes through the mean of X and the mean of Y, giving us two known values. 
+
+> $\bar{y} = b_0 + b_1 \bar{x}$ 
+
+$b_1$ = cov(caffeine,heart.rate) / var(caffeine) = **`r round( cov(caffeine,heart.rate) / var(caffeine), 2 )`**
+
+`r round(mean(heart.rate),0)` = $b_0$ + `r round(b1,2)` $\cdot$ `r round(mean(caffeine),0)` 
+$b_0$ = **`r round(b0,2)`**
+
+The regression model gives us a very clear estimate of the "average effect" of one mg of caffeine on heart rate. 
+
+```{r, results="asis"}
+mod <- lm( heart.rate ~ caffeine )
+
+stargazer( mod, header=F, type="html" )
+```
+
+
+
+## The Variance of Y
+
+Let's consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate. 
+
+```{r}
+set.seed( 2345 )
+
+heart.rate.control <- 68 + (9/100)*0 + rnorm(100,0,20)  # no caffeine
+heart.rate.control[ heart.rate.control < 40 ] <- mean(heart.rate.control)
+
+y.hat <- mean(heart.rate.control)
+```
+
+
+
+The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction. 
+
+What does a **standard deviation** actually mean, though? 
+
+
+
+```{r}
+d <- density( heart.rate.control ) # returns the density data 
+plot( d , bty="n", main="Distribution of Resting Heart Rates in Population", 
+      xlab="", yaxt="n", ylab="" )
+polygon( d, col=gray(0.5,0.5), border="gray" ) 
+abline( v=mean(heart.rate.control), col="firebrick", lwd=2 )
+abline( v=mean(heart.rate.control)+sd(heart.rate.control), col="firebrick", lty=2 )
+abline( v=mean(heart.rate.control)-sd(heart.rate.control), col="firebrick", lty=2 )
+```
+
+
+If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction. 
+
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+y.hat <- mean( heart.rate.control )
+sd.y <-  sd( heart.rate.control )
+
+abline( h=y.hat, col="firebrick", lwd=2 )
+abline( h=c( y.hat+sd.y, y.hat-sd.y ), lty=2, col="firebrick" )
+```
+
+
+
+
+
+
+## The Standard Deviation
+
+In very simple (and not mathematically correct) terms, the standard deviation is the **"average" distance from each data point to the mean**. 
+
+```{r}
+jplot( caffeine, heart.rate.control, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+y.hat <- mean(heart.rate.control)
+abline( h=y.hat, col="darkgray", lwd=2 )
+segments( x0=caffeine, y0=y.hat, y1=heart.rate.control, col="firebrick", lwd=2 )
+
+```
+
+
+We are using the term "average" here because we actually use squared deviations from the mean to calculate variance, then take the square root to get the measures back to the original units. The standard deviation would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same and the measures will often be close:
+
+```{r}
+sd( heart.rate.control )
+mean( abs( heart.rate.control - y.hat ) ) %>% round(2)
+```
+
+
+```{r}
+# why is this zero?
+mean( heart.rate.control - y.hat ) %>% round(2)
+```
+
+
+
+
+
+# Partitioning The Variance
 
 
 The blue line is the average heart rate for the whole sample. This red dots then are what is known asd a conditional mean. 
@@ -257,45 +471,10 @@ boxplot( heart.rate ~ caffeine.group,
 
 
 The more important reason we will discuss in a couple of weeks. That is the ability to add control variables. 
-The regression model gives us a very clear estimate of the "average effect" of one mg of caffeine on heart rate. 
-
-```{r, results="asis"}
-mod <- lm( heart.rate ~ caffeine )
-
-stargazer( mod, header=F, type="html" )
-```
 
 
 
 
-As you can see, the regression model is another form of the conditional mean. If you tell me the caffeine intake of the subject, I can give you a good guess of their heart rate. 
-
-
-```{r}
-jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F )
-
-abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
-
-points( ave.caffeine, ave.heart, pch=1, col="black", cex=2, type="b" )
-
-abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
-```
-
-
-
-```{r, results="asis"}
-
-b0 <- coefficients( mod )["(Intercept)"]
-b1 <- coefficients( mod )["caffeine"]
-
-predicted.heart <- b0 + b1*ave.caffeine
-
-residual <- ave.heart - predicted.heart
-
-data.frame( ave.caffeine, ave.heart, predicted.heart, residual ) %>%
-  stargazer( summary=F, type="html" )
-```
 
 
 
@@ -311,80 +490,6 @@ abline( lm( heart.rate ~ caffeine ), col="darkgray", lwd=2 )
 
 segments( x0=caffeine, y0=predict(mod), y1=heart.rate, col="firebrick", lwd=2 )
 
-```
-
-
-## Residual Standard Error
-
-
-```{r}
-set.seed( 2345 )
-
-heart.rate.control <- 68 + (9/100)*0 + rnorm(100,0,20)  # no caffeine
-heart.rate.control[ heart.rate.control < 40 ] <- mean(heart.rate.control)
-
-y.hat <- mean(heart.rate.control)
-```
-
-
-
-
-
-```{r}
-d <- density( heart.rate.control ) # returns the density data 
-plot( d , bty="n", main="Distribution of Resting Heart Rates in Population", 
-      xlab="", yaxt="n", ylab="" )
-polygon( d, col=gray(0.5,0.5), border="gray" ) 
-abline( v=mean(heart.rate.control), col="firebrick", lwd=2 )
-abline( v=mean(heart.rate.control)+sd(heart.rate.control), col="firebrick", lty=2 )
-abline( v=mean(heart.rate.control)-sd(heart.rate.control), col="firebrick", lty=2 )
-```
-
-
-```{r}
-jplot( caffeine, heart.rate.control, 
-       lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F )
-
-y.hat <- mean( heart.rate.control )
-sd.y <-  sd( heart.rate.control )
-
-abline( h=y.hat, col="firebrick", lwd=2 )
-abline( h=c( y.hat+sd.y, y.hat-sd.y ), lty=2, col="firebrick" )
-```
-
-
-
-
-
-
-## The Standard Deviation
-
-Standard deviation is the "average" distance from each data point to the mean. 
-
-```{r}
-jplot( caffeine, heart.rate.control, 
-       lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F )
-
-y.hat <- mean(heart.rate.control)
-abline( h=y.hat, col="darkgray", lwd=2 )
-segments( x0=caffeine, y0=y.hat, y1=heart.rate.control, col="firebrick", lwd=2 )
-
-```
-
-
-We use squared deviations for the variance instead of absolute values, but the intuition is the same and the measures will often be close:
-
-```{r}
-sd( heart.rate.control )
-mean( abs( heart.rate.control - y.hat ) ) %>% round(2)
-```
-
-
-```{r}
-# why is this zero?
-mean( heart.rate.control - y.hat ) %>% round(2)
 ```
 
 
