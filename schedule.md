@@ -374,6 +374,45 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 *** { @unit = "MONDAY Aug-26", @title = "Lab 01", @assignment  }
 
+This first lab is meant as a review of some important regression formulas to either shake out the cobwebs if you have covered this material before, or get everyone on the same page if it is new. 
+
+The lecture notes needed for the lab are available on the course shell:
+
+[ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
+
+And the first chapter from Lewis-Beck serves as a reference for specific formulas if needed:
+
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
+
+
+For THIS ASSIGNMENT all of the work is done by hand so you can type your answers right into the attached word document:
+
+[Lab-01 Instructions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/labs/Lab-01-Regression-Review.docx)
+
+Save it using the naming convention:
+
+Lab-##-LastName.doc
+
+And submit via Canvas. Please show your work (include the basic steps for each calculation).
+
+For future assignments we will be using R Markdown documents so that you can run models and submit the results directly. 
+
+Since this is meant as a review (or getting up to speed) assignment it is due Monday. You will, however, have a full week for subsequent labs. 
+
+If you have questions, please post them to the [Assignment Discussion Board](https://ds4ps.org/cpp-523-fall-2019/help/).
+
+<a class="uk-button uk-button-primary" href="{{https://canvas.asu.edu/courses/29527/assignments/745249}}">Submit Lab-01</a>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
