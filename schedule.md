@@ -222,7 +222,7 @@ I will also add books, articles, tutorials and reference sheets to the [Resource
 
 
 
-*** { @unit = "", @title = "Background on R and Data Science", @lecture, @foldout   }
+*** { @unit = "", @title = "ORIENTATION to R", @lecture, @foldout   }
 
 
 ## The R Language
