@@ -375,16 +375,16 @@ this.order <- order( caffeine )
 caffeine <- caffeine[this.order]
 heart.rate.control <- heart.rate.control[this.order]
 
-jplot( caffeine[1:10], heart.rate.control[1:10], 
-       lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F, ylim=c(40,112) )
+jplot( 1:10, heart.rate.control[1:10], 
+       lab1="", lab2="Heart Rate", 
+       draw.line=F, ylim=c(30,120), xaxt="n" )
 
 y.hat <- mean(heart.rate.control)
 abline( h=y.hat, col="darkgray", lwd=2 )
-segments( x0=caffeine[1:10], y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
+segments( x0=1:10, y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
 
 position <- ifelse( heart.rate.control[1:10] > y.hat, 3, 1 )
-text( caffeine[1:10], heart.rate.control[1:10], 
+text( 1:10, heart.rate.control[1:10], 
       round(heart.rate.control[1:10]-y.hat,0), 
       pos=position, col="firebrick", cex=2 )
 ```
