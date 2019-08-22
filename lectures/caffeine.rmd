@@ -355,17 +355,48 @@ segments( x0=caffeine, y0=y.hat, y1=heart.rate.control, col="firebrick", lwd=2 )
 
 We are using the term "average" here because we actually use squared deviations from the mean to calculate variance, then take the square root to get the measures back to the original units. The standard deviation would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same and the measures will often be close:
 
+**Standard Deviation:**
+
 ```{r}
 sd( heart.rate.control )
+```
+
+**True Average Dist Between Data and Mean:**
+
+```{r}
 mean( abs( heart.rate.control - y.hat ) ) %>% round(2)
 ```
 
 
+
 ```{r}
-# why is this zero?
-mean( heart.rate.control - y.hat ) %>% round(2)
+
+this.order <- order( caffeine )
+caffeine <- caffeine[this.order]
+heart.rate.control <- heart.rate.control[this.order]
+
+jplot( caffeine[1:10], heart.rate.control[1:10], 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, ylim=c(40,112) )
+
+y.hat <- mean(heart.rate.control)
+abline( h=y.hat, col="darkgray", lwd=2 )
+segments( x0=caffeine[1:10], y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
+
+position <- ifelse( heart.rate.control[1:10] > y.hat, 3, 1 )
+text( caffeine[1:10], heart.rate.control[1:10], 
+      round(heart.rate.control[1:10]-y.hat,0), 
+      pos=position, col="firebrick", cex=2 )
 ```
 
+
+
+```{r}
+# sd( heart.rate.control[1:10] )
+# mean( abs( heart.rate.control[1:10] - mean(heart.rate.control[1:10]) ) )
+
+abs( heart.rate.control[1:10] - mean(heart.rate.control[1:10]) ) 
+```
 
 
 

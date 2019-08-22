@@ -524,9 +524,13 @@ F Statistic
 <p>In very simple (and not mathematically correct) terms, the standard deviation is the <strong>“average” distance from each data point to the mean</strong>.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>We are using the term “average” here because we actually use squared deviations from the mean to calculate variance, then take the square root to get the measures back to the original units. The standard deviation would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same and the measures will often be close:</p>
+<p><strong>Standard Deviation:</strong></p>
 <pre><code>## [1] 17.52184</code></pre>
+<p><strong>True Average Dist Between Data and Mean:</strong></p>
 <pre><code>## [1] 13.81</code></pre>
-<pre><code>## [1] 0</code></pre>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
+<pre><code>##  [1] 23.2440659 18.0340471 14.6260891 22.2501259 21.1077332 10.4945604
+##  [7] 10.1823190  6.4918156 29.5889871  0.2889127</code></pre>
 </div>
 </div>
 <div id="partitioning-the-variance" class="section level1">
@@ -534,13 +538,13 @@ F Statistic
 <p>The blue line is the average heart rate for the whole sample. This red dots then are what is known asd a conditional mean.</p>
 <p>Is this a good model of heart rate, though?</p>
 <p>If you tell me the caffeine intake of the subject, I can give you a pretty good guess of their heart rate.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
 <p>compare residuals of base model to residuals of conditional mean.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
 <div id="residual-standard-error" class="section level3">
 <h3><span class="header-section-number">3.0.1</span> Residual Standard Error</h3>
-<pre><code>## [1] 17.68936</code></pre>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
+<pre><code>## [1] 21.38787</code></pre>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
 </div>
 <div id="residual-standard-error-1" class="section level3">
 <h3><span class="header-section-number">3.0.2</span> Residual Standard Error</h3>
@@ -551,12 +555,12 @@ F Statistic
 <h1><span class="header-section-number">4</span> Regression</h1>
 <p>Why don’t we just use these groups?</p>
 <p>Part of the reason is that when we try to get more granular estimates of the treatment we begin to get noisy data with lots of holes in it as we try to slice the data thinner and thinner.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="864" /></p>
 <p>The more important reason we will discuss in a couple of weeks. That is the ability to add control variables.</p>
 </div>
 <div id="examining-fit" class="section level1">
 <h1><span class="header-section-number">5</span> Examining Fit</h1>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="864" /></p>
 <pre><code>## [1] 14.77745</code></pre>
 <p>On average our predicted heart rate was 14.7774456 from the true heart rate.</p>
 </div>
