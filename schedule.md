@@ -232,7 +232,7 @@ I will also add books, articles, tutorials and reference sheets to the [Resource
 
 ** Week 1 - Nuts and Bolts of Regression Models
 
-*** { @unit = "", @title = "Overview of the Week", @foldout  }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
 ## Description 
 
@@ -305,13 +305,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
-
-
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
-
-
-*** { @unit = "Due DATE", @title = "Lab 01", @assignment  }
+*** { @unit = "MONDAY Aug-26", @title = "Lab 01", @assignment  }
 
 
 
@@ -319,7 +313,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 ** Week 2 - Effect Size and Confidence Intervals 
 
-*** { @unit = "", @title = "Overview of the Week" }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
 ## Description 
 
@@ -353,13 +347,10 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
+*** { @unit = "THURS Aug-29", @title = "Mini-Assessment", @assignment  }
 
 
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
-
-
-*** { @unit = "Due DATE", @title = "Lab 02", @assignment  }
+*** { @unit = "MON Sept-02", @title = "Lab 02", @assignment  }
 
 
 
@@ -367,7 +358,7 @@ Include a description of problems
 
 ** Week 3 - Control Variables 
 
-*** { @unit = "", @title = "Overview of the Week"  }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
 ## Description 
 
@@ -402,14 +393,9 @@ Include a description of problems
 
 
 
+*** { @unit = "THURS Sept-05", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "Due DATE", @title = "Reading Title", @reading }
-
-
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
-
-
-*** { @unit = "Due DATE", @title = "Lab 03", @assignment  }
+*** { @unit = "MON Sept-09", @title = "Lab 03", @assignment  }
 
 
 
@@ -417,7 +403,7 @@ Include a description of problems
 
 ** Week 4 - Omitted Variable Bias 
 
-*** { @unit = "", @title = "Overview of the Week", @reading  }
+*** { @unit = "", @title = "Unit Overview", @reading  }
 
 ## Description 
 
@@ -459,18 +445,25 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Lecture Title", @lecture  }
+*** { @unit = "THURS Sept-12", @title = "Mini-Assessment", @assignment  }
 
-
-*** { @unit = "Due DATE", @title = "Lab 04", @assignment  }
+*** { @unit = "MON Sept-16", @title = "Lab 04", @assignment  }
 
 
 
 
 ** Week 5 - Dummy Variables: Revisiting Hypothesis Tests 
 
-*** { @unit = "", @title = "Overview of the Week", @reading  }
+*** { @unit = "", @title = "Unit Overview", @reading  }
+
+
 ## Description 
+
+Dummy Variables 
+Groups in Your Data
+A Taxonomy of Hypotheses
+
+
 
 2-5 sentence overview of what is covered in the section.
 
@@ -504,26 +497,17 @@ Include a description of problems
 
 
 
-*** { @unit = "Due DATE", @title = "Dummy Variables", @reading }
 
 
+*** { @unit = "THURS Sept-19", @title = "Mini-Assessment", @assignment  }
 
-
-
-*** { @unit = "Due DATE", @title = "Groups in Your Data", @lecture  }
-
-
-*** { @unit = "Due DATE", @title = "A Taxonomy of Hypotheses", @lecture  }
-
-
-
-*** { @unit = "Due DATE", @title = "Lab 05", @assignment  }
+*** { @unit = "MON Sept-23", @title = "Lab 05", @assignment  }
 
 
 
 ** Week 6 - Specification
 
-*** { @unit = "", @title = "Overview of the Week"  }
+*** { @unit = "", @title = "Unit Overview"  }
 
 
 ![](http://www.papaa.org/sites/default/files/Causality%20and%20Correlation.jpg)
@@ -572,8 +556,9 @@ Include a description of problems
 *** { @unit = "Due DATE", @title = "The Seven Deadly Sins of Regression", @lecture  }
 
 
-*** { @unit = "Due DATE", @title = "Lab 06", @assignment  }
+*** { @unit = "THURS Sept-26", @title = "Mini-Assessment", @assignment  }
 
+*** { @unit = "MON Sept-30", @title = "Lab 06", @assignment  }
 
 
 
@@ -584,8 +569,9 @@ Include a description of problems
 
 *** { @unit = "", @title = "Review", @lecture }
 
+*** { @unit = "THURS Oct-03", @title = "Mini-Assessment", @assignment  }
 
 
 ** FINAL EXAM
 
-*** { @unit = "Due DATE", @title = "Final Exam", @assignment }
+*** { @unit = "Open MON Oct-06 to WED Oct-09", @title = "Final Exam", @assignment }
