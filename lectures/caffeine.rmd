@@ -149,12 +149,16 @@ for( i in seq( from=0, to=450, by=50 ) )
 
 }
 
-jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F )
+jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Group", 
+       lab2="Average Heart Rate by Group", 
+       draw.line=F, xaxt="n" )
 
 abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
 
 points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
+text( ave.caffeine, ave.heart, round(ave.heart,0), cex=0.9, col="firebrick", pos=3 )
+
+text( ave.caffeine, 40, ave.caffeine, cex=1.5 )
 ```
 
 
