@@ -163,9 +163,11 @@ text( ave.caffeine, 40, ave.caffeine, cex=1.5 )
 
 
 
-Or alternatively, we could look at box and whisker plot of each group.
 
-```{r}
+```{r, eval=F}
+
+# Or alternatively, we could look at box and whisker plot of each group.
+
 
 caffeine.group <- cut( caffeine, seq( from=0, to=500, by=50 ) )
 
@@ -264,6 +266,24 @@ If we have no information on an individual, then our best guess of their level o
 If we only have information about an individual regarding X, then the predicted value of Y conditional on X is our best guess of what the outcome measure might be for that individual. 
 
 The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean. 
+
+```{r}
+jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F )
+
+abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
+
+points( ave.caffeine, predicted.heart, pch=19, col="firebrick", cex=1 )
+
+
+abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
+abline( h=mean(heart.rate), col="steelblue", lwd=2 )
+
+text( ave.caffeine, ave.heart, round(ave.heart,0), pos=3, cex=1.2 )
+
+text( 450, mean(heart.rate), "Mean of Y", pos=3, col="steelblue", cex=1.5 )
+```
+
 
 When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
 
@@ -428,30 +448,6 @@ A DEVIATION is the distance between a data point and the mean.
 
 Let's drill down to the first ten observations to examine this a little closer:
 
-```{r}
-
-this.order <- order( caffeine )
-caffeine <- caffeine[this.order]
-heart.rate.control <- heart.rate.control[this.order]
-
-jplot( 1:10, heart.rate.control[1:10], 
-       lab1="", lab2="Heart Rate", 
-       draw.line=F, ylim=c(30,120), xaxt="n", xlim=c(1,12),
-       main="Deviations from the Mean of Y")
-
-y.hat <- mean(heart.rate.control[1:10])
-abline( h=y.hat, col="steelblue", lwd=2 )
-segments( x0=1:10, y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
-
-position <- ifelse( heart.rate.control[1:10] > y.hat, 3, 1 )
-text( 1:10, heart.rate.control[1:10], 
-      round(heart.rate.control[1:10]-y.hat,0), 
-      pos=position, col="firebrick", cex=2 )
-text( 11.5, y.hat, expression(bar(Y)), pos=3, cex=2.5, col="steelblue" )
-```
-
-
-
 $deviation_i = y_i - \bar{y}$
 
 
@@ -477,6 +473,34 @@ text( 7, y[7]+15, expression(deviation[i] ), col="firebrick", cex=2, pos=3 )
 text( 11.5, y.hat, expression(bar(Y)), pos=3, cex=2.5, col="steelblue" )
 ```
 
+Distance from the mean of Y for all ten cases:
+
+```{r}
+
+this.order <- order( caffeine )
+caffeine <- caffeine[this.order]
+heart.rate.control <- heart.rate.control[this.order]
+
+jplot( 1:10, heart.rate.control[1:10], 
+       lab1="", lab2="Heart Rate", 
+       draw.line=F, ylim=c(30,120), xaxt="n", xlim=c(1,12),
+       main="Deviations from the Mean of Y")
+
+y.hat <- mean(heart.rate.control[1:10])
+abline( h=y.hat, col="steelblue", lwd=2 )
+segments( x0=1:10, y0=y.hat, y1=heart.rate.control[1:10], col="firebrick", lwd=2 )
+
+position <- ifelse( heart.rate.control[1:10] > y.hat, 3, 1 )
+text( 1:10, heart.rate.control[1:10], 
+      round(heart.rate.control[1:10]-y.hat,0), 
+      pos=position, col="firebrick", cex=2 )
+text( 11.5, y.hat, expression(bar(Y)), pos=3, cex=2.5, col="steelblue" )
+```
+
+
+
+
+
 
 
 ```{r}
@@ -496,7 +520,7 @@ d2 %>% pander()
 ```
 
 
-$Variance(Y) =  \sum{ (y_i - \bar{y})^2 } / (n-1)$
+$var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
 
 Why will the sum of the deviations always add to zero?
 
@@ -505,7 +529,7 @@ Since we have to square the deviations to ensure they are all positive values, w
 
 The **standard deviation** takes the square root of the variance to get us back to original units:
 
-$StdDev(Y) =  \sqrt{ var(y) }$
+$stdev(y) =  \sqrt{ var(y) }$
 
 
 
@@ -513,7 +537,7 @@ Again, when you hear the term "standard" you should think of "average" or "typic
 
 **Standard Deviation:**  `r round(sd( heart.rate.control ),1)`
 
-**True Average Dist Between Data and Mean:**  `r mean( abs( heart.rate.control - y.hat ) ) %>% round(1)`
+**Average Absolute Values of Deviations:**  `r mean( abs( heart.rate.control - y.hat ) ) %>% round(1)`
 
 
 

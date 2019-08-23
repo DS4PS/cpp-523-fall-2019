@@ -135,8 +135,6 @@ $(document).ready(function () {
 <p>It looks as though heart rate does increase with the level of caffeine administered. But by how much?</p>
 <p>One simplistic way we can analyze the data is by splitting it into several ranges of treatment and calculating the average heart rate for each group:</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
-<p>Or alternatively, we could look at box and whisker plot of each group.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
 </div>
 <div id="the-conditional-mean" class="section level2">
 <h2><span class="header-section-number">1.2</span> The Conditional Mean</h2>
@@ -494,8 +492,9 @@ Residual Std. Error
 </div>
 <p><br></p>
 <p>Let’s drill down to the first ten observations to examine this a little closer:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
 <p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<p>Distance from the mean of Y for all ten cases:</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
 <table style="width:78%;">
 <colgroup>
@@ -594,14 +593,14 @@ Residual Std. Error
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(Variance(Y) = \sum{ (y_i - \bar{y})^2 } / (n-1)\)</span></p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
 <p>Why will the sum of the deviations always add to zero?</p>
 <p>Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart rate squared.</p>
 <p>The <strong>standard deviation</strong> takes the square root of the variance to get us back to original units:</p>
-<p><span class="math inline">\(StdDev(Y) = \sqrt{ var(y) }\)</span></p>
+<p><span class="math inline">\(stdev(y) = \sqrt{ var(y) }\)</span></p>
 <p>Again, when you hear the term “standard” you should think of “average” or “typical”. It’s not exactly an average because you are taking squared roots of squared deviations (that’s a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:</p>
 <p><strong>Standard Deviation:</strong> 17.5</p>
-<p><strong>True Average Dist Between Data and Mean:</strong> 14.5</p>
+<p><strong>Average Absolute Values of Deviations:</strong> 14.5</p>
 </div>
 </div>
 <div id="r-squared-explaining-variance" class="section level1">
