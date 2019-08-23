@@ -227,15 +227,6 @@ I will also add books, articles, tutorials and reference sheets to the [Resource
 
 
 
-
-
-
-** Week 1 - Nuts and Bolts of Regression Models
-
-
-
-
-
 *** { @unit = "", @title = "ORIENTATION to R", @lecture, @foldout   }
 
 
@@ -290,6 +281,18 @@ The *unofficial* program website can be found at:
 And the dashboard example in R can be found here:
 
 [R Storyboard Example](https://beta.rstudioconnect.com/jjallaire/htmlwidgets-showcase-storyboard/htmlwidgets-showcase-storyboard.html)
+
+
+
+
+
+
+
+
+
+
+** Week 1 - Nuts and Bolts of Regression Models
+
 
 
 
