@@ -242,10 +242,45 @@ In other words, a regression is just a fancy average.
 
 
 ```{r, results="asis"}
-data.frame( ave.caffeine, ave.heart, predicted.heart, difference=residual ) %>%
+data.frame( ave.caffeine, ave.heart, predicted.heart ) %>%
   stargazer( summary=F, type="html" )
 ```
 
+
+
+Another way to think about a regression line is a set of predictions for where we expect Y to be based upon an observed value of X. I am guessing the value of Y based upon information I have on X. 
+
+If we have no information on an individual, then our best guess of their level of Y will be the population mean of Y. It is a very crude way to make a prediction, but it is far better than selecting a number at random.
+
+If we only have information about an individual regarding X, then the predicted value of Y conditional on X is our best guess of what the outcome measure might be for that individual. 
+
+The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean. 
+
+When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
+
+We use the notation $\hat{y}$ to represent predicted values of Y. 
+
+
+Consequently, we will sometimes use $\hat{y}$ as shorthand for the regression line. 
+
+
+```{r}
+
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="The Regression Line Represents Predicted Values of Y" )
+
+points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
+
+```
+
+
+
+<br>
+<br>
 
 
 # Formula for the Regression 

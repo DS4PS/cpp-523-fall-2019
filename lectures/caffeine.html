@@ -158,7 +158,7 @@ The models give us a guess for what the heart rate will be for subjects within a
 <p><br></p>
 <table style="text-align:center">
 <tr>
-<td colspan="5" style="border-bottom: 1px solid black">
+<td colspan="4" style="border-bottom: 1px solid black">
 </td>
 </tr>
 <tr>
@@ -173,12 +173,9 @@ ave.heart
 <td>
 predicted.heart
 </td>
-<td>
-difference
-</td>
 </tr>
 <tr>
-<td colspan="5" style="border-bottom: 1px solid black">
+<td colspan="4" style="border-bottom: 1px solid black">
 </td>
 </tr>
 <tr>
@@ -194,9 +191,6 @@ difference
 <td>
 73.565
 </td>
-<td>
-7.138
-</td>
 </tr>
 <tr>
 <td style="text-align:left">
@@ -210,9 +204,6 @@ difference
 </td>
 <td>
 77.756
-</td>
-<td>
--1.830
 </td>
 </tr>
 <tr>
@@ -228,9 +219,6 @@ difference
 <td>
 81.947
 </td>
-<td>
-2.032
-</td>
 </tr>
 <tr>
 <td style="text-align:left">
@@ -244,9 +232,6 @@ difference
 </td>
 <td>
 86.138
-</td>
-<td>
--10.484
 </td>
 </tr>
 <tr>
@@ -262,9 +247,6 @@ difference
 <td>
 90.329
 </td>
-<td>
--0.592
-</td>
 </tr>
 <tr>
 <td style="text-align:left">
@@ -278,9 +260,6 @@ difference
 </td>
 <td>
 94.520
-</td>
-<td>
--1.299
 </td>
 </tr>
 <tr>
@@ -296,9 +275,6 @@ difference
 <td>
 98.711
 </td>
-<td>
--0.666
-</td>
 </tr>
 <tr>
 <td style="text-align:left">
@@ -312,9 +288,6 @@ difference
 </td>
 <td>
 102.902
-</td>
-<td>
-12.924
 </td>
 </tr>
 <tr>
@@ -330,9 +303,6 @@ difference
 <td>
 107.093
 </td>
-<td>
--3.613
-</td>
 </tr>
 <tr>
 <td style="text-align:left">
@@ -347,15 +317,21 @@ difference
 <td>
 111.284
 </td>
-<td>
-1.925
-</td>
 </tr>
 <tr>
-<td colspan="5" style="border-bottom: 1px solid black">
+<td colspan="4" style="border-bottom: 1px solid black">
 </td>
 </tr>
 </table>
+<p>Another way to think about a regression line is a set of predictions for where we expect Y to be based upon an observed value of X. I am guessing the value of Y based upon information I have on X.</p>
+<p>If we have no information on an individual, then our best guess of their level of Y will be the population mean of Y. It is a very crude way to make a prediction, but it is far better than selecting a number at random.</p>
+<p>If we only have information about an individual regarding X, then the predicted value of Y conditional on X is our best guess of what the outcome measure might be for that individual.</p>
+<p>The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean.</p>
+<p>When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can’t improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model.</p>
+<p>We use the notation <span class="math inline">\(\hat{y}\)</span> to represent predicted values of Y.</p>
+<p>Consequently, we will sometimes use <span class="math inline">\(\hat{y}\)</span> as shorthand for the regression line.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
+<p><br> <br></p>
 </div>
 </div>
 <div id="formula-for-the-regression" class="section level1">
@@ -500,13 +476,13 @@ Residual Std. Error
 <p>Let’s consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate.</p>
 <p>The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p>What does a <strong>standard deviation</strong> actually mean, though?</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
-<p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <div id="the-standard-deviation" class="section level2">
 <h2><span class="header-section-number">3.1</span> The Standard Deviation</h2>
 <p>In very simple (and not mathematically correct) terms, the standard deviation is the <strong>“average” distance from each data point to the mean</strong>.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
 <p>We use the term “average” loosely because the standard deviation actually measures <strong>squared deviations</strong> from the mean to calculate variance, then take the <strong>square root of the sum</strong> to get the measures back to the original units.</p>
 <p>The <strong>standard deviation</strong> would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same.</p>
 <p><br></p>
@@ -518,9 +494,9 @@ Residual Std. Error
 </div>
 <p><br></p>
 <p>Let’s drill down to the first ten observations to examine this a little closer:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
-<p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
 <table style="width:78%;">
 <colgroup>
 <col width="8%" />
@@ -632,7 +608,7 @@ Residual Std. Error
 <h1><span class="header-section-number">4</span> R-Squared: Explaining Variance</h1>
 <p>Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of “explaining” variance.</p>
 <p>It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="1152" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="1152" /></p>
 <p>The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points.</p>
 <div id="sums-of-squares" class="section level2">
 <h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
@@ -649,7 +625,7 @@ Residual Std. Error
 <p>Also note that TOTAL SS divided by (n-1) is the variance of Y, so the statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
 <p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
 <p>Visually it would look something like this:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
 <p><br></p>
 <div class="tip">
 <p><br></p>
@@ -824,7 +800,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="864" /></p>
 <p><br></p>
 <div class="tip">
 <p><br></p>
