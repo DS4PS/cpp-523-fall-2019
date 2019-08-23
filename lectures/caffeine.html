@@ -114,16 +114,14 @@ $(document).ready(function () {
 <li><a href="#diy-regression"><span class="toc-section-number">1.1</span> DIY Regression</a></li>
 <li><a href="#the-conditional-mean"><span class="toc-section-number">1.2</span> The Conditional Mean</a></li>
 </ul></li>
-<li><a href="#formula-for-the-regression"><span class="toc-section-number">2</span> Formula for the Regression</a><ul>
-<li><a href="#the-variance-of-y"><span class="toc-section-number">2.1</span> The Variance of Y</a></li>
-<li><a href="#the-standard-deviation"><span class="toc-section-number">2.2</span> The Standard Deviation</a></li>
+<li><a href="#formula-for-the-regression"><span class="toc-section-number">2</span> Formula for the Regression</a></li>
+<li><a href="#the-variance-of-y"><span class="toc-section-number">3</span> The Variance of Y</a><ul>
+<li><a href="#the-standard-deviation"><span class="toc-section-number">3.1</span> The Standard Deviation</a></li>
 </ul></li>
-<li><a href="#partitioning-the-variance"><span class="toc-section-number">3</span> Partitioning The Variance</a><ul>
-<li><a href="#residual-standard-error"><span class="toc-section-number">3.0.1</span> Residual Standard Error</a></li>
-<li><a href="#residual-standard-error-1"><span class="toc-section-number">3.0.2</span> Residual Standard Error</a></li>
+<li><a href="#r-squared-explaining-variance"><span class="toc-section-number">4</span> R-Squared: Explaining Variance</a><ul>
+<li><a href="#sums-of-squares"><span class="toc-section-number">4.1</span> Sums of Squares</a></li>
+<li><a href="#residual-standard-error"><span class="toc-section-number">4.2</span> Residual Standard Error</a></li>
 </ul></li>
-<li><a href="#regression"><span class="toc-section-number">4</span> Regression</a></li>
-<li><a href="#examining-fit"><span class="toc-section-number">5</span> Examining Fit</a></li>
 </ul>
 </div>
 
@@ -364,7 +362,7 @@ difference
 <h1><span class="header-section-number">2</span> Formula for the Regression</h1>
 <p>Our regression <strong>line</strong> can be written as:</p>
 <blockquote>
-<p><span class="math inline">\(Y = b_0 + b_1 X + e\)</span></p>
+<p><span class="math inline">\(Y = b_0 + b_1 X\)</span></p>
 </blockquote>
 <p>The regression <strong>model</strong> needs to include the residual <em>e</em>.</p>
 <blockquote>
@@ -380,6 +378,8 @@ difference
 <p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
 </blockquote>
 <p><span class="math inline">\(b_1\)</span> = cov(caffeine,heart.rate) / var(caffeine) = <strong>0.08</strong></p>
+<p><span class="math inline">\(\bar{y}\)</span> = 90</p>
+<p><span class="math inline">\(\bar{x}\)</span> = 219</p>
 <p>90 = <span class="math inline">\(b_0\)</span> + 0.08 <span class="math inline">\(\cdot\)</span> 219 <span class="math inline">\(b_0\)</span> = <strong>71.47</strong></p>
 <p>The regression model gives us a very clear estimate of the “average effect” of one mg of caffeine on heart rate.</p>
 <table style="text-align:center">
@@ -475,26 +475,10 @@ R<sup>2</sup>
 </tr>
 <tr>
 <td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.274
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
 Residual Std. Error
 </td>
 <td>
 18.755 (df = 98)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-38.401<sup>***</sup> (df = 1; 98)
 </td>
 </tr>
 <tr>
@@ -510,59 +494,346 @@ F Statistic
 </td>
 </tr>
 </table>
-<div id="the-variance-of-y" class="section level2">
-<h2><span class="header-section-number">2.1</span> The Variance of Y</h2>
+</div>
+<div id="the-variance-of-y" class="section level1">
+<h1><span class="header-section-number">3</span> The Variance of Y</h1>
 <p>Let’s consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate.</p>
 <p>The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p>What does a <strong>standard deviation</strong> actually mean, though?</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
 <p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
-</div>
 <div id="the-standard-deviation" class="section level2">
-<h2><span class="header-section-number">2.2</span> The Standard Deviation</h2>
+<h2><span class="header-section-number">3.1</span> The Standard Deviation</h2>
 <p>In very simple (and not mathematically correct) terms, the standard deviation is the <strong>“average” distance from each data point to the mean</strong>.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
-<p>We are using the term “average” here because we actually use squared deviations from the mean to calculate variance, then take the square root to get the measures back to the original units. The standard deviation would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same and the measures will often be close:</p>
-<p><strong>Standard Deviation:</strong></p>
-<pre><code>## [1] 17.52184</code></pre>
-<p><strong>True Average Dist Between Data and Mean:</strong></p>
-<pre><code>## [1] 13.81</code></pre>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
-<pre><code>##  [1] 23.2440659 18.0340471 14.6260891 22.2501259 21.1077332 10.4945604
-##  [7] 10.1823190  6.4918156 29.5889871  0.2889127</code></pre>
+<p>We use the term “average” loosely because the standard deviation actually measures <strong>squared deviations</strong> from the mean to calculate variance, then take the <strong>square root of the sum</strong> to get the measures back to the original units.</p>
+<p>The <strong>standard deviation</strong> would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same.</p>
+<p><br></p>
+<div class="tip">
+<p><br></p>
+<p>The STANDARD deviation measures the TYPICAL or AVERAGE deviation.</p>
+<p>A DEVIATION is the distance between a data point and the mean.</p>
+<p><br></p>
+</div>
+<p><br></p>
+<p>Let’s drill down to the first ten observations to examine this a little closer:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
+<p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<table style="width:78%;">
+<colgroup>
+<col width="8%" />
+<col width="18%" />
+<col width="12%" />
+<col width="18%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">ID</th>
+<th align="center">Heart_Rate</th>
+<th align="center">Mean_Y</th>
+<th align="center">Deviations</th>
+<th align="center">Devs_Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">40.04</td>
+<td align="center">63.28</td>
+<td align="center">-23</td>
+<td align="center">529</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">45.25</td>
+<td align="center">63.28</td>
+<td align="center">-18</td>
+<td align="center">324</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">48.66</td>
+<td align="center">63.28</td>
+<td align="center">-15</td>
+<td align="center">225</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">41.03</td>
+<td align="center">63.28</td>
+<td align="center">-22</td>
+<td align="center">484</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">84.39</td>
+<td align="center">63.28</td>
+<td align="center">21</td>
+<td align="center">441</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">73.78</td>
+<td align="center">63.28</td>
+<td align="center">10</td>
+<td align="center">100</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">73.47</td>
+<td align="center">63.28</td>
+<td align="center">10</td>
+<td align="center">100</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">69.78</td>
+<td align="center">63.28</td>
+<td align="center">6</td>
+<td align="center">36</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">92.87</td>
+<td align="center">63.28</td>
+<td align="center">30</td>
+<td align="center">900</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">63.57</td>
+<td align="center">63.28</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">SUM</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="center">0</td>
+<td align="center">3139</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(Variance(Y) = \sum{ (y_i - \bar{y})^2 } / (n-1)\)</span></p>
+<p>Why will the sum of the deviations always add to zero?</p>
+<p>Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart rate squared.</p>
+<p>The <strong>standard deviation</strong> takes the square root of the variance to get us back to original units:</p>
+<p><span class="math inline">\(StdDev(Y) = \sqrt{ var(y) }\)</span></p>
+<p>Again, when you hear the term “standard” you should think of “average” or “typical”. It’s not exactly an average because you are taking squared roots of squared deviations (that’s a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:</p>
+<p><strong>Standard Deviation:</strong> 17.5</p>
+<p><strong>True Average Dist Between Data and Mean:</strong> 14.5</p>
 </div>
 </div>
-<div id="partitioning-the-variance" class="section level1">
-<h1><span class="header-section-number">3</span> Partitioning The Variance</h1>
-<p>The blue line is the average heart rate for the whole sample. This red dots then are what is known asd a conditional mean.</p>
-<p>Is this a good model of heart rate, though?</p>
-<p>If you tell me the caffeine intake of the subject, I can give you a pretty good guess of their heart rate.</p>
+<div id="r-squared-explaining-variance" class="section level1">
+<h1><span class="header-section-number">4</span> R-Squared: Explaining Variance</h1>
+<p>Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of “explaining” variance.</p>
+<p>It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="1152" /></p>
+<p>The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points.</p>
+<div id="sums-of-squares" class="section level2">
+<h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
+<p>What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component.</p>
+<p><strong>Note that A - B + B - C is the same as A - C.</strong></p>
+<p>Now take a look at the equations to calculate SUMS OF SQUARES:</p>
+<p>TOTAL SS = <span class="math inline">\(\sum{ (y_i - \bar{y})^2 }\)</span></p>
+<p>RESIDUAL SS = <span class="math inline">\(\sum{ (y_i - \hat{y})^2 }\)</span></p>
+<p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
+<p>Note the pattern here:</p>
+<p><span class="math inline">\(y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}\)</span></p>
+<p><span class="math inline">\((y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}\)</span></p>
+<p><span class="math inline">\((RESIDUAL \ SS) + (EXPLAINED \ SS) = TOTAL \ SS\)</span></p>
+<p>Also note that TOTAL SS divided by (n-1) is the variance of Y, so the statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
+<p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
+<p>Visually it would look something like this:</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
-<p>compare residuals of base model to residuals of conditional mean.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
-<div id="residual-standard-error" class="section level3">
-<h3><span class="header-section-number">3.0.1</span> Residual Standard Error</h3>
-<pre><code>## [1] 21.38787</code></pre>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
+<p><br></p>
+<div class="tip">
+<p><br></p>
+<p>PARTITIONING THE VARIANCE of our outcome Y means splitting it into EXPLAINED and UNEXPLAINED portions.</p>
+<p>The total variance is calculated from DEVIATIONS of data points to the MEAN OF Y.</p>
+<p>We partition it by inserting the regression line between the data point and the mean.</p>
+<p>The UNEXPLAINED portion is calculated from the RESIDUALS, the distance between the regression line (the predicted values of Y) and observed values.</p>
+<p><span class="math inline">\(R^2\)</span> is the proportion of TOTAL VARIANCE OF Y accounted for by the regression.</p>
+<p><br></p>
 </div>
-<div id="residual-standard-error-1" class="section level3">
-<h3><span class="header-section-number">3.0.2</span> Residual Standard Error</h3>
-<pre><code>## [1] 22.01389</code></pre>
+<p><br></p>
+<p>Note that we have a variance of both X and Y in our model. When we are explaining variance or partitioning variance, it is always with respect to the outcome. That is the variance we are trying to explain.</p>
+<p>Total SS: 47977</p>
+<p>Explained SS: 13507</p>
+<p>Residual SS: 34470</p>
+<p>We will find these values in an ANOVA table:</p>
+<table style="width:92%;">
+<caption>Analysis of Variance Model</caption>
+<colgroup>
+<col width="22%" />
+<col width="6%" />
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Df</th>
+<th align="center">Sum Sq</th>
+<th align="center">Mean Sq</th>
+<th align="center">F value</th>
+<th align="center">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>caffeine</strong></td>
+<td align="center">1</td>
+<td align="center">13507</td>
+<td align="center">13507</td>
+<td align="center">38.4</td>
+<td align="center">0.00000001361</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Residuals</strong></td>
+<td align="center">98</td>
+<td align="center">34470</td>
+<td align="center">351.7</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+</tr>
+</tbody>
+</table>
+<p>The caffeine Sum Sq here is the Explained portion, and the Residual Sum Sq is the unexplained portion.</p>
+<p>The TOTAL SS can be tabulated by adding the Residual SS and Explained SS.</p>
 </div>
+<div id="residual-standard-error" class="section level2">
+<h2><span class="header-section-number">4.2</span> Residual Standard Error</h2>
+<p>It’s also worth noting that the Residual Standard Error in the regression model is just the standard deviation of the residuals.</p>
+<p><span class="math inline">\(Residual \ Std \ Error = \sqrt{ \frac{Residual SS}{ (n-1)} }\)</span></p>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+heart.rate
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+caffeine
+</td>
+<td>
+0.084<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+71.470<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(3.503)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.282
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+18.755 (df = 98)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="864" /></p>
+<p><br></p>
+<div class="tip">
+<p><br></p>
+<p>The Residual Standard Error measures the “average” residual in the model, or the typical amount we can expect to be wrong if we are predicting a level of Y using our regression model.</p>
+<p><br></p>
 </div>
-<div id="regression" class="section level1">
-<h1><span class="header-section-number">4</span> Regression</h1>
-<p>Why don’t we just use these groups?</p>
-<p>Part of the reason is that when we try to get more granular estimates of the treatment we begin to get noisy data with lots of holes in it as we try to slice the data thinner and thinner.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="864" /></p>
-<p>The more important reason we will discuss in a couple of weeks. That is the ability to add control variables.</p>
+<p><br></p>
+<p><br></p>
 </div>
-<div id="examining-fit" class="section level1">
-<h1><span class="header-section-number">5</span> Examining Fit</h1>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="864" /></p>
-<pre><code>## [1] 14.77745</code></pre>
-<p>On average our predicted heart rate was 14.7774456 from the true heart rate.</p>
 </div>
 
 
