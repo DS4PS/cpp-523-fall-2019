@@ -223,6 +223,15 @@ text( ave.caffeine, predicted.heart, round(predicted.heart,0),
 
 <center> The models give us a guess for what the heart rate will be for subjects within a specific treatment group (level of caffeine). Both models return similar results. </center>
 
+
+```{r, results="asis"}
+data.frame( ave.caffeine, ave.heart, predicted.heart ) %>%
+  stargazer( summary=F, type="html" )
+```
+
+
+
+
 <br>
 <br>
 
@@ -241,10 +250,6 @@ In other words, a regression is just a fancy average.
 <br>
 
 
-```{r, results="asis"}
-data.frame( ave.caffeine, ave.heart, predicted.heart ) %>%
-  stargazer( summary=F, type="html" )
-```
 
 
 
@@ -276,6 +281,8 @@ jplot( caffeine, heart.rate,
 points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
 
 ```
+
+
 
 
 
