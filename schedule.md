@@ -382,9 +382,9 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 This lab will review the following topics:
 
-* Calculating a bivariate regression slope b1
+* Calculating a bivariate regression slope (**`b1`**)
 * Basic interpretation of the slope
-* Intercept bo
+* Intercept (**`b0`**)
 * What is a residual?
   - residual (or error) sum of squares
   - regression (or explained) sum of squares 
