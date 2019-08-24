@@ -101,6 +101,45 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 ```
 
 
+
+
+<br>
+<br>
+
+<div class="tip">
+
+<br>
+
+KEY TAKE-AWAYS:
+
+* A regression is a fancy average (ave of Y conditional on level of X).
+
+Formula for the regression:
+
+$Y = b_0 + b_1 X + e$ 
+
+$b_1 = cov(x,y) / var(x)$
+
+$\bar{y} = b_0 + b_1 \bar{x}$ 
+
+
+* Variance measures distances from data points to the mean.  
+* Variance can be decomposed into an explained and residual component.  
+
+
+$var(y) =  \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }$
+
+
+$R^2 = \frac{ Explained SS } { Total SS }$
+
+
+<br>
+
+</div>
+
+<br>
+
+
 # Effect of Caffeine on Heart Rate
 
 We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.
@@ -234,7 +273,8 @@ text( ave.caffeine, predicted.heart, round(predicted.heart,0),
 
 
 ```{r, results="asis"}
-data.frame( ave.caffeine, round(ave.heart,0), round(predicted.heart,0) ) %>%
+data.frame( ave.caffeine, ave.heart=round(ave.heart,0), 
+            regression.model=round(predicted.heart,0) ) %>%
   stargazer( summary=F, type="html" )
 ```
 

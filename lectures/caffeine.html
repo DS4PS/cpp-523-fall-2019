@@ -242,6 +242,28 @@ $(document).ready(function () {
 </ul>
 </div>
 
+<p><br>
+<br></p>
+<div class="tip">
+<p><br></p>
+<p>KEY TAKE-AWAYS:</p>
+<ul>
+<li>A regression is a fancy average (ave of Y conditional on level of X).</li>
+</ul>
+<p>Formula for the regression:</p>
+<p><span class="math inline">\(Y = b_0 + b_1 X + e\)</span></p>
+<p><span class="math inline">\(b_1 = cov(x,y) / var(x)\)</span></p>
+<p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
+<ul>
+<li>Variance measures distances from data points to the mean.<br />
+</li>
+<li>Variance can be decomposed into an explained and residual component.</li>
+</ul>
+<p><span class="math inline">\(var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }\)</span></p>
+<p><span class="math inline">\(R^2 = \frac{ Explained SS } { Total SS }\)</span></p>
+<p><br></p>
+</div>
+<p><br></p>
 <div id="effect-of-caffeine-on-heart-rate" class="section level1">
 <h1><span class="header-section-number">1</span> Effect of Caffeine on Heart Rate</h1>
 <p>We are interested in understanding the effect that caffeine has on heart rate. We have designed a study with 100 participants and randomly assigned dosages of caffeine between 0 and 500 mg. We are now trying to determine whether caffeine raises heart rate significantly.</p>
@@ -275,10 +297,10 @@ The models give us a guess for what the heart rate will be for subjects within a
 ave.caffeine
 </td>
 <td>
-round.ave.heart..0.
+ave.heart
 </td>
 <td>
-round.predicted.heart..0.
+regression.model
 </td>
 </tr>
 <tr>
