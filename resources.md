@@ -22,12 +22,11 @@ title: Resources
 
 * Common Statistics Notation [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf) ] 
 * Regression Review Assessment  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-Review-Self-Test.pdf) ]
-* Anscomb's Quartet  
+* Anscomb's Quartet  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Anscombes-Quartet.pdf) ]
 * Omitted Variable Bias Calculation  
-* Seven Sins of Regression  
-* Marginal Effects in Quadratic Model  
-* Dummy Variables with Interactions  
-
+* Seven Sins of Regression  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]
+* Marginal Effects in Quadratic Model  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Marginal-Effects-in-Quadratic-Regression-Models.pdf) ]
+* Dummy Variables with Interactions  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-with-Interaction-Effects.pdf) ]
 
 
 ## Creating Nice Tables in R
