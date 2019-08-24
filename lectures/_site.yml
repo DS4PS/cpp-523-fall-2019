@@ -1,7 +1,7 @@
-name: "PROG EVAL I"
+name: "CPP-523"
 output_dir: "."
 navbar:
-  title: "Program Eval I"
+  title: "PROG EVAL I"
   type: inverse
   left:
     - text: "The Regression Model"
