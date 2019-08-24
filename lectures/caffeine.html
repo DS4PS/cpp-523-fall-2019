@@ -725,21 +725,104 @@ Residual Std. Error
 </tr>
 </tbody>
 </table>
+<div id="variance-as-a-sum-of-squared-deviations" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Variance as a Sum of Squared Deviations</h3>
+<p>We calculate the variance as follows:</p>
 <p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
-<p>Why will the sum of the deviations always add to zero?</p>
-<p>Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart rate squared.</p>
-<p>The <strong>standard deviation</strong> takes the square root of the variance to get us back to original units:</p>
+<p>Note that this entire formula is organized around the deviations <span class="math inline">\(y_i - \bar{y}\)</span>.</p>
+<p>Also note that in the formula we are dividing a sum by N, so the variance is an average of sorts:</p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ \star } } { n }\)</span></p>
+<p>Oddly, it’s an average of squared deviations.</p>
+</div>
+<div id="the-mean-as-a-fulcrum" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> The Mean as a Fulcrum</h3>
+<p>Why don’t we use the average of the deviations?</p>
+<p>The answer to this lies in the table above. Note that the sum of the deviations is zero. The average of zero is pretty meaningless.</p>
+<p>More importantly, <strong>why will the sum of the deviations always add to zero?</strong></p>
+<p><img src="figures/seesaw.jpg" /></p>
+<p>You can think about the mean as a seesaw fulcrum. You place the fulcrum in the exact spot that it will balance all of the weight on both sides of the levers. The mean is the geometric center of the data that balances the distance between observations on all sides.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-21-1.png" width="384" /></p>
+<table style="width:40%;">
+<caption><strong>Summing Deviations</strong></caption>
+<colgroup>
+<col width="6%" />
+<col width="12%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">y</th>
+<th align="center">mean.y</th>
+<th align="center">dev.y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">10</td>
+<td align="center">-5</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">10</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">10</td>
+<td align="center">-4</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">10</td>
+<td align="center">4</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">10</td>
+<td align="center">-6</td>
+</tr>
+<tr class="even">
+<td align="center">15</td>
+<td align="center">10</td>
+<td align="center">5</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong>SUM=ZERO</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Recall again the variance formula:</p>
+<p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
+<p>The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations <span class="math inline">\(y_i - \bar{y}\)</span> are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero.</p>
+<p>Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations.</p>
+<p><br></p>
+<p><img src="https://media0.giphy.com/media/oEnlkgqdspU1a/giphy.gif" /></p>
+<center>
+Lebron James finding the average of the basketball.
+</center>
+</div>
+<div id="fixing-units-the-standard-deviation" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Fixing Units: The Standard Deviation</h3>
+<p>Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart-rate-squared.</p>
+<p>When is the last time your doctor asked about your squared heart rate, your teacher cared about your squared test score, or your retirement advisor asked about your squared income?</p>
+<p>The <strong>standard deviation</strong> applies the square root to variance to fix the interpretation problem:</p>
 <p><span class="math inline">\(stdev(y) = \sqrt{ var(y) }\)</span></p>
-<p>Again, when you hear the term “standard” you should think of “average” or “typical”. It’s not exactly an average because you are taking squared roots of squared deviations (that’s a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:</p>
+<p>We are now back to our original units!</p>
+<p>Again, when you hear the term “standard” you should think of “average” or “typical”.</p>
+<p>It’s not exactly an average because you are taking squared roots of squared deviations (that’s a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:</p>
 <p><strong>Standard Deviation:</strong> 17.5</p>
 <p><strong>Average Absolute Values of Deviations:</strong> 14.5</p>
+</div>
 </div>
 </div>
 <div id="r-squared-explaining-variance" class="section level1">
 <h1><span class="header-section-number">4</span> R-Squared: Explaining Variance</h1>
 <p>Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of “explaining” variance.</p>
 <p>It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-21-1.png" width="1152" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="1152" /></p>
 <p>The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points.</p>
 <div id="sums-of-squares" class="section level2">
 <h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
@@ -767,7 +850,7 @@ Residual Std. Error
 <p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
 <p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
 <p>Visually it would look something like this:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="864" /></p>
 <center>
 This models has an <span class="math inline">\(R^2\)</span> of 0.282, so the blue segments account for about 28% of the residuals.
 </center>
@@ -947,7 +1030,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-26-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-28-1.png" width="864" /></p>
 <p><br></p>
 <div class="tip">
 <p><br></p>

@@ -519,7 +519,10 @@ text( x=c(9,9), y=c(y.bar-3,y[9]+3), round(c(y.bar,y[9]),0), pos=c(1,3), col="fi
 
 
 text( 4, 100, expression(deviation[i] == 30 ), col="darkgray", cex=3, pos=3 )
-text( 11.5, y.bar, expression(bar(Y) == 63), pos=3, cex=2.5, col="steelblue" )
+text( 11.5, y.bar, expression(bar(y) == 63), pos=3, cex=2, col="steelblue" )
+
+text( 9, y.bar-15, expression(bar(y)), pos=1, cex=2.5, col="darkgray" )
+text( 9, y[9]+15, expression(y[i]), pos=3, cex=2.5, col="darkgray" )
 ```
 
 Distance from the mean of Y for all ten cases:
@@ -566,20 +569,104 @@ d2 %>% pander()
 ```
 
 
+### Variance as a Sum of Squared Deviations
+
+We calculate the variance as follows:
+
 $var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
 
-Why will the sum of the deviations always add to zero?
+Note that this entire formula is organized around the deviations $y_i - \bar{y}$.
+
+Also note that in the formula we are dividing a sum by N, so the variance is an average of sorts:
+
+$var(y) =  \frac{ \sum{ \star } } { n }$
 
 
-Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart rate squared. 
+Oddly, it's an average of squared deviations. 
 
-The **standard deviation** takes the square root of the variance to get us back to original units:
+
+
+
+### The Mean as a Fulcrum
+
+Why don't we use the average of the deviations?
+
+The answer to this lies in the table above. Note that the sum of the deviations is zero. The average of zero is pretty meaningless. 
+
+More importantly, **why will the sum of the deviations always add to zero?**
+
+![](figures/seesaw.jpg)
+
+You can think about the mean as a seesaw fulcrum. You place the fulcrum in the exact spot that it will balance all of the weight on both sides of the levers. The mean is the geometric center of the data that balances the distance between observations on all sides. 
+
+```{r, fig.width=4, fig.height=4}
+
+par( mar=c(0,0,0,0) ) # , mfrow=c(1,2) )
+
+y <- c( 5, 16, 6, 14, 4, 15, 6, 13, 5, 16 ) 
+plot( y, 1:10, pch=19, xlim=c(0, 20 ), ylim=c(-3,15),
+      col=gray(0.5,0.5), cex=2, bty="n", axes=F, ylab="", xlab="" )
+segments( x0=mean(y), y0=1, y1=10, col="firebrick", lwd=2 )
+segments( x0=mean(y), x1=y, y0=1:10, lty=2, col="gray" )
+diff <- y - mean(y)
+pos.x <- ifelse( diff > 0, 4, 2 )
+text( y, 1:10, diff, pos=pos.x, col="gray", offset=1, cex=1.5 )
+text( mean(y), -1, expression(bar(y)), cex=2, col="firebrick" )
+text( mean(y), 12, expression(y[i]-bar(y)), cex=2, col="gray" )
+
+
+# x <- rnorm(1000)
+# y <- rnorm(1000)
+# par( mar=c(0,0,0,0) )
+# plot( x, y, pch=19, col=gray(0.6,0.3), bty="n", axes=F, xlab="", ylab="" )
+# points( mean(x), mean(y), pch=19, cex=2.5, col="firebrick" )
+```
+
+
+```{r}
+df <- data.frame( y, mean.y=mean(y), dev.y=y-mean(y) )
+
+df[1:6,] %>% 
+  rbind( c("","","**SUM=ZERO**") ) %>%
+  pander( caption="**Summing Deviations**")
+```
+
+
+Recall again the variance formula:
+
+$var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
+
+The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations $y_i - \bar{y}$ are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero. 
+
+Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations.
+
+<br>
+
+
+
+
+
+![](https://media0.giphy.com/media/oEnlkgqdspU1a/giphy.gif)
+
+<center>Lebron James finding the average of the basketball.</center>
+
+
+
+### Fixing Units: The Standard Deviation
+
+Since we have to square the deviations to ensure they are all positive values, we now have very odd units: heart-rate-squared. 
+
+When is the last time your doctor asked about your squared heart rate, your teacher cared about your squared test score, or your retirement advisor asked about your squared income? 
+
+The **standard deviation** applies the square root to variance to fix the interpretation problem:
 
 $stdev(y) =  \sqrt{ var(y) }$
 
+We are now back to our original units! 
 
+Again, when you hear the term "standard" you should think of "average" or "typical". 
 
-Again, when you hear the term "standard" you should think of "average" or "typical". It's not exactly an average because you are taking squared roots of squared deviations (that's a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:
+It's not exactly an average because you are taking squared roots of squared deviations (that's a mouthful), but compared to the mean of the absolute values of the deviations (another mouthful) the metrics are not that far off:
 
 **Standard Deviation:**  `r round(sd( heart.rate.control ),1)`
 
