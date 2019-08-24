@@ -151,8 +151,8 @@ for( i in seq( from=0, to=450, by=50 ) )
 
 
 par( mar=c(4,0,0,0) )
-jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Each Group", 
-       lab2="", # lab2="Average Heart Rate by Group", 
+jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Each Segment", 
+       lab2="", # lab2="Average Heart Rate by Segment", 
        draw.line=F, xaxt="n", yaxt="n" )
 
 abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
@@ -234,7 +234,7 @@ text( ave.caffeine, predicted.heart, round(predicted.heart,0),
 
 
 ```{r, results="asis"}
-data.frame( ave.caffeine, ave.heart, predicted.heart ) %>%
+data.frame( ave.caffeine, round(ave.heart,0), round(predicted.heart,0) ) %>%
   stargazer( summary=F, type="html" )
 ```
 
@@ -296,6 +296,10 @@ text( 450, mean(heart.rate), "Mean of Y", pos=1, col="steelblue", cex=1.5 )
 
 
 When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
+
+The quality of the regression is a function of the strength of the relationship between X and Y in the data.  If the correlation is weak, i.e. close to zero, then the regression will not do any better than just using the mean of Y as the best guess for where a random data point will fall. 
+
+If the correlation is strong, the regression provides a lot of information relative to just using the population mean. We will have more accurate predictions using the conditional mean (relative to X) rather than just the mean of Y. 
 
 
 <center>
@@ -638,7 +642,7 @@ $var(y) =  \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }$
 
 The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations $y_i - \bar{y}$ are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero. 
 
-Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations.
+Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations $(y_i - \bar{y})^2$.
 
 <br>
 
@@ -742,6 +746,16 @@ In order to see how we are able to divide the variance into an explained portion
 
 **Note that A - B + B - C is the same as A - C.**
 
+> **A - C  =  A - C**  
+> 
+> **A - B + B - C  =  A - C**  
+> 
+> **(A-B) + (B-C)  =  A - C**  
+
+
+
+
+
 Now take a look at the equations to calculate SUMS OF SQUARES:
 
 TOTAL SS = $\sum{ (y_i - \bar{y})^2 }$
@@ -752,15 +766,29 @@ EXPLAINED SS = $\sum{ ( \hat{y} - \bar{y})^2 }$
 
 Recall that $\hat{y}$ represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y. 
 
-Now note the pattern here and the role the regression line ($\hat{y}$) serves: 
+The trick to partitioning the variance is to split the deviation $(y_i - \bar{y})$ into two parts by inserting a point in the middle:
+
+```{r, fig.width=4, fig.height=2}
+par( mar=c(0,0,0,0) )
+plot( c(1,2,3), c(1,1,1), type="b", col="gray40", 
+      cex=2, bty="n", axes=F, ylim=c(0,2), xlim=c(0,4), pch=19 )
+text( 1, 1, expression(y[i]), cex=2, col="gray30", pos=1, offset=2 )
+text( 2, 1, expression(hat(Y)), cex=2, col="gray30", pos=3, offset=2 )
+text( 3, 1, expression(bar(Y)), cex=2, col="gray30", pos=1, offset=2 )
+```
+
+The regression line ($\hat{y}$) serves the same role as B: 
 
 A - B + B - C = A - C
+
 
 > $y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
 > 
 > $(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$  
 > 
 > $(RSS) + (ESS) = TOTAL \ SS$
+
+Ultimately this trick allows us to split the variance into explained (ESS) and unxplained residual (RSS) components. 
 
 
 ### Explained Variance
@@ -793,7 +821,10 @@ abline( m.01, col="firebrick", lwd=3 )
 text( 350, 50, "Explained SS", col="steelblue", cex=2, pos=4 )
 text( 350, 60, "Residual SS", col="firebrick", cex=2, pos=4 )
 
-
+text( 480, y.bar, expression(bar(Y)), cex=1, col="steelblue", pos=3, offset=0.5 )
+text( 480, predict( m.01, data.frame(caffeine=480) ), 
+      expression(hat(Y)), cex=1, col="firebrick", pos=3, offset=0.5 )
+text( 480, 130, expression(y[i]), cex=1, col="gray40", pos=3, offset=1 )
 ```
 
 

@@ -275,10 +275,10 @@ The models give us a guess for what the heart rate will be for subjects within a
 ave.caffeine
 </td>
 <td>
-ave.heart
+round.ave.heart..0.
 </td>
 <td>
-predicted.heart
+round.predicted.heart..0.
 </td>
 </tr>
 <tr>
@@ -293,10 +293,10 @@ predicted.heart
 25
 </td>
 <td>
-80.703
+81
 </td>
 <td>
-73.565
+74
 </td>
 </tr>
 <tr>
@@ -307,10 +307,10 @@ predicted.heart
 75
 </td>
 <td>
-75.926
+76
 </td>
 <td>
-77.756
+78
 </td>
 </tr>
 <tr>
@@ -321,10 +321,10 @@ predicted.heart
 125
 </td>
 <td>
-83.979
+84
 </td>
 <td>
-81.947
+82
 </td>
 </tr>
 <tr>
@@ -335,10 +335,10 @@ predicted.heart
 175
 </td>
 <td>
-75.655
+76
 </td>
 <td>
-86.138
+86
 </td>
 </tr>
 <tr>
@@ -349,10 +349,10 @@ predicted.heart
 225
 </td>
 <td>
-89.738
+90
 </td>
 <td>
-90.329
+90
 </td>
 </tr>
 <tr>
@@ -363,10 +363,10 @@ predicted.heart
 275
 </td>
 <td>
-93.221
+93
 </td>
 <td>
-94.520
+95
 </td>
 </tr>
 <tr>
@@ -377,10 +377,10 @@ predicted.heart
 325
 </td>
 <td>
-98.045
+98
 </td>
 <td>
-98.711
+99
 </td>
 </tr>
 <tr>
@@ -391,10 +391,10 @@ predicted.heart
 375
 </td>
 <td>
-115.826
+116
 </td>
 <td>
-102.902
+103
 </td>
 </tr>
 <tr>
@@ -405,10 +405,10 @@ predicted.heart
 425
 </td>
 <td>
-103.480
+103
 </td>
 <td>
-107.093
+107
 </td>
 </tr>
 <tr>
@@ -419,10 +419,10 @@ predicted.heart
 475
 </td>
 <td>
-113.210
+113
 </td>
 <td>
-111.284
+111
 </td>
 </tr>
 <tr>
@@ -448,6 +448,8 @@ predicted.heart
 <p>The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
 <p>When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can’t improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model.</p>
+<p>The quality of the regression is a function of the strength of the relationship between X and Y in the data. If the correlation is weak, i.e. close to zero, then the regression will not do any better than just using the mean of Y as the best guess for where a random data point will fall.</p>
+<p>If the correlation is strong, the regression provides a lot of information relative to just using the population mean. We will have more accurate predictions using the conditional mean (relative to X) rather than just the mean of Y.</p>
 <center>
 <strong>Does the regression do a better job than the mean at predicting Y?</strong>
 </center>
@@ -797,7 +799,7 @@ Residual Std. Error
 <p>Recall again the variance formula:</p>
 <p><span class="math inline">\(var(y) = \frac{ \sum{ (y_i - \bar{y})^2 } } { (n-1) }\)</span></p>
 <p>The reason we cannot measure variance use the average of the deviations (a more intuitive measure) is the deviations <span class="math inline">\(y_i - \bar{y}\)</span> are distances to the mean, and because the mean is the exact center of gravity of the data the sum of the deviations will mathematically always be zero.</p>
-<p>Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations.</p>
+<p>Since squaring terms ensures they are always positive, the quickest fix to this problem is to use the sum of squared deviations <span class="math inline">\((y_i - \bar{y})^2\)</span>.</p>
 <p><br></p>
 <p><img src="https://media0.giphy.com/media/oEnlkgqdspU1a/giphy.gif" /></p>
 <center>
@@ -833,24 +835,32 @@ Lebron James finding the average of the basketball.
 <h2><span class="header-section-number">4.2</span> Tabulating Sums of Square Deviations</h2>
 <p>In order to see how we are able to divide the variance into an explained portion and an unexplained portion we need a trick:</p>
 <p><strong>Note that A - B + B - C is the same as A - C.</strong></p>
+<blockquote>
+<p><strong>A - C = A - C</strong></p>
+<p><strong>A - B + B - C = A - C</strong></p>
+<p><strong>(A-B) + (B-C) = A - C</strong></p>
+</blockquote>
 <p>Now take a look at the equations to calculate SUMS OF SQUARES:</p>
 <p>TOTAL SS = <span class="math inline">\(\sum{ (y_i - \bar{y})^2 }\)</span></p>
 <p>RESIDUAL SS = <span class="math inline">\(\sum{ (y_i - \hat{y})^2 }\)</span></p>
 <p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
 <p>Recall that <span class="math inline">\(\hat{y}\)</span> represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y.</p>
-<p>Now note the pattern here and the role the regression line (<span class="math inline">\(\hat{y}\)</span>) serves:</p>
+<p>The trick to partitioning the variance is to split the deviation <span class="math inline">\((y_i - \bar{y})\)</span> into two parts by inserting a point in the middle:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+<p>The regression line (<span class="math inline">\(\hat{y}\)</span>) serves the same role as B:</p>
 <p>A - B + B - C = A - C</p>
 <blockquote>
 <p><span class="math inline">\(y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}\)</span></p>
 <p><span class="math inline">\((y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}\)</span></p>
 <p><span class="math inline">\((RSS) + (ESS) = TOTAL \ SS\)</span></p>
 </blockquote>
+<p>Ultimately this trick allows us to split the variance into explained (ESS) and unxplained residual (RSS) components.</p>
 <div id="explained-variance" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Explained Variance</h3>
 <p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
 <p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
 <p>Visually it would look something like this:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="864" /></p>
 <center>
 This models has an <span class="math inline">\(R^2\)</span> of 0.282, so the blue segments account for about 28% of the residuals.
 </center>
@@ -1030,7 +1040,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-28-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-29-1.png" width="864" /></p>
 <p><br></p>
 <div class="tip">
 <p><br></p>
