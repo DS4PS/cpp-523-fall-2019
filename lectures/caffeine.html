@@ -13,14 +13,35 @@
 
 <title>Building a Regression Model</title>
 
-<script src="caffeine_files/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="caffeine_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
-<script src="caffeine_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="caffeine_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="caffeine_files/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="caffeine_files/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -83,6 +104,58 @@ button.code-folding-btn:focus {
 </style>
 
 
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
 
 <div class="container-fluid main-container">
 
@@ -94,13 +167,57 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 
 
 
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Program Eval I</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="caffeine.html">The Regression Model</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://ds4ps.org/cpp-523-fall-2019/">
+    <span class="fa fa-github fa-2x"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
 
 <div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
 
@@ -115,15 +232,14 @@ $(document).ready(function () {
 <li><a href="#the-conditional-mean"><span class="toc-section-number">1.2</span> The Conditional Mean</a></li>
 <li><a href="#regression-as-a-prediction-of-y"><span class="toc-section-number">1.3</span> Regression as a Prediction of Y</a></li>
 </ul></li>
-<li><a href="#formula-for-the-regression"><span class="toc-section-number">2</span> Formula for the Regression</a><ul>
-<li><a href="#formula-for-the-intercept"><span class="toc-section-number">2.0.1</span> Formula for the Intercept</a></li>
-</ul></li>
+<li><a href="#the-regression-model"><span class="toc-section-number">2</span> The Regression Model</a></li>
 <li><a href="#the-variance-of-y"><span class="toc-section-number">3</span> The Variance of Y</a><ul>
 <li><a href="#the-standard-deviation"><span class="toc-section-number">3.1</span> The Standard Deviation</a></li>
 </ul></li>
 <li><a href="#r-squared-explaining-variance"><span class="toc-section-number">4</span> R-Squared: Explaining Variance</a><ul>
 <li><a href="#sums-of-squares"><span class="toc-section-number">4.1</span> Sums of Squares</a></li>
-<li><a href="#residual-standard-error"><span class="toc-section-number">4.2</span> Residual Standard Error</a></li>
+<li><a href="#tabulating-sums-of-square-deviations"><span class="toc-section-number">4.2</span> Tabulating Sums of Square Deviations</a></li>
+<li><a href="#residual-standard-error"><span class="toc-section-number">4.3</span> Residual Standard Error</a></li>
 </ul></li>
 </ul>
 </div>
@@ -316,7 +432,8 @@ predicted.heart
 </td>
 </tr>
 </table>
-<p><br> <br></p>
+<p><br>
+<br></p>
 <div class="tip">
 <p><br></p>
 <p>The regression line represents the average value of Y conditional on each level of X.</p>
@@ -333,15 +450,19 @@ predicted.heart
 <p>The strength of our regression model is to some extend a measure of how much our prediction of the true value of Y for an individual improves over simply using the population mean.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
 <p>When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can’t improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model.</p>
+<center>
+<strong>Does the regression do a better job than the mean at predicting Y?</strong>
+</center>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-11-1.png" width="864" /></p>
 <p>We use the notation <span class="math inline">\(\hat{y}\)</span> to represent predicted values of Y.</p>
 <p>Consequently, we will sometimes use <span class="math inline">\(\hat{y}\)</span> as shorthand for the set points that represents the regression line.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
-<p><br> <br></p>
 </div>
 </div>
-<div id="formula-for-the-regression" class="section level1">
-<h1><span class="header-section-number">2</span> Formula for the Regression</h1>
+<div id="the-regression-model" class="section level1">
+<h1><span class="header-section-number">2</span> The Regression Model</h1>
+<div id="formula-for-the-slope" class="section level3">
+<h3><span class="header-section-number">2.0.1</span> Formula for the Slope</h3>
 <p>Our regression <strong>line</strong> can be written as:</p>
 <blockquote>
 <p><span class="math inline">\(Y = b_0 + b_1 X\)</span></p>
@@ -355,8 +476,9 @@ predicted.heart
 <p><span class="math inline">\(b_1 = cov(x,y) / var(x)\)</span></p>
 </blockquote>
 <p>If you give it some thought, this is a pretty intuitive formula. When X varies by one unit, how much do we expect Y to covary?</p>
+</div>
 <div id="formula-for-the-intercept" class="section level3">
-<h3><span class="header-section-number">2.0.1</span> Formula for the Intercept</h3>
+<h3><span class="header-section-number">2.0.2</span> Formula for the Intercept</h3>
 <p>Finding the intercept of the regression is a little tricky because after solving for <span class="math inline">\(b_1\)</span> we have three unknown variables (X, Y, and <span class="math inline">\(b_0\)</span> ) and only one equation. We need to draw upon the fact that the OLS regression line always passes through the mean of X and the mean of Y, giving us two known values.</p>
 <blockquote>
 <p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
@@ -364,7 +486,8 @@ predicted.heart
 <p><span class="math inline">\(b_1\)</span> = cov(caffeine,heart.rate) / var(caffeine) = <strong>0.08</strong></p>
 <p><span class="math inline">\(\bar{y}\)</span> = 90</p>
 <p><span class="math inline">\(\bar{x}\)</span> = 219</p>
-<p>90 = <span class="math inline">\(b_0\)</span> + 0.08 <span class="math inline">\(\cdot\)</span> 219 = <strong>71.47</strong></p>
+<p>90 = <span class="math inline">\(b_0\)</span> + 0.08 <span class="math inline">\(\cdot\)</span> 219
+= <strong>71.47</strong></p>
 <p>The regression model gives us a very clear estimate of the “average effect” of one mg of caffeine on heart rate.</p>
 <table style="text-align:center">
 <tr>
@@ -623,20 +746,32 @@ Residual Std. Error
 <div id="sums-of-squares" class="section level2">
 <h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
 <p>What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component.</p>
+<p>Before we start the calculations, note that TOTAL SS divided by (n-1) is actually just the variance of Y. We are working with Sums of Squares for the calculations, but they are conceptually almost identical to the variance of the dependent variable, just easier to calculate.</p>
+</div>
+<div id="tabulating-sums-of-square-deviations" class="section level2">
+<h2><span class="header-section-number">4.2</span> Tabulating Sums of Square Deviations</h2>
+<p>In order to see how we are able to divide the variance into an explained portion and an unexplained portion we need a trick:</p>
 <p><strong>Note that A - B + B - C is the same as A - C.</strong></p>
 <p>Now take a look at the equations to calculate SUMS OF SQUARES:</p>
 <p>TOTAL SS = <span class="math inline">\(\sum{ (y_i - \bar{y})^2 }\)</span></p>
 <p>RESIDUAL SS = <span class="math inline">\(\sum{ (y_i - \hat{y})^2 }\)</span></p>
 <p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
-<p>Note the pattern here:</p>
+<p>Recall that <span class="math inline">\(\hat{y}\)</span> represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y.</p>
+<p>Now note the pattern here and the role the regression line (<span class="math inline">\(\hat{y}\)</span>) serves:</p>
 <p><span class="math inline">\(y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}\)</span></p>
 <p><span class="math inline">\((y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}\)</span></p>
-<p><span class="math inline">\((RESIDUAL \ SS) + (EXPLAINED \ SS) = TOTAL \ SS\)</span></p>
-<p>Also note that TOTAL SS divided by (n-1) is the variance of Y, so the statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
+<p><span class="math inline">\((RSS) + (ESS) = TOTAL \ SS\)</span></p>
+<div id="explained-variance" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Explained Variance</h3>
+<p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
 <p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
 <p>Visually it would look something like this:</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="864" /></p>
-<p><br></p>
+<center>
+This models has an <span class="math inline">\(R^2\)</span> of 0.282, so the blue segments account for about 28% of the residuals.
+</center>
+<p><br>
+<br></p>
 <div class="tip">
 <p><br></p>
 <p>PARTITIONING THE VARIANCE of our outcome Y means splitting it into EXPLAINED and UNEXPLAINED portions.</p>
@@ -694,8 +829,9 @@ Residual Std. Error
 <p>The caffeine Sum Sq here is the Explained portion, and the Residual Sum Sq is the unexplained portion.</p>
 <p>The TOTAL SS can be tabulated by adding the Residual SS and Explained SS.</p>
 </div>
+</div>
 <div id="residual-standard-error" class="section level2">
-<h2><span class="header-section-number">4.2</span> Residual Standard Error</h2>
+<h2><span class="header-section-number">4.3</span> Residual Standard Error</h2>
 <p>It’s also worth noting that the Residual Standard Error in the regression model is just the standard deviation of the residuals.</p>
 <p><span class="math inline">\(Residual \ Std \ Error = \sqrt{ \frac{Residual SS}{ (n-1)} }\)</span></p>
 <table style="text-align:center">
@@ -822,6 +958,14 @@ Residual Std. Error
 </div>
 </div>
 
+<div class="footer">
+<div class="row"  align="center">
+
+  Designed by <a href=http://ds4ps.github.io target="_blank">DS4PS</a><br>
+  Powered by <a href=http://jekyllrb.com target="_blank">Jekyll</a>
+
+</div>
+</div>
 
 
 

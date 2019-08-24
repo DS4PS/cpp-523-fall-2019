@@ -149,19 +149,16 @@ for( i in seq( from=0, to=450, by=50 ) )
 
 }
 
-
-par( mar=c(4,0,0,0) )
-jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Each Group", 
-       lab2="", # lab2="Average Heart Rate by Group", 
-       draw.line=F, xaxt="n", yaxt="n" )
+jplot( caffeine, heart.rate, lab1="Average Caffeine Consumed by Group", 
+       lab2="Average Heart Rate by Group", 
+       draw.line=F, xaxt="n" )
 
 abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
 
 points( ave.caffeine, ave.heart, pch=19, col="firebrick", cex=2, type="b" )
-text( ave.caffeine, ave.heart+2, round(ave.heart,0), cex=1.2, col="firebrick", pos=3 )
+text( ave.caffeine, ave.heart, round(ave.heart,0), cex=0.9, col="firebrick", pos=3 )
 
-text( ave.caffeine, 40, ave.caffeine, cex=1.3, col="black" )
-text( 125, 140, "Ave. Heart Rate by Group", col="firebrick", cex=1.5 )
+text( ave.caffeine, 40, ave.caffeine, cex=1.5 )
 ```
 
 
@@ -297,11 +294,6 @@ text( 450, mean(heart.rate), "Mean of Y", pos=1, col="steelblue", cex=1.5 )
 
 When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
 
-
-<center>
-**Does the regression do a better job than the mean at predicting Y?**
-</center>
-
 ```{r}
 
 par( mfrow=c(1,2) )
@@ -329,8 +321,6 @@ abline( h=mean(hr2), col="steelblue", lwd=3 )
 ```
 
 
-
-
 We use the notation $\hat{y}$ to represent predicted values of Y. 
 
 
@@ -354,9 +344,11 @@ points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
 
 
 
-# The Regression Model
+<br>
+<br>
 
-### Formula for the Slope
+
+# Formula for the Regression 
 
 Our regression **line** can be written as:
 
@@ -647,11 +639,8 @@ The variance of the regression will always be smaller than the total variance be
 
 What is actually happening here is the decomposition of the TOTAL variance into an EXPLAINED and a RESIDUAL component. 
 
-Before we start the calculations, note that TOTAL SS divided by (n-1) is actually just the variance of Y. We are working with Sums of Squares for the calculations, but they are conceptually almost identical to the variance of the dependent variable, just easier to calculate. 
 
-## Tabulating Sums of Square Deviations
-
-In order to see how we are able to divide the variance into an explained portion and an unexplained portion we need a trick:
+### Inserting the Regression Line
 
 **Note that A - B + B - C is the same as A - C.**
 
@@ -665,7 +654,7 @@ EXPLAINED SS = $\sum{ ( \hat{y} - \bar{y})^2 }$
 
 Recall that $\hat{y}$ represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y. 
 
-Now note the pattern here and the role the regression line ($\hat{y}$) serves: 
+Now note the pattern here: 
 
 $y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
 
@@ -674,9 +663,7 @@ $(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$
 $(RSS) + (ESS) = TOTAL \ SS$
 
 
-### Explained Variance
-
-The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance. 
+Also note that TOTAL SS divided by (n-1) is the variance of Y, so the statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance. 
 
 Thus $R^2 =  Regression \ SS / Total SS$, or $R^2$ is measuring the explained portion of the variance of the dependent variable in the model. 
 
@@ -708,15 +695,11 @@ text( 350, 60, "Residual SS", col="firebrick", cex=2, pos=4 )
 ```
 
 
-<center>
-This models has an $R^2$ of 0.282, so the blue segments account for about 28% of the residuals.
-</center>
+
 
 
 
 <br>
-<br>
-
 
 <div class="tip">
 

@@ -1,0 +1,20 @@
+name: "PROG EVAL I"
+output_dir: "."
+navbar:
+  title: "Program Eval I"
+  type: inverse
+  left:
+    - text: "The Regression Model"
+      href: caffeine.html 
+  right:
+    - icon: fa-github fa-2x
+      href: https://ds4ps.org/cpp-523-fall-2019/
+output:
+  bookdown::html_document2:
+    toc: yes
+    toc_depth: 2
+    code_folding: hide
+    css: textbook.css
+    includes:
+      after_body: footer.html
+
