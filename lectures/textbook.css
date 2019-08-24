@@ -128,7 +128,11 @@ body{
 body,aside,main{flex-direction:column} 
 body{display:flex;min-height:100vh} 
 /* body,blockquote,figure{margin:0}  */
+
 blockquote,figure{margin:0} 
+
+
+
 #TOC {
   margin-top:30px;
   margin-bottom:80px }
@@ -169,7 +173,9 @@ article header a, article footer a{font-weight:inherit;color:inherit}
 /* header time{color:#949494} */
 header time{color:green}
 hr{border:1px solid rgba(148,148,148,0.3);margin:2em 0} 
-blockquote{border-left:4px solid #68f;padding-left:1.5em} 
+
+blockquote{ border-left:4px solid lightgray; padding-left:1.5em} 
+
 /* img{border-radius:2px;max-width:100%;height:auto;margin:.5em 0} */
 @media (prefers-color-scheme: light){body{background:#fff !important;color:#000 !important} } 
 @media (prefers-color-scheme: dark){body{background:#282828 !important;color:#fff !important} } 

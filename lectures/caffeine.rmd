@@ -258,6 +258,7 @@ In other words, a regression is just a fancy average.
 
 
 
+## Regression as a Prediction of Y
 
 Another way to think about a regression line is a set of predictions for where we expect Y to be based upon an observed value of X. I am guessing the value of Y based upon information I have on X. 
 
@@ -274,23 +275,56 @@ jplot( caffeine, heart.rate, lab1="Caffeine", lab2="Heart Rate",
 abline( v=seq( from=0, to=500, by=50 ), col="firebrick", lty=3 )
 
 points( ave.caffeine, predicted.heart, pch=19, col="firebrick", cex=1 )
+points( ave.caffeine, rep(mean(heart.rate),10), pch=19, col="steelblue", cex=1 )
 
 
 abline( lm( heart.rate ~ caffeine ), col="firebrick", lwd=2 )
 abline( h=mean(heart.rate), col="steelblue", lwd=2 )
 
-text( ave.caffeine, ave.heart, round(ave.heart,0), pos=3, cex=1.2 )
+mean.heart.rate <- round( rep(mean(heart.rate),10), 0 )
 
-text( 450, mean(heart.rate), "Mean of Y", pos=3, col="steelblue", cex=1.5 )
+text( ave.caffeine, predicted.heart, round(predicted.heart,0), 
+      col="firebrick", pos=rep(c(1,3),each=5), cex=1.2 )
+text( ave.caffeine, mean.heart.rate, mean.heart.rate, 
+      pos=3, col="steelblue", cex=1.2 )
+
+text( 450, mean(heart.rate), "Mean of Y", pos=1, col="steelblue", cex=1.5 )
 ```
 
 
 When we cover hypothesis testing, we will see that the null hypothesis in regression models is actually just that we can't improve our predictions about Y by using information on X. Using the population mean of Y to predict the outcome is just as good as using the regression model. 
 
+```{r}
+
+par( mfrow=c(1,2) )
+
+hr1 <- 68 + (2/100)*caffeine + rnorm(100,0,20) 
+hr1[ hr1 < 40 ] <- mean(hr1)
+
+jplot( caffeine, hr1, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Little Improvement Over Mean" )
+
+abline( lm(hr1 ~ caffeine), col="firebrick", lwd=3 )
+abline( h=mean(hr1), col="steelblue", lwd=3 )
+
+
+
+hr2 <- 68 + (30/100)*caffeine + rnorm(100,0,20) 
+hr2[ hr2 < 40 ] <- mean(hr2)
+
+jplot( caffeine, hr2, lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Big Improvement Over Mean" )
+
+abline( lm(hr2 ~ caffeine), col="firebrick", lwd=3 )
+abline( h=mean(hr2), col="steelblue", lwd=3 )
+
+```
+
+
 We use the notation $\hat{y}$ to represent predicted values of Y. 
 
 
-Consequently, we will sometimes use $\hat{y}$ as shorthand for the regression line. 
+Consequently, we will sometimes use $\hat{y}$ as shorthand for the set points that represents the regression line. 
 
 
 ```{r}
@@ -332,6 +366,9 @@ The slope of a regression line can be calculated as a ratio of the covariance of
 
 If you give it some thought, this is a pretty intuitive formula. When X varies by one unit, how much do we expect Y to covary? 
 
+
+### Formula for the Intercept
+
 Finding the intercept of the regression is a little tricky because after solving for $b_1$ we have three unknown variables (X, Y, and $b_0$ ) and only one equation. We need to draw upon the fact that the OLS regression line always passes through the mean of X and the mean of Y, giving us two known values. 
 
 > $\bar{y} = b_0 + b_1 \bar{x}$ 
@@ -345,7 +382,7 @@ $\bar{x}$ = `r round(mean(caffeine),0)`
 
 
 `r round(mean(heart.rate),0)` = $b_0$ + `r round(b1,2)` $\cdot$ `r round(mean(caffeine),0)` 
-$b_0$ = **`r round(b0,2)`**
+ = **`r round(b0,2)`**
 
 The regression model gives us a very clear estimate of the "average effect" of one mg of caffeine on heart rate. 
 
@@ -363,7 +400,6 @@ Let's consider the study population before they received the treatment in order 
 
 ```{r}
 set.seed( 2345 )
-
 heart.rate.control <- 68 + (9/100)*0 + rnorm(100,0,20)  # no caffeine
 heart.rate.control[ heart.rate.control < 40 ] <- mean(heart.rate.control)
 
@@ -452,34 +488,36 @@ $deviation_i = y_i - \bar{y}$
 
 
 ```{r}
+this.order <- order( caffeine )
+caffeine <- caffeine[this.order]
+heart.rate.control <- heart.rate.control[this.order]
+
+
 jplot( 1:10, heart.rate.control[1:10], 
        lab1="", lab2="Heart Rate", 
        draw.line=F, ylim=c(30,120), xaxt="n", xlim=c(1,12),
-       main="Deviations from the Mean of Y")
+       main="")
 
 y <- heart.rate.control[1:10]
 y.bar <- mean(y)
-abline( h=y.hat, col="steelblue", lwd=3 )
+abline( h=y.bar, col="steelblue", lwd=3 )
 
 col.dev <- rep("darkgray",10)
-col.dev[7] <- "firebrick"
+col.dev[9] <- "firebrick"
 
 segments( x0=1:10, y0=y.bar, y1=y, col=col.dev, lwd=3 )
-points( x=c(7,7), y=c(y.bar,y[7]), pch=19, col="firebrick", cex=1.5 )
-text( x=c(7,7), y=c(y.bar-3,y[7]+3), round(c(y.bar,y[7]),0), pos=c(1,3), col="firebrick", cex=1.5 )
+points( x=c(9,9), y=c(y.bar,y[9]), pch=19, col="firebrick", cex=1.5 )
+text( x=c(9,9), y=c(y.bar-3,y[9]+3), round(c(y.bar,y[9]),0), pos=c(1,3), col="firebrick", cex=2 )
 
 
-text( 7, y[7]+15, expression(deviation[i] ), col="firebrick", cex=2, pos=3 )
-text( 11.5, y.hat, expression(bar(Y)), pos=3, cex=2.5, col="steelblue" )
+text( 4, 100, expression(deviation[i] == 30 ), col="darkgray", cex=3, pos=3 )
+text( 11.5, y.bar, expression(bar(Y) == 63), pos=3, cex=2.5, col="steelblue" )
 ```
 
 Distance from the mean of Y for all ten cases:
 
 ```{r}
 
-this.order <- order( caffeine )
-caffeine <- caffeine[this.order]
-heart.rate.control <- heart.rate.control[this.order]
 
 jplot( 1:10, heart.rate.control[1:10], 
        lab1="", lab2="Heart Rate", 
