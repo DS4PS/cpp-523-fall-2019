@@ -20,13 +20,13 @@ title: Resources
 
 ## Handouts 
 
-* Common Statistics Notation 
-* Regression Review Assessment 
-* Anscomb's Quartet 
-* Omitted Variable Bias Calculation 
-* Seven Sins of Regression 
-* Marginal Effects in Quadratic Model 
-* Dummy Variables with Interactions 
+* Common Statistics Notation [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf) ] 
+* Regression Review Assessment  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-Review-Self-Test.pdf) ]
+* Anscomb's Quartet  
+* Omitted Variable Bias Calculation  
+* Seven Sins of Regression  
+* Marginal Effects in Quadratic Model  
+* Dummy Variables with Interactions  
 
 
 
