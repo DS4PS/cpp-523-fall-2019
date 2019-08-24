@@ -4,8 +4,8 @@ navbar:
   title: "PROG EVAL I"
   type: inverse
   left:
-    - text: "The Regression Model"
-      href: caffeine.html 
+    # - text: "The Regression Model"
+    #  href: caffeine.html 
   right:
     - icon: fa-github fa-2x
       href: https://ds4ps.org/cpp-523-fall-2019/

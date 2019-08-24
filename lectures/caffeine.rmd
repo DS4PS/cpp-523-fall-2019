@@ -667,11 +667,13 @@ Recall that $\hat{y}$ represents the predicted values of Y, which is another way
 
 Now note the pattern here and the role the regression line ($\hat{y}$) serves: 
 
-$y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
+A - B + B - C = A - C
 
-$(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$  
-
-$(RSS) + (ESS) = TOTAL \ SS$
+> $y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}$  
+> 
+> $(y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}$  
+> 
+> $(RSS) + (ESS) = TOTAL \ SS$
 
 
 ### Explained Variance

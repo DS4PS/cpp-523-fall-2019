@@ -193,9 +193,7 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="caffeine.html">The Regression Model</a>
-</li>
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -758,9 +756,12 @@ Residual Std. Error
 <p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
 <p>Recall that <span class="math inline">\(\hat{y}\)</span> represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y.</p>
 <p>Now note the pattern here and the role the regression line (<span class="math inline">\(\hat{y}\)</span>) serves:</p>
+<p>A - B + B - C = A - C</p>
+<blockquote>
 <p><span class="math inline">\(y_i - \hat{y} + \hat{y} - \bar{y} = y_i - \bar{y}\)</span></p>
 <p><span class="math inline">\((y_i - \hat{y}) + (\hat{y} - \bar{y}) = y_i - \bar{y}\)</span></p>
 <p><span class="math inline">\((RSS) + (ESS) = TOTAL \ SS\)</span></p>
+</blockquote>
 <div id="explained-variance" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Explained Variance</h3>
 <p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
