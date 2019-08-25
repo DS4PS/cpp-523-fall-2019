@@ -29,11 +29,17 @@ title: Resources
 * Dummy Variables with Interactions  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-with-Interaction-Effects.pdf) ]
 
 
+## Regression Tutorials in R
+
+* [UC Business Analytics](https://uc-r.github.io/linear_regression)  
+* [By Manny Gimond](http://mgimond.github.io/Stats-in-R/regression.html) 
+* [Listen Data](https://www.listendata.com/2015/09/linear-regression-with-r.html) 
+* [Machine Learning Plus](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/) 
+
 ## Creating Nice Tables in R
 
-* a guide to clean tables
-* stargazer cheatsheet
-* xtable gallery 
+* [stargazer cheatsheet](https://www.jakeruss.com/cheatsheets/stargazer/)
+* [xtable gallery](https://cran.r-project.org/web/packages/xtable/vignettes/xtableGallery.pdf) 
 
 
 ## Useful R Packages
