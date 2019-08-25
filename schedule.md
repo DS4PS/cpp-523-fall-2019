@@ -4,6 +4,7 @@ title: Schedule
 
 canvas: 
   assignment_url: 'https://canvas.asu.edu/courses/29527/assignments'
+  
 ---
  
 <!--- 
@@ -375,7 +376,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 
 
-*** { @unit = "MONDAY Aug-26", @title = "Lab 01", @assignment, @foldout   }
+*** { @unit = "WED Aug-28", @title = "Lab 01", @assignment, @foldout   }
 
 
 ## Lab 03 - Regression Review
@@ -419,7 +420,7 @@ Since this is meant as a review (or getting up to speed) assignment it is due Mo
 
 If you have questions, please post them to the [Assignment Discussion Board](https://ds4ps.org/cpp-523-fall-2019/help/).
 
-<a class="uk-button uk-button-primary" href="{{https://canvas.asu.edu/courses/29527/assignments/745249}}">Submit Lab-01</a>
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/745249">Submit Lab-01</a>
 
 
 
@@ -471,7 +472,7 @@ Include a description of problems
 
 
 
-*** { @unit = "THURS Aug-29", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "FRI Aug-30", @title = "Mini-Assessment", @assignment  }
 
 
 *** { @unit = "MON Sept-02", @title = "Lab 02", @assignment  }
