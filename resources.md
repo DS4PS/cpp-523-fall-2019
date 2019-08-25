@@ -9,10 +9,11 @@ title: Resources
 
 ## Regression Tutorial for R
 
-* Intro to Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
-* Regression Quick Start in R 
+* [UC Business Analytics](https://uc-r.github.io/linear_regression)  
+* [By Manny Gimond](http://mgimond.github.io/Stats-in-R/regression.html) 
+* [Listen Data](https://www.listendata.com/2015/09/linear-regression-with-r.html) 
+* [Machine Learning Plus](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/) 
 * Learning regression in R using Moneyball models [ [link](https://towardsdatascience.com/linear-regression-moneyball-part-1-b93b3b9f5b53) ]
-* A thorough regression tutorial by Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
 * regression animations [ [link](https://github.com/lecy/regression-simulations) ]
 * much nicer but more complex animations [ [link](https://rpsychologist.com/archives) ]
   - [Correlation w Venn Diagrams](https://rpsychologist.com/d3/correlation/)
@@ -28,13 +29,6 @@ title: Resources
 * Marginal Effects in Quadratic Model  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Marginal-Effects-in-Quadratic-Regression-Models.pdf) ]
 * Dummy Variables with Interactions  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-with-Interaction-Effects.pdf) ]
 
-
-## Regression Tutorials in R
-
-* [UC Business Analytics](https://uc-r.github.io/linear_regression)  
-* [By Manny Gimond](http://mgimond.github.io/Stats-in-R/regression.html) 
-* [Listen Data](https://www.listendata.com/2015/09/linear-regression-with-r.html) 
-* [Machine Learning Plus](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/) 
 
 ## Creating Nice Tables in R
 
@@ -54,7 +48,7 @@ title: Resources
 
 ## Reference Books
 
-
+* Intro to Stats review in R [ [teacup giraffe textbook](https://tinystats.github.io/teacups-giraffes-and-statistics/) ]
 * [OpenIntro Statistics](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf)
   - CH-08 Intro to Regression 
 * [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469)
