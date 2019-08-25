@@ -7,6 +7,17 @@ title: Resources
   
 <br><br>
 
+## Handouts 
+
+* Common Statistics Notation [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf) ] 
+* Regression Review Assessment  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-Review-Self-Test.pdf) ]
+* Anscomb's Quartet  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Anscombes-Quartet.pdf) ]
+* Omitted Variable Bias Calculation  
+* Seven Sins of Regression  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]
+* Marginal Effects in Quadratic Model  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Marginal-Effects-in-Quadratic-Regression-Models.pdf) ]
+* Dummy Variables with Interactions  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-with-Interaction-Effects.pdf) ]
+
+
 ## Regression Tutorial for R
 
 * [UC Business Analytics](https://uc-r.github.io/linear_regression)  
@@ -18,17 +29,7 @@ title: Resources
 * much nicer but more complex animations [ [link](https://rpsychologist.com/archives) ]
   - [Correlation w Venn Diagrams](https://rpsychologist.com/d3/correlation/)
   - [confidence intervals](https://rpsychologist.com/d3/CI/)
-
-## Handouts 
-
-* Common Statistics Notation [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf) ] 
-* Regression Review Assessment  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-Review-Self-Test.pdf) ]
-* Anscomb's Quartet  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Anscombes-Quartet.pdf) ]
-* Omitted Variable Bias Calculation  
-* Seven Sins of Regression  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]
-* Marginal Effects in Quadratic Model  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Marginal-Effects-in-Quadratic-Regression-Models.pdf) ]
-* Dummy Variables with Interactions  [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression-with-Interaction-Effects.pdf) ]
-
+  
 
 ## Creating Nice Tables in R
 
