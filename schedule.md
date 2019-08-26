@@ -508,6 +508,11 @@ If we create confidence intervals around these guesses, we can see that 95 out o
 
 This lab introduces a case study on education policy that we will be using for the remainder of the semester to demonstrate the importance and impact of control variables, and consequences of their omissions.
 
+You will need the formula for confidence intervals, and the concept of visual hypothesis-testing with coefficient plots. 
+
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size (+hypothesis tests)](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf)
+
 <a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-02-class-size-confidence-intervals.html">Lab-02 Instructions</a>
 
 When you are complete:
