@@ -478,8 +478,12 @@ The lecture notes in this section cover the mechanics of standard errors and con
 
 <br>
 
-![](assets/img/measurement-error-in-dv-large.gif)
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/sampling_dist_slope_50.gif)
 
+
+<br>
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/confidence%20intervals%202.gif)
 
 <br>
 <br>
