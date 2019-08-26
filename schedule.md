@@ -379,7 +379,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 *** { @unit = "WED Aug-28", @title = "Lab 01", @assignment, @foldout   }
 
 
-## Lab 03 - Regression Review
+## Lab 01 - Regression Review
 
 This lab will review the following topics:
 
@@ -438,44 +438,78 @@ If you have questions, please post them to the [Assignment Discussion Board](htt
 
 ** Week 2 - Effect Size and Confidence Intervals 
 
-*** { @unit = "", @title = "Unit Overview" }
+*** { @unit = "", @title = "Unit Overview", @foldout }
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This week covers the topic of building confidence intervals around our estimates of program impact. We use the CIs to conduct hypothesis-testing to see if our program has the impact we expected. 
+
+* Confidence intervals are built using standard errors 
+* Standard errors are creaed from residuals 
+* Residuals are generated through regression models (as we learned last week). 
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
-
-
-## Assigned and Recommended Articles or Chapters
-
-### Required:
-
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
-
-### Recommended:
-
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
-
-## Data Used in this Section
-
-The following data will be used for lectures in this section (link to dataset page)…
+Once you have completed this section you should be able to build a confidence interval around a slope estimate of program impact, and interpret a table with several regressions. 
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
+Please review the following lecture notes:
 
-## Lab Preview 
+* [Variance and Covariance](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-01-variance-covariance-slope.pdf)
+* [Partitioning the Variance of Y](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-02-partitioning-variance.pdf)
+* [Standard Errors](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-03-standard-errors.pdf)
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size](https://github.com/DS4PS/cpp-523-fall-2019/blob/master/lectures/p-05-program-impact.pdf)
 
+You might find this summary of notation helpful [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf)
+
+## Assigned and Recommended Articles or Chapters
+
+There are no assigned readings this week. 
+
+
+## Key Take-Aways 
+
+The lecture notes in this section cover the mechanics of standard errors and confidence intervals. These two important topics can be summed up in these animations of the sampling distribution of the mean.
+
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/reg_sample_orange.gif)
+
+<br>
+
+![](assets/img/measurement-error-in-dv-large.gif)
+
+
+<br>
+<br>
+<br>
 
 
 *** { @unit = "FRI Aug-30", @title = "Mini-Assessment", @assignment  }
 
 
-*** { @unit = "MON Sept-02", @title = "Lab 02", @assignment  }
+*** { @unit = "MON Sept-02", @title = "Lab 02", @assignment, @foldout  }
+
+
+<br>
+<br>
+
+# Lab 02
+
+This lab introduces a case study on education policy that we will be using for the remainder of the semester to demonstrate the importance and impact of control variables, and consequences of their omissions.
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-02-class-size-confidence-intervals.html">Lab-02 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-warning" href="https://canvas.asu.edu/courses/29527/assignments/753697">Submit Lab-02</a>
+
+<br>
+<br>
+
+
+
 
 
 
