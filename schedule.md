@@ -503,7 +503,7 @@ This lab introduces a case study on education policy that we will be using for t
 
 When you are complete:
 
-<a class="uk-button uk-button-warning" href="https://canvas.asu.edu/courses/29527/assignments/753697">Submit Lab-02</a>
+<a class="uk-button uk-button-danger" href="https://canvas.asu.edu/courses/29527/assignments/753697">Submit Lab-02</a>
 
 <br>
 <br>
