@@ -460,7 +460,7 @@ Please review the following lecture notes:
 * [Partitioning the Variance of Y](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-02-partitioning-variance.pdf)
 * [Standard Errors](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-03-standard-errors.pdf)
 * [Confidence Intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-04-confidence-intervals.pdf)
-* [Effect Size](https://github.com/DS4PS/cpp-523-fall-2019/blob/master/lectures/p-05-program-impact.pdf)
+* [Effect Size](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf)
 
 You might find this summary of notation helpful [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf)
 
@@ -473,13 +473,22 @@ There are no assigned readings this week.
 
 The lecture notes in this section cover the mechanics of standard errors and confidence intervals. These two important topics can be summed up in these animations of the sampling distribution of the mean.
 
+Our model estimate for the slope is our best guess of the real statistic. It will always be pretty good, but not exact.
 
 ![](https://github.com/lecy/regression-simulations/raw/master/GIFS/reg_sample_orange.gif)
 
 <br>
 
-![](assets/img/measurement-error-in-dv-large.gif)
+If we would repeatedly draw samples from a population and calculate slope estimates over and over, they would look like the distribution on the right. The "standard error" describes the average amount all of these guesses (statistics) are off from the true slope. 
 
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/sampling_dist_slope_50.gif)
+
+
+<br>
+
+If we create confidence intervals around these guesses, we can see that 95 out of 100 of the CIs will contain the true slope (set to 3 here). 
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/confidence%20intervals%202.gif)
 
 <br>
 <br>
@@ -503,7 +512,7 @@ This lab introduces a case study on education policy that we will be using for t
 
 When you are complete:
 
-<a class="uk-button uk-button-danger" href="https://canvas.asu.edu/courses/29527/assignments/753697">Submit Lab-02</a>
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/753697">Submit Lab-02</a>
 
 <br>
 <br>
