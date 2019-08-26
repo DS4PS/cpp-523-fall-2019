@@ -373,7 +373,7 @@ stargazer( m1, m2, m3, m4, m5,
 ```
 
 
-Warm-up: Interpret the slope associated with Class Size in Model 01. What does a slope of `r coef(m1)[2]` mean in this context? Is the negative sign a good thing or a bad thing?  
+Warm-up: Interpret the slope associated with Class Size in Model 01. What does a slope of `r round(coef(m1)[2],2)` mean in this context? Is the negative sign a good thing or a bad thing?  
 
 
 For the following cases, use the value t=1.96 for the 95% confidence interval calculations.
@@ -394,7 +394,7 @@ For the following cases, use the value t=1.96 for the 95% confidence interval ca
 
 R code for coefficient plots to adapt if desired:
 
-```{r}
+```{r, echo=T}
 mod1.slope    <- -2.01
 mod1.ci.lower <- -3
 mod1.ci.upper <- -1
