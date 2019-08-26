@@ -425,7 +425,7 @@ Finding the intercept of the regression is a little tricky because after solving
 
 > $\bar{y} = b_0 + b_1 \bar{x}$ 
 
-$b_1$ = cov(caffeine,heart.rate) / var(caffeine) = **`r round( cov(caffeine,heart.rate) / var(caffeine), 2 )`**
+$b_1$ = cov(caffeine,heart.rate) / var(caffeine) = **`r round( cov(caffeine,heart.rate) / var(caffeine), 3 )`**
 
 
 $\bar{y}$ = `r round(mean(heart.rate),0)`
