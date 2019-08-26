@@ -473,15 +473,20 @@ There are no assigned readings this week.
 
 The lecture notes in this section cover the mechanics of standard errors and confidence intervals. These two important topics can be summed up in these animations of the sampling distribution of the mean.
 
+Our model estimate for the slope is our best guess of the real statistic. It will always be pretty good, but not exact.
 
 ![](https://github.com/lecy/regression-simulations/raw/master/GIFS/reg_sample_orange.gif)
 
 <br>
 
+If we would repeatedly draw samples from a population and calculate slope estimates over and over, they would look like the distribution on the right. The "standard error" describes the average amount all of these guesses (statistics) are off from the true slope. 
+
 ![](https://github.com/lecy/regression-simulations/raw/master/GIFS/sampling_dist_slope_50.gif)
 
 
 <br>
+
+If we create confidence intervals around these guesses, we can see that 95 out of 100 of the CIs will contain the true slope (set to 3 here). 
 
 ![](https://github.com/lecy/regression-simulations/raw/master/GIFS/confidence%20intervals%202.gif)
 
