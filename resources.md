@@ -20,10 +20,10 @@ title: Resources
 
 ## Regression Tutorial for R
 
-* [UC Business Analytics](https://uc-r.github.io/linear_regression)  
-* [By Manny Gimond](http://mgimond.github.io/Stats-in-R/regression.html) 
-* [Listen Data](https://www.listendata.com/2015/09/linear-regression-with-r.html) 
-* [Machine Learning Plus](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/) 
+* UC Business Analytics[ [link](https://uc-r.github.io/linear_regression) ]
+* By Manny Gimond [ [link](http://mgimond.github.io/Stats-in-R/regression.html) ]
+* Listen Data [ [link](https://www.listendata.com/2015/09/linear-regression-with-r.html) ]
+* Machine Learning Plus [ [link](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/) ]
 * Learning regression in R using Moneyball models [ [link](https://towardsdatascience.com/linear-regression-moneyball-part-1-b93b3b9f5b53) ]
 * regression animations [ [link](https://github.com/lecy/regression-simulations) ]
 * much nicer but more complex animations [ [link](https://rpsychologist.com/archives) ]
