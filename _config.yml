@@ -36,6 +36,8 @@ header:
 #   url: https://asu.instructure.com/courses/26991/assignments/569550
 - title: Resources 
   url: resources/
+- title: Review Sessions
+  url: https://ds4ps.org/cpp-526-fall-2019/review-sessions/
 - title: Get Help
   url: help/
 
