@@ -469,7 +469,7 @@ We can calculate $\hat{y}$ for each input X in our model (caffeine in this case)
 b0 <- 71.470
 b1 <- 0.084
 X <- c(100,200,300)
-yhat <- b0 + b1*x
+yhat <- b0 + b1*X
 
 data.frame( b0, b1, X, yhat ) %>% 
   pander( caption="**yhat = 71.47 + (0.084)(X)**" )
