@@ -173,8 +173,7 @@ And to get a flavor for debates around approaches to measuring program impact in
 *OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf). 
 
 - Chapter 8 - Linear Regression 
-
-Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. 
+- *Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro Statistics.*
 
 <br>
 
