@@ -495,7 +495,17 @@ If we create confidence intervals around these guesses, we can see that 95 out o
 <br>
 
 
-*** { @unit = "FRI Aug-30", @title = "Mini-Assessment", @assignment  }
+
+
+*** { @unit = "FRI Aug-30", @title = "Mini-Assessment", @assignment, @foldout  }
+
+
+This mini-assessment consists of four multiple-choice questions. You have thirty minutes to complete from the time you start the assessment. 
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/219204">Start the Mini-Assessment</a>
+
+
+
 
 
 *** { @unit = "MON Sept-02", @title = "Lab 02", @assignment, @foldout  }
