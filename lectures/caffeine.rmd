@@ -137,8 +137,8 @@ Each sum of squares calculation has the same format:  $var(y) =  \frac{ \sum{ ( 
 Where the distance calculated in each case (the $\star$ above) is:
 
 Total SS (variance):  $y_i - \bar{y}$   `<- deviations`  
-Regression or Explained SS: $y_i - \hat{y}$   `<- gain in predictive accuracy` 
-Residual or Error SS: $y_i - \hat{y}$   `<- residuals`  
+Regression or Explained SS: $y_i - \hat{y}$   `<- gain in predictive accuracy`  
+Residual or Error SS: $y_i - \hat{y}$   `<- residuals`   
 
 <br>
 
@@ -382,24 +382,9 @@ abline( h=mean(hr2), col="steelblue", lwd=3 )
 
 
 
-We use the notation $\hat{y}$ to represent predicted values of Y. 
 
 
-Consequently, we will sometimes use $\hat{y}$ as shorthand for the set points that represents the regression line. 
 
-
-```{r}
-
-m.01 <- lm( heart.rate ~ caffeine )
-y.hat <- m.01$fitted.values
-
-jplot( caffeine, heart.rate, 
-       lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F, main="The Regression Line Represents Predicted Values of Y" )
-
-points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
-
-```
 
 
 
@@ -450,6 +435,48 @@ mod <- lm( heart.rate ~ caffeine )
 
 stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
 ```
+
+
+
+### The Y-hat Calculation
+
+
+We use the notation $\hat{y}$ to represent predicted values of Y using the regression model. 
+
+
+Consequently, we will sometimes use $\hat{y}$ as shorthand for the set points that represents the regression line. 
+
+
+```{r}
+
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="The Regression Line Represents Predicted Values of Y" )
+
+points( caffeine, y.hat, col="firebrick", pch=19, cex=1.5 )
+
+```
+
+
+
+
+We can calculate $\hat{y}$ for each input X in our model (caffeine in this case) using the regression formula now that we know $b_0$ and $b_1$. 
+
+```{r}
+b0 <- 71.470
+b1 <- 0.084
+X <- c(100,200,300)
+yhat <- b0 + b1*x
+
+data.frame( b0, b1, X, yhat ) %>% 
+  pander( caption="**yhat = 71.47 + (0.084)(X)**" )
+```
+
+
+
 
 
 

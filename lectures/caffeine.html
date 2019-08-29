@@ -264,7 +264,7 @@ $(document).ready(function () {
 <p>Each sum of squares calculation has the same format: <span class="math inline">\(var(y) = \frac{ \sum{ ( \star )^2 } } { n-1 }\)</span></p>
 <p>Where the distance calculated in each case (the <span class="math inline">\(\star\)</span> above) is:</p>
 <p>Total SS (variance): <span class="math inline">\(y_i - \bar{y}\)</span> <code>&lt;- deviations</code><br />
-Regression or Explained SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- gain in predictive accuracy</code>
+Regression or Explained SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- gain in predictive accuracy</code><br />
 Residual or Error SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- residuals</code></p>
 <p><br></p>
 </div>
@@ -481,9 +481,6 @@ regression.model
 <strong>Does the regression do a better job than the mean at predicting Y?</strong>
 </center>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-11-1.png" width="864" /></p>
-<p>We use the notation <span class="math inline">\(\hat{y}\)</span> to represent predicted values of Y.</p>
-<p>Consequently, we will sometimes use <span class="math inline">\(\hat{y}\)</span> as shorthand for the set points that represents the regression line.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
 </div>
 </div>
 <div id="the-regression-model" class="section level1">
@@ -629,19 +626,63 @@ Residual Std. Error
 </tr>
 </table>
 </div>
+<div id="the-y-hat-calculation" class="section level3">
+<h3><span class="header-section-number">2.0.3</span> The Y-hat Calculation</h3>
+<p>We use the notation <span class="math inline">\(\hat{y}\)</span> to represent predicted values of Y using the regression model.</p>
+<p>Consequently, we will sometimes use <span class="math inline">\(\hat{y}\)</span> as shorthand for the set points that represents the regression line.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<p>We can calculate <span class="math inline">\(\hat{y}\)</span> for each input X in our model (caffeine in this case) using the regression formula now that we know <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span>.</p>
+<table style="width:42%;">
+<caption><strong>yhat = 71.47 + (0.084)(X)</strong></caption>
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="8%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">b0</th>
+<th align="center">b1</th>
+<th align="center">x</th>
+<th align="center">yhat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">100</td>
+<td align="center">79.87</td>
+</tr>
+<tr class="even">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">200</td>
+<td align="center">88.27</td>
+</tr>
+<tr class="odd">
+<td align="center">71.47</td>
+<td align="center">0.084</td>
+<td align="center">300</td>
+<td align="center">96.67</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="the-variance-of-y" class="section level1">
 <h1><span class="header-section-number">3</span> The Variance of Y</h1>
 <p>Let’s consider the study population before they received the treatment in order to examine the distribution of heart rates through the population - the variance of heart rate.</p>
 <p>The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p>What does a <strong>standard deviation</strong> actually mean, though?</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-15-1.png" width="864" /></p>
-<p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
+<p>If we return to the scatterplot view of the data, we can present the same information using datapoints instead of a density plot. The solid red line represents the population mean, and the dotted red lines fall one standard deviation from the mean in either direction.</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
 <div id="the-standard-deviation" class="section level2">
 <h2><span class="header-section-number">3.1</span> The Standard Deviation</h2>
 <p>In very simple (and not mathematically correct) terms, the standard deviation is the <strong>“average” distance from each data point to the mean</strong>.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-17-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
 <p>We use the term “average” loosely because the standard deviation actually measures <strong>squared deviations</strong> from the mean to calculate variance, then take the <strong>square root of the sum</strong> to get the measures back to the original units.</p>
 <p>The <strong>standard deviation</strong> would be a true average if we had used the absolute value of distances from the mean, but the intuition is the same.</p>
 <p><br></p>
@@ -654,9 +695,9 @@ Residual Std. Error
 <p><br></p>
 <p>Let’s drill down to the first ten observations to examine this a little closer:</p>
 <p><span class="math inline">\(deviation_i = y_i - \bar{y}\)</span></p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
-<p>Distance from the mean of Y for all ten cases:</p>
 <p><img src="caffeine_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
+<p>Distance from the mean of Y for all ten cases:</p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
 <table style="width:78%;">
 <colgroup>
 <col width="8%" />
@@ -770,7 +811,7 @@ Residual Std. Error
 <p>More importantly, <strong>why will the sum of the deviations always add to zero?</strong></p>
 <p><img src="figures/seesaw.jpg" /></p>
 <p>You can think about the mean as a seesaw fulcrum. You place the fulcrum in the exact spot that it will balance all of the weight on both sides of the levers. The mean is the geometric center of the data that balances the distance between observations on all sides.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-21-1.png" width="384" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-22-1.png" width="384" /></p>
 <table style="width:40%;">
 <caption><strong>Summing Deviations</strong></caption>
 <colgroup>
@@ -851,7 +892,7 @@ Lebron James finding the average of the basketball.
 <h1><span class="header-section-number">4</span> R-Squared: Explaining Variance</h1>
 <p>Now that we are comfortable with the idea of measuring deviations, and variance being the sum of the squared deviations, we are ready to tackle the idea of “explaining” variance.</p>
 <p>It is important to first note that one nuance worth paying attention to is the subtle difference between the deviations from the mean that comprise the TOTAL VARIANCE calculation, and the residual terms that comprise the REGESSION or EXPLAINED VARIANCE calculation.</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-23-1.png" width="1152" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="1152" /></p>
 <p>The variance of the regression will always be smaller than the total variance because the regression line is chosen so it is closer to the data points.</p>
 <div id="sums-of-squares" class="section level2">
 <h2><span class="header-section-number">4.1</span> Sums of Squares</h2>
@@ -873,7 +914,7 @@ Lebron James finding the average of the basketball.
 <p>EXPLAINED SS = <span class="math inline">\(\sum{ ( \hat{y} - \bar{y})^2 }\)</span></p>
 <p>Recall that <span class="math inline">\(\hat{y}\)</span> represents the predicted values of Y, which is another way of saying the regression line. So what we are doing here is inserting the regression line between the mean of Y and the observed values of Y.</p>
 <p>The trick to partitioning the variance is to split the deviation <span class="math inline">\((y_i - \bar{y})\)</span> into two parts by inserting a point in the middle:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-24-1.png" width="384" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="384" /></p>
 <p>The regression line (<span class="math inline">\(\hat{y}\)</span>) serves the same role as B:</p>
 <p>A - B + B - C = A - C</p>
 <blockquote>
@@ -887,7 +928,7 @@ Lebron James finding the average of the basketball.
 <p>The statement above is the same as saying the TOTAL VARIANCE of Y can be decomposed into an EXPLAINED portion of the variance and an UNEXPLAINED portion of the variance.</p>
 <p>Thus <span class="math inline">\(R^2 = Regression \ SS / Total SS\)</span>, or <span class="math inline">\(R^2\)</span> is measuring the explained portion of the variance of the dependent variable in the model.</p>
 <p>Visually it would look something like this:</p>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-25-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-26-1.png" width="864" /></p>
 <center>
 This models has an <span class="math inline">\(R^2\)</span> of 0.282, so the blue segments account for about 28% of the residuals.
 </center>
@@ -1067,7 +1108,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-<p><img src="caffeine_files/figure-html/unnamed-chunk-29-1.png" width="864" /></p>
+<p><img src="caffeine_files/figure-html/unnamed-chunk-30-1.png" width="864" /></p>
 <p><br></p>
 <div class="tip">
 <p><br></p>
