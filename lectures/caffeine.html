@@ -261,6 +261,11 @@ $(document).ready(function () {
 </ul>
 <p><span class="math inline">\(var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }\)</span></p>
 <p><span class="math inline">\(R^2 = \frac{ Explained SS } { Total SS }\)</span></p>
+<p>Each sum of squares calculation has the same format: <span class="math inline">\(var(y) = \frac{ \sum{ ( \star )^2 } } { n-1 }\)</span></p>
+<p>Where the distance calculated in each case (the <span class="math inline">\(\star\)</span> above) is:</p>
+<p>Total SS (variance): <span class="math inline">\(y_i - \bar{y}\)</span> <code>&lt;- deviations</code><br />
+Regression or Explained SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- gain in predictive accuracy</code>
+Residual or Error SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- residuals</code></p>
 <p><br></p>
 </div>
 <p><br></p>

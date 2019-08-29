@@ -132,6 +132,13 @@ $var(y) =  \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac
 
 $R^2 = \frac{ Explained SS } { Total SS }$
 
+Each sum of squares calculation has the same format:  $var(y) =  \frac{ \sum{ ( \star )^2 } } { n-1 }$
+
+Where the distance calculated in each case (the $\star$ above) is:
+
+Total SS (variance):  $y_i - \bar{y}$   `<- deviations`  
+Regression or Explained SS: $y_i - \hat{y}$   `<- gain in predictive accuracy` 
+Residual or Error SS: $y_i - \hat{y}$   `<- residuals`  
 
 <br>
 
