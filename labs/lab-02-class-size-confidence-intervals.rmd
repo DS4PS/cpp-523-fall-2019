@@ -377,8 +377,11 @@ stargazer( m1, m2, m3, m4, m5,
 ```
 
 
+## Lab-02 Questions:
+
 Warm-up: Interpret the slope associated with Class Size in Model 01. What does a slope of `r round(coef(m1)[2],2)` mean in this context? Is the negative sign a good thing or a bad thing?  
 
+--- 
 
 For the following cases, use the value t=1.96 for the 95% confidence interval calculations.
 
@@ -394,6 +397,8 @@ For the following cases, use the value t=1.96 for the 95% confidence interval ca
 (5)	Draw the three confidence intervals to see how they change (you can do this in any drawing tool, with R, in MS Word or PowerPoint, or by hand).
 
 (6)	The covariance of class size and test scores is `r round(cov(csize,test),0)`, and the variance of class size is `r round(var(csize),0)`.  Can you calculate the slope of class size in Model 4 with the formula cov(x,y)/var(x)?  Why or why not?
+
+---
 
 
 R code for coefficient plots to adapt if desired:

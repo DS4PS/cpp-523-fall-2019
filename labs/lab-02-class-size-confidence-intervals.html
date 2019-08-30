@@ -274,7 +274,9 @@ $(document).ready(function () {
 <li><a href="#bill-gates-it-would-be-great-if-our-education-stuff-worked-but"><span>Bill Gates: ‘It would be great if our education stuff worked but’</span></a></li>
 <li><a href="#once-sold-as-the-solution-small-high-schools-are-now-on-the-back-burner"><span>Once sold as the solution, small high schools are now on the back burner</span></a></li>
 </ul></li>
-<li><a href="#lab-02-confidence-intervals">LAB-02: Confidence Intervals</a></li>
+<li><a href="#lab-02-confidence-intervals">LAB-02: Confidence Intervals</a><ul>
+<li><a href="#lab-02-questions">Lab-02 Questions:</a></li>
+</ul></li>
 <li><a href="#note-on-reading-regression-tables">Note on Reading Regression Tables</a></li>
 <li><a href="#submission-instructions">Submission Instructions</a></li>
 </ul>
@@ -722,7 +724,10 @@ Standard errors in parentheses
 </td>
 </tr>
 </table>
+<div id="lab-02-questions" class="section level2">
+<h2>Lab-02 Questions:</h2>
 <p>Warm-up: Interpret the slope associated with Class Size in Model 01. What does a slope of -4.22 mean in this context? Is the negative sign a good thing or a bad thing?</p>
+<hr />
 <p>For the following cases, use the value t=1.96 for the 95% confidence interval calculations.</p>
 <ol style="list-style-type: decimal">
 <li><p>What is the standard error associated with the slope on class size in Model 1?</p></li>
@@ -732,6 +737,7 @@ Standard errors in parentheses
 <li><p>Draw the three confidence intervals to see how they change (you can do this in any drawing tool, with R, in MS Word or PowerPoint, or by hand).</p></li>
 <li><p>The covariance of class size and test scores is -418, and the variance of class size is 99. Can you calculate the slope of class size in Model 4 with the formula cov(x,y)/var(x)? Why or why not?</p></li>
 </ol>
+<hr />
 <p>R code for coefficient plots to adapt if desired:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">mod1.slope    &lt;-<span class="st"> </span><span class="fl">-2.01</span></a>
 <a class="sourceLine" id="cb1-2" title="2">mod1.ci.lower &lt;-<span class="st"> </span><span class="dv">-3</span></a>
@@ -770,6 +776,7 @@ Standard errors in parentheses
 <a class="sourceLine" id="cb1-35" title="35"><span class="kw">text</span>( slopes, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), model.labels, </a>
 <a class="sourceLine" id="cb1-36" title="36">      <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">offset=</span><span class="dv">1</span> )</a></code></pre></div>
 <p><img src="lab-02-class-size-confidence-intervals_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+</div>
 </div>
 <div id="note-on-reading-regression-tables" class="section level1">
 <h1>Note on Reading Regression Tables</h1>
