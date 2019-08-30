@@ -112,7 +112,7 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 
 KEY TAKE-AWAYS:
 
-* A regression is a fancy average (ave of Y conditional on level of X).
+### A regression is a fancy average (ave of Y conditional on level of X).
 
 Formula for the regression:
 
@@ -123,22 +123,30 @@ $b_1 = cov(x,y) / var(x)$
 $\bar{y} = b_0 + b_1 \bar{x}$ 
 
 
-* Variance measures distances from data points to the mean.  
-* Variance can be decomposed into an explained and residual component.  
+### Variance measures distances from data points to the mean. 
+
+* $y_i$ = a data point
+* $\bar{y}$ = the mean of Y
+* $y_i - \bar{y}$ = distance to the mean = a deviation
+* $var(y) =  \frac{ \sum{ ( deviations )^2 }}{n-1}$
+
+### Variance can be decomposed into an explained and residual component.  
 
 
-$var(y) =  \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }$
+* $var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }$
 
+Each sum of squares calculation has the same format:  $SS =  \sum{ ( \star )^2 }$
+Where the distance calculated in each case (the $\star$ above) is:
+
+  - Total SS (variance):  $y_i - \bar{y}$   `(deviations)`  
+  - Regression or Explained SS: $y_i - \hat{y}$   `(gain in predictive accuracy)`  
+  - Residual or Error SS: $y_i - \hat{y}$   `(residuals)`   
+
+We then calculate the "variance explained" by the model as:
 
 $R^2 = \frac{ Explained SS } { Total SS }$
 
-Each sum of squares calculation has the same format:  $SS =  \frac{ \sum{ ( \star )^2 } } { n-1 }$
 
-Where the distance calculated in each case (the $\star$ above) is:
-
-Total SS (variance):  $y_i - \bar{y}$   `<- deviations`  
-Regression or Explained SS: $y_i - \hat{y}$   `<- gain in predictive accuracy`  
-Residual or Error SS: $y_i - \hat{y}$   `<- residuals`   
 
 <br>
 

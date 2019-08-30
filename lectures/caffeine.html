@@ -344,25 +344,33 @@ $(document).ready(function () {
 <div class="tip">
 <p><br></p>
 <p>KEY TAKE-AWAYS:</p>
-<ul>
-<li>A regression is a fancy average (ave of Y conditional on level of X).</li>
-</ul>
+<h3 id="a-regression-is-a-fancy-average-ave-of-y-conditional-on-level-of-x.">A regression is a fancy average (ave of Y conditional on level of X).</h3>
 <p>Formula for the regression:</p>
 <p><span class="math inline">\(Y = b_0 + b_1 X + e\)</span></p>
 <p><span class="math inline">\(b_1 = cov(x,y) / var(x)\)</span></p>
 <p><span class="math inline">\(\bar{y} = b_0 + b_1 \bar{x}\)</span></p>
+<h3 id="variance-measures-distances-from-data-points-to-the-mean.">Variance measures distances from data points to the mean.</h3>
 <ul>
-<li>Variance measures distances from data points to the mean.<br />
-</li>
-<li>Variance can be decomposed into an explained and residual component.</li>
+<li><span class="math inline">\(y_i\)</span> = a data point</li>
+<li><span class="math inline">\(\bar{y}\)</span> = the mean of Y</li>
+<li><span class="math inline">\(y_i - \bar{y}\)</span> = distance to the mean = a deviation</li>
+<li><span class="math inline">\(var(y) = \frac{ \sum{ ( deviations )^2 }}{n-1}\)</span></li>
 </ul>
-<p><span class="math inline">\(var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }\)</span></p>
+<h3 id="variance-can-be-decomposed-into-an-explained-and-residual-component.">Variance can be decomposed into an explained and residual component.</h3>
+<ul>
+<li><span class="math inline">\(var(y) = \frac{ Total SS } { (n-1) } = \frac{ Explained SS } { (n-1) } + \frac{ Residual SS } { (n-1) }\)</span></li>
+</ul>
+<p>Each sum of squares calculation has the same format: <span class="math inline">\(SS = \sum{ ( \star )^2 }\)</span>
+Where the distance calculated in each case (the <span class="math inline">\(\star\)</span> above) is:</p>
+<ul>
+<li>Total SS (variance): <span class="math inline">\(y_i - \bar{y}\)</span> <code>(deviations)</code><br />
+</li>
+<li>Regression or Explained SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>(gain in predictive accuracy)</code><br />
+</li>
+<li>Residual or Error SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>(residuals)</code></li>
+</ul>
+<p>We then calculate the “variance explained” by the model as:</p>
 <p><span class="math inline">\(R^2 = \frac{ Explained SS } { Total SS }\)</span></p>
-<p>Each sum of squares calculation has the same format: <span class="math inline">\(SS = \frac{ \sum{ ( \star )^2 } } { n-1 }\)</span></p>
-<p>Where the distance calculated in each case (the <span class="math inline">\(\star\)</span> above) is:</p>
-<p>Total SS (variance): <span class="math inline">\(y_i - \bar{y}\)</span> <code>&lt;- deviations</code><br />
-Regression or Explained SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- gain in predictive accuracy</code><br />
-Residual or Error SS: <span class="math inline">\(y_i - \hat{y}\)</span> <code>&lt;- residuals</code></p>
 <p><br></p>
 </div>
 <p><br></p>
