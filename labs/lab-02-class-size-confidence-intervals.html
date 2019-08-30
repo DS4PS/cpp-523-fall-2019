@@ -23,7 +23,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
@@ -41,7 +41,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -84,7 +84,29 @@ code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -148,6 +170,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -155,14 +180,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -190,6 +275,7 @@ $(document).ready(function () {
 <li><a href="#once-sold-as-the-solution-small-high-schools-are-now-on-the-back-burner"><span>Once sold as the solution, small high schools are now on the back burner</span></a></li>
 </ul></li>
 <li><a href="#lab-02-confidence-intervals">LAB-02: Confidence Intervals</a></li>
+<li><a href="#note-on-reading-regression-tables">Note on Reading Regression Tables</a></li>
 <li><a href="#submission-instructions">Submission Instructions</a></li>
 </ul>
 </div>
@@ -312,11 +398,11 @@ $(document).ready(function () {
 <p>In this assignment you will be working with simulated data on class size and test scores. There is also a variable for socio-economic status and teacher quality. We would like to understand how the relationship between class size and test scores changes when other variables are considered. We will be looking specifically at the confidence interval around the classroom size slope estimate.</p>
 <p><img src="lab-02-class-size-confidence-intervals_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 <p>We estimate the following models:</p>
-<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + e_1\)</span></p>
-<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + b_2 \cdot TeacherQuality + e_2\)</span></p>
-<p><span class="math inline">\(TestScore = b_0 + b_2 \cdot TeacherQuality + b_3 \cdot SES + e_3\)</span></p>
-<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + b_3 \cdot SES + e_4\)</span></p>
-<p><span class="math inline">\(TestScore = B_0 + B_1 \cdot ClassSize + B_2 \cdot TeacherQuality + B_3 \cdot SES + \epsilon\)</span></p>
+<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + e_1 \ \ \ (Model \ 1)\)</span></p>
+<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + b_2 \cdot TeacherQuality + e_2 \ \ \ (Model \ 2)\)</span></p>
+<p><span class="math inline">\(TestScore = b_0 + b_2 \cdot TeacherQuality + b_3 \cdot SES + e_3 \ \ \ (Model \ 3)\)</span></p>
+<p><span class="math inline">\(TestScore = b_0 + b_1 \cdot ClassSize + b_3 \cdot SES + e_4 \ \ \ (Model \ 4)\)</span></p>
+<p><span class="math inline">\(TestScore = B_0 + B_1 \cdot ClassSize + B_2 \cdot TeacherQuality + B_3 \cdot SES + \epsilon \ \ \ (Model \ 5)\)</span></p>
 <table style="text-align:center">
 <tr>
 <td colspan="6" style="border-bottom: 1px solid black">
@@ -647,43 +733,48 @@ Standard errors in parentheses
 <li><p>The covariance of class size and test scores is -418, and the variance of class size is 99. Can you calculate the slope of class size in Model 4 with the formula cov(x,y)/var(x)? Why or why not?</p></li>
 </ol>
 <p>R code for coefficient plots to adapt if desired:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">mod1.slope    &lt;-<span class="st"> </span><span class="fl">-2.01</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">mod1.ci.lower &lt;-<span class="st"> </span><span class="dv">-3</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">mod1.ci.upper &lt;-<span class="st"> </span><span class="dv">-1</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">mod2.slope     &lt;-<span class="st"> </span><span class="fl">-2.32</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">mod2.ci.lower &lt;-<span class="st"> </span><span class="dv">-5</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">mod2.ci.upper &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># etc.</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># slopes &lt;- c( mod1.slope, mod2.slope, ... mod5.slope )</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co"># ci.lower &lt;- c( mod1.ci.lower, mod2.ci.lower, ... mod5.ci.lower )</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co"># ci.upper &lt;- c( mod1.ci.upper, mod2.ci.upper, ... mod5.ci.upper )</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co"># model.labels &lt;- c(&quot;Model 1&quot;, &quot;Model 2&quot;, ... &quot;Model 5&quot;)</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">slopes &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.slope, mod2.slope )</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">ci.lower &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.ci.lower, mod2.ci.lower )</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">ci.upper &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.ci.upper, mod2.ci.upper )</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">model.labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Model 1&quot;</span>, <span class="st">&quot;Model 2&quot;</span>)</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">min.x &lt;-<span class="st"> </span><span class="kw">min</span>( ci.lower )</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">max.x &lt;-<span class="st"> </span><span class="kw">max</span>( ci.upper )</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb1-24" data-line-number="24"><span class="kw">plot</span>( <span class="dv">-8</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">-8</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">yaxt=</span><span class="st">&quot;n&quot;</span>, </a>
-<a class="sourceLine" id="cb1-25" data-line-number="25">      <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Slope for Class Size&quot;</span>,</a>
-<a class="sourceLine" id="cb1-26" data-line-number="26">      <span class="dt">xlim=</span><span class="kw">c</span>(min.x<span class="dv">-1</span>,max.x<span class="op">+</span><span class="dv">1</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">length</span>(slopes)<span class="op">+</span><span class="dv">1</span>) )</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span> )   <span class="co"># null hypothesis</span></a>
-<a class="sourceLine" id="cb1-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb1-30" data-line-number="30"><span class="kw">segments</span>( <span class="dt">x0=</span>ci.lower, <span class="dt">x1=</span>ci.upper, <span class="dt">y0=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), </a>
-<a class="sourceLine" id="cb1-31" data-line-number="31">          <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb1-32" data-line-number="32"></a>
-<a class="sourceLine" id="cb1-33" data-line-number="33"><span class="kw">points</span>( slopes, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb1-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb1-35" data-line-number="35"><span class="kw">text</span>( slopes, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), model.labels, </a>
-<a class="sourceLine" id="cb1-36" data-line-number="36">      <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">offset=</span><span class="dv">1</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">mod1.slope    &lt;-<span class="st"> </span><span class="fl">-2.01</span></a>
+<a class="sourceLine" id="cb1-2" title="2">mod1.ci.lower &lt;-<span class="st"> </span><span class="dv">-3</span></a>
+<a class="sourceLine" id="cb1-3" title="3">mod1.ci.upper &lt;-<span class="st"> </span><span class="dv">-1</span></a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">mod2.slope     &lt;-<span class="st"> </span><span class="fl">-2.32</span></a>
+<a class="sourceLine" id="cb1-6" title="6">mod2.ci.lower &lt;-<span class="st"> </span><span class="dv">-5</span></a>
+<a class="sourceLine" id="cb1-7" title="7">mod2.ci.upper &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co"># etc.</span></a>
+<a class="sourceLine" id="cb1-10" title="10"></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co"># slopes &lt;- c( mod1.slope, mod2.slope, ... mod5.slope )</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co"># ci.lower &lt;- c( mod1.ci.lower, mod2.ci.lower, ... mod5.ci.lower )</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co"># ci.upper &lt;- c( mod1.ci.upper, mod2.ci.upper, ... mod5.ci.upper )</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co"># model.labels &lt;- c(&quot;Model 1&quot;, &quot;Model 2&quot;, ... &quot;Model 5&quot;)</span></a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16">slopes &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.slope, mod2.slope )</a>
+<a class="sourceLine" id="cb1-17" title="17">ci.lower &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.ci.lower, mod2.ci.lower )</a>
+<a class="sourceLine" id="cb1-18" title="18">ci.upper &lt;-<span class="st"> </span><span class="kw">c</span>( mod1.ci.upper, mod2.ci.upper )</a>
+<a class="sourceLine" id="cb1-19" title="19">model.labels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Model 1&quot;</span>, <span class="st">&quot;Model 2&quot;</span>)</a>
+<a class="sourceLine" id="cb1-20" title="20"></a>
+<a class="sourceLine" id="cb1-21" title="21">min.x &lt;-<span class="st"> </span><span class="kw">min</span>( ci.lower )</a>
+<a class="sourceLine" id="cb1-22" title="22">max.x &lt;-<span class="st"> </span><span class="kw">max</span>( ci.upper )</a>
+<a class="sourceLine" id="cb1-23" title="23"></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="kw">plot</span>( <span class="dv">-8</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">-8</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, <span class="dt">yaxt=</span><span class="st">&quot;n&quot;</span>, </a>
+<a class="sourceLine" id="cb1-25" title="25">      <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Slope for Class Size&quot;</span>,</a>
+<a class="sourceLine" id="cb1-26" title="26">      <span class="dt">xlim=</span><span class="kw">c</span>(min.x<span class="dv">-1</span>,max.x<span class="op">+</span><span class="dv">1</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="kw">length</span>(slopes)<span class="op">+</span><span class="dv">1</span>) )</a>
+<a class="sourceLine" id="cb1-27" title="27"></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span> )   <span class="co"># null hypothesis</span></a>
+<a class="sourceLine" id="cb1-29" title="29"></a>
+<a class="sourceLine" id="cb1-30" title="30"><span class="kw">segments</span>( <span class="dt">x0=</span>ci.lower, <span class="dt">x1=</span>ci.upper, <span class="dt">y0=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), </a>
+<a class="sourceLine" id="cb1-31" title="31">          <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb1-32" title="32"></a>
+<a class="sourceLine" id="cb1-33" title="33"><span class="kw">points</span>( slopes, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb1-34" title="34"></a>
+<a class="sourceLine" id="cb1-35" title="35"><span class="kw">text</span>( slopes, <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(slopes), model.labels, </a>
+<a class="sourceLine" id="cb1-36" title="36">      <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">offset=</span><span class="dv">1</span> )</a></code></pre></div>
 <p><img src="lab-02-class-size-confidence-intervals_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+</div>
+<div id="note-on-reading-regression-tables" class="section level1">
+<h1>Note on Reading Regression Tables</h1>
+<p>It is common to compare regression models with different specification (including or excluding variables) to ensure we have the best fit. To present multiple models compactly we display each model as a column in the table. You can read them as follows:</p>
+<p><img src="figures/reading-a-regression-table.png" /> <img src="figures/reading-a-regression-table2.png" /></p>
 </div>
 <div id="submission-instructions" class="section level1">
 <h1>Submission Instructions</h1>

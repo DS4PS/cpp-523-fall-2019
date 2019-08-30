@@ -338,15 +338,19 @@ pairs( dat[1:1000,], lower.panel=panel.smooth, upper.panel=panel.cor)
 
 We estimate the following models:
 
-$TestScore = b_0 + b_1 \cdot ClassSize + e_1$
+$TestScore = b_0 + b_1 \cdot ClassSize + e_1 \ \ \ (Model \ 1)$
 
-$TestScore = b_0 + b_1 \cdot ClassSize + b_2 \cdot TeacherQuality + e_2$
+$TestScore = b_0 + b_1 \cdot ClassSize + b_2 \cdot TeacherQuality + e_2  \ \ \ (Model \ 2)$
 
-$TestScore = b_0 + b_2 \cdot TeacherQuality + b_3 \cdot SES + e_3$
 
-$TestScore = b_0 + b_1 \cdot ClassSize + b_3 \cdot SES + e_4$
+$TestScore = b_0 + b_2 \cdot TeacherQuality + b_3 \cdot SES + e_3  \ \ \ (Model \ 3)$
 
-$TestScore = B_0 + B_1 \cdot ClassSize + B_2 \cdot TeacherQuality + B_3 \cdot SES + \epsilon$
+$TestScore = b_0 + b_1 \cdot ClassSize + b_3 \cdot SES + e_4  \ \ \ (Model \ 4)$
+
+$TestScore = B_0 + B_1 \cdot ClassSize + B_2 \cdot TeacherQuality + B_3 \cdot SES + \epsilon  \ \ \ (Model \ 5)$
+
+
+
 
 ```{r, results='asis', echo=F}
 library( stargazer )
@@ -432,6 +436,15 @@ points( slopes, 1:length(slopes), pch=19, col="orange", cex=2 )
 text( slopes, 1:length(slopes), model.labels, 
       col="darkgray", pos=3, cex=1.2, offset=1 )
 ```
+
+
+
+# Note on Reading Regression Tables
+
+It is common to compare regression models with different specification (including or excluding variables) to ensure we have the best fit. To present multiple models compactly we display each model as a column in the table. You can read them as follows:
+
+![](figures/reading-a-regression-table.png)
+![](figures/reading-a-regression-table2.png)
 
 
 
