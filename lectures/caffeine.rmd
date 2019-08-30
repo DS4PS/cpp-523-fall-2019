@@ -139,7 +139,7 @@ Each sum of squares calculation has the same format:  $SS =  \sum{ ( \star )^2 }
 Where the distance calculated in each case (the $\star$ above) is:
 
   - Total SS (variance):  $y_i - \bar{y}$   `(deviations)`  
-  - Regression or Explained SS: $y_i - \hat{y}$   `(gain in predictive accuracy)`  
+  - Regression or Explained SS: $\hat{y} - \bar{y}$   `(gain in predictive accuracy)`  
   - Residual or Error SS: $y_i - \hat{y}$   `(residuals)`   
 
 We then calculate the "variance explained" by the model as:
