@@ -287,6 +287,8 @@ csize <- round( (csize + 450)*(45/432), 0 )
 
 dat <- data.frame( test, csize, tqual, ses )
 
+
+# write.csv( dat, "class-size-seed-1234.csv", row.names=F )
 ```
 
 
@@ -425,7 +427,7 @@ ci.upper <- c( mod1.ci.upper, mod2.ci.upper )
 model.labels <- c("Model 1", "Model 2")
 
 min.x <- min( ci.lower )
-max.x <- max( ci.upper )
+max.x <- max( max( ci.upper ), 1 )
 
 plot( -8:3, -8:3, bty="n", type="n", yaxt="n", 
       ylab="", xlab="Slope for Class Size",
