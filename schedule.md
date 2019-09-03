@@ -550,37 +550,28 @@ When you are complete:
 
 ** Week 3 - Control Variables 
 
-*** { @unit = "", @title = "Unit Overview" }
+*** { @unit = "", @title = "Unit Overview". @foldout }
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This lecture introduces you to two distinctive types of control variables, and how the different ways they change our models. We will also start using Ballentine Venn Diagrams to compare models. 
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you will be able to explain how adding specific control variables to a model (or leaving them out) will impact (1) the slopes and (2) the standard error of your model. 
 
 
 ## Assigned and Recommended Articles or Chapters
 
 ### Required:
 
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
-
-### Recommended:
-
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
-
-## Data Used in this Section
-
-The following data will be used for lectures in this section (link to dataset page)…
+None. 
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
+[Lecture 06 on Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
 
-## Lab Preview 
+
 
 
 
