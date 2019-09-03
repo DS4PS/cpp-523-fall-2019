@@ -1,0 +1,240 @@
+---
+title: "Control Variables"
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    self_contained: false
+    number_sections: true
+    css: textbook.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.width=9, fig.height=6, warning=F, message=F )
+```
+
+
+
+```{r}
+library( stargazer )
+library( pander )
+library( dplyr )
+library( scales )
+
+
+jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
+{
+
+	plot( x1, x2,
+	      pch=19, 
+	      col=gray(0.6, alpha = 0.2), 
+	      cex=3.5,  
+	      bty = "n",
+	      xlab=lab1, 
+	      ylab=lab2, cex.lab=1.5,
+        ... )
+
+	if( draw.line==T ){ 
+		ok <- is.finite(x1) & is.finite(x2)
+		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
+
+}
+
+
+
+```
+
+
+```{r echo=F}
+# https://www.theodysseyonline.com/caffeine-affect-heart-rate
+
+set.seed( 1246 )  # 1246 
+
+caffeine <- runif( n=100, min=0, max=500 )
+
+stress.index <- (125)*caffeine + rnorm(100,0,3000)
+
+stress.index <- stress.index/1000
+stress.index <- rescale( stress.index, to=c(0,100) )
+
+
+# plot( caffeine, stress.index )
+
+
+gym.time <- runif( n=100, min=0, max=60 )
+
+heart.rate <- 68 + (50/100)*caffeine + (0.5)*stress.index - 10*gym.time + rnorm(100,0,80) 
+
+heart.rate <- rescale( heart.rate, to=c(30,150) )
+
+# summary( heart.rate )
+
+# summary( lm( heart.rate ~ caffeine + stress.index + gym.time ) )
+```
+
+
+
+```{r, fig.width=10, fig.height=10, echo=F}
+
+
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- cor(x, y, use="pairwise.complete.obs")
+    txt <- format(c(r, 0.123456789), digits=digits)[1]
+    txt <- paste(prefix, txt, sep="")
+    if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
+    
+    test <- cor.test(x,y)
+    # borrowed from printCoefmat
+    Signif <- symnum(test$p.value, corr = FALSE, na = FALSE,
+                  cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                  symbols = c("***", "**", "*", ".", " "))
+    
+    text(0.5, 0.5, txt, cex = 2 )
+    text(.7, .8, Signif, cex=3, col=2)
+}
+
+
+panel.smooth <- function (x, y, col = par("col"), bg = NA, pch = par("pch"), 
+  cex = 1, col.smooth = "red", span = 2/3, iter = 3, ...) 
+{
+  points(x, y, pch = 19, col = gray(0.5,0.5), 
+         bg = bg, cex = 1.7)
+  ok <- is.finite(x) & is.finite(y)
+  if (any(ok)) 
+    lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
+      col = col.smooth, lwd=2, ...)
+}
+
+
+dat <- data.frame( heart.rate, caffeine, stress.index, gym.time )
+
+pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)
+
+```
+
+
+```{r, results="asis"}
+mod1 <- lm( heart.rate ~ caffeine )
+mod2 <- lm( heart.rate ~ stress.index )
+mod3 <- lm( heart.rate ~ caffeine + stress.index )
+mod4 <- lm( heart.rate ~ caffeine + gym.time )
+mod5 <- lm( heart.rate ~ caffeine + stress.index + gym.time )
+
+stargazer( mod1, mod2, mod3, mod4, mod5,
+           header=F, type="html", 
+           omit.stat = c("adj.rsq", "f", "ser"),
+           column.labels = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"),
+           covariate.labels=c("Caffeine",
+                              "Stress Index",
+                              "Time Spent at Gym",
+                              "Intercept") )
+```
+
+
+
+
+```{r}
+
+y <- heart.rate
+y.bar <- mean( heart.rate )
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Partitioning the Variance of Y" )
+
+
+segments( x0=caffeine, y0=y, y1=y.bar, col="firebrick", lwd=2 )
+segments( x0=caffeine, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+
+abline( h=y.bar, col="steelblue", lwd=3 )
+abline( m.01, col="firebrick", lwd=3 )
+
+text( 350, 40, "Explained SS", col="steelblue", cex=2, pos=4 )
+text( 350, 50, "Residual SS", col="firebrick", cex=2, pos=4 )
+
+text( 480, y.bar, expression(bar(Y)), cex=1, col="steelblue", pos=3, offset=0.5 )
+text( 480, predict( m.01, data.frame(caffeine=480) ), 
+      expression(hat(Y)), cex=1, col="firebrick", pos=3, offset=0.5 )
+text( 480, 130, expression(y[i]), cex=1, col="gray40", pos=3, offset=1 )
+```
+
+<center>
+This models has an $R^2$ of 0.282, so the blue segments account for about 28% of the residuals.
+</center>
+
+
+```{r}
+
+part.reg <- function( y, x1, x2 )
+{
+  m1 <- lm( y ~ x2 )
+  e1 <- m1$residuals + sum( coefficients(m1) * c(1,mean(x2)) )
+  
+  m2 <- lm( x1 ~ x2 )
+  e2 <- m2$residuals + sum( coefficients(m2) * c(1,mean(x2)) )
+  
+  ybar <- mean(y)
+  
+  par( mfcol=c(1,2) )
+  
+  jplot( x1, y, draw.line=F, ylim=c(30,150) )
+  abline( lm(y~x1), col="firebrick", lwd=2 )
+  abline( h=ybar, col="steelblue", lwd=2 )
+  
+  jplot( e2, e1, draw.line=F, ylim=c(30,150) )
+  abline( lm(e1~e2), col="firebrick", lwd=2 )
+  abline( h=ybar, col="steelblue", lwd=2 )
+}
+
+
+part.reg.segs <- function( y, x1, x2 )
+{
+  m1 <- lm( y ~ x2 )
+  e1 <- m1$residuals + sum( coefficients(m1) * c(1,mean(x2)) )
+  
+  m2 <- lm( x1 ~ x2 )
+  e2 <- m2$residuals + sum( coefficients(m2) * c(1,mean(x2)) )
+  
+  y.bar <- mean(y)
+  
+  par( mfcol=c(1,2) )
+  
+  jplot( x1, y, draw.line=F, ylim=c(30,150) )
+  abline( lm(y~x1), col="firebrick", lwd=2 )
+  abline( h=y.bar, col="steelblue", lwd=2 )
+  y.hat <- (lm(y~x1))$fitted.values
+  segments( x0=x1, y0=y, y1=y.bar, col="firebrick", lwd=2 )
+  segments( x0=x1, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+
+  jplot( e2, e1, draw.line=F, ylim=c(30,150) )
+  y.hat <- (lm(e1~e2))$fitted.values
+  segments( x0=e2, y0=e1, y1=y.bar, col="firebrick", lwd=2 )
+  segments( x0=e2, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+  abline( lm(e1~e2), col="firebrick", lwd=2 )
+  abline( h=y.bar, col="steelblue", lwd=2 )
+}
+
+part.reg( y=heart.rate, x1=caffeine, x2=stress.index )
+
+part.reg.segs( y=heart.rate, x1=caffeine, x2=stress.index )
+
+
+part.reg( y=heart.rate, x1=caffeine, x2=gym.time )
+
+part.reg.segs( y=heart.rate, x1=caffeine, x2=gym.time )
+
+```
+
+
+
+
+
+
