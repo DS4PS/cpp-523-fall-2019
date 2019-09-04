@@ -578,7 +578,38 @@ None.
 
 *** { @unit = "THURS Sept-05", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "MON Sept-09", @title = "Lab 03", @assignment  }
+This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf).
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/220511">Start the Mini-Assessment</a>
+
+
+
+
+
+
+*** { @unit = "MON Sept-09", @title = "Lab 03", @assignment, @foldout  }
+
+
+<br>
+<br>
+
+# Lab 03
+
+This lab introduces the important role of control variables in our models. They can be used to reduce standard errors of the model and thus increase model efficiency, or they can be used to to adjust slopes in the model. The lab draws on material from the lecture 06 notes. 
+
+* [Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-03-instructions.html">Lab-03 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/770250">Submit Lab-03</a>
+
+<br>
+<br>
+
+
+
 
 
 
