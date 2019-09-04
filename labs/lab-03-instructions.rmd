@@ -69,6 +69,8 @@ plot( dat$csize, dat$test,
       xlab="Class Size", ylab="Test Scores",
       main="Relationship Between Class Size and Test Scores" )
 
+# CHANGE THE PLOT STYLE:
+#
 # pch=19             # change point style
 # cex=1.5            # change point size
 # col="firebrick"    # change color
