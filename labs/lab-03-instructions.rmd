@@ -1,0 +1,238 @@
+---
+title: 'Lab 03 - Control Variables'
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    self_contained: false
+    number_sections: false
+    css: textbook.css
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
+```
+
+
+
+#### [CPP 523: Program Eval I](https://ds4ps.org/cpp-523-fall-2019/schedule/)
+
+<br>
+
+The goal of the assignment is to build intuition about what “control” variables are doing in a regression.  In this model **Class Size** is the policy variable of interest. **Teacher Quality** and **Socio-Economic Status** are the controls.  
+
+We are going to examine the unconditioned relationship between Class Size and Test Scores, then we will condition on control variables by removing variance associated with the control to see how it impacts our estimate of the policy.
+
+
+#### Load Packages
+
+```{r}
+library( pander )     # formatting tables
+library( dplyr )      # data wrangling
+library( stargazer )  # regression tables
+```
+
+
+#### Load Data
+
+```{r}
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv"
+dat <- read.csv( URL )
+```
+
+```{r, echo=F}
+head( dat ) %>% pander
+```
+
+* **test** - average classroom score on a standardized test  
+* **csize** - classroom size  
+* **tqual** - quality of instruction evaluated by third party experts 
+* **ses** - socio economic status  
+
+
+
+**Warmup**: Draw a Ballantine Venn Diagram of Class Size, SES, Teacher Quality and Test Score.
+
+
+## Lab Questions
+
+### **PART I**:
+
+#### Question 1.
+
+Create a scatterplot between Class Size (x-axis) and Test Score (y-axis).
+
+```{r, eval=F}
+plot( dat$csize, dat$test, 
+      xlab="Class Size", ylab="Test Scores",
+      main="Relationship Between Class Size and Test Scores" )
+
+# pch=19             # change point style
+# cex=1.5            # change point size
+# col="firebrick"    # change color
+# bty="n"            # remove bounding box
+```
+
+
+#### Question 2.
+
+Regress Test Score on Teacher Quality while saving the residuals.  Now create a scatterplot of Class Size and the residuals of Test Score.  What happened to the strength of the relationship?  Why?
+
+$test = b_0 + b_1 \cdot tqual + e1$
+
+```{r, eval=F}
+model.01 <- lm( test ~ tqual, data=dat )
+e1.test.score <- model.01$residual
+plot( dat$csize, e1.test.score )
+```
+
+
+#### Question 3. 
+
+Regress Test Score on SES and save the residuals.  Create a scatterplot of Class Size and the residuals of Test Score.  What happened to the strength of the relationship?  Why?
+
+$test = b_0 + b_1 \cdot ses + e2$
+
+```{r, eval=F}
+model.02 <- lm( test ~ ses, data=dat )
+e2.test.score <- model.02$residual
+plot( dat$csize, e2.test.score )
+```
+
+
+#### Question 4.
+
+These graphs are demonstrating the effects of the control variables Teacher Quality and SES on the dependent variable. Which control variable do you think is removing unexplained portions of the outcome Test Scores? By removing unexplained portions they will reduce the residuals in the full model. Which control variable is removing the explained portion of the variance of test scores (the covariance of class size and test scores)? 
+
+
+<br>
+<br>
+
+
+
+### **PART II**:
+
+Use the following regression table and graphs to answer the question. 
+
+<br>
+
+#### Question 6.  
+
+Based upon the correlation structure reported below, which control variable do you expect would change the slope of caffeine if removed from the model? Which would result in a larger standard error associated with caffeine if removed from the model?
+
+Explain your reasoning. 
+
+
+```{r, echo=F, results="asis"}
+dat <- read.csv( "data/caffeine-heart-rate-w-controls.csv" )
+mod <- lm( heart.rate ~ caffeine + stress.index + gym.time, data=dat)
+stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
+```
+
+
+
+
+
+```{r, fig.width=10, fig.height=10, echo=F}
+
+panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- cor(x, y, use="pairwise.complete.obs")
+    txt <- format(c(r, 0.123456789), digits=digits)[1]
+    txt <- paste(prefix, txt, sep="")
+    if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
+    
+    test <- cor.test(x,y)
+    # borrowed from printCoefmat
+    Signif <- symnum(test$p.value, corr = FALSE, na = FALSE,
+                  cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                  symbols = c("***", "**", "*", ".", " "))
+    
+    text(0.5, 0.5, txt, cex = 2 )
+    text(.7, .8, Signif, cex=3, col=2)
+}
+
+
+panel.smooth <- function (x, y, col = par("col"), bg = NA, pch = par("pch"), 
+  cex = 1, col.smooth = "red", span = 2/3, iter = 3, ...) 
+{
+  points(x, y, pch = 19, col = gray(0.5,0.5), 
+         bg = bg, cex = 1.7)
+  ok <- is.finite(x) & is.finite(y)
+  if (any(ok)) 
+    lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
+      col = col.smooth, lwd=2, ...)
+}
+
+
+pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)
+
+```
+
+
+
+```{r, echo=F, eval=F}
+attach( dat )
+
+jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
+{
+
+	plot( x1, x2,
+	      pch=19, 
+	      col=gray(0.6, alpha = 0.2), 
+	      cex=3.5,  
+	      bty = "n",
+	      xlab=lab1, 
+	      ylab=lab2, cex.lab=1.5,
+        ... )
+
+	if( draw.line==T ){ 
+		ok <- is.finite(x1) & is.finite(x2)
+		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
+
+}
+
+
+y <- heart.rate
+y.bar <- mean( heart.rate )
+m.01 <- lm( heart.rate ~ caffeine )
+y.hat <- m.01$fitted.values
+
+
+jplot( caffeine, heart.rate, 
+       lab1="Caffeine", lab2="Heart Rate", 
+       draw.line=F, main="Relationship Between Caffeine & Heart Rate Before Controls Added" )
+
+
+segments( x0=caffeine, y0=y, y1=y.bar, col="firebrick", lwd=2 )
+segments( x0=caffeine, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
+
+abline( h=y.bar, col="steelblue", lwd=3 )
+abline( m.01, col="firebrick", lwd=3 )
+
+text( 350, 40, "Explained SS", col="steelblue", cex=2, pos=4 )
+text( 350, 50, "Residual SS", col="firebrick", cex=2, pos=4 )
+
+text( 480, y.bar, expression(bar(Y)), cex=1, col="steelblue", pos=3, offset=0.5 )
+text( 480, predict( m.01, data.frame(caffeine=480) ), 
+      expression(hat(Y)), cex=1, col="firebrick", pos=3, offset=0.5 )
+text( 480, 130, expression(y[i]), cex=1, col="gray40", pos=3, offset=1 )
+```
+
+
+<br><br>
+
+# Submission Instructions
+
+After you have completed your lab, knit your RMD file. Login to Canvas at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link.
+
+Remember to:
+
+* name your files according to the convention: **Lab-##-LastName.Rmd**
+* show your solution, include your code.
+* do not print excessive output (like a full data set).
+
