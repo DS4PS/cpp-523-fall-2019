@@ -576,7 +576,7 @@ None.
 
 
 
-*** { @unit = "THURS Sept-05", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "FRI Sept-06", @title = "Mini-Assessment", @assignment, @foldout   }
 
 This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf).
 
@@ -607,6 +607,9 @@ When you are complete:
 
 <br>
 <br>
+
+
+
 
 
 
