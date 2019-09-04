@@ -599,6 +599,8 @@ This lab introduces the important role of control variables in our models. They 
 
 * [Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
 
+I have provided the code for the regression models and scatterplots. This lab focuses on interpretation of results. You do need to create an RMD document, and knit an HTML file to submit your results. 
+
 <a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-03-instructions.html">Lab-03 Instructions</a>
 
 When you are complete:
