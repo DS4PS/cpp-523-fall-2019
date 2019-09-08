@@ -47,7 +47,8 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 
 
 ```{r echo=F}
-# https://www.theodysseyonline.com/caffeine-affect-heart-rate
+
+library( scales )
 
 set.seed( 1246 )  # 1246 
 
@@ -68,6 +69,10 @@ heart.rate <- 68 + (50/100)*caffeine + (0.5)*stress.index - 10*gym.time + rnorm(
 
 heart.rate <- rescale( heart.rate, to=c(30,150) )
 
+dat <- data.frame( heart.rate, caffeine, stress.index, gym.time )
+
+
+# write.csv( dat, "caffeine-heart-rate-w-controls.csv", row.names=F )
 # summary( heart.rate )
 
 # summary( lm( heart.rate ~ caffeine + stress.index + gym.time ) )
@@ -136,6 +141,45 @@ stargazer( mod1, mod2, mod3, mod4, mod5,
 ```
 
 
+
+```{r, echo=F, eval=F}
+mod1.slope    <- -2.01
+mod1.ci.lower <- -3
+mod1.ci.upper <- -1
+
+mod2.slope     <- -2.32
+mod2.ci.lower <- -5
+mod2.ci.upper <- 1
+
+# etc.
+
+# slopes <- c( mod1.slope, mod2.slope, ... mod5.slope )
+# ci.lower <- c( mod1.ci.lower, mod2.ci.lower, ... mod5.ci.lower )
+# ci.upper <- c( mod1.ci.upper, mod2.ci.upper, ... mod5.ci.upper )
+# model.labels <- c("Model 1", "Model 2", ... "Model 5")
+
+slopes <- c( mod1.slope, mod2.slope )
+ci.lower <- c( mod1.ci.lower, mod2.ci.lower )
+ci.upper <- c( mod1.ci.upper, mod2.ci.upper )
+model.labels <- c("Model 1", "Model 2")
+
+min.x <- min( ci.lower )
+max.x <- max( max( ci.upper ), 1 )
+
+plot( -8:3, -8:3, bty="n", type="n", yaxt="n", 
+      ylab="", xlab="Slope for Class Size",
+      xlim=c(min.x-1,max.x+1), ylim=c(0,length(slopes)+1) )
+
+abline( v=0, col="darkgray" )   # null hypothesis
+
+segments( x0=ci.lower, x1=ci.upper, y0=1:length(slopes), 
+          col="orange", lwd=2 )
+
+points( slopes, 1:length(slopes), pch=19, col="orange", cex=2 )
+
+text( slopes, 1:length(slopes), model.labels, 
+      col="darkgray", pos=3, cex=1.2, offset=1 )
+```
 
 
 ```{r}

@@ -259,30 +259,34 @@ $(document).ready(function () {
 <ul>
 <li><strong>test</strong> - average classroom score on a standardized test<br />
 </li>
-<li><strong>csize</strong> - classroom size<br />
+<li><strong>csize</strong> - classroom size; number of students<br />
 </li>
-<li><strong>tqual</strong> - quality of instruction evaluated by third party experts</li>
-<li><strong>ses</strong> - socio economic status</li>
+<li><strong>tqual</strong> - teacher quality evaluated by third party experts on a scale of 1 to 100</li>
+<li><strong>ses</strong> - socio economic status of students measured as median household income<br />
+</li>
+<li><strong>piq</strong> - parent average IQ</li>
 </ul>
-<p><strong>Warmup</strong>: Draw a Ballantine Venn Diagram of Class Size, SES, Teacher Quality and Test Score.</p>
 </div>
 <div id="lab-questions" class="section level2">
 <h2>Lab Questions</h2>
+<p><strong>Warmup</strong>: Draw a Ballantine Venn Diagram of Class Size, SES, Teacher Quality and Test Score. You do not have to submit your drawing, but it will be useful for answering questions below.</p>
 <div id="part-i" class="section level3">
 <h3><strong>PART I</strong>:</h3>
 <div id="question-1." class="section level4">
 <h4>Question 1.</h4>
-<p>Create a scatterplot between Class Size (x-axis) and Test Score (y-axis).</p>
+<p>Create a scatterplot between Class Size (x-axis) and Test Score (y-axis). This will serve as a visual representation of our baseline model of the relationship between Class Size and Test Score.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>( dat<span class="op">$</span>csize, dat<span class="op">$</span>test, </a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Class Size&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Test Scores&quot;</span>,</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3">      <span class="dt">main=</span><span class="st">&quot;Relationship Between Class Size and Test Scores&quot;</span> )</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co"># CHANGE THE PLOT STYLE:</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># pch=19             # change point style</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># cex=1.5            # change point size</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># col=&quot;firebrick&quot;    # change color</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co"># bty=&quot;n&quot;            # remove bounding box</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">abline</span>( <span class="kw">lm</span>(test<span class="op">~</span>csize,<span class="dt">data=</span>dat), <span class="dt">col=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># CHANGE THE PLOT STYLE:</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># pch=19             # change point style</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co"># cex=1.5            # change point size</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co"># col=&quot;firebrick&quot;    # change color</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co"># bty=&quot;n&quot;            # remove bounding box</span></a></code></pre></div>
 </div>
 <div id="question-2." class="section level4">
 <h4>Question 2.</h4>
@@ -302,17 +306,25 @@ $(document).ready(function () {
 </div>
 <div id="question-4." class="section level4">
 <h4>Question 4.</h4>
-<p>These graphs are demonstrating the effects of the control variables Teacher Quality and SES on the dependent variable. Which control variable do you think is removing unexplained portions of the outcome Test Scores? By removing unexplained portions they will reduce the residuals in the full model. Which control variable is removing the explained portion of the variance of test scores (the covariance of class size and test scores)?</p>
+<p>These graphs demonstrate the effects of adding the control variables <strong>Teacher Quality</strong> and <strong>SES</strong> to the baseline model of the relationship between <strong>Class Size</strong> and <strong>Test Score</strong>. Conceptually, the control variable will improve a model to remove variance to make the estimate either more precise (smaller standard errors) or less bias (adjust the slope of the policy variable).</p>
+<p><strong>Q 4-1</strong>:</p>
+<p>Which control variable do you think is removing UNEXPLAINED portions of the outcome Test Scores? By removing the unexplained portions it will reduce the residuals in the full model.</p>
+<p><strong>Q 4-2</strong>:</p>
+<p>Which control variable is removing the EXPLAINED portion of the variance of test scores (the covariance of class size and test scores)? By removing the explained portion it will weaken the relationship between class size and test scores.</p>
 <p><br> <br></p>
 </div>
 </div>
 <div id="part-ii" class="section level3">
 <h3><strong>PART II</strong>:</h3>
 <p>Use the following regression table and graphs to answer the question.</p>
-<p><br></p>
-<div id="question-6." class="section level4">
-<h4>Question 6.</h4>
-<p>Based upon the correlation structure reported below, which control variable do you expect would change the slope of caffeine if removed from the model? Which would result in a larger standard error associated with caffeine if removed from the model?</p>
+<div id="question-5-1" class="section level4">
+<h4>Question 5-1</h4>
+<p>Based upon the correlation structure reported below, which control variable do you expect would change the slope of caffeine if removed from the model?</p>
+<p>Explain your reasoning.</p>
+</div>
+<div id="question-5-1-1" class="section level4">
+<h4>Question 5-1</h4>
+<p>Which would result in a larger standard error associated with caffeine if removed from the model?</p>
 <p>Explain your reasoning.</p>
 <table style="text-align:center">
 <tr>
@@ -468,7 +480,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-<p><img src="lab-03-instructions_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="lab-03-instructions_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><br><br></p>
 </div>
 </div>
