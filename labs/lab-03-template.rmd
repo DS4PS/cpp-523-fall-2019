@@ -1,29 +1,18 @@
 ---
 title: 'Lab 03 - Control Variables'
+author: "Your Name"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
-    theme: readable
-    highlight: tango
-    toc: true
-    self_contained: false
-    number_sections: false
-    css: textbook.css
+    df_print: paged
+    theme: cerulean
+    highlight: haddock
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
 ```
-
-
-
-#### [CPP 523: Program Eval I](https://ds4ps.org/cpp-523-fall-2019/schedule/)
-
-<br>
-
-The goal of the assignment is to build intuition about what “control” variables are doing in a regression.  In this model **Class Size** is the policy variable of interest. **Teacher Quality** and **Socio-Economic Status** are the controls.  
-
-We are going to examine the unconditioned relationship between Class Size and Test Scores, then we will condition on control variables by removing variance associated with the control to see how it impacts our estimate of the policy.
 
 
 #### Load Packages
@@ -54,7 +43,7 @@ head( dat[c("test","csize","tqual","ses")] ) %>% pander
 
 
 
-```{r, fig.width=10, fig.height=10, echo=F, eval=F}
+```{r, fig.width=10, fig.height=10, echo=F, eval=T}
 
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 {
@@ -96,34 +85,9 @@ pairs( dat[c("test","csize","tqual","ses")],
 
 
 
-```{r, results='asis', echo=F, eval=F}
-library( stargazer )
-
-m1 <- lm( test ~ csize, data=dat  ) 
-m2 <- lm( test ~ csize + tqual, data=dat )
-m3 <- lm( test ~ tqual + ses, data=dat ) 
-m4 <- lm( test ~ csize + ses, data=dat  )
-m5 <- lm( test ~ csize + tqual + ses, data=dat  )
+# Solutions
 
 
-stargazer( m1, m2, m3, m4, m5, 
-           type = "text", digits=2,
-           dep.var.caption = "Dependent Variable: Test Scores",
-           # dep.var.labels = "",
-           dep.var.labels.include = FALSE,
-           omit.stat = c("rsq", "f", "ser"),
-           column.labels = c("Model 1", "Model 2", "Model 3", "Model 4", "Model 5"),
-           covariate.labels=c("Classroom Size",
-                              "Teacher Quality",
-                              "Socio-Economic Status",
-                              "Intercept"),
-           notes.label = "Standard errors in parentheses")
-```
-
-## Lab Questions
-
-
-**Warmup**: Draw a Ballantine Venn Diagram of Class Size, SES, Teacher Quality and Test Score. You do not have to submit your drawing, but it will be useful for answering questions below.
 
 
 ### **PART I**:
@@ -176,15 +140,15 @@ plot( dat$csize, e2.test.score )
 
 #### Question 4.
 
-These graphs demonstrate the effects of adding the control variables **Teacher Quality** and **SES** to the baseline model of the relationship between **Class Size** and **Test Score**. Conceptually, the control variable will improve a model to remove variance to make the estimate either more precise (smaller standard errors) or less bias (adjust the slope of the policy variable).  
+These graphs demonstrate the effects of adding the control variables **Teacher Quality** and **SES** to the baseline model of the relationship between **Class Size** and **Test Score**. Conceptually, the control variable will improve a model by removing variance in the DV to make the estimate either more precise (smaller standard errors) or less bias (adjust the slope of the policy variable).  
 
 **Q 4-1**: 
 
-Which control variable do you think is removing UNEXPLAINED portions of the outcome Test Scores? By removing the unexplained portions it will reduce the residuals in the full model. 
+Which control variable do you think is removing **UNEXPLAINED** portions of the outcome Test Scores? By removing the unexplained portions it will reduce the residuals in the full model. 
 
 **Q 4-2**: 
 
-Which control variable is removing the EXPLAINED portion of the variance of test scores (the covariance of class size and test scores)? By removing the explained portion it will weaken the relationship between class size and test scores. 
+Which control variable is removing the **EXPLAINED** portion of the variance of test scores (the covariance of class size and test scores)? By removing the explained portion it will weaken the relationship between class size and test scores. 
 
 
 <br>
@@ -259,55 +223,6 @@ pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)
 
 ```
 
-
-
-```{r, echo=F, eval=F}
-attach( dat )
-
-jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
-{
-
-	plot( x1, x2,
-	      pch=19, 
-	      col=gray(0.6, alpha = 0.2), 
-	      cex=3.5,  
-	      bty = "n",
-	      xlab=lab1, 
-	      ylab=lab2, cex.lab=1.5,
-        ... )
-
-	if( draw.line==T ){ 
-		ok <- is.finite(x1) & is.finite(x2)
-		lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
-
-}
-
-
-y <- heart.rate
-y.bar <- mean( heart.rate )
-m.01 <- lm( heart.rate ~ caffeine )
-y.hat <- m.01$fitted.values
-
-
-jplot( caffeine, heart.rate, 
-       lab1="Caffeine", lab2="Heart Rate", 
-       draw.line=F, main="Relationship Between Caffeine & Heart Rate Before Controls Added" )
-
-
-segments( x0=caffeine, y0=y, y1=y.bar, col="firebrick", lwd=2 )
-segments( x0=caffeine, y0=y.bar, y1=y.hat, col="steelblue", lwd=2 )
-
-abline( h=y.bar, col="steelblue", lwd=3 )
-abline( m.01, col="firebrick", lwd=3 )
-
-text( 350, 40, "Explained SS", col="steelblue", cex=2, pos=4 )
-text( 350, 50, "Residual SS", col="firebrick", cex=2, pos=4 )
-
-text( 480, y.bar, expression(bar(Y)), cex=1, col="steelblue", pos=3, offset=0.5 )
-text( 480, predict( m.01, data.frame(caffeine=480) ), 
-      expression(hat(Y)), cex=1, col="firebrick", pos=3, offset=0.5 )
-text( 480, 130, expression(y[i]), cex=1, col="gray40", pos=3, offset=1 )
-```
 
 
 <br><br>

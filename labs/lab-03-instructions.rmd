@@ -23,7 +23,13 @@ knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig
 
 The goal of the assignment is to build intuition about what “control” variables are doing in a regression.  In this model **Class Size** is the policy variable of interest. **Teacher Quality** and **Socio-Economic Status** are the controls.  
 
-We are going to examine the unconditioned relationship between Class Size and Test Scores, then we will condition on control variables by removing variance associated with the control to see how it impacts our estimate of the policy.
+You will examine the unconditioned relationship between Class Size and Test Scores, then add control variables to remove the variance associated with the controls to see how our estimate of policy impact might change if we account for other factors.
+
+You can create a new RMarkdown file, or download the **LAB-03 RMD template**: 
+
+[![](figures/download.png)](https://www.dropbox.com/s/v806nq50dq13a2z/lab-03-template.rmd?dl=1)
+
+<br>
 
 
 #### Load Packages
