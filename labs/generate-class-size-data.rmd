@@ -58,6 +58,7 @@ csize <- w  # Classroom Size
 piq <- z  # Parent's IQ
 
 piq <- rescale( piq, c(70,130) )
+piq <- round( piq, 0 )
 
 options(scipen=6)
 
