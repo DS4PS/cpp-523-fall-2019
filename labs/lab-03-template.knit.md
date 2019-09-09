@@ -1,7 +1,7 @@
 ---
 title: 'Lab 03 - Control Variables'
 author: "Your Name"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "09 September, 2019"
 output:
   html_document:
     df_print: paged
@@ -10,14 +10,13 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
-```
+
 
 
 #### Load Packages
 
-```{r}
+
+```r
 library( pander )     # formatting tables
 library( dplyr )      # data wrangling
 library( stargazer )  # regression tables
@@ -26,15 +25,28 @@ library( stargazer )  # regression tables
 
 #### Load Data
 
-```{r}
+
+```r
 URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/class-size-seed-1234.csv"
 dat <- read.csv( URL )
 ```
 
-```{r, echo=F}
-head( dat[c("test","csize","tqual","ses")] ) %>% pander
-# piq is mother's IQ  
-```
+
+---------------------------------
+ test    csize   tqual     ses   
+------- ------- ------- ---------
+  504     38     3.793   0.7947  
+
+ 651.3    23     5.277    2.301  
+
+ 623.6    42     6.084   0.4609  
+
+  539     21     2.654    2.635  
+
+ 673.1    20     5.429    2.703  
+
+ 584.4    46     5.506   0.09412 
+---------------------------------
 
 * **test** - average classroom score on a standardized test  
 * **csize** - classroom size; number of students  
@@ -43,44 +55,7 @@ head( dat[c("test","csize","tqual","ses")] ) %>% pander
 
 
 
-```{r, fig.width=10, fig.height=10, echo=F, eval=T}
-
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
-{
-    usr <- par("usr"); on.exit(par(usr))
-    par(usr = c(0, 1, 0, 1))
-    r <- cor(x, y, use="pairwise.complete.obs")
-    txt <- format(c(r, 0.123456789), digits=digits)[1]
-    txt <- paste(prefix, txt, sep="")
-    if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
-    
-    test <- cor.test(x,y)
-    # borrowed from printCoefmat
-    Signif <- symnum(test$p.value, corr = FALSE, na = FALSE,
-                  cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                  symbols = c("***", "**", "*", ".", " "))
-    
-    text(0.5, 0.5, txt, cex = 2 )
-    text(.7, .8, Signif, cex=3, col=2)
-}
-
-
-panel.smooth <- function (x, y, col = par("col"), bg = NA, pch = par("pch"), 
-  cex = 1, col.smooth = "red", span = 2/3, iter = 3, ...) 
-{
-  points(x, y, pch = 19, col = gray(0.5,0.5), 
-         bg = bg, cex = 1.7)
-  ok <- is.finite(x) & is.finite(y)
-  if (any(ok)) 
-    lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
-      col = col.smooth, lwd=2, ...)
-}
-
-
-pairs( dat[c("test","csize","tqual","ses")], 
-       lower.panel=panel.smooth, upper.panel=panel.cor )
-
-```
+<img src="lab-03-template_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
 
 
 
@@ -96,13 +71,18 @@ pairs( dat[c("test","csize","tqual","ses")],
 
 Create a scatterplot between Class Size (x-axis) and Test Score (y-axis). This will serve as a visual representation of our baseline model of the relationship between Class Size and Test Score.
 
-```{r, eval=T}
+
+```r
 plot( dat$csize, dat$test, 
       xlab="Class Size", ylab="Test Scores",
       main="Relationship Between Class Size and Test Scores" )
 
 abline( lm(test~csize,data=dat), col="firebrick", lwd=2 )
+```
 
+<img src="lab-03-template_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;" />
+
+```r
 # CHANGE THE PLOT STYLE:
 #
 # pch=19             # change point style
@@ -118,11 +98,14 @@ Regress Test Score on Teacher Quality while saving the residuals.  Now create a 
 
 $test = b_0 + b_1 \cdot tqual + e1$
 
-```{r, eval=T}
+
+```r
 model.01 <- lm( test ~ tqual, data=dat )
 e1.test.score <- model.01$residual
 plot( dat$csize, e1.test.score )
 ```
+
+<img src="lab-03-template_files/figure-html/unnamed-chunk-6-1.png" width="864" style="display: block; margin: auto;" />
 
 
 #### Question 3. 
@@ -131,11 +114,14 @@ Regress Test Score on SES and save the residuals.  Create a scatterplot of Class
 
 $test = b_0 + b_1 \cdot ses + e2$
 
-```{r, eval=T}
+
+```r
 model.02 <- lm( test ~ ses, data=dat )
 e2.test.score <- model.02$residual
 plot( dat$csize, e2.test.score )
 ```
+
+<img src="lab-03-template_files/figure-html/unnamed-chunk-7-1.png" width="864" style="display: block; margin: auto;" />
 
 
 #### Question 4.
@@ -175,54 +161,33 @@ Which would result in a larger standard error associated with caffeine if remove
 Explain your reasoning. 
 
 
-```{r, echo=F, results="asis"}
-URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/caffeine-heart-rate-w-controls.csv"
-dat.caffeine <- read.csv( URL )
-mod <- lm( heart.rate ~ caffeine + stress.index + gym.time, data=dat.caffeine )
-stargazer( mod, header=F, type="html", omit.stat = c("adj.rsq", "f") )
-```
+
+<table style="text-align:center"><tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="1" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>heart.rate</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">caffeine</td><td>0.037</td></tr>
+<tr><td style="text-align:left"></td><td>(0.047)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">stress.index</td><td>0.228</td></tr>
+<tr><td style="text-align:left"></td><td>(0.246)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">gym.time</td><td>-1.440<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.062)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td style="text-align:left">Constant</td><td>116.022<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(2.982)</td></tr>
+<tr><td style="text-align:left"></td><td></td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>100</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.873</td></tr>
+<tr><td style="text-align:left">Residual Std. Error</td><td>11.016 (df = 96)</td></tr>
+<tr><td colspan="2" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>
 
 
 
 
 
-```{r, fig.width=10, fig.height=10, echo=F}
-
-panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
-{
-    usr <- par("usr"); on.exit(par(usr))
-    par(usr = c(0, 1, 0, 1))
-    r <- cor(x, y, use="pairwise.complete.obs")
-    txt <- format(c(r, 0.123456789), digits=digits)[1]
-    txt <- paste(prefix, txt, sep="")
-    if(missing(cex.cor)) cex <- 0.8/strwidth(txt)
-    
-    test <- cor.test(x,y)
-    # borrowed from printCoefmat
-    Signif <- symnum(test$p.value, corr = FALSE, na = FALSE,
-                  cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
-                  symbols = c("***", "**", "*", ".", " "))
-    
-    text(0.5, 0.5, txt, cex = 2 )
-    text(.7, .8, Signif, cex=3, col=2)
-}
-
-
-panel.smooth <- function (x, y, col = par("col"), bg = NA, pch = par("pch"), 
-  cex = 1, col.smooth = "red", span = 2/3, iter = 3, ...) 
-{
-  points(x, y, pch = 19, col = gray(0.5,0.5), 
-         bg = bg, cex = 1.7)
-  ok <- is.finite(x) & is.finite(y)
-  if (any(ok)) 
-    lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
-      col = col.smooth, lwd=2, ...)
-}
-
-
-pairs( dat.caffeine, lower.panel=panel.smooth, upper.panel=panel.cor)
-
-```
+<img src="lab-03-template_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" />
 
 
 
