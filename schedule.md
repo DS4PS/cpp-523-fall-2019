@@ -648,10 +648,19 @@ Once you have completed this section you should be able to:
 
 ## Lecture Materials
 
-Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]
-Lecure Notes: A Taxonomy of Control Variables [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf) ]
+Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]  
+Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf) ]  
 
+<br>
 
+![](figures/taxonomy-of-controls-01.png)  
+
+<br>
+
+![](figures/taxonomy-of-controls-02.png)  
+
+<br>
+<br>
 
 
 *** { @unit = "THURS Sept-12", @title = "Mini-Assessment", @assignment  }
