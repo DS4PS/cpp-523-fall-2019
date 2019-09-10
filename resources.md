@@ -36,6 +36,7 @@ title: Resources
 
 * [stargazer cheatsheet](https://www.jakeruss.com/cheatsheets/stargazer/)
 * [xtable gallery](https://cran.r-project.org/web/packages/xtable/vignettes/xtableGallery.pdf) 
+* [adding equations](https://datalorax.github.io/equatiomatic/)  
 
 
 ## Useful R Packages
