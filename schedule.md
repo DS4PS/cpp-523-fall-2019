@@ -626,38 +626,30 @@ When you are complete:
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This week introduces the concept of omitted variable bias, and how it can impact our inferences in observational studies. 
 
 ## Learning Objectives
 
 Once you have completed this section you should be able to:
 
-* identify three types of control variables 
-* diagnose the implications of omitting each type from a model 
-* calculate omitted variable bias 
-
+* identify variables the have the potential to cause omitted variable bias 
+* calculate the size of bias that results from omitting a variable from a study 
 
 
 ## Assigned and Recommended Articles or Chapters
 
 ### Required:
 
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
+'Crack baby' study ends with unexpected but clear result [ [link](https://www.inquirer.com/philly/health/20130721__Crack_baby__study_ends_with_unexpected_but_clear_result.html) ]
 
-### Recommended:
+* *A 1989 study in Philadelphia found that nearly one in six newborns at city hospitals had mothers who tested positive for cocaine. Troubling stories were circulating about the so-called crack babies. They had small heads and were easily agitated and prone to tremors and bad muscle tone, according to reports, many of which were anecdotal. Worse, the babies seemed aloof and avoided eye contact. Some social workers predicted a lost generation - kids with a host of learning and emotional deficits who would overwhelm school systems and not be able to hold a job or form meaningful relationships. The "crack baby" image became symbolic of bad mothering, and some cocaine-using mothers had their babies taken from them or, in a few cases, were arrested.*  
+* The study started because of the strong relationship between exposure to crack in the womb and poor development as a child. Is crack was the study variable of interest, what was the omitted variable in the analysis, that once added changed inferences about the impact of crack? 
 
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
-
-## Data Used in this Section
-
-The following data will be used for lectures in this section (link to dataset page)…
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
-
-## Lab Preview 
+Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]
+Lecure Notes: A Taxonomy of Control Variables [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf) ]
 
 
 
