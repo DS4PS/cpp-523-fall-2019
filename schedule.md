@@ -622,7 +622,7 @@ When you are complete:
 
 ** Week 4 - Omitted Variable Bias 
 
-*** { @unit = "", @title = "Unit Overview"  }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
 ## Description 
 
