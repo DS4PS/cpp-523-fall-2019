@@ -643,7 +643,14 @@ Once you have completed this section you should be able to:
 'Crack baby' study ends with unexpected but clear result [ [link](https://www.inquirer.com/philly/health/20130721__Crack_baby__study_ends_with_unexpected_but_clear_result.html) ]
 
 * *A 1989 study in Philadelphia found that nearly one in six newborns at city hospitals had mothers who tested positive for cocaine. Troubling stories were circulating about the so-called crack babies. They had small heads and were easily agitated and prone to tremors and bad muscle tone, according to reports, many of which were anecdotal. Worse, the babies seemed aloof and avoided eye contact. Some social workers predicted a lost generation - kids with a host of learning and emotional deficits who would overwhelm school systems and not be able to hold a job or form meaningful relationships. The "crack baby" image became symbolic of bad mothering, and some cocaine-using mothers had their babies taken from them or, in a few cases, were arrested.*  
-* The study started because of the strong relationship between exposure to crack in the womb and poor development as a child. Is crack was the study variable of interest, what was the omitted variable in the analysis, that once added changed inferences about the impact of crack? 
+
+The study in the article was commissioned because of anedcotal evidence of a strong relationship between exposure to crack in the womb and poor development of a child, cognitively and socially. 
+
+**If crack was the policy variable in this study, what was the omitted variable?** 
+
+**How did the understanding of the DIRECT impact of crack on child development change once the omitted variable was added to the models?** 
+
+**When are omitted variables a problem? What makes a variable a competing hypothesis?**  
 
 
 ## Lecture Materials
