@@ -578,9 +578,18 @@ None.
 
 *** { @unit = "FRI Sept-06", @title = "Mini-Assessment", @assignment, @foldout   }
 
+<br>
+<br>
+
 This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf).
 
+
+![](assets/img/ci-and-significance.png)
+
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/220511">Start the Mini-Assessment</a>
+
+<br>
+<br>
 
 
 
