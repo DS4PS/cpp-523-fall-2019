@@ -200,25 +200,20 @@ $(document).ready(function () {
 <p>This lab will ask you to run a couple of models to examine the impact of omitted variable bias on your inferences. The key take-away is understanding the potential implications of omitted variable bias, that it is not a minor issue that causes modest problems with your analysis. It can fundamentally alter your understanding of the causal mechanisms you are trying to understand.</p>
 <p>Th data set for the lab is from a study examining how social networks and support contribute to happiness (“subjective well-being”).</p>
 <p><em><strong>Hoops, Anne. (March, 2006). Investigating an Association Between Type A/B Behavior and Subjective Well-Being.</strong></em></p>
-<p>The dependent variable is called <strong>Subjective Well Being (SWB)</strong> - it is subjective because each individual gages their own level of happiness (because how else are we supposed to measure it?). The variables for the study are:</p>
-<p><strong>Network Diversity (ND)</strong> – a measure of the scope and variability of a person’s social capital.</p>
-<p><strong>Perceived Social Support (PSS)</strong> – a person’s perception of how much support they receive from their social networks.</p>
-<p><strong>Network Size (number of persons NP)</strong> – the number of people that an individual counts in their social network of family and friends.</p>
-<p><strong>Positive Affect Negative Affect Schedule (PANAS)</strong> - gages a person’s “affect” which is the general mood and is related to things like anxiety, depression and violence:</p>
+<p>The dependent variable is called <strong>Subjective Well Being (SWB)</strong> - it is subjective because each individual gages their own level of happiness (because how else are we supposed to measure it?). The independent variables for the study are:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule" class="uri">https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule</a></li>
-</ul>
-<p><strong>Student Jenkins Activity Survey (SJAS)</strong> - which tries to develop a scale to measure a person’s ambition relative to others. “Type A personality generally refers to hard workers who are often preoccupied with schedules and the speed of their performance. Type B personalities may be more creative, imaginative, and philosophical. The test consists of 30 multiple-choice items. Scores range from 35 to 380. Type A is associated with a high score while Type B is associated with a low score.”</p>
-<ul>
-<li><a href="http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html" class="uri">http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html</a></li>
-</ul>
-<p><strong>Rosemberg Self Esteem Scale (RSE)</strong> - one of many measures of self-esteem, a favorite variable in psychology:</p>
-<ul>
-<li><a href="http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm" class="uri">http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm</a></li>
-</ul>
-<p><strong>Contingent Self Esteem (CSE)</strong> - “is based on the approval of others or on social comparisons. The success or failure of any situation can result in fluctuations of an individual’s self-esteem. A manifestation of someone with contingent self-esteem is excessive self-consciousness…extreme criticism of one’s self, concern of how they are perceived by their peers, and feelings of discomfort in social settings.”</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Contingent_self-esteem" class="uri">https://en.wikipedia.org/wiki/Contingent_self-esteem</a></li>
+<li><strong>Network Diversity (ND)</strong> – a measure of the scope and variability of a person’s social capital.<br />
+</li>
+<li><strong>Perceived Social Support (PSS)</strong> – a person’s perception of how much support they receive from their social networks.<br />
+</li>
+<li><strong>Network Size (number of persons NP)</strong> – the number of people that an individual counts in their social network of family and friends.<br />
+</li>
+<li><strong>Positive Affect Negative Affect Schedule (PANAS)</strong> - gages a person’s “affect” which is the general mood and is related to things like anxiety, depression and violence <a href="https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule">reference</a>.<br />
+</li>
+<li><strong>Student Jenkins Activity Survey (SJAS)</strong> - which tries to develop a scale to measure a person’s ambition relative to others. “Type A personality generally refers to hard workers who are often preoccupied with schedules and the speed of their performance. Type B personalities may be more creative, imaginative, and philosophical. The test consists of 30 multiple-choice items. Scores range from 35 to 380. Type A is associated with a high score while Type B is associated with a low score.” <a href="http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html">cite</a><br />
+</li>
+<li><strong>Rosemberg Self Esteem Scale (RSE)</strong> - one of many measures of self-esteem, a favorite variable in psychology. <a href="http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm">reference</a></li>
+<li><strong>Contingent Self Esteem (CSE)</strong> - “is based on the approval of others or on social comparisons. The success or failure of any situation can result in fluctuations of an individual’s self-esteem. A manifestation of someone with contingent self-esteem is excessive self-consciousness…extreme criticism of one’s self, concern of how they are perceived by their peers, and feelings of discomfort in social settings.” <a href="https://en.wikipedia.org/wiki/Contingent_self-esteem">reference</a></li>
 </ul>
 </div>
 <div id="setup" class="section level2">
@@ -673,8 +668,8 @@ Standard errors in parentheses
 <p>How does our need for approval of others (contingent self-esteem) impact our happiness (SWB)?</p>
 <p>What happens to our inferences if we estimate the impact of CSE on happiness without accounting for baseline self-esteem (RSE)?</p>
 <p>To examine this we will regress SWB onto RSE, SWB onto CSE.</p>
-<p><span class="math inline">\(SWB=b_{0a}+b_1 \cdot CSE+e_1\)</span><br />
-<span class="math inline">\(SWB=b_{0b}+b_2 \cdot RSE+e_2\)</span></p>
+<p><span class="math inline">\(SWB=b_0 + b_1 \cdot CSE+e_1\)</span><br />
+<span class="math inline">\(SWB=b_0 + b_2 \cdot RSE+e_2\)</span></p>
 <p>We can then compare these two bivariate regressions to the results in the full model:</p>
 <p><span class="math inline">\(SWB=β_0+β_1 \cdot CSE+β_2 \cdot RSE+\epsilon\)</span></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">m<span class="fl">.01</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>CSE, <span class="dt">data=</span>dat )</a>

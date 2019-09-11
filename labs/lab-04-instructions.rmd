@@ -33,32 +33,15 @@ Th data set for the lab is from a study examining how social networks and suppor
 
 _**Hoops, Anne. (March, 2006).   Investigating an Association Between Type A/B Behavior and Subjective Well-Being.**_
 
-The dependent variable is called **Subjective Well Being (SWB)** - it is subjective because each individual gages their own level of happiness (because how else are we supposed to measure it?).  The variables for the study are:  
+The dependent variable is called **Subjective Well Being (SWB)** - it is subjective because each individual gages their own level of happiness (because how else are we supposed to measure it?).  The independent variables for the study are:  
 
-**Network Diversity (ND)** – a measure of the scope and variability of a person’s social capital.  
-
-**Perceived Social Support (PSS)** – a person’s perception of how much support they receive from their social networks.  
-
-**Network Size (number of persons NP)** – the number of people that an individual counts in their social network of family and friends.  
-
-
-**Positive Affect Negative Affect Schedule (PANAS)** - gages a person's "affect" which is the general mood and is related to things like anxiety, depression and violence: 
- 
-* https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule 
-
-
-**Student Jenkins Activity Survey (SJAS)** - which tries to develop a scale to measure a person's ambition relative to others. "Type A personality generally refers to hard workers who are often preoccupied with schedules and the speed of their performance. Type B personalities may be more creative, imaginative, and philosophical. The test consists of 30 multiple-choice items.  Scores range from 35 to 380.  Type A is associated with a high score while Type B is associated with a low score."
-
-* http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html
-
-
-**Rosemberg Self Esteem Scale (RSE)** - one of many measures of self-esteem, a favorite variable in psychology: 
-
-* http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm  
-
-**Contingent Self Esteem (CSE)** -  "is based on the approval of others or on social comparisons. The success or failure of any situation can result in fluctuations of an individual's self-esteem. A manifestation of someone with contingent self-esteem is excessive self-consciousness...extreme criticism of one's self, concern of how they are perceived by their peers, and feelings of discomfort in social settings."
-
-* https://en.wikipedia.org/wiki/Contingent_self-esteem
+* **Network Diversity (ND)** – a measure of the scope and variability of a person’s social capital.   
+* **Perceived Social Support (PSS)** – a person’s perception of how much support they receive from their social networks.  
+* **Network Size (number of persons NP)** – the number of people that an individual counts in their social network of family and friends.   
+* **Positive Affect Negative Affect Schedule (PANAS)** - gages a person's "affect" which is the general mood and is related to things like anxiety, depression and violence [reference](https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule ).  
+* **Student Jenkins Activity Survey (SJAS)** - which tries to develop a scale to measure a person's ambition relative to others. "Type A personality generally refers to hard workers who are often preoccupied with schedules and the speed of their performance. Type B personalities may be more creative, imaginative, and philosophical. The test consists of 30 multiple-choice items.  Scores range from 35 to 380.  Type A is associated with a high score while Type B is associated with a low score." [cite](http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html)  
+* **Rosemberg Self Esteem Scale (RSE)** - one of many measures of self-esteem, a favorite variable in psychology. [reference](http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm  ) 
+* **Contingent Self Esteem (CSE)** -  "is based on the approval of others or on social comparisons. The success or failure of any situation can result in fluctuations of an individual's self-esteem. A manifestation of someone with contingent self-esteem is excessive self-consciousness...extreme criticism of one's self, concern of how they are perceived by their peers, and feelings of discomfort in social settings." [reference](https://en.wikipedia.org/wiki/Contingent_self-esteem)  
 
 
 
@@ -223,8 +206,8 @@ What happens to our inferences if we estimate the impact of CSE on happiness wit
 
 To examine this we will regress SWB onto RSE, SWB onto CSE. 
 
-$SWB=b_{0a}+b_1 \cdot CSE+e_1$    
-$SWB=b_{0b}+b_2 \cdot RSE+e_2$  
+$SWB=b_0 + b_1 \cdot CSE+e_1$    
+$SWB=b_0 + b_2 \cdot RSE+e_2$  
 
 We can then compare these two bivariate regressions to the results in the full model:  
 
