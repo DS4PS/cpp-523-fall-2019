@@ -663,7 +663,30 @@ Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4
 <br>
 
 
-*** { @unit = "FRI Sept-13", @title = "Mini-Assessment", @assignment  }
+
+
+
+
+*** { @unit = "FRI Sept-13", @title = "Mini-Assessment", @assignment, @foldout   }
+
+<br>
+<br>
+
+This mini-assessment tests your understanding of the differences between the two types of control variables.
+
+![](assets/img/two-types-of-controls.png)
+
+[Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
+
+<br>
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/222622">Start the Mini-Assessment</a>
+
+
+<br>
+<br>
+
+
 
 
 
