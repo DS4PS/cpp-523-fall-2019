@@ -663,9 +663,32 @@ Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4
 <br>
 
 
-*** { @unit = "THURS Sept-12", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "FRI Sept-13", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "MON Sept-16", @title = "Lab 04", @assignment  }
+
+
+
+*** { @unit = "TUE Sept-17", @title = "Lab 04", @assignment, @foldout  }
+
+<br>
+<br>
+
+# Lab 04
+
+This lab examines the impact of omitted variable bias on our inferences. 
+
+[Omitted Variable Bias](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) 
+
+A lab solutions RMD template has been provided. Submit your knitted files via Canvas. 
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-04-instructions.html">Lab-04 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/780103">Submit Lab-04</a>
+
+<br>
+<br>
 
 
 
