@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Lab-04 Omitted Variable Bias</title>
+
+<script src="lab-04-omitted-variable-bias_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lab-04-omitted-variable-bias_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="lab-04-omitted-variable-bias_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lab-04-omitted-variable-bias_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lab-04-omitted-variable-bias_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lab-04-omitted-variable-bias_files/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="textbook.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab-04 Omitted Variable Bias</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#study-overview">Study Overview</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#lab-questions">Lab Questions</a><ul>
+<li><a href="#question-1.">Question 1.</a></li>
+<li><a href="#question-2.">Question 2.</a></li>
+</ul></li>
+<li><a href="#submission-instructions">Submission Instructions</a></li>
+</ul>
+</div>
+
+<div id="cpp-523-program-eval-i" class="section level4">
+<h4><a href="https://ds4ps.org/cpp-523-fall-2019/schedule/">CPP 523: Program Eval I</a></h4>
+<p><br></p>
+<p>You will submit your solutions as an RMD document (specifically the HTML file created from the document). You can create a new RMarkdown file, or download the <strong>LAB-04 RMD template</strong>:</p>
+<p><a href="https://www.dropbox.com/s/pqku4djvykyinbg/lab-04-template.rmd?dl=1"><img src="figures/download.png" /></a></p>
+<p><br></p>
+</div>
+<div id="study-overview" class="section level2">
+<h2>Study Overview</h2>
+<p>This lab will ask you to run a couple of models to examine the impact of omitted variable bias on your inferences. The key take-away is understanding the potential implications of omitted variable bias, that it is not a minor issue that causes modest problems with your analysis. It can fundamentally alter your understanding of the causal mechanisms you are trying to understand.</p>
+<p>Th data set for the lab is from a study examining how social networks and support contribute to happiness (“subjective well-being”).</p>
+<p><em><strong>Hoops, Anne. (March, 2006). Investigating an Association Between Type A/B Behavior and Subjective Well-Being.</strong></em></p>
+<p>The dependent variable is called <strong>Subjective Well Being (SWB)</strong> - it is subjective because each individual gages their own level of happiness (because how else are we supposed to measure it?). The variables for the study are:</p>
+<p><strong>Network Diversity (ND)</strong> – a measure of the scope and variability of a person’s social capital.</p>
+<p><strong>Perceived Social Support (PSS)</strong> – a person’s perception of how much support they receive from their social networks.</p>
+<p><strong>Network Size (number of persons NP)</strong> – the number of people that an individual counts in their social network of family and friends.</p>
+<p><strong>Positive Affect Negative Affect Schedule (PANAS)</strong> - gages a person’s “affect” which is the general mood and is related to things like anxiety, depression and violence:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule" class="uri">https://en.wikipedia.org/wiki/Positive_and_Negative_Affect_Schedule</a></li>
+</ul>
+<p><strong>Student Jenkins Activity Survey (SJAS)</strong> - which tries to develop a scale to measure a person’s ambition relative to others. “Type A personality generally refers to hard workers who are often preoccupied with schedules and the speed of their performance. Type B personalities may be more creative, imaginative, and philosophical. The test consists of 30 multiple-choice items. Scores range from 35 to 380. Type A is associated with a high score while Type B is associated with a low score.”</p>
+<ul>
+<li><a href="http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html" class="uri">http://www.psych.uncc.edu/pagoolka/TypeA-B-intro.html</a></li>
+</ul>
+<p><strong>Rosemberg Self Esteem Scale (RSE)</strong> - one of many measures of self-esteem, a favorite variable in psychology:</p>
+<ul>
+<li><a href="http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm" class="uri">http://www.wwnorton.com/college/psych/psychsci/media/rosenberg.htm</a></li>
+</ul>
+<p><strong>Contingent Self Esteem (CSE)</strong> - “is based on the approval of others or on social comparisons. The success or failure of any situation can result in fluctuations of an individual’s self-esteem. A manifestation of someone with contingent self-esteem is excessive self-consciousness…extreme criticism of one’s self, concern of how they are perceived by their peers, and feelings of discomfort in social settings.”</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Contingent_self-esteem" class="uri">https://en.wikipedia.org/wiki/Contingent_self-esteem</a></li>
+</ul>
+</div>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>( dplyr )       <span class="co"># data wrangling</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>( stargazer )   <span class="co"># nice regression tables</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>( pander )      <span class="co"># formatting tables</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">URL &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/predicting-subjective-wellbeing.csv&quot;</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>( URL, <span class="dt">stringsAsFactors=</span>F )</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">head</span>( dat ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="6%" />
+<col width="8%" />
+<col width="10%" />
+<col width="14%" />
+<col width="14%" />
+<col width="13%" />
+<col width="6%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Id</th>
+<th align="center">SWB</th>
+<th align="center">CSE</th>
+<th align="center">PANASpos</th>
+<th align="center">PANASneg</th>
+<th align="center">SJAS_hc</th>
+<th align="center">ND</th>
+<th align="center">RSE</th>
+<th align="center">PSS</th>
+<th align="center">NP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">33</td>
+<td align="center">39</td>
+<td align="center">39</td>
+<td align="center">15</td>
+<td align="center">2</td>
+<td align="center">5</td>
+<td align="center">48</td>
+<td align="center">93</td>
+<td align="center">24</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">33</td>
+<td align="center">59</td>
+<td align="center">48</td>
+<td align="center">27</td>
+<td align="center">8</td>
+<td align="center">6</td>
+<td align="center">45</td>
+<td align="center">95</td>
+<td align="center">29</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">29</td>
+<td align="center">54</td>
+<td align="center">44</td>
+<td align="center">24</td>
+<td align="center">7</td>
+<td align="center">5</td>
+<td align="center">43</td>
+<td align="center">89</td>
+<td align="center">103</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">21</td>
+<td align="center">36</td>
+<td align="center">30</td>
+<td align="center">17</td>
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="center">45</td>
+<td align="center">74</td>
+<td align="center">19</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">25</td>
+<td align="center">48</td>
+<td align="center">41</td>
+<td align="center">18</td>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">47</td>
+<td align="center">93</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">23</td>
+<td align="center">51.43</td>
+<td align="center">30</td>
+<td align="center">25</td>
+<td align="center">4.444</td>
+<td align="center">6</td>
+<td align="center">28</td>
+<td align="center">91</td>
+<td align="center">18</td>
+</tr>
+</tbody>
+</table>
+<p><img src="lab-04-omitted-variable-bias_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+</div>
+<div id="lab-questions" class="section level1">
+<h1>Lab Questions</h1>
+<p>This exercise is much like the exercise that we did in class looking at predictions of student test scores using environmental variables (class size, socio-economic status and teach quality). In this case, though, we are interested in the relationship between happiness and characteristics of personality or the social environment. We suspect, however, that many of our measures will be highly correlated and this will affect our results if important variables are omitted.</p>
+<p><strong>Warm-Up</strong> Based upon the correlation matrix on page 6, draw a Ballentine Venn Diagram with Subjective Well Being as the dependent variable and RSE, CSE, NP. Don’t worry about proportions (the size of the circles) as much as worrying about getting the correlations correct (the overlap). Which of the independent variables will covary, and which will not? Hint, a negative correlation still implies shared covariance.</p>
+<p><img src="figures/venn-w-control.png" /></p>
+<p><br></p>
+<hr />
+<p><br></p>
+<div id="question-1." class="section level3">
+<h3>Question 1.</h3>
+<p>How important is network diversity (ND) to our well-being?</p>
+<p>How does our understanding change when we control for (or fail to control for) other characteristics of our social networks?</p>
+<p><strong>Part 1:</strong></p>
+<p>Consider a three-variable regression of Subjective Well-Being (SWB), Network Diversity (ND) and Perceived Social Support (PSS):</p>
+<p><span class="math inline">\(SWB=β_0+β_1 \cdot ND+β_2 \cdot PSS+e\)</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">m.full &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>ND <span class="op">+</span><span class="st"> </span>PSS, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">stargazer</span>( m.full, </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">           <span class="dt">dep.var.caption =</span> <span class="st">&quot;DV: Subjective Well-Being&quot;</span>,</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span>)</a></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+DV: Subjective Well-Being
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+SWB
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ND
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.19)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+PSS
+</td>
+<td>
+0.32<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-2.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(2.59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+389
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.21
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Standard errors in parentheses
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Calculate the omitted variable bias on the Network Diversity (ND) coefficient that results from omitting the Perceived Social Support (PSS) variable from the regression.</p>
+<p><span class="math inline">\(SWB=b_0+b_1 \cdot ND+e\)</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">B1 &lt;-<span class="st"> </span><span class="fl">0.00</span> <span class="co"># </span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">b1 &lt;-<span class="st"> </span><span class="fl">0.00</span> </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">bias &lt;-<span class="st"> </span>b1 <span class="op">-</span><span class="st"> </span>B1</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">m.full &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>ND <span class="op">+</span><span class="st"> </span>PSS, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">m.naive &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>ND, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">stargazer</span>( m.naive, m.full, </a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">           <span class="dt">dep.var.caption =</span> <span class="st">&quot;DV: Subjective Well-Being&quot;</span>,</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span>)</a></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+DV: Subjective Well-Being
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+SWB
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ND
+</td>
+<td>
+0.52<sup>***</sup>
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.20)
+</td>
+<td>
+(0.19)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+PSS
+</td>
+<td>
+</td>
+<td>
+0.32<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+20.99<sup>***</sup>
+</td>
+<td>
+-2.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.19)
+</td>
+<td>
+(2.59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+389
+</td>
+<td>
+389
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.21
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Standard errors in parentheses
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><strong>Part 2:</strong></p>
+<p><img src="figures/path-diagram.png" /></p>
+<p>Run the auxillary regression to estimate <span class="math inline">\(\alpha_1\)</span>.</p>
+<p>Calculate the bias using the omitted variable bias equation and show your math. You can check your results by comparing your answer to bias calculation from <strong>Part 1</strong>.</p>
+<p><br></p>
+<p><strong>Part 3:</strong></p>
+<p>How good is the naive estimation of β1, the impact of network diversity on our happiness, in this case?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">b1 <span class="op">/</span><span class="st"> </span>B1  <span class="co"># rough measure of the magnitude of bias</span></a></code></pre></div>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="question-2." class="section level3">
+<h3>Question 2.</h3>
+<p>How does our need for approval of others (contingent self-esteem) impact our happiness (SWB)?</p>
+<p>What happens to our inferences if we estimate the impact of CSE on happiness without accounting for baseline self-esteem (RSE)?</p>
+<p>To examine this we will regress SWB onto RSE, SWB onto CSE.</p>
+<p><span class="math inline">\(SWB=b_{0a}+b_1 \cdot CSE+e_1\)</span><br />
+<span class="math inline">\(SWB=b_{0b}+b_2 \cdot RSE+e_2\)</span></p>
+<p>We can then compare these two bivariate regressions to the results in the full model:</p>
+<p><span class="math inline">\(SWB=β_0+β_1 \cdot CSE+β_2 \cdot RSE+\epsilon\)</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">m<span class="fl">.01</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>CSE, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">m<span class="fl">.02</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>RSE, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">m<span class="fl">.03</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( SWB <span class="op">~</span><span class="st"> </span>CSE <span class="op">+</span><span class="st"> </span>RSE, <span class="dt">data=</span>dat )</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">stargazer</span>( m<span class="fl">.01</span>, m<span class="fl">.02</span>, m<span class="fl">.03</span>, </a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">           <span class="dt">dep.var.caption =</span> <span class="st">&quot;DV: Subjective Well-Being&quot;</span>,</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span>)</a></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+DV: Subjective Well-Being
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+SWB
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+CSE
+</td>
+<td>
+-0.11<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+0.09<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+RSE
+</td>
+<td>
+</td>
+<td>
+0.55<sup>***</sup>
+</td>
+<td>
+0.61<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+29.29<sup>***</sup>
+</td>
+<td>
+1.62
+</td>
+<td>
+-4.82<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.65)
+</td>
+<td>
+(1.54)
+</td>
+<td>
+(2.68)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+389
+</td>
+<td>
+389
+</td>
+<td>
+389
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.36
+</td>
+<td>
+0.37
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Standard errors in parentheses
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><strong>Part 1:</strong></p>
+<p>What happened to the slope of CSE?<br />
+What happened to the standard error of CSE?</p>
+<p>How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness? Or should we focus on other things?</p>
+<p><strong>Part 2:</strong></p>
+<p>In Quesion 2 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance.</p>
+<p>What happens in this case? Why did that happen? Drawing the coefficient plot might help.</p>
+<p><strong>Part 3:</strong></p>
+<p>Explain the direction of bias in this model using the formula for omitted variable bias: what must be true about the sign of the correlation between RSE and CSE to get these results?</p>
+<p><span class="math inline">\(bias = \alpha_1 \cdot B_2\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\alpha_1\)</span></th>
+<th><span class="math inline">\(B_2\)</span></th>
+<th align="center">Sign of Bias</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(+)</td>
+<td>(+)</td>
+<td align="center">(+)</td>
+</tr>
+<tr class="even">
+<td>(-)</td>
+<td>(-)</td>
+<td align="center">(+)</td>
+</tr>
+<tr class="odd">
+<td>(+)</td>
+<td>(-)</td>
+<td align="center">(-)</td>
+</tr>
+<tr class="even">
+<td>(-)</td>
+<td>(+)</td>
+<td align="center">(-)</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="submission-instructions" class="section level1">
+<h1>Submission Instructions</h1>
+<p>After you have completed your lab submit via Canvas. Login to the ASU portal at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Lab-02 tab on the Schedule page.</p>
+<p>Remember to name your files according to the convention: <strong>Lab-##-LastName.xxx</strong></p>
+<p><br> <br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

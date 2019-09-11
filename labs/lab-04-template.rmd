@@ -1,0 +1,197 @@
+---
+title: 'Lab 04 - Omitted Variable Bias'
+author: "Your Name"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    theme: cerulean
+    highlight: haddock
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.align='center', fig.width=9 )
+```
+
+
+#### Load Packages
+
+```{r}
+library( pander )     # formatting tables
+library( dplyr )      # data wrangling
+library( stargazer )  # regression tables
+```
+
+
+#### Load Data
+
+```{r}
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/predicting-subjective-wellbeing.csv"
+dat <- read.csv( URL, stringsAsFactors=F )
+```
+
+
+
+
+
+
+# Solutions
+
+
+
+### Question 1.
+
+#### Part 1
+
+
+Consider a three-variable regression of Subjective Well-Being (SWB), Network Diversity (ND) and Perceived Social Support (PSS):
+
+$SWB=β_0+β_1 \cdot ND+β_2 \cdot PSS+e$
+
+```{r results="asis"}
+m.full <- lm( SWB ~ ND + PSS, data=dat )
+
+stargazer( m.full, 
+           type = "html", digits=2,
+           dep.var.caption = "DV: Subjective Well-Being",
+           omit.stat = c("rsq","f","ser"),
+           notes.label = "Standard errors in parentheses")
+```
+
+
+Calculate the omitted variable bias on the Network Diversity (ND) coefficient that results from omitting the Perceived Social Support (PSS) variable from the regression. **You can read these values from the table above.**
+
+$SWB=b_0+b_1 \cdot ND+e$
+
+```{r}
+B1 <- 0.00 # 
+b1 <- 0.00 
+bias <- b1 - B1
+bias
+```
+
+
+```{r, results="asis"}
+m.full <- lm( SWB ~ ND + PSS, data=dat )
+m.naive <- lm( SWB ~ ND, data=dat )
+
+stargazer( m.naive, m.full, 
+           type = "html", digits=2,
+           dep.var.caption = "DV: Subjective Well-Being",
+           omit.stat = c("rsq","f","ser"),
+           notes.label = "Standard errors in parentheses")
+```
+
+
+
+
+#### Part 2 
+
+
+![](figures/path-diagram.png)
+
+Run the auxiliary regression to estimate $\alpha_1$.
+
+Calculate the bias using the omitted variable bias equation and show your math.  You can check your results by comparing your answer to bias calculation from **Part 1**.
+
+
+```{r, results="asis"}
+m.auxiliary <- # your model here
+
+stargazer( m.auxiliary,  
+           type = "html", digits=2,
+           dep.var.caption = "DV: PSS",
+           omit.stat = c("rsq","f","ser"),
+           notes.label = "Standard errors in parentheses")
+
+a1 <- 
+B2 <- 
+bias <- 
+bias
+```
+
+
+
+
+<br>
+
+#### Part 3
+
+How good is the naive estimation of β1, the impact of network diversity on our happiness, in this case?
+
+```{r, eval=F}
+b1 / B1  # rough measure of the magnitude of bias
+```
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
+### Question 2.
+
+
+
+#### Part 1
+
+What happened to the slope of CSE?  
+What happened to the standard error of CSE?  
+
+How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness? Or should we focus on other things? 
+
+
+#### Part 2
+
+In Quesion 2 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance. 
+
+What happens in this case? Why did that happen? Drawing the coefficient plot might help. 
+
+
+
+#### Part 3
+
+Explain the direction of bias in this model using the formula for omitted variable bias: what must be true about the sign of the correlation between RSE and CSE to get these results?
+
+$bias = \alpha_1 \cdot B_2$
+
+|  $\alpha_1$  | $B_2$  | Sign of Bias |  
+|--------------|--------|:------------:|  
+|  (+)  |  (+)  |  (+)  |  
+|  (-)  |  (-)  |  (+)  |  
+|  (+)  |  (-)  |  (-)  |  
+|  (-)  |  (+)  |  (-)  |  
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+
+
+
+# Submission Instructions
+
+After you have completed your lab, knit your RMD file. Login to Canvas at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link.
+
+Remember to:
+
+* name your files according to the convention: **Lab-##-LastName.Rmd**
+* show your solution, include your code.
+* do not print excessive output (like a full data set).
+
+<br>
+<br>
+
