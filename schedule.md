@@ -653,11 +653,11 @@ Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4
 
 <br>
 
-![](figures/taxonomy-of-controls-01.png)  
+![](lectures/figures/taxonomy-of-controls-01.png)  
 
 <br>
 
-![](figures/taxonomy-of-controls-02.png)  
+![](lectures/figures/taxonomy-of-controls-02.png)  
 
 <br>
 <br>
