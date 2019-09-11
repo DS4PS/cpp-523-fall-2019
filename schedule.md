@@ -663,7 +663,11 @@ Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4
 <br>
 
 
-*** { @unit = "FRI Sept-13", @title = "Mini-Assessment", @assignment  }
+
+
+
+
+*** { @unit = "FRI Sept-13", @title = "Mini-Assessment", @assignment, @foldout   }
 
 <br>
 <br>
@@ -681,6 +685,9 @@ This mini-assessment tests your understanding of the differences between the two
 
 <br>
 <br>
+
+
+
 
 
 
