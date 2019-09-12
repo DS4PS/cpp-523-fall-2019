@@ -49,28 +49,10 @@ Consider a three-variable regression of Subjective Well-Being (SWB), Network Div
 
 $SWB=β_0+β_1 \cdot ND+β_2 \cdot PSS+e$
 
-```{r results="asis"}
-m.full <- lm( SWB ~ ND + PSS, data=dat )
+Calculate the omitted variable bias on the Network Diversity (ND) coefficient that results from omitting the Perceived Social Support (PSS) variable from the regression. 
 
-stargazer( m.full, 
-           type = "html", digits=2,
-           dep.var.caption = "DV: Subjective Well-Being",
-           omit.stat = c("rsq","f","ser"),
-           notes.label = "Standard errors in parentheses")
-```
-
-
-Calculate the omitted variable bias on the Network Diversity (ND) coefficient that results from omitting the Perceived Social Support (PSS) variable from the regression. **You can read these values from the table above.**
 
 $SWB=b_0+b_1 \cdot ND+e$
-
-```{r}
-B1 <- 0.00 # 
-b1 <- 0.00 
-bias <- b1 - B1
-bias
-```
-
 
 ```{r, results="asis"}
 m.full <- lm( SWB ~ ND + PSS, data=dat )
@@ -82,6 +64,18 @@ stargazer( m.naive, m.full,
            omit.stat = c("rsq","f","ser"),
            notes.label = "Standard errors in parentheses")
 ```
+
+
+**You can read these values from the table above.**
+
+
+```{r}
+B1 <- 0.00  # replace with the appropriate value from the table above
+b1 <- 0.00  # replace with the appropriate value from the table above
+bias <- b1 - B1
+bias
+```
+
 
 
 
@@ -125,7 +119,11 @@ b1 / B1  # rough measure of the magnitude of bias
 ```
 
 
+<br>
 
+#### Part 4
+
+In the previous lecture we saw how the Class Size model lost significance when SES was added as a result of an increase in the standard errors. In this model Network Diversity also loses significance. Explain why.
 
 
 
@@ -161,12 +159,26 @@ Explain the direction of bias in this model using the formula for omitted variab
 
 $bias = \alpha_1 \cdot B_2$
 
+Where $\alpha_1$ represents the correlation between CSE and RSE, and $B_2$ represents the correlation between RSE and the outcome Subjective Well-Being. *Specifically, correlations and slopes always have the same sign.*
+
+
 |  $\alpha_1$  | $B_2$  | Sign of Bias |  
 |--------------|--------|:------------:|  
 |  (+)  |  (+)  |  (+)  |  
 |  (-)  |  (-)  |  (+)  |  
 |  (+)  |  (-)  |  (-)  |  
 |  (-)  |  (+)  |  (-)  |  
+
+
+
+$b_1 = B_1 + bias$  
+
+Therefore: 
+
+If bias (+) then $b_1 > B_1$  
+
+If bias (-) then $b_1 < B_1$ 
+
 
 
 

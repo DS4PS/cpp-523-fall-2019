@@ -152,8 +152,8 @@ Calculate the omitted variable bias on the Network Diversity (ND) coefficient th
 $SWB=b_0+b_1 \cdot ND+e$
 
 ```{r}
-B1 <- 0.00 # 
-b1 <- 0.00 
+B1 <- 0.00 # replace 0.00 with the proper coefficient
+b1 <- 0.00 # replace 0.00 with the proper coefficient
 bias <- b1 - B1
 ```
 
@@ -183,6 +183,7 @@ Calculate the bias using the omitted variable bias equation and show your math. 
 
 <br>
 
+
 **Part 3:**
 
 How good is the naive estimation of β1, the impact of network diversity on our happiness, in this case?
@@ -191,6 +192,16 @@ How good is the naive estimation of β1, the impact of network diversity on our 
 b1 / B1  # rough measure of the magnitude of bias
 ```
 
+
+<br>
+
+**Part 4:**
+
+In the previous lecture we saw how the Class Size model lost significance when SES was added as a result of an increase in the standard errors.
+
+![](figures/loss-of-significance.png)
+
+In this model Network Diversity also loses significance. Explain why.
 
 <br>
 
@@ -237,7 +248,7 @@ How would our assessment of CSE change after we control for baseline self-esteem
 
 **Part 2:** 
 
-In Quesion 2 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance. 
+In Quesion 1 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance. 
 
 What happens in this case? Why did that happen? Drawing the coefficient plot might help. 
 
@@ -247,15 +258,28 @@ What happens in this case? Why did that happen? Drawing the coefficient plot mig
 
 Explain the direction of bias in this model using the formula for omitted variable bias: what must be true about the sign of the correlation between RSE and CSE to get these results?
 
+
 $bias = \alpha_1 \cdot B_2$
 
-|  $\alpha_1$  | $B_2$  | Sign of Bias |  
-|--------------|--------|:------------:|  
-|  (+)  |  (+)  |  (+)  |  
-|  (-)  |  (-)  |  (+)  |  
-|  (+)  |  (-)  |  (-)  |  
-|  (-)  |  (+)  |  (-)  |  
+Where $\alpha_1$ represents the correlation between CSE and RSE, and $B_2$ represents the correlation between RSE and the outcome Subjective Well-Being. *Specifically, correlations and slopes always have the same sign.*
 
+
+|  $\alpha_1$  | $B_2$  | Sign of Bias   
+|--------------|--------|------------ 
+|  (+)  |  (+)  |  (+)    
+|  (-)  |  (-)  |  (+)    
+|  (+)  |  (-)  |  (-)    
+|  (-)  |  (+)  |  (-)    
+
+
+
+$b_1 = B_1 + bias$  
+
+Therefore: 
+
+If bias (+) then $b_1 > B_1$  
+
+If bias (-) then $b_1 < B_1$ 
 
 
 
