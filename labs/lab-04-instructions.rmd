@@ -240,10 +240,24 @@ stargazer( m.01, m.02, m.03,
 
 **Part 1:**
 
-What happened to the slope of CSE?  
-What happened to the standard error of CSE?  
+ 
 
-How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness? Or should we focus on other things? 
+How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness?  
+
+**Hint:**
+
+Self-esteem and the need for approval are operating as competing variables. In other words, when we estimate the naive model in (1) then estimate the model with both variables in (3) we see a big difference in the results.
+
+a. What happened to the slope of CSE as we added a control in Model 3, specifically the sign representing a positive or negative relationshp between CSE and happiness?  
+b. What happened to the statistical significance of b1?  
+
+Since significance guides are ability to make concrete policy recommendations, we typically include competing hypotheses because their presence can make the result disappear (like SES does with Class Size in the lecture notes). They usually results in one of two scenarios:
+
+1. Our policy slope is significant then becomes insignificant (we lose confidence)  
+2. Our policy slope is insignificant then becomes signficant (we gain confidence)
+
+This is an odd case, though, because we are "confident" about our slope on Model 1 (it's highly statistically significant), and also confident in Model 3 (still highly significant). But what has changed about the slope? And how would that change our recommendations? 
+
 
 
 **Part 2:** 
@@ -251,6 +265,9 @@ How would our assessment of CSE change after we control for baseline self-esteem
 In Quesion 1 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance. 
 
 What happens in this case? Why did that happen? Drawing the coefficient plot might help. 
+
+**Should high statistical significance give you confidence a model if bias is present?**  
+
 
 
 

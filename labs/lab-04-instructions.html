@@ -966,12 +966,25 @@ Standard errors in parentheses
 </tr>
 </table>
 <p><strong>Part 1:</strong></p>
-<p>What happened to the slope of CSE?<br />
-What happened to the standard error of CSE?</p>
-<p>How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness? Or should we focus on other things?</p>
+<p>How would our assessment of CSE change after we control for baseline self-esteem? For example, if we are a psychologist working with students should we worry if we observe a case where a person has a high need for approval from others? Will it impact their happiness?</p>
+<p><strong>Hint:</strong></p>
+<p>Self-esteem and the need for approval are operating as competing variables. In other words, when we estimate the naive model in (1) then estimate the model with both variables in (3) we see a big difference in the results.</p>
+<ol style="list-style-type: lower-alpha">
+<li>What happened to the slope of CSE as we added a control in Model 3, specifically the sign representing a positive or negative relationshp between CSE and happiness?<br />
+</li>
+<li>What happened to the statistical significance of b1?</li>
+</ol>
+<p>Since significance guides are ability to make concrete policy recommendations, we typically include competing hypotheses because their presence can make the result disappear (like SES does with Class Size in the lecture notes). They usually results in one of two scenarios:</p>
+<ol style="list-style-type: decimal">
+<li>Our policy slope is significant then becomes insignificant (we lose confidence)<br />
+</li>
+<li>Our policy slope is insignificant then becomes signficant (we gain confidence)</li>
+</ol>
+<p>This is an odd case, though, because we are “confident” about our slope on Model 1 (it’s highly statistically significant), and also confident in Model 3 (still highly significant). But what has changed about the slope? And how would that change our recommendations?</p>
 <p><strong>Part 2:</strong></p>
 <p>In Quesion 1 the control variable cased the slope estimate for Network Diversity to shift to the left toward the null hypothesis (slope=0, no impact) and as a result it lost statistical significance.</p>
 <p>What happens in this case? Why did that happen? Drawing the coefficient plot might help.</p>
+<p><strong>Should high statistical significance give you confidence a model if bias is present?</strong></p>
 <p><strong>Part 3:</strong></p>
 <p>Explain the direction of bias in this model using the formula for omitted variable bias: what must be true about the sign of the correlation between RSE and CSE to get these results?</p>
 <p><span class="math inline">\(bias = \alpha_1 \cdot B_2\)</span></p>
