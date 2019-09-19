@@ -775,6 +775,21 @@ Once you have completed this section you will be able to run and interpret regre
 *** { @unit = "TUES Sept-24", @title = "Lab 05", @assignment  }
 
 
+<br>
+<br>
+
+# Lab 04
+
+This lab examines tests your understanding of constructing groups and conducting tests using dummy variables. 
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-05-instructions.html">Lab-05 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="">Submit Lab-05</a>
+
+<br>
+<br>
 
 
 
