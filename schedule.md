@@ -736,48 +736,37 @@ When you are complete:
 
 ** Week 5 - Dummy Variables: Revisiting Hypothesis Tests 
 
-*** { @unit = "", @title = "Unit Overview"  }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
+<br>
 
 ## Description 
 
-Dummy Variables 
-Groups in Your Data
-A Taxonomy of Hypotheses
+This week introduces modeling group differences within the data using dummy variables and interaction terms.
 
+**Dummy variables** are binary 0/1 variables where 1 means the observation belongs to a group, 0 means the observation does not. We need one dummy variable for each level of a categorical variable. 
 
+`y = b0 + b1(X) + b2(D) + e`
 
-2-5 sentence overview of what is covered in the section.
+**Interactions** are created by multiplying a covariate by a dummy variable. 
+
+`y = b0 + b1(X) + b2(D) + b3(X)(D) + e`
+
+Adding dummy variables to models allows us to test several hypotheses about differences between groups. 
 
 ## Learning Objectives
 
-Once you have completed this section you should be able to…
+Once you have completed this section you will be able to run and interpret regression models with dummy variables and interaction effects. 
 
 
-## Assigned and Recommended Articles or Chapters
+## Assigned Lecture Materials
 
-### Required:
+[Hypothesis-Testing With Groups](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/dummy-variables.html) 
 
-
-### Recommended:
-
-Brambor, T., Clark, W. R., & Golder, M. (2006). Understanding interaction models: Improving empirical analyses. Political analysis, 14(1), 63-82. [ [pdf]() ]
-
-advanced tutorial on categorical variables in R [ [link](https://sejdemyr.github.io/r-tutorials/statistics/tutorial2.html) ]
-
-
-## Data Used in this Section
-
-The following data will be used for lectures in this section (link to dataset page)…
-
-## Lecture Materials
-
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
 
 ## Lab Preview 
 
-
+[Practice Questions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression%20with%20Interaction%20Effects.pdf)
 
 
 
