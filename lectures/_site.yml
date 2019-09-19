@@ -14,6 +14,7 @@ output:
     toc: yes
     toc_depth: 2
     code_folding: hide
+    number_sections: false
     css: textbook.css
     includes:
       after_body: footer.html

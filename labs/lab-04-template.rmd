@@ -83,7 +83,7 @@ bias
 #### Part 2 
 
 
-![](figures/path-diagram.png)
+![](https://ds4ps.org/cpp-523-fall-2019/labs/figures/path-diagram.png)
 
 Run the auxiliary regression to estimate $\alpha_1$.
 
@@ -115,7 +115,7 @@ bias
 How good is the naive estimation of β1, the impact of network diversity on our happiness, in this case?
 
 ```{r, eval=F}
-b1 / B1  # rough measure of the magnitude of bias
+bias / B1  # rough measure of the magnitude of bias
 ```
 
 
