@@ -772,13 +772,13 @@ Once you have completed this section you will be able to run and interpret regre
 
 *** { @unit = "SUN Sept-22", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "TUES Sept-24", @title = "Lab 05", @assignment  }
+*** { @unit = "TUES Sept-24", @title = "Lab 05", @assignment, @foldout  }
 
 
 <br>
 <br>
 
-# Lab 04
+# Lab 05
 
 This lab examines tests your understanding of constructing groups and conducting tests using dummy variables. 
 
