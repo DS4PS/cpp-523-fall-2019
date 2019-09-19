@@ -228,7 +228,7 @@ Second, if we want to test whether there are distinct slopes for each group we n
 
 ```{r}
 
-data.frame( Wages=wages, Years=years, Female=female, Years_Female=(years*female) )[1:10,] %>% pander
+data.frame( Wages=wages, Years=years, Female=female, Years_x_Female=(years*female) )[1:15,] %>% pander
 
 ```
 
@@ -257,7 +257,7 @@ stargazer( m.01, m.02, m.03, m.04, m.05, type="html", digits=0,
            intercept.bottom = FALSE,
            covariate.labels = c("b0: Constant", "b1: years", "b2: female",
                                "b3: years x female"),
-           omit.stat = c("ser","f","rsq","adj.rsq") )
+           omit.stat = c("ser","f","adj.rsq","rsq") )
 ```
 
 

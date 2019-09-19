@@ -528,20 +528,20 @@ text( 33, 47500, &quot;b1&quot;, col=&quot;steelblue&quot;, pos=1, cex=1.5 )</co
 <p>There are two important things to note about these models.</p>
 <p>First, including a dummy variable allows us to estimate separate intercepts for groups.</p>
 <p>Second, if we want to test whether there are distinct slopes for each group we need to interact our dummy variables with the numeric variables. See Model 5.</p>
-<pre class="r"><code>data.frame( Wages=wages, Years=years, Female=female, Years_Female=(years*female) )[1:10,] %&gt;% pander</code></pre>
-<table style="width:56%;">
+<pre class="r"><code>data.frame( Wages=wages, Years=years, Female=female, Years_x_Female=(years*female) )[1:15,] %&gt;% pander</code></pre>
+<table style="width:58%;">
 <colgroup>
 <col width="11%" />
 <col width="11%" />
 <col width="12%" />
-<col width="20%" />
+<col width="23%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="center">Wages</th>
 <th align="center">Years</th>
 <th align="center">Female</th>
-<th align="center">Years_Female</th>
+<th align="center">Years_x_Female</th>
 </tr>
 </thead>
 <tbody>
@@ -605,6 +605,36 @@ text( 33, 47500, &quot;b1&quot;, col=&quot;steelblue&quot;, pos=1, cex=1.5 )</co
 <td align="center">1</td>
 <td align="center">30</td>
 </tr>
+<tr class="odd">
+<td align="center">40803</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="center">59026</td>
+<td align="center">26</td>
+<td align="center">1</td>
+<td align="center">26</td>
+</tr>
+<tr class="odd">
+<td align="center">10997</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">43012</td>
+<td align="center">21</td>
+<td align="center">1</td>
+<td align="center">21</td>
+</tr>
+<tr class="odd">
+<td align="center">37732</td>
+<td align="center">21</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
 </tbody>
 </table>
 <p>It is impossible to include all distinct levels of groups in the models because of a mathematical problem called “perfect multi-collinearity”. As a result, dummy variable regressions typically exclude one level of each categorical variable, which then become the reference level of the model. All other coefficients in the model are in relation to and build off of the reference group.</p>
@@ -623,7 +653,7 @@ stargazer( m.01, m.02, m.03, m.04, m.05, type=&quot;html&quot;, digits=0,
            intercept.bottom = FALSE,
            covariate.labels = c(&quot;b0: Constant&quot;, &quot;b1: years&quot;, &quot;b2: female&quot;,
                                &quot;b3: years x female&quot;),
-           omit.stat = c(&quot;ser&quot;,&quot;f&quot;,&quot;rsq&quot;,&quot;adj.rsq&quot;) )</code></pre>
+           omit.stat = c(&quot;ser&quot;,&quot;f&quot;,&quot;adj.rsq&quot;,&quot;rsq&quot;) )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="6" style="border-bottom: 1px solid black">
