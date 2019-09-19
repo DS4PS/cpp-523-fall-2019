@@ -770,9 +770,13 @@ Once you have completed this section you will be able to run and interpret regre
 
 
 
-*** { @unit = "THURS Sept-19", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "SUN Sept-22", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "MON Sept-23", @title = "Lab 05", @assignment  }
+*** { @unit = "TUES Sept-24", @title = "Lab 05", @assignment  }
+
+
+
+
 
 
 
