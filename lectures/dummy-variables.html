@@ -528,6 +528,85 @@ text( 33, 47500, &quot;b1&quot;, col=&quot;steelblue&quot;, pos=1, cex=1.5 )</co
 <p>There are two important things to note about these models.</p>
 <p>First, including a dummy variable allows us to estimate separate intercepts for groups.</p>
 <p>Second, if we want to test whether there are distinct slopes for each group we need to interact our dummy variables with the numeric variables. See Model 5.</p>
+<pre class="r"><code>data.frame( Wages=wages, Years=years, Female=female, Years_Female=(years*female) )[1:10,] %&gt;% pander</code></pre>
+<table style="width:56%;">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="12%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Wages</th>
+<th align="center">Years</th>
+<th align="center">Female</th>
+<th align="center">Years_Female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">34973</td>
+<td align="center">25</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">39507</td>
+<td align="center">15</td>
+<td align="center">1</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">15904</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">35177</td>
+<td align="center">10</td>
+<td align="center">1</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="center">51115</td>
+<td align="center">23</td>
+<td align="center">1</td>
+<td align="center">23</td>
+</tr>
+<tr class="even">
+<td align="center">24871</td>
+<td align="center">12</td>
+<td align="center">1</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="center">34695</td>
+<td align="center">14</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">17878</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">51431</td>
+<td align="center">29</td>
+<td align="center">1</td>
+<td align="center">29</td>
+</tr>
+<tr class="even">
+<td align="center">58229</td>
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">30</td>
+</tr>
+</tbody>
+</table>
 <p>It is impossible to include all distinct levels of groups in the models because of a mathematical problem called “perfect multi-collinearity”. As a result, dummy variable regressions typically exclude one level of each categorical variable, which then become the reference level of the model. All other coefficients in the model are in relation to and build off of the reference group.</p>
 <pre><code>m.01 &lt;- lm( wages ~ 1 )
 m.02 &lt;- lm( wages ~ years )
@@ -831,7 +910,7 @@ Observations
 <h3>Model 2: What is the gain in earnings related to an extra year of experience?</h3>
 <p><strong>MODEL:</strong> <span class="math inline">\(Wages = b_0 + b_1*Years\)</span></p>
 <p><strong>TEST:</strong> If b1 is significant then it is different than zero, experience does impact earnings.</p>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
 <p>Experience does matter in the sample. The average worker experiences a $1104 increase in earnings for each additional year of experience.</p>
 </div>
 <div id="model-3-do-men-and-women-earn-different-wages-on-average" class="section level3">
@@ -856,8 +935,8 @@ abline( h=sum(coefficients( m.03 )), col=&quot;darkorange3&quot;, lwd=2 )
 
 text( 0.5, coefficients( m.03 )[1], &quot;b0&quot;, pos=3, col=&quot;steelblue&quot;, cex=1.5 )
 text( 0.5, sum(coefficients( m.03 )), &quot;b0 + b1&quot;, pos=3, col=&quot;darkorange3&quot;, cex=1.5 )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-12-1.png" width="960" /></p>
 <p><img src="dummy-variables_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
 </div>
 <div id="model-4-do-men-and-women-have-different-annual-earnings-at-the-start-of-their-careers" class="section level3">
 <h3>Model 4: Do men and women have different annual earnings at the start of their careers?</h3>
@@ -886,8 +965,8 @@ text( 5, 50000, &quot;Slope = b1&quot;, cex=1, col=&quot;gray10&quot; )
 
 text( -3.5, 20000, &quot;b0 + b2&quot;, col=&quot;darkorange3&quot;, pos=3, cex=1.5 )
 text( -3.5, 16000, &quot;b0&quot;, col=&quot;steelblue&quot;, pos=1, cex=1.5 )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
 <p><img src="dummy-variables_files/figure-html/unnamed-chunk-16-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-17-1.png" width="960" /></p>
 </div>
 <div id="model-5-are-the-gains-in-wages-related-to-experience-the-same-for-men-and-women" class="section level3">
 <h3>Model 5: Are the gains in wages related to experience the same for men and women?</h3>
@@ -921,7 +1000,7 @@ text( 10, 60000, &quot;Wages = b0 + b1*Years + b2*Female + b3*Years*Female&quot;
 
 text( 33, 53000, &quot;b1 + b3&quot;, col=&quot;darkorange3&quot;, pos=3, cex=1.5 )
 text( 33, 47500, &quot;b1&quot;, col=&quot;steelblue&quot;, pos=1, cex=1.5 )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-19-1.png" width="960" /></p>
 </div>
 </div>
 <div id="the-importance-of-reference-groups" class="section level1">
@@ -1129,7 +1208,7 @@ dumC &lt;- dat$dumC</code></pre>
       main=&quot;Effect of Fertilizer on Corn Growth: Three Hybrid Types&quot;)
 
 abline( lm( height ~ fertilizer ), col=&quot;darkred&quot;, lwd=2 )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
 <p>We can see that we have a positive slope, which is statistically significant. So our fertilize does seem to have a positive effect on the corn.</p>
 <pre class="r"><code>m.00 &lt;- lm( height ~ fertilizer )
 
@@ -1267,7 +1346,7 @@ F Statistic
 plot( fertilizer, height, col=factor(type), pch=19, bty=&quot;n&quot;, cex=2,
       xlab=&quot;Fertilizer Intensity&quot;, ylab=&quot;Height of Corn&quot;, 
       main=&quot;Effect of Fertilizer on Corn Growth: Three Hybrid Types&quot;)</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-22-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
 </div>
 <div id="one-slope---three-intercepts" class="section level2">
 <h2>One Slope - Three Intercepts</h2>
@@ -1307,7 +1386,7 @@ text( 107, intB+100*coefficients(m.04)[1], &quot;Type B&quot;, pos=1, col=adjust
 text( 107, intC+100*coefficients(m.04)[1], &quot;Type C&quot;, pos=1, col=adjustcolor( &quot;darkmagenta&quot;, alpha.f=1) )
 
 abline( v=0, lty=2, col=gray(0.5,0.5) )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
 <pre class="r"><code>stargazer( m.01, m.02, m.03, m.04, type=&quot;html&quot;, 
            digits=2, 
           omit.stat=c(&quot;f&quot;,&quot;adj.rsq&quot;,&quot;ser&quot;),
@@ -1628,7 +1707,8 @@ R<sup>2</sup>
 <p><strong>We have here four identical models,</strong> just estimated in slightly different ways by selecting different reference groups (Models 1-3) or dropping the intercept and including all groups together (Model 4).</p>
 <p>In the first models we omit one case. The omitted group becomes the reference group embedded in the intercept.Each dummy variable coefficient captures the height that a particular variety will achieve above and beyond the omitted group.</p>
 <p>If we change the group that we omit it will change the global and group-specific intercept terms in the model, but if you do the math in each case it should result in the exact same intercept for each group no matter which category is omitted. Rather, it just changes the reference point.</p>
-<p>The main thing to note about these models are that they</p>
+<p>You can practice calculating each intercept by adding the dummy coefficient to the constant term, and you can compare the values against Model 4 coefficients to check your work.</p>
+<p><em>Note that when a model omits the intercept the R-square statistic is no longer meaningful. These are all the same models, so Model 4 should have an identical R-square as the rest.</em></p>
 </div>
 <div id="three-slopes---three-intercepts" class="section level2">
 <h2>Three Slopes - Three Intercepts</h2>
@@ -1675,7 +1755,7 @@ text( 107, intB+100*slopeB, &quot;Type B&quot;, pos=1, col=adjustcolor( &quot;da
 text( 107, intC+100*slopeC, &quot;Type C&quot;, pos=3, col=adjustcolor( &quot;darkmagenta&quot;, alpha.f=1) )
 
 abline( v=0, lty=2, col=gray(0.5,0.5) )</code></pre>
-<p><img src="dummy-variables_files/figure-html/unnamed-chunk-25-1.png" width="960" /></p>
+<p><img src="dummy-variables_files/figure-html/unnamed-chunk-26-1.png" width="960" /></p>
 <pre class="r"><code>stargazer( m.04, m.05, m.06, m.07, type=&quot;html&quot;, 
            digits=2, 
            omit.stat=c(&quot;f&quot;,&quot;adj.rsq&quot;,&quot;ser&quot;),

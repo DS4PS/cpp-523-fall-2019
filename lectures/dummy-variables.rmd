@@ -225,6 +225,14 @@ First, including a dummy variable allows us to estimate separate intercepts for 
 
 Second, if we want to test whether there are distinct slopes for each group we need to interact our dummy variables with the numeric variables. See Model 5. 
 
+
+```{r}
+
+data.frame( Wages=wages, Years=years, Female=female, Years_Female=(years*female) )[1:10,] %>% pander
+
+```
+
+
 It is impossible to include all distinct levels of groups in the models because of a mathematical problem called "perfect multi-collinearity". As a result, dummy variable regressions typically exclude one level of each categorical variable, which then become the reference level of the model. All other coefficients in the model are in relation to and build off of the reference group. 
 
 
@@ -812,8 +820,9 @@ In the first models we omit one case. The omitted group becomes the reference gr
 
 If we change the group that we omit it will change the global and group-specific intercept terms in the model, but if you do the math in each case it should result in the exact same intercept for each group no matter which category is omitted. Rather, it just changes the reference point.
 
-The main thing to note about these models are that they 
+You can practice calculating each intercept by adding the dummy coefficient to the constant term, and you can compare the values against Model 4 coefficients to check your work.
 
+*Note that when a model omits the intercept the R-square statistic is no longer meaningful. These are all the same models, so Model 4 should have an identical R-square as the rest.*
 
 
 ## Three Slopes - Three Intercepts
