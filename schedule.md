@@ -839,16 +839,27 @@ Include a description of problems
 
 
 
+*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture  }
 
-*** { @unit = "Due DATE", @title = "Specification", @reading }
+<br>
+<br>
 
+Concise summary of the seven most common issues that will corrupt your regression inferences. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]
 
-*** { @unit = "Due DATE", @title = "The Seven Deadly Sins of Regression", @lecture  }
+* Selection 
+* Omitted variable bias 
+* Measurement error 
+* Specification 
+* Group Heterogeneity 
+* Multi-collinearity 
+* Simultenaeity 
+
+<br><br>
 
 
 *** { @unit = "THURS Sept-26", @title = "Mini-Assessment", @assignment  }
 
-*** { @unit = "MON Sept-30", @title = "Lab 06", @assignment  }
+*** { @unit = "TUES Oct-01", @title = "Lab 06", @assignment  }
 
 
 
