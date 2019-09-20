@@ -770,7 +770,7 @@ Once you have completed this section you will be able to run and interpret regre
 
 
 
-*** { @unit = "SUN Sept-22", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "SUN Sept-22", @title = "Mini-Assessment", @assignment, @foldout  }
 
 <br>
 <br>
