@@ -88,7 +88,7 @@ m2 <- lm( salary ~ male + white + male*white )
 stargazer( m1, m2, type="html", digits=0,
            intercept.bottom = FALSE,
            omit.stat = c("ser","f","rsq","adj.rsq"),
-           covariate.labels = c("a0/b1: Constant", 
+           covariate.labels = c("a0/b0: Constant", 
                                 "a1: female", 
                                 "a2: minority",
                                 "a3: female x minority",
@@ -147,7 +147,22 @@ This model only allows us to test three contrasts where A represents the omitted
 
 To test for differences between minority male and minority female salaries one of those groups must be constructed as the reference group. 
 
-Note that you can check your answers below by calculating the salaries two ways (one using Model 1 and one using Model 2). 
+
+Recall that the hypothesis test for salary differences are constructed as follows:
+
+$wages_{white women} = wages_{white men}$ 
+
+$(a_0 + a_1) = a_0$
+
+$(a_0 + a_1) - a_0 = 0$
+
+$a_1 + a_0 - a_0 = 0$
+
+$a_1 = 0$
+
+So the statistical significance of a1 is the test for salary differences (the null being a1 is zero, i.e. that salary differences are zero). 
+
+Note that you can check your answers below by calculating the group salaries in two ways, one using coefficients from Model 1 and one using coefficients from Model 2. If you are doing the calculations correctly the answers should be identical.
 
 <br>
 

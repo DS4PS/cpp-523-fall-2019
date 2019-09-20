@@ -230,7 +230,7 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">stargazer</span>( m1, m2, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">           <span class="dt">intercept.bottom =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;ser&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;adj.rsq&quot;</span>),</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;a0/b1: Constant&quot;</span>, </a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;a0/b0: Constant&quot;</span>, </a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">                                <span class="st">&quot;a1: female&quot;</span>, </a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">                                <span class="st">&quot;a2: minority&quot;</span>,</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">                                <span class="st">&quot;a3: female x minority&quot;</span>,</a>
@@ -278,7 +278,7 @@ salary
 </tr>
 <tr>
 <td style="text-align:left">
-a0/b1: Constant
+a0/b0: Constant
 </td>
 <td>
 89,788<sup>***</sup>
@@ -554,7 +554,14 @@ Observations
 <p>This model only allows us to test three contrasts where A represents the omitted group:</p>
 <p><img src="figures/dummy-hypotheses.png" /></p>
 <p>To test for differences between minority male and minority female salaries one of those groups must be constructed as the reference group.</p>
-<p>Note that you can check your answers below by calculating the salaries two ways (one using Model 1 and one using Model 2).</p>
+<p>Recall that the hypothesis test for salary differences are constructed as follows:</p>
+<p><span class="math inline">\(wages_{white women} = wages_{white men}\)</span></p>
+<p><span class="math inline">\((a_0 + a_1) = a_0\)</span></p>
+<p><span class="math inline">\((a_0 + a_1) - a_0 = 0\)</span></p>
+<p><span class="math inline">\(a_1 + a_0 - a_0 = 0\)</span></p>
+<p><span class="math inline">\(a_1 = 0\)</span></p>
+<p>So the statistical significance of a1 is the test for salary differences (the null being a1 is zero, i.e. that salary differences are zero).</p>
+<p>Note that you can check your answers below by calculating the group salaries in two ways, one using coefficients from Model 1 and one using coefficients from Model 2. If you are doing the calculations correctly the answers should be identical.</p>
 <p><br></p>
 </div>
 </div>
