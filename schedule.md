@@ -786,7 +786,7 @@ This lab examines tests your understanding of constructing groups and conducting
 
 When you are complete:
 
-<a class="uk-button uk-button-primary" href="">Submit Lab-05</a>
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/791918">Submit Lab-05</a>
 
 <br>
 <br>
