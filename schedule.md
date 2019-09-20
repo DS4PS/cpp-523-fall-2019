@@ -772,6 +772,20 @@ Once you have completed this section you will be able to run and interpret regre
 
 *** { @unit = "SUN Sept-22", @title = "Mini-Assessment", @assignment  }
 
+<br>
+<br>
+
+This mini-assessment tests your understanding of the interpretation of the impact of control variables on statistical significance.
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/225183">Start the Mini-Assessment</a>
+
+<br>
+<br>
+
+
+
+
+
 *** { @unit = "TUES Sept-24", @title = "Lab 05", @assignment, @foldout  }
 
 
