@@ -37,6 +37,19 @@ salary <- 90000 + 3000*female + 500*minority + 7000*female*minority + rnorm(1000
 
 male <- 1 - female 
 white <- 1 - minority
+
+white.male <- white * male 
+white.female <- white * female 
+minority.male <- minority * male
+minority.female <- minority * female 
+
+sum( white.male + white.female + minority.male + minority.female )
+
+# dat <- data.frame( salary, female, male, minority, white, 
+#                    white.male, white.female, minority.male, minority.female,
+#                    stringsAsFactors=FALSE )
+
+# write.csv( dat, "data/engineer-salaries.csv", row.names=F )
 ```
 
 
