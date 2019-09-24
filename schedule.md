@@ -855,7 +855,7 @@ For this lab you will run and interpret a quadratic regression, and interpret co
 <br>
 <br>
 
-Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ]  
+ 
 Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
 
 * Selection 
@@ -865,6 +865,8 @@ Concise summary of the seven most common issues that will corrupt your regressio
 * Group Heterogeneity 
 * Multi-collinearity 
 * Simultenaeity 
+
+Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
 
 <br><br>
 
