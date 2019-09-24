@@ -809,56 +809,54 @@ When you are complete:
 
 
 
+
+
+
 ** Week 6 - Specification
 
-*** { @unit = "", @title = "Unit Overview"  }
+*** { @unit = "", @title = "Unit Overview", @foldout  }
 
-
-![](http://www.papaa.org/sites/default/files/Causality%20and%20Correlation.jpg)
-
+<br>
+<br>
 
 ## Description 
 
-2-5 sentence overview of what is covered in the section.
+This week introduces the concept of specification bias - various idiosyncracies of regression models such as outliers and functional forms that can introduce bias into the slope estimates. 
 
 ## Learning Objectives
 
-Once you have completed this section you will have mastered:
+Once you have completed this section you will be able to:
 
-* quadratic regression terms 
-* marginal effects in non-linear models 
-* diagnostics of specification problems 
+* Diagnose specification bias when it occurs 
+* Be able to identify outliers and conduct sensitivity analysis to check their impact 
+* Specify a quadratic model for non-linear relationships 
+* Interpret a logged regression 
 
 
-## Assigned and Recommended Articles or Chapters
-
-### Required:
-
-Babcock, L., & Laschever, S. (2009). Women don't ask: Negotiation and the gender divide. 	Princeton University Press.
-
-### Recommended:
-
-Barbeito, C. L. and Bowman, J. P. (1998). Nonprofit Compensation and Benefits Practices. New York: John Wiley & Sons, Applied Research and Development Institute International, Inc.
-
-## Data Used in this Section
-
-The following data will be used for lectures in this section (link to dataset page)…
 
 ## Lecture Materials
 
-Links to relevant sections from the lecture notes, including related material covered in other weeks.
-Include a description of problems  
+Specification Bias I [ [html](https://ds4ps.org/cpp-523-fall-2019/lectures/specification-bias.html) ]  
+Specification Bias II [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-09-specification.pdf) ]  
+
+
 
 ## Lab Preview 
 
-
-
-*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture  }
+For this lab you will run and interpret a quadratic regression, and interpret coefficients from a logged regression model. 
 
 <br>
 <br>
 
-Concise summary of the seven most common issues that will corrupt your regression inferences. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]
+
+
+*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture, @foldout   }
+
+<br>
+<br>
+
+Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ]  
+Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
 
 * Selection 
 * Omitted variable bias 
