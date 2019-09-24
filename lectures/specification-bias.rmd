@@ -91,7 +91,7 @@ mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
 
 
 
-```{r, results='asis', eval=F}
+```{r, results='asis', eval=T}
 
 # {r, results='asis'}
 
@@ -104,23 +104,6 @@ stargazer( m1, m2, m3, m4, type="html", digits=2,
 
 
 
-
-## Model Fit Diagnostics
-
-There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.
-
-```{r, }
-
-par( mfrow=c(2,2), oma=c(2,0,0,0) )
-
-# plot( m1 )
-# mtext( "Model 1", side=1, outer = TRUE, cex = 1.5)
-
-plot( m3 )
-mtext("Model 3", size=1, outer = TRUE, cex = 1.5)
-
-
-```
 
 
 ## Residual Analysis
@@ -781,6 +764,7 @@ See below for more details.
 
 
 
+
 # NONLINEAR RELATIONSHIPS
 
 How do we address the situation when our relationships are nonlinear? This is important in public policy and program evaluation because of the economic phenomenon of diminishing marginal returns. If we have no resources or program services then providing a little big might have a large impact on the outcome. If we already have lots of resources and access then adding a little more might not have as much of an impact.
@@ -963,6 +947,27 @@ It is discouraged to interpret model effects at the min and max values of X beca
 
 <br>
 <br>
+
+
+
+
+
+# Model Fit Diagnostics
+
+There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.
+
+```{r, }
+par( mfrow=c(2,2), oma=c(2,0,0,0) )
+
+# plot( m1 )
+# mtext( "Model 1", side=1, outer = TRUE, cex = 1.5)
+
+plot( m3 )
+mtext("Model 3", size=1, outer = TRUE, cex = 1.5)
+```
+
+
+
 
 
 # Logged Regression Models 

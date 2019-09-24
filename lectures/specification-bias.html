@@ -227,7 +227,6 @@ $(document).ready(function () {
 <li><a href="#specification-bias">SPECIFICATION BIAS</a></li>
 <li><a href="#outliers">OUTLIERS</a><ul>
 <li><a href="#anscombes-quartet-data">Anscombe’s Quartet Data</a></li>
-<li><a href="#model-fit-diagnostics">Model Fit Diagnostics</a></li>
 <li><a href="#residual-analysis">Residual Analysis</a></li>
 <li><a href="#cooks-distance">Cook’s Distance</a></li>
 <li><a href="#logged-models">Logged Models</a></li>
@@ -236,6 +235,7 @@ $(document).ready(function () {
 <li><a href="#interpretation-of-program-effects">Interpretation of Program Effects</a></li>
 <li><a href="#reporting-program-effects">Reporting Program Effects</a></li>
 </ul></li>
+<li><a href="#model-fit-diagnostics">Model Fit Diagnostics</a></li>
 <li><a href="#logged-regression-models">Logged Regression Models</a><ul>
 <li><a href="#understanding-logged-variables">Understanding Logged Variables</a></li>
 <li><a href="#slopes-in-growth-models">Slopes in Growth Models</a></li>
@@ -314,18 +314,312 @@ mtext(&quot;Anscombe&#39;s 4 Regression data sets&quot;, outer = TRUE, cex = 1.5
 
 stargazer( m1, m2, m3, m4, type=&quot;html&quot;, digits=2,
            omit.stat = c(&quot;f&quot;,&quot;ser&quot;,&quot;rsq&quot;) )</code></pre>
-</div>
-<div id="model-fit-diagnostics" class="section level2">
-<h2>Model Fit Diagnostics</h2>
-<p>There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.</p>
-<pre class="r"><code>par( mfrow=c(2,2), oma=c(2,0,0,0) )
-
-# plot( m1 )
-# mtext( &quot;Model 1&quot;, side=1, outer = TRUE, cex = 1.5)
-
-plot( m3 )
-mtext(&quot;Model 3&quot;, size=1, outer = TRUE, cex = 1.5)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+<table style="text-align:center">
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+y1
+</td>
+<td>
+y2
+</td>
+<td>
+y3
+</td>
+<td>
+y4
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+0.50<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.12)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.50<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.12)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.50<sup>***</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.12)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x4
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.50<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+3.00<sup>**</sup>
+</td>
+<td>
+3.00<sup>**</sup>
+</td>
+<td>
+3.00<sup>**</sup>
+</td>
+<td>
+3.00<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.12)
+</td>
+<td>
+(1.13)
+</td>
+<td>
+(1.12)
+</td>
+<td>
+(1.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+11
+</td>
+<td>
+11
+</td>
+<td>
+11
+</td>
+<td>
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.63
+</td>
+<td>
+0.63
+</td>
+<td>
+0.63
+</td>
+<td>
+0.63
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="4" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
 </div>
 <div id="residual-analysis" class="section level2">
 <h2>Residual Analysis</h2>
@@ -334,7 +628,7 @@ mtext(&quot;Model 3&quot;, size=1, outer = TRUE, cex = 1.5)</code></pre>
 points( m3$residuals, pch=19 )
 text( 1:11, m3$residuals, 1:11, pos=4, cex=0.8 )
 abline( h=0, col=&quot;gray&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
 <p>The problem with this approach is that not all outliers impact the regression in the same way. Outliers near the mean of X and Y will tug the regression line up or down slightly, so they impact the intercept only. Outliers near the lower and upper range of X will tilt the regression line, impacting both the slope and the intercept.</p>
 <pre class="r"><code>par( mfrow=c(2,2))
 
@@ -365,7 +659,7 @@ mm4 &lt;- lm( y ~ x )
 
 plot( x, y, bty=&quot;n&quot;, pch=19, col=&quot;darkgray&quot;, cex=2, ylim=c(-5,25), xlim=c(0,13) )
 abline( mm4, col=&quot;red&quot; )</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 <pre class="r"><code>stargazer( mm1, mm2, mm3, mm4, type=&quot;html&quot;, digits=2,
            omit.stat = c(&quot;f&quot;,&quot;ser&quot;,&quot;rsq&quot;) )</code></pre>
 <table style="text-align:center">
@@ -627,7 +921,7 @@ text( anscombe$x3, anscombe$y3, 1:11, pos=4 )
 
 plot( cooks.distance( m3 ), pch=19, bty=&quot;n&quot;, ylab=&quot;Cook&#39;s Distance&quot; )
 text( 1:11, cooks.distance( m3 ), 1:11, pos=4 )</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-7-1.png" width="768" /></p>
 <p>Dealing with outliers can be tricky because once you start changing your data you are going down a slippery slope toward manufacturing results. In the case that the outlier is a data entry error you can fix it or eliminate it without hesitation. But if the data point is accurate and it has a large impact on your outcome then you need to take care to explain and justify your actions. If you delete outliers then report results before and after you have altered the data for the sake of transparency.</p>
 <p>There are several rules of thumb on how to use Cook’s distance to identify outliers:</p>
 <ul>
@@ -653,7 +947,7 @@ plot( y3 ~ x3, data=anscombe, main=&quot;After Outlier Removal&quot;,
      col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
      xlim = c(3, 15), ylim = c(3, 13))
 abline( m3.2, col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
 <pre class="r"><code>stargazer( m3, m3.2, type=&quot;html&quot;, digits=2,
            omit.stat = c(&quot;ser&quot;) )</code></pre>
 <table style="text-align:center">
@@ -1321,7 +1615,7 @@ plot( log(npos$POP+1), npos$NPOs, pch=19, cex=0.75, bty=&quot;n&quot;, col=&quot
 
 plot( log(npos$POP+1), log(npos$NPOs+1), pch=19, cex=0.75, bty=&quot;n&quot;, col=&quot;darkorange&quot;,
       main=&quot;Log-Log Model&quot;, xlab=&quot;Metro Population (logged)&quot;, ylab=&quot;Number of Nonprofits (logged)&quot; )</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-11-1.png" width="768" /></p>
 <p>See below for more details.</p>
 </div>
 </div>
@@ -1333,7 +1627,7 @@ plot( log(npos$POP+1), log(npos$NPOs+1), pch=19, cex=0.75, bty=&quot;n&quot;, co
      col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 3, 
      xlim = c(3, 15), ylim = c(3, 13), bty=&quot;n&quot;)
 abline( m2, col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-13-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
 <p>We can see that the linear model does not adequately represent the true relationship. To get a better model we must introduce quadratic terms to allow for non-linear fit.</p>
 <p><strong>Linear:</strong> <span class="math inline">\(Y = b_{0} + b_{1}X1 + e\)</span></p>
 <p><strong>Nonlinear:</strong> <span class="math inline">\(Y = b_{0} + b_{1}X1 + b_{2}X1^2 + e\)</span></p>
@@ -1610,7 +1904,7 @@ plot( y2 ~ x2, data=anscombe, main=&quot;Quadratic Fit&quot;,
 
 
 lines( x[order(x)], quad2$fitted.values[order(x)], col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-16-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-15-1.png" width="768" /></p>
 </div>
 <div id="interpretation-of-program-effects" class="section level2">
 <h2>Interpretation of Program Effects</h2>
@@ -1729,6 +2023,18 @@ dt %&gt;% pander</code></pre>
 <p><br>
 <br></p>
 </div>
+</div>
+<div id="model-fit-diagnostics" class="section level1">
+<h1>Model Fit Diagnostics</h1>
+<p>There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.</p>
+<pre class="r"><code>par( mfrow=c(2,2), oma=c(2,0,0,0) )
+
+# plot( m1 )
+# mtext( &quot;Model 1&quot;, side=1, outer = TRUE, cex = 1.5)
+
+plot( m3 )
+mtext(&quot;Model 3&quot;, size=1, outer = TRUE, cex = 1.5)</code></pre>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-21-1.png" width="768" /></p>
 </div>
 <div id="logged-regression-models" class="section level1">
 <h1>Logged Regression Models</h1>
