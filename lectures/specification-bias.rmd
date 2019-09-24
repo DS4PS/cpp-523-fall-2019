@@ -1,0 +1,2282 @@
+---
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    toc: true
+    toc_depth: 1
+    number_sections: true
+    self_contained: false
+    css: textbook.css
+---
+
+```{r, echo=F }
+knitr::opts_chunk$set( echo = TRUE, message=F, warning=F, fig.width=8 )
+```
+
+
+
+```{r setup, include=TRUE}
+library( stargazer )
+library( xtable )
+library( dplyr )
+library( pander )
+```
+
+# SPECIFICATION BIAS 
+
+
+Bias that results from a mis-specified model, which can be:
+
+* A model with unmitigated outlier effects 
+  - Sensitivity analysis can be performed by dropping outliers 
+  - Logged models are useful to address data skew 
+* A model that is fit using the wrong functional form 
+  - Linear specification when relationship is non-linear 
+
+
+
+
+# OUTLIERS
+
+
+
+
+
+## Anscombe's Quartet Data
+
+```{r}
+
+data( anscombe )
+
+m1 <- lm( y1 ~ x1, data=anscombe )
+m2 <- lm( y2 ~ x2, data=anscombe )
+m3 <- lm( y3 ~ x3, data=anscombe )
+m4 <- lm( y4 ~ x4, data=anscombe )
+
+
+par(mfrow = c(2, 2), mar = 0.1+c(4,4,1,1), oma =  c(0, 0, 2, 0))
+
+plot( y1 ~ x1, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 13))
+abline( m1, col = "blue")
+
+plot( y2 ~ x2, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 13))
+abline( m2, col = "blue")
+
+plot( y3 ~ x3, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 13))
+abline( m3, col = "blue")
+
+plot( y4 ~ x4, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 13))
+abline( m4, col = "blue")
+
+mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
+
+
+```
+
+
+![](anscombes.png)
+
+
+
+```{r, results='asis', eval=F}
+
+# {r, results='asis'}
+
+stargazer( m1, m2, m3, m4, type="html", digits=2,
+           omit.stat = c("f","ser","rsq") )
+
+
+```
+
+
+
+
+
+## Model Fit Diagnostics
+
+There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.
+
+```{r, }
+
+par( mfrow=c(2,2), oma=c(2,0,0,0) )
+
+# plot( m1 )
+# mtext( "Model 1", side=1, outer = TRUE, cex = 1.5)
+
+plot( m3 )
+mtext("Model 3", size=1, outer = TRUE, cex = 1.5)
+
+
+```
+
+
+## Residual Analysis
+
+The first step in outlier analysis is finding points that are the furthest away from the regression line. We can simply look at the residuals.
+
+
+```{r}
+
+plot( m3$residuals, type="h", main="Residual Analysis", bty="n", ylab="Y - Yhat" )
+points( m3$residuals, pch=19 )
+text( 1:11, m3$residuals, 1:11, pos=4, cex=0.8 )
+abline( h=0, col="gray")
+```
+
+
+
+The problem with this approach is that not all outliers impact the regression in the same way. Outliers near the mean of X and Y will tug the regression line up or down slightly, so they impact the intercept only. Outliers near the lower and upper range of X will tilt the regression line, impacting both the slope and the intercept.
+
+```{r, fig.width=10, fig.height=10}
+
+par( mfrow=c(2,2))
+
+x <- 1:11
+y <- 1:11
+
+mm1 <- lm( y ~ x )
+
+plot( x, y, bty="n", pch=19, col="darkgray", cex=2, ylim=c(-5,25), xlim=c(0,13) )
+abline( mm1, col="red" )
+
+y[6] <- y[6]+10
+mm2 <- lm( y ~ x )
+
+plot( x, y, bty="n", pch=19, col="darkgray", cex=2, ylim=c(-5,25), xlim=c(0,13) )
+abline( mm2, col="red" )
+
+y <- 1:11
+y[1] <- y[1] + 10
+mm3 <- lm( y ~ x )
+
+plot( x, y, bty="n", pch=19, col="darkgray", cex=2, ylim=c(-5,25), xlim=c(0,13) )
+abline( mm3, col="red" )
+
+y <- 1:11
+y[11] <- y[11] + 10
+mm4 <- lm( y ~ x )
+
+plot( x, y, bty="n", pch=19, col="darkgray", cex=2, ylim=c(-5,25), xlim=c(0,13) )
+abline( mm4, col="red" )
+
+```
+
+
+```{r, results='asis'}
+
+stargazer( mm1, mm2, mm3, mm4, type="html", digits=2,
+           omit.stat = c("f","ser","rsq") )
+
+```
+
+
+## Cook's Distance
+
+Let's focus on one common measure one used to identify outliers that are having a large impact on our regression model. Cook's distance focuses not on distance from the regression line, but instead is a measure of how much leverage each point will have on the slope of the model.
+
+```{r}
+
+cooks.distance( m3 ) %>% pander
+
+par( mfrow=c(1,2) )
+
+plot( y3 ~ x3, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 13))
+abline( m3, col = "blue")
+text( anscombe$x3, anscombe$y3, 1:11, pos=4 )
+
+plot( cooks.distance( m3 ), pch=19, bty="n", ylab="Cook's Distance" )
+text( 1:11, cooks.distance( m3 ), 1:11, pos=4 )
+
+```
+
+
+
+
+
+
+Dealing with outliers can be tricky because once you start changing your data you are going down a slippery slope toward manufacturing results. In the case that the outlier is a data entry error you can fix it or eliminate it without hesitation. But if the data point is accurate and it has a large impact on your outcome then you need to take care to explain and justify your actions. If you delete outliers then report results before and after you have altered the data for the sake of transparency.
+
+
+There are several rules of thumb on how to use Cook's distance to identify outliers:
+
+* A general rule of thumb is that observations with a Cook's D of more than 3 times the mean distance is a possible outlier.
+* An alternative interpretation is to investigate any point over 4/n, where n is the number of observations.
+* Other authors suggest that any "large" Di should be investigated. How large is "too large"? The consensus seems to be that a Di value of more that 1 indicates an influential value, but you may want to look at values above 0.5.
+* An alternative (but slightly more technical) way to interpret Di is to find the potential outlier's percentile value using the F-distribution. A percentile of over 50 indicates a highly influential point.
+
+```{r}
+
+
+
+par( mfrow=c(1,2) )
+
+plot( y3 ~ x3, data=anscombe, main="Original Data",
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 15), ylim = c(3, 13))
+abline( m3, col = "blue")
+
+
+anscombe$x3[3] <- NA
+anscombe$y3[3] <- NA
+
+m3.2 <- lm( y3 ~ x3, data=anscombe )
+
+plot( y3 ~ x3, data=anscombe, main="After Outlier Removal",
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 15), ylim = c(3, 13))
+abline( m3.2, col = "blue")
+
+
+
+```
+
+
+```{r, results='asis'}
+
+stargazer( m3, m3.2, type="html", digits=2,
+           omit.stat = c("ser") )
+
+
+```
+
+
+
+## Logged Models 
+
+The last way to address outliers is to used a logged model. These include log-linear models (Y is logged, X is levels), linear-log model (Y is levels, X is logged), or log-log models (both X and Y are logged). 
+
+Logging data changes measures from levels (actual numeric values) to something similar to growth rates. This transformation has the biggest impact on large numbers, turning highly-skewed distributions into more reasonable relationships. 
+
+
+
+```{r}
+# dput( data.frame( FIPS=dat$fips, MSA=dat$MSAName.x, POP=dat$TotalPop.10, NPOs=dat$num.npos.x ) )
+
+# Nonprofit vs. Population Data
+npos <- structure(list(FIPS = c(1001L, 1003L, 1009L, 1015L, 1017L, 1033L, 
+1045L, 1051L, 1055L, 1067L, 1069L, 1073L, 1077L, 1079L, 1081L, 
+1083L, 1089L, 1095L, 1097L, 1101L, 1103L, 1113L, 1115L, 1117L, 
+1125L, 2020L, 4005L, 4007L, 4013L, 4015L, 4019L, 4021L, 4025L, 
+4027L, 5007L, 5031L, 5033L, 5035L, 5045L, 5069L, 5085L, 5091L, 
+5119L, 5125L, 5131L, 5141L, 5143L, 6001L, 6005L, 6007L, 6013L, 
+6017L, 6019L, 6029L, 6035L, 6037L, 6039L, 6041L, 6047L, 6053L, 
+6055L, 6057L, 6059L, 6061L, 6065L, 6067L, 6071L, 6073L, 6075L, 
+6077L, 6079L, 6081L, 6083L, 6085L, 6087L, 6089L, 6095L, 6097L, 
+6099L, 6101L, 6107L, 6111L, 6113L, 6115L, 8001L, 8005L, 8013L, 
+8031L, 8035L, 8041L, 8059L, 8069L, 8077L, 8101L, 8123L, 9001L, 
+9003L, 9005L, 9007L, 9009L, 9011L, 9013L, 9015L, 10001L, 10003L, 
+11001L, 12001L, 12005L, 12009L, 12011L, 12015L, 12017L, 12019L, 
+12021L, 12031L, 12033L, 12035L, 12039L, 12053L, 12057L, 12061L, 
+12069L, 12071L, 12073L, 12081L, 12083L, 12085L, 12086L, 12089L, 
+12091L, 12093L, 12095L, 12097L, 12099L, 12101L, 12103L, 12105L, 
+12109L, 12111L, 12113L, 12115L, 12117L, 12119L, 12127L, 12131L, 
+13013L, 13015L, 13021L, 13029L, 13045L, 13047L, 13051L, 13053L, 
+13057L, 13059L, 13063L, 13067L, 13073L, 13077L, 13083L, 13089L, 
+13095L, 13097L, 13103L, 13113L, 13117L, 13121L, 13135L, 13145L, 
+13151L, 13153L, 13169L, 13177L, 13179L, 13189L, 13195L, 13215L, 
+13217L, 13219L, 13223L, 13225L, 13227L, 13245L, 13247L, 13255L, 
+13289L, 13295L, 13297L, 15003L, 16001L, 16005L, 16027L, 17007L, 
+17019L, 17027L, 17031L, 17037L, 17043L, 17063L, 17073L, 17083L, 
+17089L, 17091L, 17093L, 17097L, 17111L, 17113L, 17115L, 17117L, 
+17119L, 17129L, 17133L, 17141L, 17143L, 17161L, 17163L, 17167L, 
+17179L, 17197L, 17201L, 17203L, 18001L, 18003L, 18011L, 18019L, 
+18021L, 18023L, 18029L, 18033L, 18035L, 18039L, 18043L, 18057L, 
+18059L, 18061L, 18063L, 18067L, 18069L, 18081L, 18089L, 18095L, 
+18097L, 18105L, 18109L, 18115L, 18119L, 18127L, 18129L, 18133L, 
+18141L, 18143L, 18145L, 18157L, 18159L, 18163L, 18165L, 18167L, 
+18173L, 18179L, 18183L, 19013L, 19049L, 19061L, 19103L, 19113L, 
+19153L, 19155L, 19163L, 19165L, 19181L, 19193L, 20015L, 20045L, 
+20079L, 20091L, 20103L, 20121L, 20173L, 20177L, 20191L, 20209L, 
+21015L, 21017L, 21019L, 21029L, 21037L, 21043L, 21047L, 21049L, 
+21059L, 21067L, 21077L, 21081L, 21089L, 21101L, 21111L, 21113L, 
+21117L, 21151L, 21185L, 21191L, 21209L, 21239L, 22001L, 22005L, 
+22015L, 22017L, 22019L, 22033L, 22051L, 22055L, 22057L, 22063L, 
+22071L, 22073L, 22075L, 22079L, 22087L, 22089L, 22093L, 22095L, 
+22097L, 22099L, 22103L, 22109L, 22119L, 22121L, 23001L, 23005L, 
+23019L, 23027L, 23031L, 24001L, 24003L, 24005L, 24009L, 24013L, 
+24015L, 24017L, 24021L, 24025L, 24027L, 24029L, 24031L, 24033L, 
+24035L, 24043L, 24510L, 25001L, 25003L, 25005L, 25009L, 25011L, 
+25013L, 25015L, 25017L, 25021L, 25023L, 25025L, 25027L, 26005L, 
+26017L, 26021L, 26025L, 26037L, 26045L, 26049L, 26065L, 26075L, 
+26077L, 26081L, 26087L, 26091L, 26093L, 26099L, 26111L, 26115L, 
+26121L, 26125L, 26139L, 26145L, 26147L, 26159L, 26161L, 26163L, 
+27003L, 27009L, 27019L, 27025L, 27027L, 27037L, 27053L, 27055L, 
+27059L, 27087L, 27109L, 27119L, 27123L, 27137L, 27139L, 27141L, 
+27145L, 27163L, 27171L, 28033L, 28035L, 28045L, 28047L, 28049L, 
+28059L, 28073L, 28089L, 28121L, 29003L, 29011L, 29019L, 29021L, 
+29037L, 29043L, 29047L, 29049L, 29059L, 29071L, 29077L, 29083L, 
+29095L, 29097L, 29099L, 29107L, 29109L, 29113L, 29145L, 29165L, 
+29177L, 29183L, 29186L, 29189L, 29219L, 29225L, 29510L, 30013L, 
+30063L, 30111L, 31025L, 31043L, 31055L, 31109L, 31153L, 31177L, 
+32003L, 32023L, 32031L, 33009L, 33011L, 33013L, 33015L, 33017L, 
+34001L, 34003L, 34005L, 34007L, 34009L, 34011L, 34013L, 34015L, 
+34017L, 34019L, 34021L, 34023L, 34025L, 34027L, 34029L, 34031L, 
+34033L, 34035L, 34037L, 34039L, 34041L, 35001L, 35013L, 35028L, 
+35043L, 35049L, 35061L, 36001L, 36005L, 36007L, 36011L, 36013L, 
+36015L, 36027L, 36029L, 36037L, 36043L, 36047L, 36051L, 36053L, 
+36055L, 36057L, 36059L, 36061L, 36063L, 36065L, 36067L, 36069L, 
+36071L, 36073L, 36075L, 36079L, 36081L, 36083L, 36085L, 36087L, 
+36091L, 36093L, 36095L, 36103L, 36107L, 36113L, 36115L, 36117L, 
+36119L, 37001L, 37003L, 37019L, 37021L, 37023L, 37025L, 37027L, 
+37035L, 37037L, 37051L, 37053L, 37057L, 37059L, 37063L, 37065L, 
+37067L, 37069L, 37071L, 37081L, 37101L, 37109L, 37115L, 37119L, 
+37127L, 37129L, 37133L, 37135L, 37147L, 37151L, 37159L, 37163L, 
+37169L, 37179L, 37183L, 37191L, 37197L, 38015L, 38017L, 38035L, 
+38059L, 39003L, 39007L, 39011L, 39013L, 39015L, 39017L, 39019L, 
+39023L, 39025L, 39029L, 39033L, 39035L, 39041L, 39045L, 39049L, 
+39051L, 39055L, 39057L, 39061L, 39077L, 39081L, 39085L, 39087L, 
+39089L, 39093L, 39095L, 39097L, 39099L, 39103L, 39109L, 39113L, 
+39129L, 39133L, 39139L, 39151L, 39153L, 39155L, 39165L, 39167L, 
+39173L, 40017L, 40027L, 40031L, 40037L, 40047L, 40073L, 40083L, 
+40087L, 40109L, 40113L, 40125L, 40131L, 40135L, 40143L, 40145L, 
+41003L, 41005L, 41009L, 41029L, 41039L, 41047L, 41051L, 41053L, 
+41067L, 41071L, 42001L, 42003L, 42005L, 42007L, 42011L, 42013L, 
+42017L, 42019L, 42021L, 42025L, 42027L, 42029L, 42037L, 42041L, 
+42043L, 42045L, 42049L, 42051L, 42069L, 42071L, 42073L, 42075L, 
+42077L, 42079L, 42081L, 42085L, 42091L, 42095L, 42099L, 42101L, 
+42103L, 42111L, 42125L, 42129L, 42131L, 42133L, 44001L, 44003L, 
+44005L, 44007L, 44009L, 45003L, 45007L, 45015L, 45019L, 45021L, 
+45035L, 45037L, 45041L, 45045L, 45051L, 45057L, 45061L, 45063L, 
+45077L, 45079L, 45083L, 45085L, 45091L, 46083L, 46099L, 46103L, 
+46127L, 47001L, 47009L, 47019L, 47021L, 47023L, 47037L, 47043L, 
+47047L, 47065L, 47073L, 47093L, 47105L, 47113L, 47115L, 47125L, 
+47147L, 47149L, 47153L, 47155L, 47157L, 47163L, 47165L, 47167L, 
+47171L, 47173L, 47179L, 47187L, 47189L, 48009L, 48021L, 48027L, 
+48029L, 48037L, 48039L, 48041L, 48055L, 48061L, 48071L, 48085L, 
+48091L, 48099L, 48113L, 48121L, 48135L, 48139L, 48141L, 48157L, 
+48167L, 48181L, 48183L, 48185L, 48187L, 48199L, 48201L, 48203L, 
+48209L, 48213L, 48215L, 48221L, 48231L, 48241L, 48245L, 48251L, 
+48257L, 48259L, 48291L, 48303L, 48309L, 48329L, 48339L, 48349L, 
+48355L, 48359L, 48361L, 48367L, 48375L, 48381L, 48397L, 48409L, 
+48423L, 48439L, 48441L, 48451L, 48453L, 48459L, 48469L, 48473L, 
+48479L, 48485L, 48491L, 48493L, 49011L, 49025L, 49035L, 49049L, 
+49057L, 50007L, 50011L, 50013L, 51003L, 51009L, 51013L, 51019L, 
+51023L, 51029L, 51031L, 51036L, 51041L, 51043L, 51047L, 51053L, 
+51059L, 51061L, 51065L, 51067L, 51069L, 51073L, 51075L, 51079L, 
+51085L, 51087L, 51093L, 51095L, 51099L, 51107L, 51113L, 51115L, 
+51121L, 51127L, 51143L, 51145L, 51149L, 51153L, 51159L, 51161L, 
+51169L, 51177L, 51179L, 51187L, 51191L, 51199L, 51510L, 51520L, 
+51540L, 51550L, 51570L, 51590L, 51600L, 51610L, 51630L, 51650L, 
+51670L, 51680L, 51683L, 51685L, 51700L, 51710L, 51730L, 51735L, 
+51740L, 51760L, 51770L, 51775L, 51800L, 51810L, 51830L, 53005L, 
+53011L, 53021L, 53029L, 53033L, 53035L, 53037L, 53053L, 53061L, 
+53063L, 53067L, 53073L, 53077L, 54003L, 54009L, 54011L, 54029L, 
+54037L, 54039L, 54051L, 54057L, 54069L, 54079L, 54099L, 54107L, 
+55009L, 55015L, 55017L, 55025L, 55031L, 55035L, 55059L, 55063L, 
+55073L, 55079L, 55087L, 55089L, 55093L, 55101L, 55105L, 55109L, 
+55117L, 55131L, 55133L, 55139L, 56021L, 56025L), MSA = structure(c(195L, 
+191L, 33L, 12L, 18L, 98L, 80L, 195L, 109L, 80L, 80L, 33L, 98L, 
+75L, 18L, 132L, 132L, 109L, 191L, 195L, 132L, 65L, 33L, 33L, 
+294L, 10L, 96L, 222L, 222L, 163L, 292L, 222L, 96L, 319L, 95L, 
+145L, 104L, 184L, 170L, 223L, 170L, 289L, 170L, 170L, 104L, 170L, 
+95L, 208L, 248L, 58L, 208L, 248L, 108L, 21L, 238L, 172L, 108L, 
+256L, 185L, 251L, 297L, 318L, 214L, 248L, 242L, 248L, 172L, 255L, 
+256L, 282L, 258L, 256L, 259L, 256L, 257L, 238L, 297L, 261L, 192L, 
+318L, 301L, 298L, 315L, 318L, 77L, 77L, 39L, 77L, 77L, 62L, 77L, 
+100L, 116L, 232L, 77L, 42L, 125L, 125L, 202L, 201L, 202L, 125L, 
+313L, 81L, 311L, 303L, 110L, 217L, 215L, 101L, 233L, 209L, 138L, 
+198L, 138L, 219L, 74L, 286L, 287L, 287L, 183L, 215L, 102L, 286L, 
+262L, 209L, 103L, 186L, 138L, 105L, 215L, 215L, 215L, 306L, 287L, 
+287L, 158L, 138L, 103L, 219L, 262L, 215L, 215L, 74L, 217L, 16L, 
+16L, 177L, 263L, 16L, 55L, 263L, 65L, 16L, 15L, 16L, 16L, 19L, 
+16L, 55L, 16L, 3L, 16L, 263L, 16L, 16L, 16L, 16L, 65L, 16L, 177L, 
+177L, 3L, 263L, 19L, 15L, 65L, 16L, 15L, 16L, 177L, 16L, 19L, 
+16L, 16L, 177L, 55L, 16L, 128L, 37L, 226L, 37L, 246L, 50L, 279L, 
+57L, 57L, 57L, 57L, 72L, 279L, 57L, 148L, 57L, 57L, 57L, 36L, 
+76L, 279L, 279L, 274L, 279L, 246L, 220L, 72L, 279L, 274L, 220L, 
+57L, 246L, 220L, 106L, 106L, 133L, 173L, 288L, 155L, 59L, 106L, 
+196L, 87L, 173L, 133L, 133L, 173L, 133L, 153L, 106L, 133L, 112L, 
+133L, 133L, 35L, 133L, 59L, 288L, 112L, 92L, 133L, 272L, 173L, 
+133L, 155L, 153L, 92L, 288L, 288L, 92L, 106L, 106L, 304L, 78L, 
+82L, 134L, 49L, 78L, 213L, 72L, 213L, 78L, 270L, 308L, 164L, 
+308L, 149L, 149L, 149L, 308L, 164L, 308L, 149L, 59L, 167L, 131L, 
+173L, 59L, 131L, 60L, 167L, 216L, 167L, 59L, 59L, 131L, 92L, 
+173L, 167L, 59L, 167L, 173L, 59L, 167L, 167L, 156L, 25L, 269L, 
+269L, 157L, 25L, 203L, 156L, 129L, 25L, 203L, 194L, 203L, 6L, 
+203L, 203L, 203L, 203L, 156L, 156L, 203L, 129L, 269L, 25L, 166L, 
+227L, 23L, 23L, 229L, 69L, 22L, 22L, 303L, 22L, 311L, 303L, 303L, 
+22L, 303L, 22L, 303L, 303L, 22L, 122L, 22L, 24L, 225L, 38L, 38L, 
+275L, 275L, 275L, 38L, 38L, 38L, 38L, 313L, 117L, 249L, 28L, 
+147L, 160L, 160L, 97L, 160L, 135L, 147L, 117L, 79L, 11L, 11L, 
+79L, 249L, 79L, 117L, 79L, 117L, 249L, 79L, 147L, 11L, 79L, 189L, 
+277L, 189L, 189L, 93L, 189L, 189L, 154L, 189L, 115L, 244L, 115L, 
+189L, 83L, 189L, 189L, 277L, 189L, 189L, 184L, 126L, 31L, 31L, 
+136L, 31L, 126L, 136L, 136L, 278L, 146L, 63L, 278L, 149L, 276L, 
+149L, 149L, 276L, 279L, 276L, 149L, 149L, 146L, 279L, 149L, 146L, 
+279L, 146L, 149L, 149L, 279L, 279L, 279L, 279L, 276L, 279L, 118L, 
+190L, 30L, 213L, 270L, 213L, 169L, 213L, 213L, 163L, 163L, 239L, 
+179L, 174L, 179L, 38L, 229L, 17L, 29L, 221L, 221L, 17L, 300L, 
+205L, 221L, 142L, 187L, 291L, 187L, 193L, 205L, 193L, 29L, 221L, 
+187L, 205L, 205L, 205L, 5L, 162L, 260L, 5L, 260L, 5L, 4L, 204L, 
+32L, 284L, 140L, 88L, 84L, 45L, 245L, 296L, 204L, 245L, 284L, 
+245L, 4L, 200L, 204L, 45L, 296L, 284L, 245L, 206L, 245L, 284L, 
+204L, 204L, 4L, 204L, 204L, 4L, 4L, 4L, 200L, 32L, 113L, 113L, 
+245L, 204L, 119L, 127L, 312L, 14L, 127L, 53L, 127L, 127L, 235L, 
+94L, 207L, 119L, 119L, 235L, 247L, 119L, 235L, 53L, 119L, 235L, 
+53L, 14L, 53L, 235L, 312L, 139L, 235L, 120L, 119L, 53L, 94L, 
+119L, 53L, 235L, 114L, 119L, 34L, 93L, 115L, 34L, 168L, 61L, 
+168L, 307L, 59L, 123L, 47L, 73L, 59L, 317L, 180L, 61L, 66L, 66L, 
+66L, 290L, 61L, 73L, 59L, 180L, 281L, 61L, 131L, 66L, 61L, 290L, 
+66L, 317L, 61L, 73L, 73L, 66L, 317L, 180L, 2L, 2L, 317L, 59L, 
+218L, 290L, 211L, 211L, 165L, 293L, 89L, 211L, 211L, 211L, 211L, 
+293L, 211L, 293L, 104L, 293L, 293L, 68L, 228L, 228L, 182L, 91L, 
+250L, 228L, 250L, 228L, 228L, 124L, 224L, 224L, 224L, 237L, 8L, 
+221L, 224L, 144L, 7L, 280L, 221L, 264L, 124L, 124L, 221L, 90L, 
+224L, 264L, 159L, 266L, 124L, 7L, 264L, 310L, 266L, 221L, 7L, 
+124L, 221L, 206L, 144L, 224L, 224L, 264L, 316L, 230L, 230L, 230L, 
+230L, 230L, 19L, 121L, 52L, 52L, 121L, 52L, 19L, 99L, 121L, 197L, 
+53L, 283L, 64L, 121L, 64L, 121L, 283L, 53L, 271L, 271L, 236L, 
+271L, 152L, 152L, 143L, 199L, 137L, 199L, 199L, 184L, 55L, 143L, 
+152L, 152L, 137L, 55L, 60L, 199L, 199L, 55L, 152L, 184L, 143L, 
+199L, 184L, 143L, 152L, 143L, 199L, 199L, 309L, 20L, 151L, 254L, 
+289L, 40L, 44L, 20L, 43L, 130L, 70L, 254L, 151L, 70L, 70L, 210L, 
+70L, 86L, 130L, 111L, 268L, 171L, 44L, 254L, 26L, 130L, 171L, 
+20L, 70L, 181L, 107L, 70L, 26L, 26L, 107L, 70L, 254L, 130L, 175L, 
+302L, 210L, 130L, 70L, 67L, 9L, 26L, 107L, 9L, 9L, 70L, 67L, 
+295L, 107L, 1L, 253L, 20L, 171L, 299L, 130L, 161L, 309L, 20L, 
+254L, 252L, 96L, 252L, 231L, 252L, 46L, 46L, 46L, 54L, 176L, 
+303L, 176L, 243L, 54L, 176L, 241L, 241L, 303L, 303L, 241L, 303L, 
+303L, 54L, 176L, 303L, 207L, 241L, 54L, 241L, 241L, 207L, 207L, 
+303L, 303L, 303L, 207L, 243L, 241L, 71L, 241L, 241L, 303L, 241L, 
+243L, 143L, 303L, 303L, 303L, 143L, 207L, 303L, 143L, 54L, 207L, 
+241L, 71L, 303L, 303L, 303L, 207L, 241L, 176L, 303L, 303L, 207L, 
+207L, 241L, 207L, 207L, 241L, 243L, 243L, 207L, 207L, 207L, 240L, 
+228L, 240L, 265L, 265L, 41L, 265L, 285L, 265L, 273L, 212L, 27L, 
+314L, 303L, 281L, 131L, 281L, 303L, 51L, 307L, 69L, 307L, 51L, 
+131L, 218L, 13L, 13L, 85L, 178L, 83L, 85L, 150L, 154L, 305L, 
+188L, 13L, 188L, 189L, 234L, 141L, 189L, 267L, 188L, 188L, 13L, 
+56L, 48L), .Label = c(" Abilene-TX", " Akron- OH", " Albany-GA", 
+" Albany-Schenectady-Troy- NY", " Albuquerque- NM", " Alexandria- LA", 
+" Allentown-Bethlehem-Easton- PA", " Altoona-PA", " Amarillo- TX", 
+" Anchorage- AK", " Ann Arbor- MI", " Anniston- AL", " Appleton-Oshkosh-Neenah- WI", 
+" Asheville- NC", " Athens-GA", " Atlanta-GA", " AtlanticCity- NJ", 
+" Auburn-Opelika- AL", " Augusta-Aiken- GA-SC", " Austin-San Marcos- TX", 
+" Bakersfield- CA", " Baltimore- MD", " Bangor-ME", " Barnstable-Yarmouth- MA", 
+" Baton Rouge- LA", " Beaumont-Port Arthur- TX", " Bellingham- WA", 
+" Benton Harbor- MI", " Bergen-Passaic", " Billings- MT", " Biloxi-Gulfport-Pascagoula- MS", 
+" Binghamton- NY", " Birmingham- AL", " Bismarck- ND", " Bloomington- IN", 
+" Bloomington-Normal- IL", " Boise City- ID", " Boston- MA", 
+" Boulder-Longmont", " Brazoria- TX", " Bremerton- WA", " Bridgeport-Milford- CT", 
+" Brownsville-Harlingen-San Benito- TX", " Bryan-College Station- TX", 
+" Buffalo-Niagara Falls- NY", " Burlington- VT", " Canton-Massillon- OH", 
+" Casper-WY", " Cedar Rapids- IA", " Champaign-Urbana- IL", " Charleston- WV", 
+" Charleston-North Charleston- SC", " Charlotte-Gastonia-Rock Hill- NC-SC", 
+" Charlottesville- VA", " Chattanooga- TN-GA", " Cheyenne- WY", 
+" Chicago- IL", " Chico-Paradise- CA", " Cincinnati- OH-KY-IN", 
+" Clarksville-Hopkinsville- TN-KY", " Cleveland- OH", " ColoradoSprings- CO", 
+" Columbia- MO", " Columbia- SC", " Columbus- GA-AL", " Columbus- OH", 
+" Corpus Christi- TX", " Corvallis- OR", " Cumberland- MD-WV", 
+" Dallas-Fort Worth- TX", " Danville- VA", " Davenport-Moline-Rock Island- IA-IL", 
+" Dayton-Springfield- OH", " DaytonaBeach- FL", " Decatur-AL", 
+" Decatur-IL", " Denver-Boulder- CO", " Des Moines- IA", " Detroit- MI", 
+" Dothan-AL", " Dover- DE", " Dubuque-IA", " Duluth-Superior- MN-WI", 
+" Dutchess County- NY", " Eau Claire- WI", " El Paso-TX", " Elkhart-Goshen- IN", 
+" Elmira-NY", " Enid- OK", " Erie- PA", " Eugene-Springfield- OR", 
+" Evansville-Henderson- IN-KY", " Fargo-Moorhead- ND-MN", " Fayetteville- NC", 
+" Fayetteville-Springdale-Rogers- AR", " Flagstaff- AZ-UT", " Flint- MI", 
+" Florence- AL", " Florence- SC", " Fort Collins-Loveland- CO", 
+" Fort Lauderdale-Hollywood- FL", " Fort Myers-Cape Coral- FL", 
+" Fort Pierce-Port St. Lucie- FL", " Fort Smith- AR-OK", " Fort Walton Beach- FL", 
+" Fort Wayne- IN", " Fort Worth- TX", " Fresno-CA", " Gadsden-AL", 
+" Gainesville- FL", " Galveston-Texas City- TX", " Gary-Hammond-East Chicago- IN", 
+" Glens Falls- NY", " Goldsboro- NC", " Grand Forks- ND-MN", 
+" Grand Junction- CO", " Grand Rapids-Muskegon-Holland- MI", 
+" Great Falls- MT", " Greensboro--Winston-Salem--High Point- NC", 
+" Greenville- NC", " Greenville-Spartanburg-Anderson- SC", " Hagerstown- MD", 
+" Hamilton-Middletown- OH", " Harrisburg-Lebanon-Carlisle- PA", 
+" Hartford- CT", " Hattiesburg- MS", " Hickory-Morganton-Lenoir- NC", 
+" Honolulu- HI", " Houma- LA", " Houston- TX", " Huntington-Ashland- WV-KY-OH", 
+" Huntsville- AL", " Indianapolis- IN", " Iowa City- IA", " Jackson-MI", 
+" Jackson-MS", " Jackson-TN", " Jacksonville- FL", " Jacksonville- NC", 
+" Jamestown- NY", " Janesville-Beloit- WI", " Jersey City- NJ", 
+" JohnsonCity-Kingsport-Bristol- TN-VA", " Johnstown- PA", " Jonesboro- AR", 
+" Joplin-MO", " Kalamazoo-Battle Creek- MI", " Kankakee- IL", 
+" Kansas City- MO-KS", " Kenosha- WI", " Killeen-Temple- TX", 
+" Knoxville- TN", " Kokomo-IN", " La Crosse- WI-MN", " Lafayette- IN", 
+" Lafayette- LA", " Lake Charles- LA", " Lakeland-Winter Haven- FL", 
+" Lancaster- PA", " Lansing-East Lansing- MI", " Laredo-TX", 
+" Las Cruces- NM", " Las Vegas- NV-AZ", " Lawrence- KS", " Lawton-OK", 
+" Lewiston-Auburn- ME", " Lexington- KY", " Lima- OH", " Lincoln-NE", 
+" Little Rock-North Little Rock- AR", " Longview-Marshall- TX", 
+" Los Angeles-Long Beach- CA", " Louisville- KY-IN", " Lowell- MA-NH", 
+" Lubbock-TX", " Lynchburg- VA", " Macon- GA", " Madison-WI", 
+" Manchester- NH", " Mansfield- OH", " McAllen-Edinburg-Mission- TX", 
+" Medford-Ashland- OR", " Melbourne-Titusville-Palm Bay- FL", 
+" Memphis-TN-AR-MS", " Merced-CA", " Miami- FL", " Middlesex-Somerset-Hunterdon- NJ", 
+" Milwaukee- WI", " Minneapolis-St. Paul- MN-WI", " Missoula- MT", 
+" Mobile-AL", " Modesto-CA", " Monmouth-Ocean- NJ", " Monroe-LA", 
+" Montgomery- AL", " Muncie-IN", " Myrtle Beach- SC", " Naples-FL", 
+" Nashville- TN", " Nassau-Suffolk- NY", " New Haven-Meriden- CT", 
+" New London-Norwich- CT-RI", " New Orleans- LA", " New York- NY-NJ", 
+" Newark- NJ", " Newburgh-Middletown- NY", " Norfolk-Virginia Beach-Newport News- VA-NC", 
+" Oakland- CA", " Ocala- FL", " Odessa-Midland- TX", " OklahomaCity- OK", 
+" Olympia-WA", " Omaha- NE-IA", " Orange County- CA", " Orlando-FL", 
+" Owensboro- KY", " Panama City- FL", " Parkersburg-Marietta- WV-OH", 
+" Pensacola- FL", " Peoria-Pekin- IL", " Philadelphia- PA-NJ", 
+" Phoenix-Mesa- AZ", " Pine Bluff- AR", " Pittsburgh- PA", " Pittsfield- MA", 
+" Pocatello- ID", " Portland- ME", " Portland- OR-WA", " Portsmouth-Dover-Rochester- NH-ME", 
+" Providence-Fall River-Warwick- RI-MA", " Provo-Orem- UT", " Pueblo-CO", 
+" Punta Gorda- FL", " Racine- WI", " Raleigh-Durham-Chapel Hill- NC", 
+" Rapid City- SD", " Reading-PA", " Redding-CA", " Reno- NV", 
+" Richland-Kennewick-Pasco- WA", " Richmond-Petersburg- VA", 
+" Riverside-San Bernardino-Ontario- CA", " Roanoke-VA", " Rochester- MN", 
+" Rochester- NY", " Rockford- IL", " Rocky Mount- NC", " Sacramento- CA", 
+" Saginaw-Bay City-Midland- MI", " Salem- OR", " Salinas-CA", 
+" Salt Lake City-Ogden- UT", " San Angelo- TX", " San Antonio- TX", 
+" San Diego- CA", " San Francisco-Oakland- CA", " San Jose- CA", 
+" San LuisObispo-Atascadero-Paso Robles- CA", " Santa Barbara-Santa Maria-Lompoc- CA", 
+" Santa Fe- NM", " Santa Rosa- CA", " Sarasota-Bradenton- FL", 
+" Savannah- GA", " Scranton--Wilkes-Barre--Hazleton- PA", " Seattle-Everett- WA", 
+" Sharon-PA", " Sheboygan- WI", " Sherman-Denison- TX", " Shreveport-Bossier City- LA", 
+" Sioux City- IA-NE", " Sioux Falls- SD", " South Bend- IN", 
+" Spokane-WA", " Springfield- IL", " Springfield- MA", " Springfield- MO", 
+" St. Cloud- MN", " St. Joseph- MO", " St. Louis- MO-IL", " State College- PA", 
+" Steubenville-Weirton- OH-WV", " Stockton-Lodi- CA", " Sumter-SC", 
+" Syracuse- NY", " Tacoma- WA", " Tallahassee- FL", " Tampa-St. Petersburg-Clearwater- FL", 
+" Terre Haute- IN", " Texarkana- TX-Texarkana- AR", " Toledo-OH", 
+" Trenton- NJ", " Tucson-AZ", " Tulsa- OK", " Tuscaloosa- AL", 
+" Tyler- TX", " Utica-Rome- NY", " Vallejo-Fairfield-Napa- CA", 
+" Ventura- CA", " Victoria- TX", " Vineland-Millville-Bridgeton- NJ", 
+" Visalia-Tulare-Porterville- CA", " Waco- TX", " Washington- DC-MD-VA", 
+" Waterloo-Cedar Falls- IA", " Wausau-WI", " West Palm Beach-Boca Raton- FL", 
+" Wheeling- WV-OH", " Wichita-KS", " WichitaFalls- TX", " Williamsport- PA", 
+" Wilmington- DE-NJ-MD", " Wilmington- NC", " Worcester- MA", 
+" Yakima-WA", " Yolo- CA", " York- PA", " Youngstown-Warren- OH", 
+" Yuba City- CA", " Yuma- AZ"), class = "factor"), POP = c(54571L, 
+182265L, 57322L, 118572L, 34215L, 54428L, 50251L, 79303L, 104430L, 
+17302L, 101547L, 658466L, 92709L, 34339L, 140247L, 82782L, 334811L, 
+93019L, 412992L, 229363L, 119490L, 52947L, 83593L, 195085L, 194656L, 
+291826L, 134421L, 53597L, 3817117L, 200186L, 980263L, 375770L, 
+211033L, 195751L, 221339L, 96443L, 61948L, 50902L, 113237L, 77435L, 
+68356L, 43462L, 382748L, 107118L, 125744L, 17295L, 203065L, 1510271L, 
+38091L, 220000L, 1049025L, 181058L, 930450L, 839631L, 34895L, 
+9818605L, 150865L, 252409L, 255793L, 415057L, 136484L, 98764L, 
+3010232L, 348432L, 2189641L, 1418788L, 2035210L, 3095313L, 805235L, 
+685306L, 269637L, 718451L, 423895L, 1781642L, 262382L, 177223L, 
+413344L, 483878L, 514453L, 94737L, 442179L, 823318L, 200849L, 
+72155L, 441603L, 572003L, 294567L, 600158L, 285465L, 622263L, 
+534543L, 299630L, 146723L, 159063L, 252825L, 916829L, 894014L, 
+189927L, 165676L, 862477L, 274055L, 152691L, 118428L, 162310L, 
+538479L, 601723L, 247336L, 168852L, 543376L, 1748066L, 159978L, 
+141236L, 190865L, 321520L, 864263L, 297619L, 95696L, 46389L, 
+172778L, 1229226L, 138028L, 297052L, 618754L, 275487L, 322833L, 
+331298L, 146318L, 2496435L, 73314L, 180822L, 39996L, 1145956L, 
+268685L, 1320134L, 464697L, 916542L, 602095L, 190039L, 277789L, 
+151372L, 379448L, 422718L, 93420L, 494593L, 55043L, 69367L, 100157L, 
+155547L, 30233L, 110527L, 63942L, 265128L, 11267L, 214346L, 116714L, 
+259424L, 688078L, 124053L, 127317L, 16633L, 691893L, 94565L, 
+132403L, 52250L, 106567L, 175511L, 920581L, 805321L, 32024L, 
+203922L, 139900L, 28669L, 28298L, 63453L, 21875L, 28120L, 189885L, 
+99958L, 32808L, 142324L, 27695L, 29431L, 200549L, 85215L, 64073L, 
+9023L, 68756L, 83768L, 953207L, 392365L, 82839L, 188923L, 54165L, 
+201081L, 37762L, 5194675L, 105160L, 916924L, 50063L, 50486L, 
+22985L, 515269L, 113449L, 114736L, 703462L, 308760L, 169572L, 
+110768L, 47765L, 269282L, 12705L, 32957L, 53497L, 186494L, 147546L, 
+270056L, 197465L, 135394L, 677560L, 295266L, 38664L, 34387L, 
+355329L, 56640L, 110232L, 26890L, 33224L, 50047L, 42223L, 117671L, 
+197559L, 74578L, 274569L, 70002L, 39364L, 145448L, 82752L, 37124L, 
+139654L, 496005L, 131636L, 903393L, 137974L, 68894L, 6128L, 21575L, 
+164343L, 25910L, 37963L, 266931L, 24181L, 44436L, 172780L, 15936L, 
+179703L, 16212L, 107848L, 59689L, 27636L, 33292L, 131090L, 66135L, 
+93653L, 130882L, 211226L, 430640L, 93158L, 165224L, 12167L, 46225L, 
+102172L, 65880L, 110826L, 34684L, 544179L, 76227L, 32787L, 498365L, 
+177934L, 24132L, 157505L, 118811L, 19985L, 49542L, 74319L, 90336L, 
+27720L, 73955L, 35613L, 96656L, 295803L, 8589L, 24662L, 36910L, 
+46250L, 741096L, 48586L, 159720L, 82916L, 60316L, 14877L, 47173L, 
+24939L, 61773L, 107215L, 116979L, 254969L, 192768L, 440171L, 
+432552L, 221578L, 96318L, 128026L, 343829L, 153720L, 23042L, 
+131613L, 35897L, 52780L, 22102L, 45924L, 83384L, 52160L, 233740L, 
+111860L, 41207L, 23788L, 107702L, 281674L, 153923L, 38786L, 197131L, 
+75087L, 537656L, 805029L, 88737L, 167134L, 101108L, 146551L, 
+233385L, 244826L, 287085L, 20197L, 971777L, 863420L, 47798L, 
+147430L, 620961L, 215888L, 131219L, 548285L, 743159L, 71372L, 
+463490L, 158080L, 1503085L, 670850L, 494919L, 722023L, 798552L, 
+111408L, 107771L, 156813L, 136146L, 75382L, 107759L, 425790L, 
+280895L, 160248L, 250331L, 602622L, 88319L, 99892L, 180967L, 
+840978L, 83629L, 152021L, 172188L, 1202362L, 263801L, 200169L, 
+163040L, 76258L, 344791L, 1820584L, 330844L, 38451L, 91042L, 
+53887L, 58999L, 398552L, 1152425L, 19027L, 37816L, 5413L, 144248L, 
+31600L, 508640L, 200226L, 129928L, 88499L, 150642L, 238136L, 
+124700L, 161252L, 74934L, 43929L, 187105L, 245285L, 139668L, 
+55658L, 95203L, 141617L, 17291L, 12402L, 162642L, 89201L, 99478L, 
+77422L, 221939L, 20743L, 16777L, 101492L, 275174L, 22272L, 674158L, 
+117404L, 218733L, 33381L, 38634L, 52566L, 58114L, 89322L, 23494L, 
+360485L, 18145L, 998954L, 32513L, 36202L, 319294L, 81327L, 109299L, 
+147972L, 25241L, 21006L, 517110L, 285407L, 158840L, 20234L, 1951269L, 
+43946L, 421407L, 89118L, 400721L, 146445L, 295223L, 123143L, 
+274549L, 905116L, 448734L, 513657L, 97265L, 156898L, 783969L, 
+288288L, 634266L, 128349L, 366513L, 809858L, 630380L, 492276L, 
+576567L, 501226L, 66083L, 323444L, 149265L, 536499L, 108692L, 
+662564L, 209233L, 17950L, 131561L, 144170L, 76569L, 304204L, 
+1385108L, 200600L, 80026L, 134905L, 88830L, 297488L, 919040L, 
+60079L, 64519L, 2504700L, 65393L, 73442L, 744344L, 50219L, 1339532L, 
+1585873L, 216469L, 234878L, 467026L, 107931L, 372813L, 42883L, 
+122109L, 99710L, 2230722L, 159429L, 468730L, 311687L, 219607L, 
+154727L, 32749L, 1493350L, 51125L, 65707L, 63216L, 93772L, 949113L, 
+151131L, 37198L, 107431L, 238318L, 90912L, 178011L, 83029L, 154358L, 
+63505L, 319431L, 23547L, 162878L, 41240L, 267587L, 56552L, 350670L, 
+60619L, 206086L, 488406L, 168878L, 78265L, 20764L, 919628L, 95840L, 
+202667L, 177772L, 133801L, 168148L, 141752L, 138428L, 63431L, 
+47401L, 201292L, 900993L, 122623L, 38406L, 81308L, 149778L, 66861L, 
+27471L, 106331L, 101497L, 45949L, 70400L, 44846L, 368130L, 28836L, 
+138333L, 197363L, 107841L, 43784L, 1280122L, 174214L, 146156L, 
+1163414L, 42698L, 93389L, 161573L, 802374L, 59626L, 69709L, 230041L, 
+62450L, 166492L, 301356L, 441815L, 43435L, 238823L, 172332L, 
+102506L, 535153L, 55698L, 161419L, 124475L, 375586L, 541781L, 
+210312L, 212693L, 61778L, 125488L, 115541L, 255755L, 124098L, 
+69967L, 60580L, 15034L, 41848L, 34506L, 718633L, 47472L, 69442L, 
+86905L, 42391L, 603403L, 73085L, 85579L, 375992L, 49351L, 203206L, 
+351715L, 315335L, 735334L, 75403L, 529710L, 99193L, 101407L, 
+1223348L, 68941L, 170539L, 411442L, 127089L, 625249L, 183862L, 
+143679L, 65249L, 153990L, 498886L, 67295L, 235406L, 268100L, 
+558979L, 280566L, 136606L, 214437L, 519445L, 91108L, 133568L, 
+349497L, 320918L, 116111L, 116638L, 799874L, 297735L, 45969L, 
+1526006L, 57369L, 77742L, 207820L, 365169L, 28276L, 434972L, 
+49875L, 166158L, 82888L, 626667L, 126979L, 160099L, 187126L, 
+177843L, 350209L, 55342L, 136555L, 26985L, 136885L, 451225L, 
+269291L, 76652L, 19220L, 262391L, 119224L, 384504L, 284307L, 
+107456L, 226073L, 44828L, 169468L, 100948L, 14399L, 75129L, 123010L, 
+57424L, 39105L, 17131L, 626681L, 49666L, 38413L, 336463L, 56833L, 
+432226L, 48556L, 98294L, 28237L, 172331L, 66283L, 262604L, 14112L, 
+89889L, 927644L, 156823L, 160645L, 61081L, 18313L, 19109L, 122979L, 
+183182L, 113993L, 9054L, 74171L, 310235L, 1714773L, 92565L, 313166L, 
+194851L, 38066L, 406220L, 35096L, 782341L, 108472L, 75388L, 2368139L, 
+662614L, 137130L, 149610L, 800647L, 585375L, 291309L, 120877L, 
+121730L, 26604L, 131533L, 54635L, 4092459L, 65631L, 157107L, 
+78532L, 774769L, 51182L, 86129L, 35710L, 252273L, 150934L, 103350L, 
+33410L, 75643L, 278831L, 234906L, 136872L, 455746L, 47735L, 340223L, 
+2052L, 81837L, 116927L, 121073L, 120725L, 78337L, 64804L, 209714L, 
+1809034L, 131506L, 110224L, 1024266L, 39309L, 86793L, 43205L, 
+250304L, 131500L, 422679L, 42918L, 306479L, 7125L, 1029655L, 
+516564L, 231236L, 156545L, 47746L, 6970L, 98970L, 32353L, 207627L, 
+68676L, 33148L, 17146L, 54842L, 7256L, 316236L, 14034L, 46689L, 
+28001L, 1081726L, 65203L, 25691L, 56159L, 78305L, 36858L, 21717L, 
+18403L, 99863L, 306935L, 35270L, 67009L, 23584L, 312311L, 13308L, 
+8978L, 94392L, 18429L, 63506L, 28046L, 35725L, 402002L, 9254L, 
+92376L, 23177L, 122397L, 128961L, 37575L, 54876L, 65464L, 139966L, 
+17835L, 43475L, 222209L, 17411L, 43055L, 22565L, 12332L, 24286L, 
+137436L, 22591L, 75568L, 37821L, 14273L, 180719L, 242803L, 32420L, 
+12150L, 95535L, 204214L, 97032L, 24802L, 84585L, 437994L, 14068L, 
+175177L, 425363L, 78163L, 78506L, 1931249L, 251133L, 40915L, 
+795225L, 713335L, 471221L, 252264L, 201140L, 243231L, 104169L, 
+24069L, 96319L, 30676L, 53498L, 193063L, 33107L, 28212L, 44443L, 
+55486L, 42481L, 86956L, 248007L, 48971L, 62415L, 488073L, 44159L, 
+98736L, 166426L, 114638L, 134063L, 947735L, 176695L, 86395L, 
+41019L, 195408L, 160331L, 84345L, 115507L, 131887L, 389891L, 
+166994L, 91738L, 75450L), NPOs = c(25L, 63L, 9L, 40L, 10L, 12L, 
+10L, 24L, 38L, 4L, 34L, 290L, 23L, 7L, 31L, 12L, 107L, 28L, 152L, 
+149L, 41L, 21L, 17L, 46L, 54L, 201L, 53L, 19L, 995L, 39L, 314L, 
+45L, 78L, 32L, 65L, 39L, 17L, 13L, 37L, 43L, 16L, 13L, 224L, 
+33L, 60L, 5L, 78L, 836L, 15L, 104L, 419L, 92L, 274L, 213L, 14L, 
+2977L, 38L, 268L, 42L, 162L, 97L, 69L, 1100L, 158L, 477L, 558L, 
+481L, 1052L, 650L, 198L, 155L, 315L, 251L, 625L, 179L, 94L, 135L, 
+277L, 132L, 28L, 108L, 277L, 94L, 21L, 85L, 187L, 209L, 474L, 
+73L, 266L, 244L, 129L, 69L, 66L, 77L, 535L, 469L, 141L, 100L, 
+454L, 147L, 58L, 58L, 68L, 266L, 944L, 118L, 45L, 160L, 431L, 
+50L, 48L, 42L, 85L, 272L, 101L, 17L, 16L, 29L, 387L, 49L, 83L, 
+180L, 188L, 97L, 78L, 63L, 600L, 22L, 64L, 10L, 389L, 36L, 379L, 
+89L, 377L, 145L, 55L, 53L, 28L, 152L, 86L, 7L, 127L, 10L, 12L, 
+20L, 77L, 2L, 20L, 3L, 83L, 0L, 45L, 58L, 40L, 163L, 23L, 23L, 
+5L, 327L, 48L, 29L, 10L, 42L, 36L, 575L, 176L, 5L, 37L, 28L, 
+3L, 3L, 7L, 2L, 5L, 67L, 13L, 16L, 14L, 8L, 19L, 67L, 25L, 21L, 
+0L, 9L, 18L, 392L, 185L, 23L, 43L, 18L, 91L, 8L, 1822L, 42L, 
+362L, 19L, 19L, 1L, 160L, 43L, 20L, 228L, 124L, 72L, 48L, 8L, 
+92L, 3L, 9L, 21L, 116L, 70L, 79L, 127L, 38L, 161L, 107L, 10L, 
+16L, 166L, 26L, 37L, 11L, 18L, 28L, 20L, 52L, 79L, 26L, 131L, 
+21L, 18L, 41L, 34L, 20L, 46L, 171L, 31L, 476L, 61L, 29L, 2L, 
+8L, 73L, 17L, 17L, 116L, 7L, 14L, 67L, 7L, 110L, 7L, 71L, 25L, 
+23L, 14L, 60L, 20L, 73L, 74L, 106L, 264L, 39L, 77L, 9L, 17L, 
+72L, 18L, 53L, 31L, 175L, 14L, 17L, 173L, 109L, 11L, 49L, 21L, 
+10L, 30L, 8L, 26L, 10L, 22L, 14L, 50L, 201L, 1L, 7L, 7L, 18L, 
+348L, 20L, 73L, 28L, 13L, 3L, 12L, 12L, 11L, 12L, 24L, 98L, 61L, 
+205L, 115L, 121L, 26L, 21L, 232L, 94L, 7L, 42L, 11L, 10L, 5L, 
+6L, 30L, 11L, 60L, 35L, 15L, 2L, 56L, 276L, 81L, 25L, 101L, 44L, 
+190L, 331L, 39L, 66L, 38L, 44L, 133L, 82L, 123L, 23L, 487L, 255L, 
+22L, 107L, 381L, 180L, 99L, 206L, 452L, 37L, 237L, 108L, 911L, 
+378L, 218L, 640L, 377L, 28L, 50L, 77L, 47L, 41L, 43L, 129L, 162L, 
+58L, 131L, 309L, 23L, 38L, 45L, 180L, 57L, 48L, 71L, 482L, 119L, 
+79L, 72L, 21L, 164L, 607L, 114L, 23L, 27L, 23L, 35L, 129L, 827L, 
+12L, 30L, 3L, 82L, 23L, 547L, 132L, 38L, 35L, 79L, 97L, 64L, 
+21L, 29L, 8L, 54L, 178L, 24L, 2L, 29L, 31L, 5L, 6L, 84L, 44L, 
+18L, 12L, 62L, 8L, 5L, 31L, 107L, 10L, 344L, 51L, 45L, 17L, 12L, 
+12L, 8L, 32L, 8L, 89L, 9L, 464L, 11L, 9L, 239L, 58L, 94L, 103L, 
+5L, 8L, 300L, 183L, 47L, 10L, 330L, 6L, 161L, 87L, 252L, 135L, 
+163L, 66L, 107L, 368L, 159L, 213L, 42L, 56L, 331L, 86L, 118L, 
+79L, 263L, 226L, 335L, 277L, 222L, 151L, 33L, 190L, 84L, 199L, 
+46L, 325L, 57L, 21L, 23L, 91L, 16L, 270L, 359L, 118L, 46L, 92L, 
+42L, 147L, 483L, 31L, 26L, 640L, 23L, 39L, 411L, 22L, 498L, 1398L, 
+87L, 132L, 325L, 70L, 164L, 19L, 63L, 45L, 377L, 87L, 115L, 172L, 
+99L, 80L, 15L, 560L, 25L, 63L, 32L, 39L, 501L, 47L, 8L, 22L, 
+125L, 31L, 56L, 27L, 36L, 31L, 51L, 5L, 50L, 13L, 137L, 19L, 
+146L, 8L, 56L, 222L, 37L, 14L, 11L, 327L, 27L, 84L, 40L, 74L, 
+56L, 25L, 45L, 5L, 20L, 52L, 382L, 25L, 17L, 73L, 85L, 48L, 15L, 
+64L, 57L, 24L, 21L, 17L, 111L, 9L, 63L, 70L, 38L, 18L, 573L, 
+67L, 65L, 771L, 24L, 47L, 53L, 454L, 21L, 37L, 86L, 15L, 102L, 
+101L, 223L, 15L, 109L, 67L, 53L, 230L, 23L, 42L, 55L, 200L, 258L, 
+76L, 91L, 29L, 57L, 26L, 74L, 28L, 18L, 26L, 5L, 9L, 8L, 287L, 
+7L, 21L, 21L, 9L, 242L, 6L, 57L, 177L, 26L, 146L, 161L, 160L, 
+491L, 35L, 247L, 48L, 53L, 715L, 24L, 63L, 160L, 65L, 257L, 85L, 
+78L, 25L, 76L, 270L, 31L, 138L, 187L, 234L, 159L, 45L, 100L, 
+281L, 61L, 65L, 144L, 122L, 63L, 72L, 466L, 106L, 21L, 682L, 
+26L, 37L, 92L, 168L, 14L, 190L, 27L, 71L, 71L, 353L, 73L, 46L, 
+46L, 24L, 143L, 22L, 27L, 6L, 34L, 153L, 61L, 20L, 2L, 64L, 29L, 
+178L, 110L, 28L, 67L, 15L, 133L, 80L, 7L, 26L, 29L, 12L, 13L, 
+2L, 348L, 10L, 5L, 149L, 6L, 161L, 14L, 28L, 5L, 33L, 18L, 69L, 
+3L, 30L, 345L, 48L, 48L, 13L, 8L, 4L, 57L, 84L, 34L, 2L, 26L, 
+72L, 425L, 24L, 77L, 57L, 10L, 53L, 14L, 164L, 49L, 9L, 721L, 
+155L, 31L, 35L, 150L, 139L, 93L, 49L, 60L, 5L, 40L, 14L, 994L, 
+17L, 55L, 15L, 95L, 23L, 22L, 15L, 88L, 40L, 28L, 24L, 19L, 112L, 
+84L, 72L, 139L, 22L, 116L, 0L, 23L, 45L, 68L, 28L, 16L, 10L, 
+79L, 424L, 65L, 48L, 402L, 7L, 41L, 8L, 35L, 63L, 120L, 8L, 38L, 
+1L, 344L, 75L, 46L, 149L, 21L, 8L, 36L, 10L, 115L, 29L, 5L, 6L, 
+16L, 0L, 90L, 10L, 45L, 1L, 418L, 32L, 10L, 18L, 20L, 15L, 12L, 
+6L, 46L, 162L, 14L, 42L, 5L, 134L, 6L, 4L, 40L, 3L, 15L, 9L, 
+3L, 88L, 7L, 43L, 11L, 25L, 30L, 25L, 20L, 20L, 246L, 10L, 56L, 
+52L, 6L, 28L, 46L, 20L, 37L, 39L, 3L, 60L, 18L, 1L, 47L, 83L, 
+18L, 6L, 25L, 127L, 53L, 16L, 21L, 129L, 5L, 59L, 138L, 16L, 
+34L, 1062L, 118L, 20L, 253L, 239L, 234L, 109L, 80L, 79L, 35L, 
+7L, 64L, 17L, 22L, 131L, 14L, 14L, 45L, 13L, 14L, 48L, 118L, 
+12L, 23L, 408L, 27L, 51L, 59L, 63L, 60L, 475L, 82L, 70L, 17L, 
+81L, 82L, 33L, 59L, 60L, 176L, 91L, 59L, 60L)), .Names = c("FIPS", 
+"MSA", "POP", "NPOs"), row.names = c(NA, -903L), class = "data.frame")
+
+```
+
+```{r}
+
+par( mfrow=c(2,2) )
+
+plot( npos$POP, npos$NPOs, pch=19, cex=0.75, bty="n", col="darkorange",
+      main="Level-Level Model", xlab="Metro Population", ylab="Number of Nonprofits" )
+
+plot( npos$POP, log(npos$NPOs+1), pch=19, cex=0.75, bty="n", col="darkorange",
+      main="Log-Linear Model", xlab="Metro Population", ylab="Number of Nonprofits (logged)" )
+
+plot( log(npos$POP+1), npos$NPOs, pch=19, cex=0.75, bty="n", col="darkorange",
+      main="Level-Level Model", xlab="Metro Population (logged)", ylab="Number of Nonprofits" )
+
+plot( log(npos$POP+1), log(npos$NPOs+1), pch=19, cex=0.75, bty="n", col="darkorange",
+      main="Log-Log Model", xlab="Metro Population (logged)", ylab="Number of Nonprofits (logged)" )
+
+
+```
+
+
+See below for more details. 
+
+
+
+# NONLINEAR RELATIONSHIPS
+
+How do we address the situation when our relationships are nonlinear? This is important in public policy and program evaluation because of the economic phenomenon of diminishing marginal returns. If we have no resources or program services then providing a little big might have a large impact on the outcome. If we already have lots of resources and access then adding a little more might not have as much of an impact.
+
+Let's now consider the second case in the quartet. 
+
+```{r}
+plot( y2 ~ x2, data=anscombe,
+     col = "red", pch = 21, bg = "orange", cex = 3, 
+     xlim = c(3, 15), ylim = c(3, 13), bty="n")
+abline( m2, col = "blue")
+```
+
+
+We can see that the linear model does not adequately represent the true relationship. To get a better model we must introduce quadratic terms to allow for non-linear fit.
+
+**Linear:** $Y = b_{0} + b_{1}X1 + e$
+
+**Nonlinear:**  $Y = b_{0} + b_{1}X1 + b_{2}X1^2 + e$
+
+```{r}
+
+x <- anscombe$x2
+y <- anscombe$y2
+
+x_squared <- x^2
+
+df <- data.frame( Y=y, X=x, X_squared=x_squared )
+row.names(df) <- NULL
+df %>% pander
+
+
+```
+
+
+### Linear and Quadratic Models
+
+```{r, results='asis'}
+quad1 <- lm( y ~ x )
+quad2 <- lm( y ~ x + x_squared )
+
+stargazer( quad1, quad2, type="html", digits=2,
+           omit.stat = c("ser","f") )
+```
+
+```{r}
+
+par( mfrow=c(1,2) )
+
+plot( y2 ~ x2, data=anscombe, main="Linear Fit",
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 10), bty="n")
+abline( m2, col = "blue")
+
+plot( y2 ~ x2, data=anscombe, main="Quadratic Fit",
+     col = "red", pch = 21, bg = "orange", cex = 1.2, 
+     xlim = c(3, 19), ylim = c(3, 10), bty="n")
+
+
+lines( x[order(x)], quad2$fitted.values[order(x)], col = "blue")
+
+```
+
+
+## Interpretation of Program Effects
+
+The main challenge that nonlinear models present is the interpretation of effects.
+
+Up until now we have used the slope of X to determine the impact of our program. If the slope is negative five, for exmaple, we infer that for each additional student we add to the classroom we see a drop in the average standardized test score in the classroom of five points. That doesn't matter if we have 10 students and we are adding an 11th, or if we have 40 students and we are adding a 41st (which is likely an unrealistic scenario).
+
+```{r, eval=F}
+coefficients( quad2 ) %>% round(4)
+```
+
+In the nonlinear case, however, the marginal impact of an additional student will be different depending upon the initial class size. Consider Anscombe's second case above. 
+
+$Y = b_{0} + b_{1}X1 + b_{2}X1^2$
+
+Where
+
+$b_{0} = -6.00$ 
+
+$b_1 =  2.78$ 
+
+$b_2 = -0.13$ 
+
+Now let's consider what happens when we add an additional unit of the treatment in three cases:
+
+
+
+
+#### Case 1: X=6
+
+```{r, eval=F}
+
+x_pos <- 6
+
+(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )
+
+
+```
+
+
+
+Program Effect of one additional unit of X:  $(\hat{Y} | X=7)  - (\hat{Y} | X=6 )$
+
+$[ (2.78)(7) + (-0.13)(7^2) -6 ]  -  [ (2.78)(6) + (-0.13)(6^2) -6 ]  = 1.13$
+
+<br>
+
+
+
+#### Case 1: X=10
+
+```{r, eval=F}
+
+x_pos <- 10
+
+(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )
+
+
+```
+
+$(\hat{Y} | X=11)  - (\hat{Y} | X=10 )$
+
+$[ (2.78)(11) + (-0.13)(11^2) -6 ]  -  [ (2.78)(10) + (-0.13)(10^2) -6 ]  = 0.12$
+
+<br>
+
+
+
+#### Case 1: X=13
+
+```{r, eval=F}
+
+x_pos <- 13
+
+(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )
+
+
+```
+
+Program Effect of one additional unit of X:  $(\hat{Y} | X=14)  - (\hat{Y} | X=13 )$
+
+$[ (2.78)(14) + (-0.13)(14^2) -6 ]  -  [ (2.78)(13) + (-0.13)(13^2) -6 ]  = -0.64$
+
+<br>
+
+#### Or More Generally
+
+```{r}
+
+y.hat <- quad2$fitted.values[order(x)]
+
+dt <- data.frame(  X=4:13, MarginEffect=round(diff( y.hat ),2) ) 
+row.names(dt) <- NULL
+dt %>% pander
+
+# diff( y[order(x)] )
+```
+
+<br>
+
+#### Effects of Adding Unit or Subtracting are Nonsymmetrical
+
+Also note that if you are in a classroom with ten students, then the effect of adding a student will not be the same as the effect of removing a student. 
+
+$ABS( (\hat{Y} | X=5)  - (\hat{Y} | X=4 ) )$  does not equal  $ABS( (\hat{Y} | X=4)  - (\hat{Y} | X=5 ) )$
+
+<br>
+
+
+## Reporting Program Effects
+
+The typical way to address this issue in a program evaluation report is to select several representative cases and report the program effects for each. For example, you might select the typical (median) student, a small classroom (1st quartile of X), and a large classroom (3rd quartile of X). 
+
+It is discouraged to interpret model effects at the min and max values of X because they may be outliers and the model predictions will be less robust.
+
+
+
+<br>
+<br>
+
+
+# Logged Regression Models 
+
+
+> “Compound interest is the eighth wonder of the world. He who
+> understands it, earns it … he who doesn’t … pays it.” \~ Albert
+> Einstein
+
+
+
+## Understanding Logged Variables
+
+
+In order to understand logged regression variables, we need to look at
+growth models. Let’s consider a simple example where we have a base \$10
+investment with continous compound interest over 5 years.
+
+```{r}
+time <- 0:5
+
+y1 <- 10*(1+1)^time
+y2 <- 10*(1+0.5)^time
+y3 <- 10*(1+0.1)^time
+y4 <- 10*(1-0.5)^time
+
+plot( time, y1, ylab="Net Worth", xlab="Time", type="b", bty="n", pch=19,
+      main="Return on Investment of $10 with a 100% Rate of Return Over Five Years", ylim=c(0,350))
+text( time, y1, paste("$",y1,sep=""), pos=3 )
+text( c(0.5,1.5,2.5,3.2,4.2), c(y1[2:4],150,250),
+      c("Slope = 10", "Slope = 20", "Slope = 40", "Slope = 80", "Slope = 160"), pos=3, col="firebrick")
+```
+
+
+
+Let’s look at several examples when we have varying rates of returns:
+
+```{r}
+plot( time, y1, ylim=c(0,350), xlim=c(0,8), ylab="Net Worth", xlab="Time", type="b", bty="n", pch=19,
+      main="Return on Initial Investment of $10 Over Five Years")
+points( time, y2, type="b", pch=19 )
+points( time, y3, type="b", pch=19)
+points( time, y4, type="b", pch=19)
+
+text( 5, y1[6], "Annual Growth Rate of 100% : $320", cex=0.8, pos=4)
+text( 5, y2[6], "Annual Growth Rate of 50% : $76", cex=0.8, pos=4)
+text( 5, y3[6], "Annual Growth Rate of 10% : $16", cex=0.8, pos=4)
+text( 5, y4[6], "Annual Growth Rate of -50% : $0.31", cex=0.8, pos=4)
+text( 0, 10, "$10", pos=3 )
+```
+
+## Slopes in Growth Models
+
+
+Compound growth results in a non-linear trend line. We know that this
+can be modeled using a quadratic regression term. If our data is
+generated by a growth process we can still model it using traditional
+regression tools.
+
+```{r, results="asis"}
+time_squared <- time*time
+
+m1 <- lm( y1 ~ time + time_squared )
+m2 <- lm( y2 ~ time + time_squared )
+m3 <- lm( y3 ~ time + time_squared )
+m4 <- lm( y4 ~ time + time_squared )
+
+stargazer( m1, m2, m3, m4, type="html", 
+           digits=2, 
+           omit.stat=c("f","adj.rsq","ser"),
+           intercept.bottom = FALSE ) 
+```
+
+
+## Logging the DV
+
+
+The main challenge with growth models is that slopes vary so much
+depending upon which portion of the data we examine. As a result, the
+slopes from our traditional regression models are not as useful since we
+have to do some acrobatics to determine marginal effects, and marginal
+effects can only be interpretted over a very local range of X values.
+
+Additionally, if we observe a growth or scaling process in the DV, we
+are often more interested in the rate of growth than we are in the
+actual values of the DV at different levels of X.
+
+We can analyze the **growth process** directly using the natural log
+function. Let’s look at regression models after the DV’s from our first
+example have been transformed by logging the original values.
+
+```{r, results="asis"}
+log.y1 <- log(y1)
+log.y2 <- log(y2)
+log.y3 <- log(y3)
+log.y4 <- log(y4)
+
+m1 <- lm( log.y1 ~ time )
+m2 <- lm( log.y2 ~ time )
+m3 <- lm( log.y3 ~ time )
+m4 <- lm( log.y4 ~ time )
+
+stargazer( m1, m2, m3, m4, type="html", 
+           digits=2, 
+           omit.stat=c("f","adj.rsq","ser"),
+           intercept.bottom = FALSE ) 
+```
+
+
+These models require special interpretation.
+
+The first thing to note is that we can translate from logged terms back
+into their original values by exponentiation. For example, the intercept
+is 2.3 in this model. We can see that if we evaluate \\[e\^{2.3}\\] (the
+intercept is at time=0) it will return our original \$10 investment.
+
+The slopes themselves no longer represent LEVELS of the DV. They now
+represent RATES OF GROWTH.
+
+The slopes represent a specific interest rate: a continuously
+compounding rates of return. If we are not accostomed to working with
+this concept we can easily translate a slope \\(B\_1\\) to a more
+familiar annual rate of return with the formula: \\[e\^{B\_1} - 1\\].
+
+```{r}
+plot( time, log.y1, xlim=c(0,8), ylim=c(-2,6), 
+      ylab="Net Worth (Logged)", xlab="Time", type="b", bty="n", pch=19,
+      main="Rate of Investment Return")
+points( time, log.y2, type="b", pch=19 )
+points( time, log.y3, type="b", pch=19)
+points( time, log.y4, type="b", pch=19)
+
+text( 5, log.y1[6], "Slope of 0.69 : e^0.69 - 1 = 100% ROI", cex=0.8, pos=4)
+text( 5, log.y2[6], "Slope of 0.41 : e^0.41 - 1 = 50% ROI", cex=0.8, pos=4)
+text( 5, log.y3[6], "Slope of 0.10 : e^0.10 - 1 = 10% ROI", cex=0.8, pos=4)
+text( 5, log.y4[6], "Slope of -0.69 : e^-0.69 - 1 = -50% ROI", cex=0.8, pos=4)
+```
+
+
+
+## When Should We Use Log Transformations?
+
+
+```{r, echo=F}
+# dput( data.frame( FIPS=dat$fips, MSA=dat$MSAName.x, POP=dat$TotalPop.10, NPOs=dat$num.npos.x ) )
+
+# Nonprofit vs. Population Data
+dat <- structure(list(FIPS = c(1001L, 1003L, 1009L, 1015L, 1017L, 1033L, 
+1045L, 1051L, 1055L, 1067L, 1069L, 1073L, 1077L, 1079L, 1081L, 
+1083L, 1089L, 1095L, 1097L, 1101L, 1103L, 1113L, 1115L, 1117L, 
+1125L, 2020L, 4005L, 4007L, 4013L, 4015L, 4019L, 4021L, 4025L, 
+4027L, 5007L, 5031L, 5033L, 5035L, 5045L, 5069L, 5085L, 5091L, 
+5119L, 5125L, 5131L, 5141L, 5143L, 6001L, 6005L, 6007L, 6013L, 
+6017L, 6019L, 6029L, 6035L, 6037L, 6039L, 6041L, 6047L, 6053L, 
+6055L, 6057L, 6059L, 6061L, 6065L, 6067L, 6071L, 6073L, 6075L, 
+6077L, 6079L, 6081L, 6083L, 6085L, 6087L, 6089L, 6095L, 6097L, 
+6099L, 6101L, 6107L, 6111L, 6113L, 6115L, 8001L, 8005L, 8013L, 
+8031L, 8035L, 8041L, 8059L, 8069L, 8077L, 8101L, 8123L, 9001L, 
+9003L, 9005L, 9007L, 9009L, 9011L, 9013L, 9015L, 10001L, 10003L, 
+11001L, 12001L, 12005L, 12009L, 12011L, 12015L, 12017L, 12019L, 
+12021L, 12031L, 12033L, 12035L, 12039L, 12053L, 12057L, 12061L, 
+12069L, 12071L, 12073L, 12081L, 12083L, 12085L, 12086L, 12089L, 
+12091L, 12093L, 12095L, 12097L, 12099L, 12101L, 12103L, 12105L, 
+12109L, 12111L, 12113L, 12115L, 12117L, 12119L, 12127L, 12131L, 
+13013L, 13015L, 13021L, 13029L, 13045L, 13047L, 13051L, 13053L, 
+13057L, 13059L, 13063L, 13067L, 13073L, 13077L, 13083L, 13089L, 
+13095L, 13097L, 13103L, 13113L, 13117L, 13121L, 13135L, 13145L, 
+13151L, 13153L, 13169L, 13177L, 13179L, 13189L, 13195L, 13215L, 
+13217L, 13219L, 13223L, 13225L, 13227L, 13245L, 13247L, 13255L, 
+13289L, 13295L, 13297L, 15003L, 16001L, 16005L, 16027L, 17007L, 
+17019L, 17027L, 17031L, 17037L, 17043L, 17063L, 17073L, 17083L, 
+17089L, 17091L, 17093L, 17097L, 17111L, 17113L, 17115L, 17117L, 
+17119L, 17129L, 17133L, 17141L, 17143L, 17161L, 17163L, 17167L, 
+17179L, 17197L, 17201L, 17203L, 18001L, 18003L, 18011L, 18019L, 
+18021L, 18023L, 18029L, 18033L, 18035L, 18039L, 18043L, 18057L, 
+18059L, 18061L, 18063L, 18067L, 18069L, 18081L, 18089L, 18095L, 
+18097L, 18105L, 18109L, 18115L, 18119L, 18127L, 18129L, 18133L, 
+18141L, 18143L, 18145L, 18157L, 18159L, 18163L, 18165L, 18167L, 
+18173L, 18179L, 18183L, 19013L, 19049L, 19061L, 19103L, 19113L, 
+19153L, 19155L, 19163L, 19165L, 19181L, 19193L, 20015L, 20045L, 
+20079L, 20091L, 20103L, 20121L, 20173L, 20177L, 20191L, 20209L, 
+21015L, 21017L, 21019L, 21029L, 21037L, 21043L, 21047L, 21049L, 
+21059L, 21067L, 21077L, 21081L, 21089L, 21101L, 21111L, 21113L, 
+21117L, 21151L, 21185L, 21191L, 21209L, 21239L, 22001L, 22005L, 
+22015L, 22017L, 22019L, 22033L, 22051L, 22055L, 22057L, 22063L, 
+22071L, 22073L, 22075L, 22079L, 22087L, 22089L, 22093L, 22095L, 
+22097L, 22099L, 22103L, 22109L, 22119L, 22121L, 23001L, 23005L, 
+23019L, 23027L, 23031L, 24001L, 24003L, 24005L, 24009L, 24013L, 
+24015L, 24017L, 24021L, 24025L, 24027L, 24029L, 24031L, 24033L, 
+24035L, 24043L, 24510L, 25001L, 25003L, 25005L, 25009L, 25011L, 
+25013L, 25015L, 25017L, 25021L, 25023L, 25025L, 25027L, 26005L, 
+26017L, 26021L, 26025L, 26037L, 26045L, 26049L, 26065L, 26075L, 
+26077L, 26081L, 26087L, 26091L, 26093L, 26099L, 26111L, 26115L, 
+26121L, 26125L, 26139L, 26145L, 26147L, 26159L, 26161L, 26163L, 
+27003L, 27009L, 27019L, 27025L, 27027L, 27037L, 27053L, 27055L, 
+27059L, 27087L, 27109L, 27119L, 27123L, 27137L, 27139L, 27141L, 
+27145L, 27163L, 27171L, 28033L, 28035L, 28045L, 28047L, 28049L, 
+28059L, 28073L, 28089L, 28121L, 29003L, 29011L, 29019L, 29021L, 
+29037L, 29043L, 29047L, 29049L, 29059L, 29071L, 29077L, 29083L, 
+29095L, 29097L, 29099L, 29107L, 29109L, 29113L, 29145L, 29165L, 
+29177L, 29183L, 29186L, 29189L, 29219L, 29225L, 29510L, 30013L, 
+30063L, 30111L, 31025L, 31043L, 31055L, 31109L, 31153L, 31177L, 
+32003L, 32023L, 32031L, 33009L, 33011L, 33013L, 33015L, 33017L, 
+34001L, 34003L, 34005L, 34007L, 34009L, 34011L, 34013L, 34015L, 
+34017L, 34019L, 34021L, 34023L, 34025L, 34027L, 34029L, 34031L, 
+34033L, 34035L, 34037L, 34039L, 34041L, 35001L, 35013L, 35028L, 
+35043L, 35049L, 35061L, 36001L, 36005L, 36007L, 36011L, 36013L, 
+36015L, 36027L, 36029L, 36037L, 36043L, 36047L, 36051L, 36053L, 
+36055L, 36057L, 36059L, 36061L, 36063L, 36065L, 36067L, 36069L, 
+36071L, 36073L, 36075L, 36079L, 36081L, 36083L, 36085L, 36087L, 
+36091L, 36093L, 36095L, 36103L, 36107L, 36113L, 36115L, 36117L, 
+36119L, 37001L, 37003L, 37019L, 37021L, 37023L, 37025L, 37027L, 
+37035L, 37037L, 37051L, 37053L, 37057L, 37059L, 37063L, 37065L, 
+37067L, 37069L, 37071L, 37081L, 37101L, 37109L, 37115L, 37119L, 
+37127L, 37129L, 37133L, 37135L, 37147L, 37151L, 37159L, 37163L, 
+37169L, 37179L, 37183L, 37191L, 37197L, 38015L, 38017L, 38035L, 
+38059L, 39003L, 39007L, 39011L, 39013L, 39015L, 39017L, 39019L, 
+39023L, 39025L, 39029L, 39033L, 39035L, 39041L, 39045L, 39049L, 
+39051L, 39055L, 39057L, 39061L, 39077L, 39081L, 39085L, 39087L, 
+39089L, 39093L, 39095L, 39097L, 39099L, 39103L, 39109L, 39113L, 
+39129L, 39133L, 39139L, 39151L, 39153L, 39155L, 39165L, 39167L, 
+39173L, 40017L, 40027L, 40031L, 40037L, 40047L, 40073L, 40083L, 
+40087L, 40109L, 40113L, 40125L, 40131L, 40135L, 40143L, 40145L, 
+41003L, 41005L, 41009L, 41029L, 41039L, 41047L, 41051L, 41053L, 
+41067L, 41071L, 42001L, 42003L, 42005L, 42007L, 42011L, 42013L, 
+42017L, 42019L, 42021L, 42025L, 42027L, 42029L, 42037L, 42041L, 
+42043L, 42045L, 42049L, 42051L, 42069L, 42071L, 42073L, 42075L, 
+42077L, 42079L, 42081L, 42085L, 42091L, 42095L, 42099L, 42101L, 
+42103L, 42111L, 42125L, 42129L, 42131L, 42133L, 44001L, 44003L, 
+44005L, 44007L, 44009L, 45003L, 45007L, 45015L, 45019L, 45021L, 
+45035L, 45037L, 45041L, 45045L, 45051L, 45057L, 45061L, 45063L, 
+45077L, 45079L, 45083L, 45085L, 45091L, 46083L, 46099L, 46103L, 
+46127L, 47001L, 47009L, 47019L, 47021L, 47023L, 47037L, 47043L, 
+47047L, 47065L, 47073L, 47093L, 47105L, 47113L, 47115L, 47125L, 
+47147L, 47149L, 47153L, 47155L, 47157L, 47163L, 47165L, 47167L, 
+47171L, 47173L, 47179L, 47187L, 47189L, 48009L, 48021L, 48027L, 
+48029L, 48037L, 48039L, 48041L, 48055L, 48061L, 48071L, 48085L, 
+48091L, 48099L, 48113L, 48121L, 48135L, 48139L, 48141L, 48157L, 
+48167L, 48181L, 48183L, 48185L, 48187L, 48199L, 48201L, 48203L, 
+48209L, 48213L, 48215L, 48221L, 48231L, 48241L, 48245L, 48251L, 
+48257L, 48259L, 48291L, 48303L, 48309L, 48329L, 48339L, 48349L, 
+48355L, 48359L, 48361L, 48367L, 48375L, 48381L, 48397L, 48409L, 
+48423L, 48439L, 48441L, 48451L, 48453L, 48459L, 48469L, 48473L, 
+48479L, 48485L, 48491L, 48493L, 49011L, 49025L, 49035L, 49049L, 
+49057L, 50007L, 50011L, 50013L, 51003L, 51009L, 51013L, 51019L, 
+51023L, 51029L, 51031L, 51036L, 51041L, 51043L, 51047L, 51053L, 
+51059L, 51061L, 51065L, 51067L, 51069L, 51073L, 51075L, 51079L, 
+51085L, 51087L, 51093L, 51095L, 51099L, 51107L, 51113L, 51115L, 
+51121L, 51127L, 51143L, 51145L, 51149L, 51153L, 51159L, 51161L, 
+51169L, 51177L, 51179L, 51187L, 51191L, 51199L, 51510L, 51520L, 
+51540L, 51550L, 51570L, 51590L, 51600L, 51610L, 51630L, 51650L, 
+51670L, 51680L, 51683L, 51685L, 51700L, 51710L, 51730L, 51735L, 
+51740L, 51760L, 51770L, 51775L, 51800L, 51810L, 51830L, 53005L, 
+53011L, 53021L, 53029L, 53033L, 53035L, 53037L, 53053L, 53061L, 
+53063L, 53067L, 53073L, 53077L, 54003L, 54009L, 54011L, 54029L, 
+54037L, 54039L, 54051L, 54057L, 54069L, 54079L, 54099L, 54107L, 
+55009L, 55015L, 55017L, 55025L, 55031L, 55035L, 55059L, 55063L, 
+55073L, 55079L, 55087L, 55089L, 55093L, 55101L, 55105L, 55109L, 
+55117L, 55131L, 55133L, 55139L, 56021L, 56025L), MSA = structure(c(195L, 
+191L, 33L, 12L, 18L, 98L, 80L, 195L, 109L, 80L, 80L, 33L, 98L, 
+75L, 18L, 132L, 132L, 109L, 191L, 195L, 132L, 65L, 33L, 33L, 
+294L, 10L, 96L, 222L, 222L, 163L, 292L, 222L, 96L, 319L, 95L, 
+145L, 104L, 184L, 170L, 223L, 170L, 289L, 170L, 170L, 104L, 170L, 
+95L, 208L, 248L, 58L, 208L, 248L, 108L, 21L, 238L, 172L, 108L, 
+256L, 185L, 251L, 297L, 318L, 214L, 248L, 242L, 248L, 172L, 255L, 
+256L, 282L, 258L, 256L, 259L, 256L, 257L, 238L, 297L, 261L, 192L, 
+318L, 301L, 298L, 315L, 318L, 77L, 77L, 39L, 77L, 77L, 62L, 77L, 
+100L, 116L, 232L, 77L, 42L, 125L, 125L, 202L, 201L, 202L, 125L, 
+313L, 81L, 311L, 303L, 110L, 217L, 215L, 101L, 233L, 209L, 138L, 
+198L, 138L, 219L, 74L, 286L, 287L, 287L, 183L, 215L, 102L, 286L, 
+262L, 209L, 103L, 186L, 138L, 105L, 215L, 215L, 215L, 306L, 287L, 
+287L, 158L, 138L, 103L, 219L, 262L, 215L, 215L, 74L, 217L, 16L, 
+16L, 177L, 263L, 16L, 55L, 263L, 65L, 16L, 15L, 16L, 16L, 19L, 
+16L, 55L, 16L, 3L, 16L, 263L, 16L, 16L, 16L, 16L, 65L, 16L, 177L, 
+177L, 3L, 263L, 19L, 15L, 65L, 16L, 15L, 16L, 177L, 16L, 19L, 
+16L, 16L, 177L, 55L, 16L, 128L, 37L, 226L, 37L, 246L, 50L, 279L, 
+57L, 57L, 57L, 57L, 72L, 279L, 57L, 148L, 57L, 57L, 57L, 36L, 
+76L, 279L, 279L, 274L, 279L, 246L, 220L, 72L, 279L, 274L, 220L, 
+57L, 246L, 220L, 106L, 106L, 133L, 173L, 288L, 155L, 59L, 106L, 
+196L, 87L, 173L, 133L, 133L, 173L, 133L, 153L, 106L, 133L, 112L, 
+133L, 133L, 35L, 133L, 59L, 288L, 112L, 92L, 133L, 272L, 173L, 
+133L, 155L, 153L, 92L, 288L, 288L, 92L, 106L, 106L, 304L, 78L, 
+82L, 134L, 49L, 78L, 213L, 72L, 213L, 78L, 270L, 308L, 164L, 
+308L, 149L, 149L, 149L, 308L, 164L, 308L, 149L, 59L, 167L, 131L, 
+173L, 59L, 131L, 60L, 167L, 216L, 167L, 59L, 59L, 131L, 92L, 
+173L, 167L, 59L, 167L, 173L, 59L, 167L, 167L, 156L, 25L, 269L, 
+269L, 157L, 25L, 203L, 156L, 129L, 25L, 203L, 194L, 203L, 6L, 
+203L, 203L, 203L, 203L, 156L, 156L, 203L, 129L, 269L, 25L, 166L, 
+227L, 23L, 23L, 229L, 69L, 22L, 22L, 303L, 22L, 311L, 303L, 303L, 
+22L, 303L, 22L, 303L, 303L, 22L, 122L, 22L, 24L, 225L, 38L, 38L, 
+275L, 275L, 275L, 38L, 38L, 38L, 38L, 313L, 117L, 249L, 28L, 
+147L, 160L, 160L, 97L, 160L, 135L, 147L, 117L, 79L, 11L, 11L, 
+79L, 249L, 79L, 117L, 79L, 117L, 249L, 79L, 147L, 11L, 79L, 189L, 
+277L, 189L, 189L, 93L, 189L, 189L, 154L, 189L, 115L, 244L, 115L, 
+189L, 83L, 189L, 189L, 277L, 189L, 189L, 184L, 126L, 31L, 31L, 
+136L, 31L, 126L, 136L, 136L, 278L, 146L, 63L, 278L, 149L, 276L, 
+149L, 149L, 276L, 279L, 276L, 149L, 149L, 146L, 279L, 149L, 146L, 
+279L, 146L, 149L, 149L, 279L, 279L, 279L, 279L, 276L, 279L, 118L, 
+190L, 30L, 213L, 270L, 213L, 169L, 213L, 213L, 163L, 163L, 239L, 
+179L, 174L, 179L, 38L, 229L, 17L, 29L, 221L, 221L, 17L, 300L, 
+205L, 221L, 142L, 187L, 291L, 187L, 193L, 205L, 193L, 29L, 221L, 
+187L, 205L, 205L, 205L, 5L, 162L, 260L, 5L, 260L, 5L, 4L, 204L, 
+32L, 284L, 140L, 88L, 84L, 45L, 245L, 296L, 204L, 245L, 284L, 
+245L, 4L, 200L, 204L, 45L, 296L, 284L, 245L, 206L, 245L, 284L, 
+204L, 204L, 4L, 204L, 204L, 4L, 4L, 4L, 200L, 32L, 113L, 113L, 
+245L, 204L, 119L, 127L, 312L, 14L, 127L, 53L, 127L, 127L, 235L, 
+94L, 207L, 119L, 119L, 235L, 247L, 119L, 235L, 53L, 119L, 235L, 
+53L, 14L, 53L, 235L, 312L, 139L, 235L, 120L, 119L, 53L, 94L, 
+119L, 53L, 235L, 114L, 119L, 34L, 93L, 115L, 34L, 168L, 61L, 
+168L, 307L, 59L, 123L, 47L, 73L, 59L, 317L, 180L, 61L, 66L, 66L, 
+66L, 290L, 61L, 73L, 59L, 180L, 281L, 61L, 131L, 66L, 61L, 290L, 
+66L, 317L, 61L, 73L, 73L, 66L, 317L, 180L, 2L, 2L, 317L, 59L, 
+218L, 290L, 211L, 211L, 165L, 293L, 89L, 211L, 211L, 211L, 211L, 
+293L, 211L, 293L, 104L, 293L, 293L, 68L, 228L, 228L, 182L, 91L, 
+250L, 228L, 250L, 228L, 228L, 124L, 224L, 224L, 224L, 237L, 8L, 
+221L, 224L, 144L, 7L, 280L, 221L, 264L, 124L, 124L, 221L, 90L, 
+224L, 264L, 159L, 266L, 124L, 7L, 264L, 310L, 266L, 221L, 7L, 
+124L, 221L, 206L, 144L, 224L, 224L, 264L, 316L, 230L, 230L, 230L, 
+230L, 230L, 19L, 121L, 52L, 52L, 121L, 52L, 19L, 99L, 121L, 197L, 
+53L, 283L, 64L, 121L, 64L, 121L, 283L, 53L, 271L, 271L, 236L, 
+271L, 152L, 152L, 143L, 199L, 137L, 199L, 199L, 184L, 55L, 143L, 
+152L, 152L, 137L, 55L, 60L, 199L, 199L, 55L, 152L, 184L, 143L, 
+199L, 184L, 143L, 152L, 143L, 199L, 199L, 309L, 20L, 151L, 254L, 
+289L, 40L, 44L, 20L, 43L, 130L, 70L, 254L, 151L, 70L, 70L, 210L, 
+70L, 86L, 130L, 111L, 268L, 171L, 44L, 254L, 26L, 130L, 171L, 
+20L, 70L, 181L, 107L, 70L, 26L, 26L, 107L, 70L, 254L, 130L, 175L, 
+302L, 210L, 130L, 70L, 67L, 9L, 26L, 107L, 9L, 9L, 70L, 67L, 
+295L, 107L, 1L, 253L, 20L, 171L, 299L, 130L, 161L, 309L, 20L, 
+254L, 252L, 96L, 252L, 231L, 252L, 46L, 46L, 46L, 54L, 176L, 
+303L, 176L, 243L, 54L, 176L, 241L, 241L, 303L, 303L, 241L, 303L, 
+303L, 54L, 176L, 303L, 207L, 241L, 54L, 241L, 241L, 207L, 207L, 
+303L, 303L, 303L, 207L, 243L, 241L, 71L, 241L, 241L, 303L, 241L, 
+243L, 143L, 303L, 303L, 303L, 143L, 207L, 303L, 143L, 54L, 207L, 
+241L, 71L, 303L, 303L, 303L, 207L, 241L, 176L, 303L, 303L, 207L, 
+207L, 241L, 207L, 207L, 241L, 243L, 243L, 207L, 207L, 207L, 240L, 
+228L, 240L, 265L, 265L, 41L, 265L, 285L, 265L, 273L, 212L, 27L, 
+314L, 303L, 281L, 131L, 281L, 303L, 51L, 307L, 69L, 307L, 51L, 
+131L, 218L, 13L, 13L, 85L, 178L, 83L, 85L, 150L, 154L, 305L, 
+188L, 13L, 188L, 189L, 234L, 141L, 189L, 267L, 188L, 188L, 13L, 
+56L, 48L), .Label = c(" Abilene-TX", " Akron- OH", " Albany-GA", 
+" Albany-Schenectady-Troy- NY", " Albuquerque- NM", " Alexandria- LA", 
+" Allentown-Bethlehem-Easton- PA", " Altoona-PA", " Amarillo- TX", 
+" Anchorage- AK", " Ann Arbor- MI", " Anniston- AL", " Appleton-Oshkosh-Neenah- WI", 
+" Asheville- NC", " Athens-GA", " Atlanta-GA", " AtlanticCity- NJ", 
+" Auburn-Opelika- AL", " Augusta-Aiken- GA-SC", " Austin-San Marcos- TX", 
+" Bakersfield- CA", " Baltimore- MD", " Bangor-ME", " Barnstable-Yarmouth- MA", 
+" Baton Rouge- LA", " Beaumont-Port Arthur- TX", " Bellingham- WA", 
+" Benton Harbor- MI", " Bergen-Passaic", " Billings- MT", " Biloxi-Gulfport-Pascagoula- MS", 
+" Binghamton- NY", " Birmingham- AL", " Bismarck- ND", " Bloomington- IN", 
+" Bloomington-Normal- IL", " Boise City- ID", " Boston- MA", 
+" Boulder-Longmont", " Brazoria- TX", " Bremerton- WA", " Bridgeport-Milford- CT", 
+" Brownsville-Harlingen-San Benito- TX", " Bryan-College Station- TX", 
+" Buffalo-Niagara Falls- NY", " Burlington- VT", " Canton-Massillon- OH", 
+" Casper-WY", " Cedar Rapids- IA", " Champaign-Urbana- IL", " Charleston- WV", 
+" Charleston-North Charleston- SC", " Charlotte-Gastonia-Rock Hill- NC-SC", 
+" Charlottesville- VA", " Chattanooga- TN-GA", " Cheyenne- WY", 
+" Chicago- IL", " Chico-Paradise- CA", " Cincinnati- OH-KY-IN", 
+" Clarksville-Hopkinsville- TN-KY", " Cleveland- OH", " ColoradoSprings- CO", 
+" Columbia- MO", " Columbia- SC", " Columbus- GA-AL", " Columbus- OH", 
+" Corpus Christi- TX", " Corvallis- OR", " Cumberland- MD-WV", 
+" Dallas-Fort Worth- TX", " Danville- VA", " Davenport-Moline-Rock Island- IA-IL", 
+" Dayton-Springfield- OH", " DaytonaBeach- FL", " Decatur-AL", 
+" Decatur-IL", " Denver-Boulder- CO", " Des Moines- IA", " Detroit- MI", 
+" Dothan-AL", " Dover- DE", " Dubuque-IA", " Duluth-Superior- MN-WI", 
+" Dutchess County- NY", " Eau Claire- WI", " El Paso-TX", " Elkhart-Goshen- IN", 
+" Elmira-NY", " Enid- OK", " Erie- PA", " Eugene-Springfield- OR", 
+" Evansville-Henderson- IN-KY", " Fargo-Moorhead- ND-MN", " Fayetteville- NC", 
+" Fayetteville-Springdale-Rogers- AR", " Flagstaff- AZ-UT", " Flint- MI", 
+" Florence- AL", " Florence- SC", " Fort Collins-Loveland- CO", 
+" Fort Lauderdale-Hollywood- FL", " Fort Myers-Cape Coral- FL", 
+" Fort Pierce-Port St. Lucie- FL", " Fort Smith- AR-OK", " Fort Walton Beach- FL", 
+" Fort Wayne- IN", " Fort Worth- TX", " Fresno-CA", " Gadsden-AL", 
+" Gainesville- FL", " Galveston-Texas City- TX", " Gary-Hammond-East Chicago- IN", 
+" Glens Falls- NY", " Goldsboro- NC", " Grand Forks- ND-MN", 
+" Grand Junction- CO", " Grand Rapids-Muskegon-Holland- MI", 
+" Great Falls- MT", " Greensboro--Winston-Salem--High Point- NC", 
+" Greenville- NC", " Greenville-Spartanburg-Anderson- SC", " Hagerstown- MD", 
+" Hamilton-Middletown- OH", " Harrisburg-Lebanon-Carlisle- PA", 
+" Hartford- CT", " Hattiesburg- MS", " Hickory-Morganton-Lenoir- NC", 
+" Honolulu- HI", " Houma- LA", " Houston- TX", " Huntington-Ashland- WV-KY-OH", 
+" Huntsville- AL", " Indianapolis- IN", " Iowa City- IA", " Jackson-MI", 
+" Jackson-MS", " Jackson-TN", " Jacksonville- FL", " Jacksonville- NC", 
+" Jamestown- NY", " Janesville-Beloit- WI", " Jersey City- NJ", 
+" JohnsonCity-Kingsport-Bristol- TN-VA", " Johnstown- PA", " Jonesboro- AR", 
+" Joplin-MO", " Kalamazoo-Battle Creek- MI", " Kankakee- IL", 
+" Kansas City- MO-KS", " Kenosha- WI", " Killeen-Temple- TX", 
+" Knoxville- TN", " Kokomo-IN", " La Crosse- WI-MN", " Lafayette- IN", 
+" Lafayette- LA", " Lake Charles- LA", " Lakeland-Winter Haven- FL", 
+" Lancaster- PA", " Lansing-East Lansing- MI", " Laredo-TX", 
+" Las Cruces- NM", " Las Vegas- NV-AZ", " Lawrence- KS", " Lawton-OK", 
+" Lewiston-Auburn- ME", " Lexington- KY", " Lima- OH", " Lincoln-NE", 
+" Little Rock-North Little Rock- AR", " Longview-Marshall- TX", 
+" Los Angeles-Long Beach- CA", " Louisville- KY-IN", " Lowell- MA-NH", 
+" Lubbock-TX", " Lynchburg- VA", " Macon- GA", " Madison-WI", 
+" Manchester- NH", " Mansfield- OH", " McAllen-Edinburg-Mission- TX", 
+" Medford-Ashland- OR", " Melbourne-Titusville-Palm Bay- FL", 
+" Memphis-TN-AR-MS", " Merced-CA", " Miami- FL", " Middlesex-Somerset-Hunterdon- NJ", 
+" Milwaukee- WI", " Minneapolis-St. Paul- MN-WI", " Missoula- MT", 
+" Mobile-AL", " Modesto-CA", " Monmouth-Ocean- NJ", " Monroe-LA", 
+" Montgomery- AL", " Muncie-IN", " Myrtle Beach- SC", " Naples-FL", 
+" Nashville- TN", " Nassau-Suffolk- NY", " New Haven-Meriden- CT", 
+" New London-Norwich- CT-RI", " New Orleans- LA", " New York- NY-NJ", 
+" Newark- NJ", " Newburgh-Middletown- NY", " Norfolk-Virginia Beach-Newport News- VA-NC", 
+" Oakland- CA", " Ocala- FL", " Odessa-Midland- TX", " OklahomaCity- OK", 
+" Olympia-WA", " Omaha- NE-IA", " Orange County- CA", " Orlando-FL", 
+" Owensboro- KY", " Panama City- FL", " Parkersburg-Marietta- WV-OH", 
+" Pensacola- FL", " Peoria-Pekin- IL", " Philadelphia- PA-NJ", 
+" Phoenix-Mesa- AZ", " Pine Bluff- AR", " Pittsburgh- PA", " Pittsfield- MA", 
+" Pocatello- ID", " Portland- ME", " Portland- OR-WA", " Portsmouth-Dover-Rochester- NH-ME", 
+" Providence-Fall River-Warwick- RI-MA", " Provo-Orem- UT", " Pueblo-CO", 
+" Punta Gorda- FL", " Racine- WI", " Raleigh-Durham-Chapel Hill- NC", 
+" Rapid City- SD", " Reading-PA", " Redding-CA", " Reno- NV", 
+" Richland-Kennewick-Pasco- WA", " Richmond-Petersburg- VA", 
+" Riverside-San Bernardino-Ontario- CA", " Roanoke-VA", " Rochester- MN", 
+" Rochester- NY", " Rockford- IL", " Rocky Mount- NC", " Sacramento- CA", 
+" Saginaw-Bay City-Midland- MI", " Salem- OR", " Salinas-CA", 
+" Salt Lake City-Ogden- UT", " San Angelo- TX", " San Antonio- TX", 
+" San Diego- CA", " San Francisco-Oakland- CA", " San Jose- CA", 
+" San LuisObispo-Atascadero-Paso Robles- CA", " Santa Barbara-Santa Maria-Lompoc- CA", 
+" Santa Fe- NM", " Santa Rosa- CA", " Sarasota-Bradenton- FL", 
+" Savannah- GA", " Scranton--Wilkes-Barre--Hazleton- PA", " Seattle-Everett- WA", 
+" Sharon-PA", " Sheboygan- WI", " Sherman-Denison- TX", " Shreveport-Bossier City- LA", 
+" Sioux City- IA-NE", " Sioux Falls- SD", " South Bend- IN", 
+" Spokane-WA", " Springfield- IL", " Springfield- MA", " Springfield- MO", 
+" St. Cloud- MN", " St. Joseph- MO", " St. Louis- MO-IL", " State College- PA", 
+" Steubenville-Weirton- OH-WV", " Stockton-Lodi- CA", " Sumter-SC", 
+" Syracuse- NY", " Tacoma- WA", " Tallahassee- FL", " Tampa-St. Petersburg-Clearwater- FL", 
+" Terre Haute- IN", " Texarkana- TX-Texarkana- AR", " Toledo-OH", 
+" Trenton- NJ", " Tucson-AZ", " Tulsa- OK", " Tuscaloosa- AL", 
+" Tyler- TX", " Utica-Rome- NY", " Vallejo-Fairfield-Napa- CA", 
+" Ventura- CA", " Victoria- TX", " Vineland-Millville-Bridgeton- NJ", 
+" Visalia-Tulare-Porterville- CA", " Waco- TX", " Washington- DC-MD-VA", 
+" Waterloo-Cedar Falls- IA", " Wausau-WI", " West Palm Beach-Boca Raton- FL", 
+" Wheeling- WV-OH", " Wichita-KS", " WichitaFalls- TX", " Williamsport- PA", 
+" Wilmington- DE-NJ-MD", " Wilmington- NC", " Worcester- MA", 
+" Yakima-WA", " Yolo- CA", " York- PA", " Youngstown-Warren- OH", 
+" Yuba City- CA", " Yuma- AZ"), class = "factor"), POP = c(54571L, 
+182265L, 57322L, 118572L, 34215L, 54428L, 50251L, 79303L, 104430L, 
+17302L, 101547L, 658466L, 92709L, 34339L, 140247L, 82782L, 334811L, 
+93019L, 412992L, 229363L, 119490L, 52947L, 83593L, 195085L, 194656L, 
+291826L, 134421L, 53597L, 3817117L, 200186L, 980263L, 375770L, 
+211033L, 195751L, 221339L, 96443L, 61948L, 50902L, 113237L, 77435L, 
+68356L, 43462L, 382748L, 107118L, 125744L, 17295L, 203065L, 1510271L, 
+38091L, 220000L, 1049025L, 181058L, 930450L, 839631L, 34895L, 
+9818605L, 150865L, 252409L, 255793L, 415057L, 136484L, 98764L, 
+3010232L, 348432L, 2189641L, 1418788L, 2035210L, 3095313L, 805235L, 
+685306L, 269637L, 718451L, 423895L, 1781642L, 262382L, 177223L, 
+413344L, 483878L, 514453L, 94737L, 442179L, 823318L, 200849L, 
+72155L, 441603L, 572003L, 294567L, 600158L, 285465L, 622263L, 
+534543L, 299630L, 146723L, 159063L, 252825L, 916829L, 894014L, 
+189927L, 165676L, 862477L, 274055L, 152691L, 118428L, 162310L, 
+538479L, 601723L, 247336L, 168852L, 543376L, 1748066L, 159978L, 
+141236L, 190865L, 321520L, 864263L, 297619L, 95696L, 46389L, 
+172778L, 1229226L, 138028L, 297052L, 618754L, 275487L, 322833L, 
+331298L, 146318L, 2496435L, 73314L, 180822L, 39996L, 1145956L, 
+268685L, 1320134L, 464697L, 916542L, 602095L, 190039L, 277789L, 
+151372L, 379448L, 422718L, 93420L, 494593L, 55043L, 69367L, 100157L, 
+155547L, 30233L, 110527L, 63942L, 265128L, 11267L, 214346L, 116714L, 
+259424L, 688078L, 124053L, 127317L, 16633L, 691893L, 94565L, 
+132403L, 52250L, 106567L, 175511L, 920581L, 805321L, 32024L, 
+203922L, 139900L, 28669L, 28298L, 63453L, 21875L, 28120L, 189885L, 
+99958L, 32808L, 142324L, 27695L, 29431L, 200549L, 85215L, 64073L, 
+9023L, 68756L, 83768L, 953207L, 392365L, 82839L, 188923L, 54165L, 
+201081L, 37762L, 5194675L, 105160L, 916924L, 50063L, 50486L, 
+22985L, 515269L, 113449L, 114736L, 703462L, 308760L, 169572L, 
+110768L, 47765L, 269282L, 12705L, 32957L, 53497L, 186494L, 147546L, 
+270056L, 197465L, 135394L, 677560L, 295266L, 38664L, 34387L, 
+355329L, 56640L, 110232L, 26890L, 33224L, 50047L, 42223L, 117671L, 
+197559L, 74578L, 274569L, 70002L, 39364L, 145448L, 82752L, 37124L, 
+139654L, 496005L, 131636L, 903393L, 137974L, 68894L, 6128L, 21575L, 
+164343L, 25910L, 37963L, 266931L, 24181L, 44436L, 172780L, 15936L, 
+179703L, 16212L, 107848L, 59689L, 27636L, 33292L, 131090L, 66135L, 
+93653L, 130882L, 211226L, 430640L, 93158L, 165224L, 12167L, 46225L, 
+102172L, 65880L, 110826L, 34684L, 544179L, 76227L, 32787L, 498365L, 
+177934L, 24132L, 157505L, 118811L, 19985L, 49542L, 74319L, 90336L, 
+27720L, 73955L, 35613L, 96656L, 295803L, 8589L, 24662L, 36910L, 
+46250L, 741096L, 48586L, 159720L, 82916L, 60316L, 14877L, 47173L, 
+24939L, 61773L, 107215L, 116979L, 254969L, 192768L, 440171L, 
+432552L, 221578L, 96318L, 128026L, 343829L, 153720L, 23042L, 
+131613L, 35897L, 52780L, 22102L, 45924L, 83384L, 52160L, 233740L, 
+111860L, 41207L, 23788L, 107702L, 281674L, 153923L, 38786L, 197131L, 
+75087L, 537656L, 805029L, 88737L, 167134L, 101108L, 146551L, 
+233385L, 244826L, 287085L, 20197L, 971777L, 863420L, 47798L, 
+147430L, 620961L, 215888L, 131219L, 548285L, 743159L, 71372L, 
+463490L, 158080L, 1503085L, 670850L, 494919L, 722023L, 798552L, 
+111408L, 107771L, 156813L, 136146L, 75382L, 107759L, 425790L, 
+280895L, 160248L, 250331L, 602622L, 88319L, 99892L, 180967L, 
+840978L, 83629L, 152021L, 172188L, 1202362L, 263801L, 200169L, 
+163040L, 76258L, 344791L, 1820584L, 330844L, 38451L, 91042L, 
+53887L, 58999L, 398552L, 1152425L, 19027L, 37816L, 5413L, 144248L, 
+31600L, 508640L, 200226L, 129928L, 88499L, 150642L, 238136L, 
+124700L, 161252L, 74934L, 43929L, 187105L, 245285L, 139668L, 
+55658L, 95203L, 141617L, 17291L, 12402L, 162642L, 89201L, 99478L, 
+77422L, 221939L, 20743L, 16777L, 101492L, 275174L, 22272L, 674158L, 
+117404L, 218733L, 33381L, 38634L, 52566L, 58114L, 89322L, 23494L, 
+360485L, 18145L, 998954L, 32513L, 36202L, 319294L, 81327L, 109299L, 
+147972L, 25241L, 21006L, 517110L, 285407L, 158840L, 20234L, 1951269L, 
+43946L, 421407L, 89118L, 400721L, 146445L, 295223L, 123143L, 
+274549L, 905116L, 448734L, 513657L, 97265L, 156898L, 783969L, 
+288288L, 634266L, 128349L, 366513L, 809858L, 630380L, 492276L, 
+576567L, 501226L, 66083L, 323444L, 149265L, 536499L, 108692L, 
+662564L, 209233L, 17950L, 131561L, 144170L, 76569L, 304204L, 
+1385108L, 200600L, 80026L, 134905L, 88830L, 297488L, 919040L, 
+60079L, 64519L, 2504700L, 65393L, 73442L, 744344L, 50219L, 1339532L, 
+1585873L, 216469L, 234878L, 467026L, 107931L, 372813L, 42883L, 
+122109L, 99710L, 2230722L, 159429L, 468730L, 311687L, 219607L, 
+154727L, 32749L, 1493350L, 51125L, 65707L, 63216L, 93772L, 949113L, 
+151131L, 37198L, 107431L, 238318L, 90912L, 178011L, 83029L, 154358L, 
+63505L, 319431L, 23547L, 162878L, 41240L, 267587L, 56552L, 350670L, 
+60619L, 206086L, 488406L, 168878L, 78265L, 20764L, 919628L, 95840L, 
+202667L, 177772L, 133801L, 168148L, 141752L, 138428L, 63431L, 
+47401L, 201292L, 900993L, 122623L, 38406L, 81308L, 149778L, 66861L, 
+27471L, 106331L, 101497L, 45949L, 70400L, 44846L, 368130L, 28836L, 
+138333L, 197363L, 107841L, 43784L, 1280122L, 174214L, 146156L, 
+1163414L, 42698L, 93389L, 161573L, 802374L, 59626L, 69709L, 230041L, 
+62450L, 166492L, 301356L, 441815L, 43435L, 238823L, 172332L, 
+102506L, 535153L, 55698L, 161419L, 124475L, 375586L, 541781L, 
+210312L, 212693L, 61778L, 125488L, 115541L, 255755L, 124098L, 
+69967L, 60580L, 15034L, 41848L, 34506L, 718633L, 47472L, 69442L, 
+86905L, 42391L, 603403L, 73085L, 85579L, 375992L, 49351L, 203206L, 
+351715L, 315335L, 735334L, 75403L, 529710L, 99193L, 101407L, 
+1223348L, 68941L, 170539L, 411442L, 127089L, 625249L, 183862L, 
+143679L, 65249L, 153990L, 498886L, 67295L, 235406L, 268100L, 
+558979L, 280566L, 136606L, 214437L, 519445L, 91108L, 133568L, 
+349497L, 320918L, 116111L, 116638L, 799874L, 297735L, 45969L, 
+1526006L, 57369L, 77742L, 207820L, 365169L, 28276L, 434972L, 
+49875L, 166158L, 82888L, 626667L, 126979L, 160099L, 187126L, 
+177843L, 350209L, 55342L, 136555L, 26985L, 136885L, 451225L, 
+269291L, 76652L, 19220L, 262391L, 119224L, 384504L, 284307L, 
+107456L, 226073L, 44828L, 169468L, 100948L, 14399L, 75129L, 123010L, 
+57424L, 39105L, 17131L, 626681L, 49666L, 38413L, 336463L, 56833L, 
+432226L, 48556L, 98294L, 28237L, 172331L, 66283L, 262604L, 14112L, 
+89889L, 927644L, 156823L, 160645L, 61081L, 18313L, 19109L, 122979L, 
+183182L, 113993L, 9054L, 74171L, 310235L, 1714773L, 92565L, 313166L, 
+194851L, 38066L, 406220L, 35096L, 782341L, 108472L, 75388L, 2368139L, 
+662614L, 137130L, 149610L, 800647L, 585375L, 291309L, 120877L, 
+121730L, 26604L, 131533L, 54635L, 4092459L, 65631L, 157107L, 
+78532L, 774769L, 51182L, 86129L, 35710L, 252273L, 150934L, 103350L, 
+33410L, 75643L, 278831L, 234906L, 136872L, 455746L, 47735L, 340223L, 
+2052L, 81837L, 116927L, 121073L, 120725L, 78337L, 64804L, 209714L, 
+1809034L, 131506L, 110224L, 1024266L, 39309L, 86793L, 43205L, 
+250304L, 131500L, 422679L, 42918L, 306479L, 7125L, 1029655L, 
+516564L, 231236L, 156545L, 47746L, 6970L, 98970L, 32353L, 207627L, 
+68676L, 33148L, 17146L, 54842L, 7256L, 316236L, 14034L, 46689L, 
+28001L, 1081726L, 65203L, 25691L, 56159L, 78305L, 36858L, 21717L, 
+18403L, 99863L, 306935L, 35270L, 67009L, 23584L, 312311L, 13308L, 
+8978L, 94392L, 18429L, 63506L, 28046L, 35725L, 402002L, 9254L, 
+92376L, 23177L, 122397L, 128961L, 37575L, 54876L, 65464L, 139966L, 
+17835L, 43475L, 222209L, 17411L, 43055L, 22565L, 12332L, 24286L, 
+137436L, 22591L, 75568L, 37821L, 14273L, 180719L, 242803L, 32420L, 
+12150L, 95535L, 204214L, 97032L, 24802L, 84585L, 437994L, 14068L, 
+175177L, 425363L, 78163L, 78506L, 1931249L, 251133L, 40915L, 
+795225L, 713335L, 471221L, 252264L, 201140L, 243231L, 104169L, 
+24069L, 96319L, 30676L, 53498L, 193063L, 33107L, 28212L, 44443L, 
+55486L, 42481L, 86956L, 248007L, 48971L, 62415L, 488073L, 44159L, 
+98736L, 166426L, 114638L, 134063L, 947735L, 176695L, 86395L, 
+41019L, 195408L, 160331L, 84345L, 115507L, 131887L, 389891L, 
+166994L, 91738L, 75450L), NPOs = c(25L, 63L, 9L, 40L, 10L, 12L, 
+10L, 24L, 38L, 4L, 34L, 290L, 23L, 7L, 31L, 12L, 107L, 28L, 152L, 
+149L, 41L, 21L, 17L, 46L, 54L, 201L, 53L, 19L, 995L, 39L, 314L, 
+45L, 78L, 32L, 65L, 39L, 17L, 13L, 37L, 43L, 16L, 13L, 224L, 
+33L, 60L, 5L, 78L, 836L, 15L, 104L, 419L, 92L, 274L, 213L, 14L, 
+2977L, 38L, 268L, 42L, 162L, 97L, 69L, 1100L, 158L, 477L, 558L, 
+481L, 1052L, 650L, 198L, 155L, 315L, 251L, 625L, 179L, 94L, 135L, 
+277L, 132L, 28L, 108L, 277L, 94L, 21L, 85L, 187L, 209L, 474L, 
+73L, 266L, 244L, 129L, 69L, 66L, 77L, 535L, 469L, 141L, 100L, 
+454L, 147L, 58L, 58L, 68L, 266L, 944L, 118L, 45L, 160L, 431L, 
+50L, 48L, 42L, 85L, 272L, 101L, 17L, 16L, 29L, 387L, 49L, 83L, 
+180L, 188L, 97L, 78L, 63L, 600L, 22L, 64L, 10L, 389L, 36L, 379L, 
+89L, 377L, 145L, 55L, 53L, 28L, 152L, 86L, 7L, 127L, 10L, 12L, 
+20L, 77L, 2L, 20L, 3L, 83L, 0L, 45L, 58L, 40L, 163L, 23L, 23L, 
+5L, 327L, 48L, 29L, 10L, 42L, 36L, 575L, 176L, 5L, 37L, 28L, 
+3L, 3L, 7L, 2L, 5L, 67L, 13L, 16L, 14L, 8L, 19L, 67L, 25L, 21L, 
+0L, 9L, 18L, 392L, 185L, 23L, 43L, 18L, 91L, 8L, 1822L, 42L, 
+362L, 19L, 19L, 1L, 160L, 43L, 20L, 228L, 124L, 72L, 48L, 8L, 
+92L, 3L, 9L, 21L, 116L, 70L, 79L, 127L, 38L, 161L, 107L, 10L, 
+16L, 166L, 26L, 37L, 11L, 18L, 28L, 20L, 52L, 79L, 26L, 131L, 
+21L, 18L, 41L, 34L, 20L, 46L, 171L, 31L, 476L, 61L, 29L, 2L, 
+8L, 73L, 17L, 17L, 116L, 7L, 14L, 67L, 7L, 110L, 7L, 71L, 25L, 
+23L, 14L, 60L, 20L, 73L, 74L, 106L, 264L, 39L, 77L, 9L, 17L, 
+72L, 18L, 53L, 31L, 175L, 14L, 17L, 173L, 109L, 11L, 49L, 21L, 
+10L, 30L, 8L, 26L, 10L, 22L, 14L, 50L, 201L, 1L, 7L, 7L, 18L, 
+348L, 20L, 73L, 28L, 13L, 3L, 12L, 12L, 11L, 12L, 24L, 98L, 61L, 
+205L, 115L, 121L, 26L, 21L, 232L, 94L, 7L, 42L, 11L, 10L, 5L, 
+6L, 30L, 11L, 60L, 35L, 15L, 2L, 56L, 276L, 81L, 25L, 101L, 44L, 
+190L, 331L, 39L, 66L, 38L, 44L, 133L, 82L, 123L, 23L, 487L, 255L, 
+22L, 107L, 381L, 180L, 99L, 206L, 452L, 37L, 237L, 108L, 911L, 
+378L, 218L, 640L, 377L, 28L, 50L, 77L, 47L, 41L, 43L, 129L, 162L, 
+58L, 131L, 309L, 23L, 38L, 45L, 180L, 57L, 48L, 71L, 482L, 119L, 
+79L, 72L, 21L, 164L, 607L, 114L, 23L, 27L, 23L, 35L, 129L, 827L, 
+12L, 30L, 3L, 82L, 23L, 547L, 132L, 38L, 35L, 79L, 97L, 64L, 
+21L, 29L, 8L, 54L, 178L, 24L, 2L, 29L, 31L, 5L, 6L, 84L, 44L, 
+18L, 12L, 62L, 8L, 5L, 31L, 107L, 10L, 344L, 51L, 45L, 17L, 12L, 
+12L, 8L, 32L, 8L, 89L, 9L, 464L, 11L, 9L, 239L, 58L, 94L, 103L, 
+5L, 8L, 300L, 183L, 47L, 10L, 330L, 6L, 161L, 87L, 252L, 135L, 
+163L, 66L, 107L, 368L, 159L, 213L, 42L, 56L, 331L, 86L, 118L, 
+79L, 263L, 226L, 335L, 277L, 222L, 151L, 33L, 190L, 84L, 199L, 
+46L, 325L, 57L, 21L, 23L, 91L, 16L, 270L, 359L, 118L, 46L, 92L, 
+42L, 147L, 483L, 31L, 26L, 640L, 23L, 39L, 411L, 22L, 498L, 1398L, 
+87L, 132L, 325L, 70L, 164L, 19L, 63L, 45L, 377L, 87L, 115L, 172L, 
+99L, 80L, 15L, 560L, 25L, 63L, 32L, 39L, 501L, 47L, 8L, 22L, 
+125L, 31L, 56L, 27L, 36L, 31L, 51L, 5L, 50L, 13L, 137L, 19L, 
+146L, 8L, 56L, 222L, 37L, 14L, 11L, 327L, 27L, 84L, 40L, 74L, 
+56L, 25L, 45L, 5L, 20L, 52L, 382L, 25L, 17L, 73L, 85L, 48L, 15L, 
+64L, 57L, 24L, 21L, 17L, 111L, 9L, 63L, 70L, 38L, 18L, 573L, 
+67L, 65L, 771L, 24L, 47L, 53L, 454L, 21L, 37L, 86L, 15L, 102L, 
+101L, 223L, 15L, 109L, 67L, 53L, 230L, 23L, 42L, 55L, 200L, 258L, 
+76L, 91L, 29L, 57L, 26L, 74L, 28L, 18L, 26L, 5L, 9L, 8L, 287L, 
+7L, 21L, 21L, 9L, 242L, 6L, 57L, 177L, 26L, 146L, 161L, 160L, 
+491L, 35L, 247L, 48L, 53L, 715L, 24L, 63L, 160L, 65L, 257L, 85L, 
+78L, 25L, 76L, 270L, 31L, 138L, 187L, 234L, 159L, 45L, 100L, 
+281L, 61L, 65L, 144L, 122L, 63L, 72L, 466L, 106L, 21L, 682L, 
+26L, 37L, 92L, 168L, 14L, 190L, 27L, 71L, 71L, 353L, 73L, 46L, 
+46L, 24L, 143L, 22L, 27L, 6L, 34L, 153L, 61L, 20L, 2L, 64L, 29L, 
+178L, 110L, 28L, 67L, 15L, 133L, 80L, 7L, 26L, 29L, 12L, 13L, 
+2L, 348L, 10L, 5L, 149L, 6L, 161L, 14L, 28L, 5L, 33L, 18L, 69L, 
+3L, 30L, 345L, 48L, 48L, 13L, 8L, 4L, 57L, 84L, 34L, 2L, 26L, 
+72L, 425L, 24L, 77L, 57L, 10L, 53L, 14L, 164L, 49L, 9L, 721L, 
+155L, 31L, 35L, 150L, 139L, 93L, 49L, 60L, 5L, 40L, 14L, 994L, 
+17L, 55L, 15L, 95L, 23L, 22L, 15L, 88L, 40L, 28L, 24L, 19L, 112L, 
+84L, 72L, 139L, 22L, 116L, 0L, 23L, 45L, 68L, 28L, 16L, 10L, 
+79L, 424L, 65L, 48L, 402L, 7L, 41L, 8L, 35L, 63L, 120L, 8L, 38L, 
+1L, 344L, 75L, 46L, 149L, 21L, 8L, 36L, 10L, 115L, 29L, 5L, 6L, 
+16L, 0L, 90L, 10L, 45L, 1L, 418L, 32L, 10L, 18L, 20L, 15L, 12L, 
+6L, 46L, 162L, 14L, 42L, 5L, 134L, 6L, 4L, 40L, 3L, 15L, 9L, 
+3L, 88L, 7L, 43L, 11L, 25L, 30L, 25L, 20L, 20L, 246L, 10L, 56L, 
+52L, 6L, 28L, 46L, 20L, 37L, 39L, 3L, 60L, 18L, 1L, 47L, 83L, 
+18L, 6L, 25L, 127L, 53L, 16L, 21L, 129L, 5L, 59L, 138L, 16L, 
+34L, 1062L, 118L, 20L, 253L, 239L, 234L, 109L, 80L, 79L, 35L, 
+7L, 64L, 17L, 22L, 131L, 14L, 14L, 45L, 13L, 14L, 48L, 118L, 
+12L, 23L, 408L, 27L, 51L, 59L, 63L, 60L, 475L, 82L, 70L, 17L, 
+81L, 82L, 33L, 59L, 60L, 176L, 91L, 59L, 60L)), .Names = c("FIPS", 
+"MSA", "POP", "NPOs"), row.names = c(NA, -903L), class = "data.frame")
+```
+
+```{r}
+plot( dat$POP/1000, dat$NPOs, 
+      xlab="County Population (Thousands)", ylab="Number of Nonprofits", 
+      pch=19, col=gray(0.5,0.5), bty="n", main="Level-Level Model")
+```
+
+
+
+```{r}
+plot( log(dat$POP), dat$NPOs, 
+      xlab="County Population (Logged)", ylab="Number of Nonprofits", 
+      pch=19, col=gray(0.5,0.5), bty="n", main="Level-Log Model")
+```
+
+
+
+```{r}
+plot( dat$POP, log(dat$NPOs+1), 
+      xlab="County Population", ylab="Number of Nonprofits (Logged)", 
+      pch=19, col=gray(0.5,0.5), bty="n", main="Log-Level Model")
+```
+
+
+
+```{r}
+plot( log(dat$POP), log(dat$NPOs+1), 
+      xlab="County Population (Logged)", ylab="Number of Nonprofits (Logged)", 
+      pch=19, col=gray(0.5,0.5), bty="n", main="Log-Log Model")
+```
+
+
+
+
+
+```{r, echo=F}
+# > dput(d2[ c("GENDER","SALARY","REVENUE") ] )
+dat <-
+structure(list(GENDER = c("male", "male", "female", "male", "female", 
+"female", "female", "female", "male", "male", "female", "male", 
+"female", "male", "male", "female", "female", "female", "male", 
+"male", "female", "male", "male", "female", "female", "male", 
+"male", "male", "female", "female", "female", "male", "male", 
+"female", "male", "female", "female", "female", "female", "male", 
+"male", "female", "female", "female", "female", "female", "female", 
+"female", "female", "female", "male", "male", "female", "female", 
+"male", "female", "female", "male", "male", "female", "male", 
+"male", "male", "male", "female", "male", "female", "female", 
+"female", "female", "female", "male", "female", "female", "female", 
+"female", "male", "female", "male", "female", "male", "female", 
+"male", "female", "female", "male", "female", "female", "male", 
+"female", "female", "male", "female", "male", "female", "female", 
+"female", "female", "female", "female", "male", "male", "female", 
+"male", "male", "male", "female", "male", "male", "male", "female", 
+"female", "female", "male", "male", "female", "female", "female", 
+"male", "female", "male", "female", "female", "female", "female", 
+"female", "male", "female", "male", "female", "female", "male", 
+"male", "male", "female", "male", "male", "female", "female", 
+"female", "female", "female", "male", "male", "female", "female", 
+"female", "female", "female", "male", "male", "male", "male", 
+"male", "male", "female", "male", "male", "male", "male", "male", 
+"male", "male", "female", "male", "male", "female", "male", "female", 
+"female", "male", "female", "male", "male", "female", "female", 
+"male", "female", "female", "female", "female", "male", "female", 
+"female", "female", "male", "female", "female", "female", "male", 
+"female", "female", "male", "male", "male", "female", "female", 
+"male", "male", "female", "male", "female", "male", "female", 
+"male", "female", "male", "male", "female", "male", "female", 
+"male", "male", "male", "male", "male", "female", "female", "female", 
+"female", "male", "male", "male", "female", "female", "female", 
+"male", "female", "female", "female", "male", "male", "female", 
+"female", "female", "female", "male", "female", "female", "male", 
+"male", "male", "male", "male", "male", "male", "female", "male", 
+"female", "male", "male", "female", "female", "female", "male", 
+"male", "male", "female", "male", "female", "female", "male", 
+"male", "male", "female", "male", "female", "male", "female", 
+"male", "female", "male", "male", "female", "male", "female", 
+"female", "male", "female", "female", "male", "female", "male", 
+"female", "female", "female", "female", "female", "female", "male", 
+"female", "male", "male", "male", "male", "male", "male", "female", 
+"male", "male", "female", "male", "female", "female", "male", 
+"male", "female", "male", "female", "female", "male", "male", 
+"male", "female", "male", "male", "male", "female", "male", "female", 
+"male", "male", "female", "female", "female", "male", "male", 
+"female", "male", "male", "male", "male", "male", "female", "female", 
+"female", "male", "male", "female", "female", "female", "male", 
+"female", "male", "female", "female", "male", "female", "male", 
+"male", "male", "female", "female", "female", "male", "female", 
+"male", "female", "female", "female", "male", "male", "male", 
+"female", "male", "male", "female", "male", "male", "female", 
+"female", "male", "male", "female", "female", "male", "male", 
+"male", "male", "male", "female", "male", "female", "female", 
+"male", "male", "male", "male", "male", "female", "male", "male", 
+"male", "male", "male", "male", "female", "female", "female", 
+"female", "male", "female", "male", "male", "male", "female", 
+"female", "male", "male", "female", "female", "female", "female", 
+"male", "male", "male", "female", "female", "male", "female", 
+"male", "female", "female", "female", "male", "male", "male", 
+"female", "male", "male", "male", "female", "female", "male", 
+"female", "male", "male", "male", "male", "female", "male", "male", 
+"male", "male", "male", "female", "female", "male", "male", "male", 
+"female", "female", "male", "female", "male", "male", "female", 
+"male", "male", "male", "female", "female", "male", "male", "male", 
+"male", "male", "male", "male", "male", "male", "male", "female", 
+"male", "female", "female", "female", "male", "female", "male", 
+"male", "male", "male", "female", "male", "male", "male", "male", 
+"female", "male", "male", "male", "male", "female", "female", 
+"female", "male", "male", "female", "female", "female", "male", 
+"female", "male", "male", "female", "female", "female", "female", 
+"female", "male", "female", "male", "male", "female", "male", 
+"male", "male", "female", "male", "female", "female", "male", 
+"female", "female", "female", "female", "male", "male", "male", 
+"male", "female", "female", "female", "female", "male", "female", 
+"male", "female", "female", "female", "female", "female", "female", 
+"male", "female", "male", "female", "female", "female", "female", 
+"male", "male", "male", "female", "female", "female", "female", 
+"male", "female", "female", "male", "male", "female", "female", 
+"male", "male", "female", "female", "female", "female", "male", 
+"female", "male", "female", "male", "female", "male", "female", 
+"female", "female", "female", "female", "female", "male", "female", 
+"male", "male", "female", "female", "male", "male", "female", 
+"male", "female", "male", "female", "female", "female", "female", 
+"female", "male", "female", "female", "male", "male", "female", 
+"male", "male", "male", "female", "female", "male", "male", "male", 
+"male", "female", "female", "female", "male", "female", "female", 
+"female", "female", "female", "male", "female", "female", "female", 
+"female", "female", "female", "male", "female", "female", "male", 
+"male", "female", "male", "male", "female", "female", "male", 
+"female", "female", "female", "male", "female", "male", "male", 
+"female", "male", "female", "male", "female", "male", "male", 
+"male", "male", "female", "female", "male", "male", "female", 
+"female", "female", "male", "female", "female", "female", "male", 
+"female", "male", "female", "female", "female", "male", "male", 
+"male", "male", "male", "female", "female", "female", "male", 
+"female", "male", "female", "male", "female", "male", "female", 
+"male", "male", "male", "female", "male", "female", "male", "male", 
+"male", "female", "male", "female", "male", "female", "male", 
+"female", "male", "male", "female", "female", "female", "female", 
+"female", "male", "female", "female", "male", "male", "female", 
+"female", "male", "male", "male", "male", "female", "male", "male", 
+"male", "female", "male", "female", "female", "male", "female", 
+"female", "female", "male", "female", "female", "male", "male", 
+"female", "male", "female", "male", "female", "male", "male", 
+"female", "male", "male", "female", "female", "female", "male", 
+"female", "male", "male", "female", "female", "female", "male", 
+"female", "male", "male", "male", "female", "male", "male", "female", 
+"female", "female", "female", "male", "female", "male", "male", 
+"male", "male", "male", "male", "male", "male", "male", "female", 
+"male", "female", "female", "female", "female", "male", "female", 
+"female", "female", "male", "male", "male", "female", "male", 
+"female", "female", "male", "male", "male", "female", "female", 
+"female", "female", "male", "male", "female", "female", "female", 
+"female", "male", "female", "female", "female", "female", "female", 
+"male", "male", "male", "male", "male", "male", "male", "female", 
+"female", "male", "male", "female", "male", "male", "male", "female", 
+"female", "male", "male", "female", "female", "male", "female", 
+"female", "male", "male", "male", "male", "female", "male", "male", 
+"male", "male", "male", "female", "male", "male", "male", "female", 
+"female", "female", "female", "male", "female", "male", "female", 
+"male", "male", "female", "female", "female", "male", "female", 
+"female", "female", "male", "male", "male", "male", "female", 
+"female", "female", "male", "female", "female", "female", "male", 
+"female", "female", "male", "male", "male", "female", "female", 
+"male", "female", "male", "female", "male", "male", "female", 
+"female", "female", "female", "male", "male", "female", "male", 
+"male", "female", "female", "male", "female", "female", "male", 
+"male", "female", "male", "male", "male", "male", "male", "female", 
+"male", "female", "male", "male", "female", "female", "female", 
+"male", "male", "male", "female", "female", "male", "female", 
+"male", "female", "male", "female", "male", "male", "male", "male", 
+"female", "female", "female", "female", "female", "female", "female", 
+"female", "female", "female", "female", "female", "female", "female", 
+"female", "female", "female", "female", "female", "male", "female", 
+"female", "male", "female", "female", "male", "female", "male", 
+"female", "female", "female", "male", "male", "female", "male", 
+"male", "male", "male", "female", "female", "male", "male", "male", 
+"male", "female", "female", "male", "male", "male", "female", 
+"female", "male", "male"), SALARY = c(79593L, 409748L, 30766L, 
+32400L, 106873L, 71708L, 66300L, 25950L, 145840L, 11141L, 57333L, 
+79129L, 238121L, 325000L, 56750L, 74572L, 49533L, 218850L, 102798L, 
+89291L, 289928L, 89191L, 66000L, 107495L, 48000L, 16800L, 283263L, 
+109711L, 99274L, 58000L, 115000L, 183638L, 140L, 51108L, 80880L, 
+85342L, 51872L, 86124L, 80473L, 120000L, 110000L, 62400L, 92551L, 
+96515L, 59282L, 52462L, 258874L, 121750L, 81202L, 133594L, 30100L, 
+23750L, 136270L, 114869L, 37534L, 98576L, 60180L, 108516L, 20965L, 
+30741L, 521824L, 29400L, 137742L, 96084L, 99072L, 98934L, 89350L, 
+657424L, 88827L, 142053L, 124109L, 45694L, 203054L, 85000L, 63950L, 
+98987L, 92540L, 37082L, 65311L, 203575L, 81713L, 88037L, 60100L, 
+50708L, 34840L, 80806L, 42598L, 20814L, 218000L, 74480L, 181670L, 
+42200L, 45469L, 211174L, 57813L, 188450L, 29650L, 36840L, 118437L, 
+64822L, 111330L, 119029L, 8333L, 77280L, 158995L, 96668L, 78834L, 
+72000L, 37440L, 119241L, 104326L, 123993L, 74361L, 144411L, 41858L, 
+149613L, 294410L, 29400L, 83798L, 250000L, 116191L, 60000L, 49251L, 
+21406L, 44562L, 575L, 65000L, 78531L, 244058L, 59884L, 60263L, 
+80814L, 131804L, 87650L, 16973L, 1996284L, 41120L, 413657L, 64834L, 
+102691L, 113223L, 15375L, 182361L, 41238L, 90900L, 83897L, 58860L, 
+90000L, 150000L, 100035L, 55000L, 192672L, 60417L, 119715L, 104588L, 
+20000L, 102920L, 124089L, 12994L, 221607L, 573622L, 198162L, 
+102850L, 41924L, 104166L, 201898L, 137053L, 243329L, 75304L, 
+62190L, 58356L, 120525L, 406200L, 155328L, 27957L, 100775L, 150000L, 
+63547L, 70001L, 101000L, 68289L, 37000L, 178166L, 63500L, 124738L, 
+77509L, 3660L, 206961L, 504858L, 37497L, 231614L, 293808L, 79152L, 
+294743L, 126890L, 114737L, 12700L, 138986L, 46058L, 25351L, 162916L, 
+57680L, 48904L, 52492L, 66056L, 170126L, 225500L, 35705L, 42400L, 
+24432L, 145000L, 101735L, 92015L, 105983L, 22500L, 44000L, 22500L, 
+54580L, 87896L, 98936L, 55948L, 92309L, 127283L, 13889L, 55465L, 
+38400L, 44000L, 190171L, 104265L, 115710L, 168153L, 646340L, 
+100097L, 50952L, 87602L, 74110L, 216471L, 60480L, 44554L, 13590L, 
+6000L, 172717L, 227640L, 134761L, 7498L, 67151L, 142340L, 70154L, 
+72000L, 9000L, 55688L, 43237L, 32489L, 150533L, 74066L, 168568L, 
+53390L, 52630L, 113926L, 65000L, 140000L, 224440L, 86565L, 103015L, 
+53280L, 255000L, 67750L, 109500L, 12923L, 228510L, 46228L, 102306L, 
+30750L, 6600L, 197778L, 62000L, 67190L, 83128L, 48320L, 60723L, 
+83267L, 55000L, 69275L, 219693L, 37625L, 337800L, 72000L, 182853L, 
+14286L, 238506L, 64673L, 209139L, 88028L, 315262L, 61388L, 56625L, 
+136299L, 69060L, 86436L, 213745L, 316759L, 648046L, 197472L, 
+62000L, 53063L, 30000L, 120000L, 88222L, 97991L, 61239L, 112576L, 
+164974L, 106838L, 12520L, 82184L, 843014L, 1508560L, 32299L, 
+103000L, 42744L, 24900L, 92330L, 105336L, 58333L, 111780L, 90000L, 
+70394L, 47400L, 54500L, 68477L, 70756L, 46022L, 102396L, 118024L, 
+29828L, 103707L, 261686L, 76408L, 45982L, 109069L, 115928L, 55667L, 
+239531L, 427671L, 49750L, 82983L, 50000L, 95984L, 26000L, 106242L, 
+47054L, 22000L, 48095L, 34673L, 142921L, 63167L, 394711L, 71263L, 
+18000L, 87420L, 67651L, 62000L, 35103L, 65500L, 63136L, 91935L, 
+100511L, 52586L, 85833L, 65896L, 39539L, 92822L, 49800L, 50000L, 
+66402L, 52925L, 58978L, 66538L, 34950L, 174882L, 86500L, 103897L, 
+17600L, 41184L, 159574L, 31500L, 216104L, 671449L, 97945L, 84534L, 
+112046L, 208032L, 100833L, 148524L, 253402L, 215125L, 37250L, 
+91542L, 31200L, 55385L, 104880L, 36379L, 264802L, 38000L, 65187L, 
+20161L, 51640L, 38900L, 127862L, 30750L, 271938L, 302344L, 41162L, 
+15245L, 234907L, 212055L, 142397L, 56000L, 195690L, 51687L, 19491L, 
+78625L, 228166L, 307292L, 282644L, 60967L, 193607L, 40000L, 91778L, 
+175099L, 46886L, 142547L, 89777L, 49516L, 137150L, 136000L, 48731L, 
+224187L, 148133L, 82409L, 157266L, 184348L, 11225L, 146002L, 
+255635L, 28726L, 62400L, 28750L, 31114L, 30000L, 69959L, 89242L, 
+108508L, 59000L, 210580L, 7460L, 79999L, 59343L, 92028L, 87914L, 
+117095L, 76000L, 115141L, 82978L, 47175L, 255026L, 20256L, 91768L, 
+297397L, 76505L, 73252L, 26079L, 242118L, 99223L, 85878L, 133967L, 
+135000L, 293692L, 20000L, 156466L, 91242L, 70683L, 214495L, 45000L, 
+102566L, 78960L, 289627L, 107312L, 109375L, 709522L, 447800L, 
+47569L, 198154L, 135200L, 91872L, 35000L, 121540L, 94796L, 84981L, 
+38850L, 16800L, 307292L, 93250L, 146372L, 5000L, 64992L, 67188L, 
+42090L, 56065L, 32906L, 52195L, 181398L, 151024L, 131202L, 110612L, 
+329899L, 159324L, 37000L, 61940L, 120000L, 72758L, 12000L, 95273L, 
+47255L, 35964L, 50000L, 55805L, 96820L, 111922L, 62060L, 41917L, 
+63811L, 86224L, 94162L, 108331L, 69600L, 110592L, 82332L, 78648L, 
+222767L, 52823L, 53505L, 50003L, 166275L, 130561L, 24177L, 31601L, 
+20000L, 71575L, 183192L, 87242L, 92700L, 187711L, 174615L, 16000L, 
+112741L, 80768L, 82766L, 32319L, 104270L, 170323L, 107444L, 22180L, 
+18000L, 42840L, 171258L, 70585L, 203464L, 726464L, 37350L, 69166L, 
+74348L, 75750L, 200844L, 33633L, 142648L, 80680L, 98792L, 264460L, 
+66682L, 57101L, 73448L, 35000L, 12000L, 75000L, 68000L, 85000L, 
+158830L, 46093L, 96430L, 91320L, 155500L, 35734L, 64317L, 145665L, 
+44587L, 77081L, 101975L, 93805L, 130669L, 13800L, 87432L, 403696L, 
+54052L, 44205L, 80000L, 186776L, 130000L, 104915L, 120000L, 131550L, 
+5734L, 88550L, 129750L, 11845L, 119400L, 46572L, 32194L, 64758L, 
+101667L, 101585L, 48948L, 48202L, 88021L, 229514L, 215000L, 10171L, 
+99125L, 93805L, 133000L, 252214L, 80000L, 179631L, 88191L, 108605L, 
+26531L, 79692L, 52600L, 114999L, 271782L, 78923L, 47730L, 628666L, 
+61982L, 116094L, 23200L, 347671L, 81707L, 95047L, 60417L, 193137L, 
+92295L, 57911L, 149400L, 97987L, 1136L, 39000L, 23667L, 49500L, 
+60466L, 60691L, 172002L, 120000L, 133377L, 101794L, 46099L, 232393L, 
+75267L, 48410L, 48272L, 96332L, 145465L, 216667L, 16273L, 48864L, 
+66237L, 97243L, 126000L, 44214L, 105000L, 139700L, 91721L, 125222L, 
+54000L, 75000L, 34226L, 179586L, 29704L, 124315L, 101812L, 93317L, 
+104825L, 620L, 115000L, 81477L, 54405L, 253648L, 43300L, 83142L, 
+250000L, 34738L, 104090L, 433769L, 75916L, 93005L, 205000L, 280754L, 
+27500L, 96000L, 154147L, 95375L, 95601L, 45500L, 54314L, 47338L, 
+125068L, 52325L, 157619L, 119242L, 35000L, 97823L, 41134L, 170015L, 
+132454L, 152880L, 64275L, 62000L, 112783L, 132801L, 211973L, 
+68837L, 166183L, 92250L, 27402L, 120177L, 56143L, 48921L, 84095L, 
+32170L, 216212L, 84750L, 92845L, 70917L, 49905L, 133573L, 2238L, 
+68450L, 63019L, 123400L, 87795L, 127737L, 77000L, 108749L, 94640L, 
+64060L, 110000L, 227015L, 342255L, 84161L, 46169L, 55315L, 80351L, 
+65000L, 51100L, 62005L, 46490L, 227571L, 130860L, 64423L, 225103L, 
+114470L, 77800L, 49813L, 47763L, 55620L, 72618L, 37150L, 546725L, 
+108000L, 80125L, 131071L, 293693L, 82288L, 526843L, 63381L, 126840L, 
+44733L, 346089L, 99996L, 24900L, 83246L, 248214L, 1200L, 48925L, 
+50003L, 43750L, 70612L, 108907L, 58624L, 99645L, 113300L, 84341L, 
+63882L, 347675L, 47441L, 13715L, 171431L, 42500L, 87750L, 115000L, 
+121234L, 81001L, 154529L, 74168L, 68540L, 97245L, 35000L, 19568L, 
+87398L, 127429L, 36740L, 77314L, 128773L, 117396L, 373650L, 236454L, 
+116118L, 113939L, 56374L, 55271L, 66260L, 222044L, 82929L, 90188L, 
+112849L, 260610L, 494620L, 140901L, 69510L, 425298L, 330000L, 
+31363L, 355854L, 283955L, 364466L, 72953L, 9600L, 57000L, 47850L, 
+102045L, 269181L, 56222L, 100081L, 50000L, 412727L, 15606L, 139954L, 
+52544L, 121423L, 85000L, 148167L, 226236L, 198689L, 43058L, 673065L, 
+52341L, 77286L, 26000L, 90900L, 46300L, 45000L, 116476L, 63600L, 
+236812L, 187500L, 50000L, 78980L, 59500L, 60641L, 177901L, 101629L, 
+115000L, 117680L, 103174L, 122484L, 42925L, 16412L, 91329L, 115749L, 
+70796L, 45195L, 310721L, 140625L, 700L, 87875L, 61404L, 118392L, 
+58054L, 289736L, 127418L, 159456L, 25232L, 105922L, 96203L, 28841L, 
+80000L, 43289L, 74231L, 47080L, 14000L, 122000L, 5315L, 274063L, 
+113000L, 44056L, 130705L, 182092L, 73000L, 82889L, 37937L, 95515L, 
+29810L, 254005L, 185416L, 186310L, 37000L, 110000L, 24000L, 106721L, 
+92700L, 384728L, 56466L, 401254L, 182193L, 90921L, 42447L, 80600L, 
+162042L, 75106L, 10064L, 83854L, 125000L, 30741L, 64280L, 51426L, 
+165000L, 91625L, 116875L, 66340L, 58353L, 60446L, 6656L, 96593L, 
+29100L, 25962L, 4985L, 85000L, 128751L, 80000L, 82324L, 99869L, 
+73217L, 111078L, 48000L, 107022L, 96469L, 95175L, 51686L, 87150L, 
+373318L, 42692L, 116591L, 88490L, 105500L, 143123L, 87945L, 54367L, 
+70520L, 195113L, 109500L, 124904L, 6819L, 4420L, 266334L, 174150L, 
+83474L, 92409L, 312623L, 45000L, 63200L, 131365L, 79217L, 119077L, 
+157938L, 208236L, 116297L, 100231L, 30085L, 200000L, 25000L), 
+    REVENUE = c(7360724, 81415646, 335043, 881075, 1319335, 11868961, 
+    1293106, 226101, 3280823, 517344, 501036, 2390519, 92487739, 
+    8521857, 387681, 1700332, 1795365, 3115535, 9388111, 1113612, 
+    42872931, 1194089, 475852, 1262814, 413071, 167214, 71683541, 
+    9756765, 3763062, 484405, 3514563, 7208687, 446846, 631342, 
+    2160823, 3338325, 299796, 729070, 476459, 731613, 2729586, 
+    1240166, 692446, 513319, 1044587, 3799599, 13117669, 19041239, 
+    963336, 5245067, 275659, 890501, 358314, 8628613, 438345, 
+    605126, 424441, 13791070, 1041384, 690328, 229028597, 122930, 
+    3631306, 2187971, NA, 1454852, 1942519, 224753563, 13415220, 
+    1527978, 11105663, 2544236, 20320469, 418681, 581019, 2497972, 
+    1319958, 227091, 937091, 1358293, 519385, 4338326, 560102, 
+    6633693, 328402, 1000443, 217498, 208863, 2264090, 649703, 
+    1798904, 352339, 1891412, 5913104, 388117, 2487770, 307948, 
+    31072, 2650657, 1194322, 1665150, 2460522, 900774, 490731, 
+    121648963, 727114, 333385, 334716, 321625, 6939524, 931530, 
+    7127392, 1332630, 14105422, 553828, 1405892, 23326382, 365581, 
+    4451315, 8966962, 1776252, 546755, 454964, 64412, 231294, 
+    3136627, 820129, 1837289, 3631659, 1362695, 1068073, 577791, 
+    51958797, 3724068, 70008, 376362848, 77531, 197789641, 805599, 
+    926695, 6496289, 295751, 12432337, 2273729, 1471942, 346042, 
+    299172, 5908802, 831795, 1880367, 578805, 6736384, 455785, 
+    3155893, 905071, 290116, 358054, 498647, 312095, 22931198, 
+    292822993, 14899142, 1181899, 1081645, 1139575, 8298851, 
+    NA, 17811852, 886733, 204692, 159581, 7339679, 33037466, 
+    6398190, 161468, 10227360, 6282967, 234172, 3756359, 596189, 
+    243323, 634124, 63523660, 743705, 1491629, 839639, 282868, 
+    33486313, 148959362, 928684, 78915556, 35228760, 5574769, 
+    1990314, 7134152, 147980, 425692, 3130145, 497460, 1031273, 
+    6565214, 1275696, 748351, 1606224, 1372031, 10296036, 1893482, 
+    335823, 220608, 211166, 10994214, 12094019, 9696469, 960405, 
+    43314, 134292, 728646, 685791, 2066549, 7905553, 331185, 
+    2501112, 1459636, 211953, 285198, 121060, 369894, 3045978, 
+    3288636, 2414595, 2759825, 221597280, 811610, 500009, 2427050, 
+    218930, 1117117, 129627, 377015, 309748, 249936, 3625014, 
+    5065861, 54386298, 790218, 758848, 956812, 264386, 275127, 
+    160417, 251296, 65087, 137311, 1855492, 3517113, 6449759, 
+    429312, 210631, 1097173, 1317133, 4057309, 151641877, 9685943, 
+    4352262, 652892, 1986172, 895299, 1115778, 437500, 39476125, 
+    1450150, 1243539, 248112, 96314, 12552812, 285921, 462293, 
+    1399533, 0, 4132673, 2003679, 150889, 278013, 33302235, 329465, 
+    NA, 1798056, 998726, 333253, 10117119, 2877185, 44980171, 
+    1179222, 24077880, 1725055, 5967260, 2042285, 1548799, 1792992, 
+    7989777, 38087672, 21648122, 4316789, 692774, 363397, 536866, 
+    4232334, NA, 8642613, 665828, 889680, 1248445, 194967, 75675, 
+    2284797, 123938882, 9304339, 67763, 620882, 249526, 218280, 
+    6067525, 2574617, NA, 1747078, 225948, 565948, NA, 933095, 
+    5082739, 454618, 1496256, 567558, 3141042, 337049, 2573591, 
+    15425982, 479441, 766568, 2883563, 2624106, 5440772, 9234510, 
+    62411491, 674169, 1159303, 374803, 2413584, 230765, 1239177, 
+    669684, 247547, 240058, 1065087, 5763535, 869688, 68879973, 
+    548820, 685392, 1384518, 10096732, NA, 395282, 566400, 6924070, 
+    1112418, 2906652, 18894743, 990659, 2820629, 678871, 1909990, 
+    1618912, 386101, 327754, 207316, 1008983, 495030, 1123199, 
+    437750, 180083, 14957080, 9285, 270615, 25153395, 135399, 
+    4498897, 227811415, 464834, 8997312, 12297443, 19979952, 
+    1465357, 9873139, 29508471, 3301927, 82304, 2040271, 263376, 
+    342445, 504299, 236520, 65806449, 235307, 1706229, 135677, 
+    1442285, 1406866, 5209528, 162434, 4850234, 50067713, 190569, 
+    304470, 20567607, 31065429, 2505161, NA, 19089266, 324833, 
+    111564, 1871981, 24704262, 4645299, 15289330, 958090, 21035282, 
+    285019, 29392535, 4125996, 154943, 1304407, 6337446, 360849, 
+    2280253, NA, 120005, 17325037, 4356100, NA, 13435127, 4332660, 
+    6792, 887767, NA, 264736, 483585, 91393, 211943, 2744486, 
+    1271697, 272989, 24842062, 275017, 12667785, 332709, 732887, 
+    2183453, 8552727, 730772, 2694775, 362843, 6243200, 750563, 
+    579942, 61555405, 38118460, 6374079, 117054842, 5436381, 
+    5137771, 313660, 3118753, 1022500, 1531729, 3067557, 1004016, 
+    39955595, 245763, 9327225, 2381721, 839439, 21290857, 550271, 
+    6139861, 927123, 27877149, 10060894, 585897, 41934832, NA, 
+    5064935, 16201543, 2410209, 1471312, 158951, 1368656, 1260396, 
+    2722574, 671763, 280846, 786408, 641767, 10124051, 38425, 
+    1249366, NA, 699985, 250790, 404755, 565055, 5848626, 14719062, 
+    3951983, 1557076, 102068874, 23161390, 117827, 1914481, 3182622, 
+    1063586, 203311, 4425141, 510985, 334496, 178846, 1065803, 
+    2823443, 800390, NA, 579040, 691791, 1263871, 1664546, 9902974, 
+    293443, NA, 1505482, 1724105, 32117319, 361692, 550369, 231048, 
+    47671513, 843452, 744354, 113018, 96915, 918611, 18520615, 
+    2532399, 6565774, 2038650, 52768515, 337092, 12586829, 9953901, 
+    440723, 1117214, 2146276, NA, 2111447, 398167, 275309, 627651, 
+    7806266, 1138471, 22032383, 226416710, 240109, NA, 574191, 
+    276728, 1636542, 661798, 323049, 1069837, 2756043, 13999755, 
+    430890, 866118, 441377, 4465516, 92114, 7302382, 1204050, 
+    54388, 2364702, 646303, 3700989, 378097, 2064381, 277935, 
+    355033, 1798787, NA, 965372, 2939704, 5396881, 1382435, 198415, 
+    1745386, 11424839, 777862, 679762, 3887883, 1757290, NA, 
+    NA, NA, NA, 272401, 557610, 19421482, 167126, 7785133, 245721, 
+    138959, 668004, NA, 4517829, 395010, 708397, 1689526, 7896295, 
+    4691305, 224192, 1851677, 5003524, 2360269, 16332777, 1956139, 
+    NA, 655183, 3843580, 2575914, NA, 502629, 7449139, NA, 437004, 
+    242479, 354586298, 611911, 2327992, 425239, 33788144, 10342304, 
+    3675391, 434150, 30880818, 49073812, 419461, 895393, 3582712, 
+    117452, 230839, 403044, 232186, 2521349, 938520, 20329420, 
+    2972165, 8079337, 9828576, NA, 41756676, 3766468, 439087, 
+    1010074, 1557973, 5620037, 94010, 661088, 755419, 1530564, 
+    578260, 1214662, 303594, 580143, 478926, 320340, 3897614, 
+    398022, 178261, 261165, 43001063, NA, 1894832, 3301842, 2122743, 
+    NA, 452802, 14608600, 1103869, 981874, 17770430, 214987, 
+    684166, 12737145, 1017716, 2958938, 72596742, 1570522, 662371, 
+    16754705, 3118036, 103395, 217964, 4355978, 3269513, 960637, 
+    1549621, 150120, 2919730, 19342996, 110991, 2877498, 34834390, 
+    272238, 17956267, 527109, 2297615, 8582529, 809253, 870758, 
+    717832, 2184354, 7888392, 4087783, 1409006, 14162374, 745682, 
+    114546, 327111, 1930701, 799945, 3895586, 10050975, 3086597, 
+    345079, 860456, NA, 209855, 978073, 6858274, 6830280, 252445, 
+    1161223, 1471521, 3616732, 1118341, 827440, 774929, 183782, 
+    1635374, 13731567, 841809, 1003204, 1169686, 400035, 1863092, 
+    995888, 241975, 3133539, 516404, 24009490, 2186282, 1059826, 
+    12070497, 1313499, 1050320, 205445, 262329, 239003, 839569, 
+    422023, 237481682, 871273, 384738, 33640364, 89048075, 2477539, 
+    14100244, 680470, 1707105, 137326, 95892376, 7191043, 245207, 
+    NA, 45904654, 12151403, 467834, 377020, 185742, 1384797, 
+    2583025, 2245475, 2440677, 445491, 5338022, 336961, 125763492, 
+    106924, 189230, 5441430, 276281, 931907, NA, 15816503, 4592727, 
+    2061884, 12210702, 3740047, 751000, 256874, 1055708, 1021940, 
+    2012172, 221773, 1416838, 1801542, 18686931, 7463664, 3501782, 
+    2200028, 361388, 1282415, 292401, 557848, 2306548, 1858013, 
+    957631, 1377964, 16431540, 19214533, 5146230, 812034, 8123182, 
+    33645551, 1692068, 164848594, 50658997, 34499953, 554932, 
+    325260, 380041, 377204, 2166554, 13734329, 260532, 3075098, 
+    280245, 218975795, 364322, 455857, 15664490, 4355914, 376299, 
+    2492500, 7306708, 162574837, 668723, 163879713, 1470726, 
+    1334713, 386277, 1244631, 1141374, 1380203, 504477, 342268, 
+    29050642, NA, 420772, 1613386, 1235993, 1476966, 39516456, 
+    9543757, 1968102, 17044738, 572423, 4397299, 430256, 177277, 
+    961710, 3843083, 2910853, 458233, 6762058, 422955, 65697, 
+    639853, 266924, 2205888, 454253, 84629391, 13071771, 846203, 
+    356493, 5677384, 1240681, 156711, 140995, 547961, 4743774, 
+    351366, 281867, 2986232, 1715049, 39258631, 1743619, 366509, 
+    2420243, 23286294, 477176, 3337198, 1354003, 603110, 193296, 
+    18981250, 10918403, NA, 506916, 840657, 326954, 7006982, 
+    4929040, 105563521, 787186, 78197832, 4936279, 9839198, 481861, 
+    385512, 14158163, 1931814, 851101, NA, 1156194, 181193, 198956, 
+    614391, 8671212, 517533, 1525142, 1442633, 4201631, 1380247, 
+    13376, 411615, 316384, 350127, 29196, 1138929, 2345113, 802429, 
+    518797, 8007435, 322543, 3113563, 218030, 2024698, 4479816, 
+    607931, 1801419, 1217573, 27991746, 565370, 2271559, 1016322, 
+    1564422, 35190519, 8273945, 101580, 244144, 11042719, 2175451, 
+    5096829, 748206, 375994, 3264211, 25317244, 1156906, 2478146, 
+    166921419, 326185, 1211784, 40617957, 877217, 32725912, 85681015, 
+    NA, 3423814, 2945143, 75633, 7465964, 94074)), .Names = c("GENDER", 
+"SALARY", "REVENUE"), row.names = c(58530L, 5347L, 64347L, 62538L, 
+18738L, 28522L, 38010L, 22623L, 3413L, 50897L, 10747L, 39194L, 
+65337L, 60855L, 16933L, 59346L, 48497L, 40606L, 23802L, 23456L, 
+6848L, 13192L, 52465L, 42863L, 25132L, 45841L, 62022L, 40902L, 
+54989L, 15875L, 14383L, 57628L, 26982L, 55517L, 12297L, 61510L, 
+58700L, 63037L, 1915L, 22174L, 13211L, 47589L, 62528L, 44781L, 
+62387L, 34025L, 40255L, 10454L, 31249L, 5284L, 23112L, 31236L, 
+42016L, 8792L, 47269L, 52476L, 60916L, 61361L, 27977L, 64310L, 
+44129L, 58867L, 65850L, 14075L, 67678L, 49073L, 27870L, 13574L, 
+34940L, 27996L, 40147L, 19290L, 60137L, 33701L, 38753L, 53116L, 
+42129L, 23849L, 35343L, 54778L, 22783L, 54012L, 55732L, 32916L, 
+20204L, 32796L, 30984L, 29788L, 63185L, 19747L, 6987L, 46985L, 
+9713L, 60079L, 57499L, 38261L, 54464L, 23836L, 13993L, 44190L, 
+50039L, 44261L, 7188L, 12308L, 27041L, 25394L, 31904L, 57815L, 
+900L, 26455L, 26973L, 37563L, 213L, 1268L, 29984L, 19511L, 45765L, 
+29388L, 30865L, 48365L, 61661L, 55429L, 60970L, 33759L, 32269L, 
+26764L, 41408L, 49832L, 40367L, 31357L, 39939L, 46417L, 6341L, 
+62301L, 51332L, 739L, 60111L, 60829L, 11203L, 22859L, 493L, 16839L, 
+28505L, 32721L, 3714L, 19638L, 25767L, 22659L, 6223L, 25365L, 
+57098L, 28388L, 18441L, 31172L, 2565L, 57116L, 9500L, 26711L, 
+21354L, 4187L, 7957L, 25307L, 52522L, 54007L, 50960L, 5570L, 
+66954L, 6001L, 17374L, 45212L, 23490L, 57359L, 13623L, 16955L, 
+59792L, 38836L, 39487L, 65856L, 46783L, 18762L, 11597L, 40178L, 
+22352L, 47120L, 28547L, 47588L, 36564L, 8843L, 45512L, 48974L, 
+54587L, 15126L, 15402L, 42625L, 27105L, 65582L, 23719L, 34203L, 
+28070L, 60500L, 13961L, 43473L, 37635L, 34495L, 57798L, 38353L, 
+22038L, 58821L, 19530L, 62589L, 65075L, 129L, 50409L, 39542L, 
+25144L, 14346L, 18955L, 32385L, 5113L, 17695L, 47037L, 53790L, 
+53576L, 41863L, 27811L, 12076L, 18043L, 59530L, 815L, 64729L, 
+10711L, 19039L, 53682L, 43821L, 63810L, 14834L, 2498L, 29597L, 
+26740L, 11938L, 36218L, 17285L, 53073L, 48548L, 14822L, 56755L, 
+10203L, 61154L, 59928L, 61609L, 20620L, 53L, 65590L, 5623L, 19649L, 
+64952L, 39568L, 51396L, 63458L, 20987L, 60857L, 2073L, 32519L, 
+50916L, 41400L, 5667L, 63226L, 25460L, 51293L, 36342L, 59161L, 
+18546L, 37921L, 10112L, 57630L, 43330L, 2884L, 62591L, 49987L, 
+34637L, 27973L, 53663L, 5206L, 3021L, 23530L, 66511L, 58246L, 
+17255L, 59005L, 48201L, 30726L, 65060L, 53354L, 50327L, 54164L, 
+29483L, 48753L, 43792L, 1983L, 15474L, 45448L, 7217L, 65115L, 
+18872L, 49188L, 58022L, 64858L, 66735L, 19901L, 8354L, 16283L, 
+37814L, 28988L, 35025L, 62009L, 46102L, 16314L, 52964L, 10552L, 
+12353L, 6777L, 1229L, 64262L, 67995L, 31395L, 5008L, 64453L, 
+67484L, 42068L, 37768L, 1491L, 51463L, 47572L, 47880L, 58962L, 
+60947L, 17186L, 57651L, 39588L, 55296L, 24080L, 36088L, 48256L, 
+48079L, 22053L, 14770L, 24498L, 38304L, 12793L, 56459L, 64327L, 
+19861L, 62608L, 5345L, 45977L, 53568L, 25816L, 34930L, 10198L, 
+27746L, 47412L, 37999L, 50101L, 12139L, 25327L, 1856L, 17082L, 
+55041L, 14836L, 32715L, 61715L, 15893L, 26598L, 17775L, 58665L, 
+61092L, 23724L, 31714L, 60231L, 41694L, 21648L, 15878L, 56050L, 
+45881L, 37430L, 21902L, 60656L, 19040L, 46754L, 14013L, 19341L, 
+17866L, 5516L, 4703L, 42791L, 4070L, 42206L, 65698L, 11056L, 
+57436L, 12233L, 47362L, 64897L, 23945L, 46848L, 26332L, 41605L, 
+37782L, 32123L, 54904L, 48627L, 5531L, 38615L, 61860L, 4508L, 
+65455L, 5044L, 51490L, 48578L, 17333L, 39688L, 65503L, 18679L, 
+25579L, 7954L, 23246L, 13092L, 10001L, 60653L, 54533L, 21491L, 
+64030L, 58407L, 33277L, 60871L, 68158L, 40037L, 9670L, 49165L, 
+65978L, 42710L, 24689L, 40183L, 1840L, 67262L, 50077L, 20059L, 
+21352L, 41371L, 7703L, 44547L, 11832L, 60237L, 43208L, 18163L, 
+15779L, 37831L, 44398L, 8290L, 53419L, 10737L, 29485L, 23541L, 
+19005L, 30568L, 26887L, 4594L, 50375L, 54762L, 51112L, 27261L, 
+12082L, 40711L, 24168L, 1784L, 42166L, 64397L, 27154L, 4856L, 
+9066L, 38704L, 15990L, 35469L, 60753L, 38453L, 29781L, 42454L, 
+23348L, 49384L, 53167L, 66268L, 36885L, 38187L, 61152L, 50922L, 
+12161L, 16139L, 19287L, 18121L, 47286L, 51884L, 25577L, 11089L, 
+57833L, 5500L, 53169L, 67818L, 50444L, 34831L, 47616L, 63373L, 
+40588L, 15593L, 44144L, 47909L, 50180L, 23427L, 47198L, 47981L, 
+12164L, 51270L, 46721L, 26216L, 31572L, 8372L, 22841L, 9351L, 
+52770L, 61266L, 66907L, 50257L, 15540L, 43425L, 21982L, 35545L, 
+14536L, 67968L, 55352L, 4138L, 5520L, 16463L, 53701L, 22020L, 
+14577L, 61422L, 42826L, 35283L, 14779L, 31863L, 31895L, 27524L, 
+29786L, 37529L, 26925L, 27942L, 2792L, 49266L, 63347L, 31462L, 
+28763L, 5454L, 50310L, 47349L, 26600L, 26807L, 17659L, 19551L, 
+60781L, 12945L, 18234L, 67492L, 43542L, 41220L, 54607L, 33846L, 
+25241L, 44670L, 7735L, 4888L, 53527L, 36004L, 36061L, 5734L, 
+36786L, 51268L, 49113L, 16335L, 43431L, 37680L, 49681L, 51888L, 
+49950L, 26423L, 26800L, 56897L, 68040L, 61564L, 21005L, 30770L, 
+5945L, 43607L, 51296L, 56646L, 35954L, 35798L, 5584L, 23413L, 
+67865L, 24984L, 67574L, 66280L, 29001L, 3455L, 43886L, 61864L, 
+45581L, 39235L, 18052L, 439L, 65962L, 29996L, 34830L, 45585L, 
+56665L, 56170L, 61821L, 55806L, 50650L, 30769L, 61539L, 47748L, 
+18579L, 66445L, 46525L, 23482L, 37332L, 67836L, 59712L, 26196L, 
+67911L, 13990L, 2733L, 49608L, 61207L, 40908L, 22429L, 33985L, 
+35825L, 32296L, 54736L, 37279L, 48547L, 33270L, 28752L, 36638L, 
+34334L, 7245L, 37518L, 28028L, 34517L, 31444L, 26915L, 56405L, 
+35904L, 38420L, 66143L, 36380L, 53724L, 29026L, 9440L, 7499L, 
+7659L, 12236L, 44074L, 16426L, 32711L, 35050L, 20177L, 54201L, 
+21783L, 20391L, 22082L, 48474L, 11648L, 16512L, 58345L, 62238L, 
+22669L, 37440L, 64219L, 9305L, 68213L, 58229L, 29325L, 41428L, 
+23787L, 63753L, 60532L, 25940L, 58659L, 28058L, 21180L, 64878L, 
+17134L, 7116L, 15658L, 6906L, 64400L, 21414L, 12876L, 62252L, 
+60401L, 56444L, 57109L, 50406L, 271L, 11288L, 59520L, 2121L, 
+15725L, 62626L, 2483L, 52589L, 9022L, 56690L, 48924L, 18871L, 
+43049L, 38457L, 57741L, 54739L, 17680L, 13361L, 31113L, 29901L, 
+33181L, 43959L, 46588L, 7543L, 42540L, 14337L, 61127L, 67048L, 
+45749L, 37656L, 56765L, 19211L, 40481L, 61118L, 63743L, 17773L, 
+10465L, 61511L, 17318L, 39979L, 3418L, 17041L, 2724L, 27027L, 
+64447L, 59027L, 254L, 10781L, 22198L, 51432L, 11685L, 15274L, 
+21645L, 40388L, 44417L, 60809L, 36152L, 18669L, 10225L, 56133L, 
+13302L, 47378L, 5030L, 56974L, 64454L, 9926L, 6014L, 32965L, 
+19066L, 49745L, 46581L, 28997L, 9020L, 9325L, 50700L, 68017L, 
+24922L, 50462L, 42093L, 11344L, 59115L, 33497L, 43462L, 14947L, 
+59717L, 7521L, 51648L, 29598L, 42493L, 26400L, 25319L, 46946L, 
+63366L, 11188L, 65930L, 52883L, 63895L, 1119L, 11394L, 52114L, 
+4719L, 10431L, 48519L, 20377L, 32851L, 43417L, 51668L, 669L, 
+8063L, 11640L, 52813L, 55294L, 10005L, 15631L, 49896L, 5457L, 
+39798L, 34272L, 52671L, 23320L, 7175L, 26409L, 53510L, 59545L, 
+9676L, 8056L, 30249L, 44115L, 16864L, 6352L, 3778L, 52997L, 47659L, 
+45676L, 65522L, 20799L, 33271L, 33873L, 65357L, 7749L, 43278L, 
+10968L, 54593L, 28874L, 45332L, 14724L, 48730L, 64568L, 13578L, 
+57261L, 3967L, 51957L, 60196L, 62417L, 64435L, 46756L, 58200L, 
+22654L, 15758L, 66588L, 31346L, 2805L, 65401L, 33278L, 15208L, 
+64009L, 26085L, 126L, 26612L, 36621L, 60942L, 14282L, 49912L, 
+57402L, 58287L, 26169L, 7915L, 57277L, 34707L, 64526L, 54294L, 
+13575L, 37193L, 29872L, 60492L, 46130L, 10607L, 54614L, 15609L, 
+24488L, 42276L, 50646L, 1102L, 31327L, 22520L, 40521L, 64548L, 
+16721L, 64735L, 36309L, 62790L, 2917L, 1492L, 51114L, 25141L, 
+26269L, 3937L, 1239L, 4204L, 67138L, 47459L, 42182L, 55283L, 
+39663L, 46900L, 35582L, 387L, 5978L, 61856L, 31695L, 32583L, 
+17232L, 46450L, 21720L, 29279L, 66015L, 988L, 9339L, 29813L, 
+42256L, 13069L, 47294L, 65829L, 10232L, 26324L, 50422L, 25203L, 
+50095L, 43312L, 41935L, 20140L, 16308L, 45127L, 48700L, 34933L, 
+23924L, 38619L, 64804L, 27785L, 39868L, 52601L, 5189L, 43745L, 
+63747L, 43816L, 54951L, 14343L, 58964L, 42311L, 34684L, 37796L, 
+39804L, 53124L, 59256L, 22954L, 54775L, 54031L, 18828L, 34757L, 
+19051L, 22855L, 42828L, 51045L, 39151L, 9008L, 30766L, 46822L, 
+13282L, 15050L, 68104L, 5866L, 37162L, 16209L, 17904L, 4881L), class = "data.frame")
+```
+
+Recall that log functions are very useful when our data is skewed:
+
+```{r}
+
+par( mfrow=c(1,2) )
+
+plot( dat$REVENUE, dat$SALARY, xlab="REVENUE", ylab="SALARY", bty="n",
+      main="Level-Level Model", col=gray(0.5,0.5), pch=19, cex=1.5 )
+
+plot( log(dat$REVENUE), log(dat$SALARY), xlab="REVENUE (log)", ylab="SALARY(log)", bty="n",
+      main="Log-Log Model", col=gray(0.5,0.5), pch=19, cex=1.5 )
+
+
+```
+
+
+The main challenge is that using logs changes the interpretation of the data because our data now represents growth rates, not levels. We can no longer say that a one-unit change in X results in a B1 change in Y. Slopes now represent rates of change, not levels of change.
+
+We can, however, convert logged models back into level units if we desire to interpret them directly.
+
+
+```{r, echo=F, results='asis'}
+
+dat <- dat[ dat$REVENUE != 0 , ]
+
+dat$MALE <- as.numeric( dat$GENDER == "female" )
+
+m1 <- lm( log(SALARY) ~ log(REVENUE), data=dat )
+m2 <- lm( log(SALARY) ~ log(REVENUE) + MALE, data=dat )
+m3 <- lm( log(SALARY) ~ log(REVENUE) * MALE, data=dat )
+
+
+library( stargazer )
+
+stargazer( m1, m2, m3, type="html", 
+           digits=2, 
+           omit.stat=c("f","adj.rsq","ser"),
+           intercept.bottom = FALSE )
+
+
+```
+
+
+## Interpretting Results
+
+Let's use Model 1 for the basic interpretation of the slope in a Log-Log model.
+
+If both the DV and IV have been log-transformed then the slope B1 will represent a comparison of rates of change, something that you should recognize from your economics classes as an elasticity. 
+
+In this case, instead of interpretting B1 as a unit change in Y as a response to a one-unit change in X, we interpret B1 as a percentage change in Y as a result of a one-percent change in X.
+
+Since B1 is 0.35 in Model 1, we would say that a ten percent increase in the size of a nonprofit will correspond with a 3.5 percent increase in pay for the director.
+
+## Calculating Average Pay for a Given Nonprofit Size
+
+If we are interested in specific predictions from the model, the phrase "a 3.5 percent incrase in pay" is meaningless unless we can anchor the growth rate to a starting value. If we want to look at actual salaries in relationship to nonprofit size, we need to translate backwards from the logged terms back into the original units. We can do this by exponentiating our logged terms.
+
+For example, $e^{6.23}$ is 508, so someone running a nonprofit with zero revenue would be paid an average salary of $508 per year (note that $0 is the expected answer, and this is within the confidence interval of the estimate). 
+
+What about the director of a nonprofit that generates $5 million in revenue each year? Typically we would plug the value into the regression formula to determine the predicted value of Y at that level of X:
+
+$$B_{0} + B_{1} * 5,000,000 =  ?$$
+
+In this case, however, revenue was transformed using a log, so we cannot input the actual value of $5 million. We need to use the logged value for the prediction.
+
+$$log(5,000,000) = 15.42495$$
+
+We can now use this value to calculated the estimated salary of an ED:
+
+$$6.23 + 0.35 * 15.42495 = 11.62873$$
+$$e^{11.62873} = 112,278$$
+
+An executive director of a $5 million nonprofit can expect to make $112,278 a year.
+
+If we wish to use a more nuanced model with interactions like Model 3, the rules are the same as before. To calculate the salary of a Male ED the intercept $B_0$ will be a compound intercept comprised of $B_0$ and $B_3$ (or the Constant and MALE coefficients in this case). And the slope will be comprised of $B_1$ plus the interaction term $B_4$.
+
+$$( 6.13 + 0.27 ) + ( 0.36 - 0.02 ) * 15.42495 = 11.64448$$ 
+
+$$e^{11.64448} = 114,060$$ 
+
+The female ED salary would be the baseline case:
+
+$$6.13 + 0.36 * 15.42495 = 11.68298$$
+
+$$e^{11.68298} = 118,537$$
+
+In this data the female ED of a $5 million nonprofit makes slightly more.
+
+
+
+## The Log of Zero
+
+Logging a variable can be a great approach to removing outliers and skew from your data. This works particularly well in cases where the data was generated through a compounding growth process. The log function is not, however, defined for zero or any negative values. As a result, we can only use this approach if our data has positive values. Also note that the log of a value between 1 and 0 will be a negative number.
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Binary_logarithm_plot_with_ticks.svg/300px-Binary_logarithm_plot_with_ticks.svg.png)
+
+In some cases your data might consist of positive numeric values but you have some observations with values of zero. In these cases it is still possible to apply a log function by adding a constant to your variable. Before performing the log transformation create a new variable by adding 1 to each value in your original variable:
+
+$$  10  \rightarrow  11  $$
+$$  0  \rightarrow  1  $$
+
+$$  105  \rightarrow  106  $$
+
+Or alternatively, in many statistical programs you can just write $log(x+1)$. You can now perform a log transformation without a problem. The log of 1 is zero, so it will generally not distort your data greatly. But use caution with this method if the range of your variable is small so adding one might have a large impact. If the range of your values is zero to multiple millions, then adding one will not generally create bias in your estimates.
+
+
+
+
+
+
+
+
+
+
+
