@@ -35,6 +35,10 @@ Bias that results from a mis-specified model, which can be:
   - Linear specification when relationship is non-linear 
 
 
+Diagnosing Model Fit Problems 
+
+* Type I and Type II Errors  
+* Measurement Error  
 
 
 # OUTLIERS
