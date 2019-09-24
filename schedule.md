@@ -850,7 +850,7 @@ For this lab you will run and interpret a quadratic regression, and interpret co
 
 
 
-*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture  }
+*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture, @foldout   }
 
 <br>
 <br>
