@@ -837,7 +837,7 @@ Once you have completed this section you will be able to:
 ## Lecture Materials
 
 Specification Bias I [ [html](https://ds4ps.org/cpp-523-fall-2019/lectures/specification-bias.html) ]  
-Specification Bias II [ pdf[](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-09-specification.pdf) ]  
+Specification Bias II [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-09-specification.pdf) ]  
 
 
 
