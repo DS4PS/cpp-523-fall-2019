@@ -206,7 +206,7 @@ text( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]), c("A","B"),
 #### Q3. The average logged revenue of a nonprofit in this data is 14.44879. What does that translate to in normal dollars? Use the **`exp()`** function. 
 
 
-#### Q4. What would be the typical salary for a director of a nonprofit of this size? 
+#### Q4. What would be the typical salary for a director of an averaged-size nonprofit (log(14.44879) in revenue a year)? 
 
 $log(Salary) = 6.367 + 0.343 \cdot log(Revenue)$
 

@@ -407,8 +407,8 @@ summary {
 <div id="q3.-the-average-logged-revenue-of-a-nonprofit-in-this-data-is-14.44879.-what-does-that-translate-to-in-normal-dollars-use-the-exp-function." class="section level4">
 <h4>Q3. The average logged revenue of a nonprofit in this data is 14.44879. What does that translate to in normal dollars? Use the <strong><code>exp()</code></strong> function.</h4>
 </div>
-<div id="q4.-what-would-be-the-typical-salary-for-a-director-of-a-nonprofit-of-this-size" class="section level4">
-<h4>Q4. What would be the typical salary for a director of a nonprofit of this size?</h4>
+<div id="q4.-what-would-be-the-typical-salary-for-a-director-of-an-averaged-size-nonprofit-log14.44879-in-revenue-a-year" class="section level4">
+<h4>Q4. What would be the typical salary for a director of an averaged-size nonprofit (log(14.44879) in revenue a year)?</h4>
 <p><span class="math inline">\(log(Salary) = 6.367 + 0.343 \cdot log(Revenue)\)</span></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( <span class="kw">log</span>(SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(REVENUE), <span class="dt">data=</span>d2 )</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">stargazer</span>( m, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
