@@ -192,14 +192,14 @@ text( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]), c("A","B"),
 
 #### Q1. What is the likely impact of the outlier "A" on the regression line?
 
-* Will is make the slope larger or smaller? 
+* Will it make the slope larger or smaller? 
 * Would it contribute to a Type I or Type II error? 
 
 
 
 #### Q2. What is the likely impact of the outlier "B" on the regression line? 
 
-* Will is make the slope larger or smaller? 
+* Will it make the slope larger or smaller? 
 * Would it contribute to a Type I or Type II error? 
 
 
