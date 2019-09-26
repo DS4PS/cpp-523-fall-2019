@@ -956,7 +956,7 @@ It is discouraged to interpret model effects at the min and max values of X beca
 
 There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.
 
-```{r, }
+```{r}
 par( mfrow=c(2,2), oma=c(2,0,0,0) )
 
 # plot( m1 )
