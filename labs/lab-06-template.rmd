@@ -1,0 +1,207 @@
+---
+title: "Lab-06 Specification"
+author: "Your Name"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    theme: readable
+    df_print: paged
+    highlight: tango
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, fig.width=9, fig.height=6, warning=F, message=F )
+```
+
+
+
+
+
+```{r}
+library( dplyr )
+library( pander )
+library( stargazer )
+```
+
+
+
+
+
+# Part I: 
+
+
+
+
+
+```{r}
+URL <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/IncomeHappiness.csv"
+dat <- read.csv( URL )
+```
+
+
+
+
+
+## Questions 
+
+### Q1. 
+
+Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:
+
+$Happiness = b_0+b_1 Income+ b_2 (Income)^2+e$
+
+You will need to create a new variable x-squared. Report your results in a regression table.
+
+```{r, results="asis", eval=F}
+m <- lm( y ~ x, data=dat )
+stargazer( m, type="html",
+           omit.stat = c("rsq","f","ser"),
+           notes.label = "Standard errors in parentheses" )
+```
+
+### Q2. 
+
+How much happiness do you gain making an extra $10k when your initial income is $15k?
+
+### Q3. 
+
+How much happiness do you gain making an extra $10k when your initial income is $75k?
+
+### Q4. 
+
+How much happiness do you gain making an extra $10k when your initial income is $100k?
+
+
+
+
+
+
+# Part II: Outliers 
+
+
+For this part of the final assignment you will be using a dataset that examines compensation of nonprofit executive directors from the years 2012-2013. The data is extracted from the IRS E-Filer database available on AWS. 
+
+```{r}
+URL <- "https://github.com/DS4PS/cpp-523-fall-2019/blob/master/labs/data/np-comp-data.rds?raw=true"
+dat <- readRDS(gzcon(url( URL )))
+set.seed( 1234 )
+d2 <- sample_n( dat, 2000 ) # smaller sample for data viz purposes 
+```
+
+```{r}
+plot( log(d2$REVENUE), log(d2$SALARY), bty="n", pch=19, col="darkorange",
+      xlab="Nonprofit Revenue (logged)", ylab="Executive Director Salary (logged)",
+      xlim=c(5,25), ylim=c(5,16))
+abline( h=seq( 1, 20, 0.5 ), col=gray(0.5,0.2), lwd=1 )
+abline( v=seq( 1, 25, 0.5 ), col=gray(0.5,0.2), lwd=1 )
+abline( lm( log(d2$SALARY) ~ log(d2$REVENUE) ), col=gray(0.5,0.5), lwd=3 )
+```
+
+Codebook:
+
+* FILEREIN 			– Tax ID of the nonprofit
+* TAXYR 			– Year of the tax record (this data is from 2012 and 2013)        
+* FILERNAME1 			– Name of the nonprofit
+* STATE 			– Location of the nonprofit
+* RULEDATE 			– Year and month the nonprofit was granted status  
+* NPAGE 			– Nonprofit age                    
+* REVENUE 			– Total annual revenue for the nonprofit        
+* ASSETS 			– Total assets of the nonprofit           
+* PERSONNM			– Name of the Executive Director         
+* TITLETXT 			– Title of the Executive Director          
+* AVGHRS 			– Average hours worked each week
+* SALARY 			– Annual salary for the Executive Director
+* GENDER 			– Typical gender for someone with that first name 
+* PROPORTION_FEMALE 	– The proportion of babies born with that first name that are female M2012CEO 			– Was there a male executive director in 2012? 1=yes, 0=no  
+* TREAT 			– Did the organization hire a new CEO in 2013 with a different gender?
+* POST				 – Dummy variable for the second year: 1=2013, 0=2012 
+* NTMAJ12 			– Subsector of the nonprofit
+  - AR	Arts, culture, and humanities
+  - BH	Education, higher
+  - ED	Education
+  - EH	Hospitals
+  - EN	Environment
+  - HE	Health
+  - HU	Human services
+  - IN	International
+  - MU	Mutual benefit
+  - PU	Public and societal benefit
+  - RE	Religion
+  - UN	Unknown
+
+
+
+
+
+
+
+
+
+```{r}
+plot( log(d2$REVENUE), log(d2$SALARY), bty="n", pch=19, col=gray(0.5,0.2), cex=1.2,
+      xlab="Nonprofit Revenue (logged)", ylab="Executive Director Salary (logged)",
+      xlim=c(5,25), ylim=c(5,16))
+
+abline( lm( log(d2$SALARY) ~ log(d2$REVENUE) ), col="darkorange", lwd=3 )
+
+points( mean(log(d2$REVENUE)), mean(log(d2$SALARY)), pch=19, col="darkorange", cex=2 )
+points( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]),
+         cex=3, col="steelblue", lwd=2 )
+points( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]),
+         cex=1.5, col="steelblue", pch=19 )
+text( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]), c("A","B"), 
+      pos=4, offset=1.2, col="steelblue", cex=2  )
+```
+
+
+
+
+#### Q1. What is the likely impact of the outlier "A" on the regression line?
+
+* Will is make the slope larger or smaller? 
+* Would it contribute to a Type I or Type II error? 
+
+
+
+#### Q2. What is the likely impact of the outlier "B" on the regression line? 
+
+* Will is make the slope larger or smaller? 
+* Would it contribute to a Type I or Type II error? 
+
+
+#### Q3. The average logged revenue of a nonprofit in this data is 14.44879. What does that translate to in normal dollars? Use the **`exp()`** function. 
+
+
+#### Q4. What would be the typical salary for a director of a nonprofit of this size? 
+
+$log(Salary) = 6.367 + 0.343 \cdot log(Revenue)$
+
+
+```{r, results="asis"}
+m <- lm( log(SALARY) ~ log(REVENUE), data=d2 )
+stargazer( m, type="html",
+           omit.stat = c("rsq","f","ser"),
+           notes.label = "Standard errors in parentheses" )
+```
+
+<br>
+
+---
+
+<br>
+
+
+
+# Submission Instructions
+
+After you have completed your lab submit via Canvas. Login to the ASU portal at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Lab-02 tab on the Schedule page. 
+
+Remember to name your files according to the convention: **Lab-##-LastName.xxx**
+
+
+<br>
+<br>
+
+
+

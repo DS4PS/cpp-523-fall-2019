@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Lab-06 Specification</title>
+
+<script src="lab-06-instructions_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lab-06-instructions_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="lab-06-instructions_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lab-06-instructions_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lab-06-instructions_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lab-06-instructions_files/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="textbook.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab-06 Specification</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#study-overview">Study Overview</a></li>
+<li><a href="#part-i">Part I:</a><ul>
+<li><a href="#do-we-need-75000-a-year-to-be-happy">Do We Need $75,000 a Year to Be Happy?</a></li>
+<li><a href="#questions">Questions</a><ul>
+<li><a href="#q1.-read-the-study-below-and-then-use-the-dataset-called-incomehappiness.csv-to-estimate-the-following-model">Q1. Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:</a></li>
+<li><a href="#q2.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-15k">Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?</a></li>
+<li><a href="#q3.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-75k">Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?</a></li>
+<li><a href="#q4.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-100k">Q4. How much happiness do you gain making an extra $10k when your initial income is $100k?</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#part-ii-outliers">Part II: Outliers</a></li>
+<li><a href="#submission-instructions">Submission Instructions</a></li>
+</ul>
+</div>
+
+<div id="cpp-523-program-eval-i" class="section level4">
+<h4><a href="https://ds4ps.org/cpp-523-fall-2019/schedule/">CPP 523: Program Eval I</a></h4>
+<p><br></p>
+<p>You will submit your solutions as an RMD document (specifically the HTML file created from the document). You can create a new RMarkdown file, or download the <strong>LAB-04 RMD template</strong>:</p>
+<p><a href="https://www.dropbox.com/s/yakecqclo5qd40i/lab-06-template.rmd?dl=1"><img src="figures/download.png" /></a></p>
+<p><br></p>
+</div>
+<div id="study-overview" class="section level2">
+<h2>Study Overview</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>( dplyr )</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>( pander )</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>( stargazer )</a></code></pre></div>
+</div>
+<div id="part-i" class="section level1">
+<h1>Part I:</h1>
+<div id="do-we-need-75000-a-year-to-be-happy" class="section level2">
+<h2>Do We Need $75,000 a Year to Be Happy?</h2>
+<p><em><strong>TIME MAGAZINE</strong></em><br />
+<em>Monday, Sep. 06, 2010</em><br />
+<em>By Belinda Luscombe</em></p>
+<p>People say money doesn’t buy happiness. Except, according to a new study from Princeton University’s Woodrow Wilson School, it sort of does — up to about $75,000 a year. The lower a person’s annual income falls below that benchmark, the unhappier he or she feels. But no matter how much more than $75,000 people make, they don’t report any greater degree of happiness.</p>
+<p>Before employers rush to hold — or raise — everyone’s salary to $75,000, the study points out that there are actually two types of happiness. There’s your changeable, day-to-day mood: whether you’re stressed or blue or feeling emotionally sound. Then there’s the deeper satisfaction you feel about the way your life is going — the kind of thing Tony Robbins tries to teach you. While having an income above the magic $75,000 cutoff doesn’t seem to have an impact on the former (emotional well-being), it definitely improves people’s Robbins-like life satisfaction. In other words, the more people make above $75,000, the more they feel their life is working out on the whole. But it doesn’t make them any more jovial in the mornings.</p>
+<p>The study, by economist Angus Deaton and psychologist Daniel Kahneman, who has won a Nobel Prize for Economics, analyzed the responses of 450,000 Americans polled by Gallup and Healthways in 2008 and 2009. Participants were asked how they had felt the previous day and whether they were living the best possible life for them. They were also asked about their income.</p>
+<p>The authors found that most Americans — 85% — regardless of their annual income, felt happy each day. Almost 40% of respondents also reported feeling stressed (which is not mutually exclusive with happiness) and 24% had feelings of sadness. Most people were also satisfied with the way their life was going.</p>
+<p>So, where does the $75,000 come into play? Researchers found that lower income did not cause sadness itself but made people feel more ground down by the problems they already had. The study found, for example, that among divorced people, about 51% who made less than $1,000 a month reported feeling sad or stressed the previous day, while only 24% of those earning more than $3,000 a month reported similar feelings. Among people with asthma, 41% of low earners reported feeling unhappy, compared with about 22% of the wealthier group. Having money clearly takes the sting out of adversities.</p>
+<p>At $75,000, that effect disappears. For people who earn that much or more, individual temperament and life circumstances have much more sway over their lightness of heart than money. The study doesn’t say why $75,000 is the benchmark, but “it does seem to me a plausible number at which people would think money is not an issue,” says Deaton. At that level, people probably have enough expendable cash to do things that make them feel good, like going out with friends. (The federal poverty level for a family of four, by the way, is $22,050.)</p>
+<p>But in the bigger view of their lives, people’s evaluations were much more tied to their income. The more they made, the more they felt their life was going well. The survey asked respondents to place themselves on a life-satisfaction ladder, with the first rung meaning their lives were not going well and the 10th rung meaning it was as good as it could be. The higher their income, the higher the rung people chose. “Importantly, the same percentage increase in income has the same effect on evaluation for everyone, rich or poor alike, even though the absolute dollar amounts differ,” the authors write. So every 10% rise in annual income moves people up the satisfaction ladder the same amount, whether they’re making $25,000 or $100,000. “High incomes don’t bring you happiness, but they do bring you a life you think is better,” conclude the authors. Might it be time for Oprah to give these guys their own show?</p>
+<p>Past research on money and happiness has also found that it’s not absolute wealth that’s linked with happiness, but relative wealth or status — that is, how much more money you have than your neighbors. It’s no surprise, then, that when the same polls are done in different countries, Americans come out as a bit of a mixed lot: they’re fifth in terms of happiness, 33rd in terms of smiling and 10th in terms of enjoyment. At the same time, they’re the 89th biggest worriers, the 69th saddest and fifth most stressed people out of the 151 nations studied. Even so, perhaps because of the country’s general wealth, they are in the top 10 citizenries where people feel their lives are going well, beaten out by such eternal optimists as the Canadians, New Zealanders and Scandinavians.</p>
+<p>Right. Now that Princeton researchers have untangled that life mystery, maybe someone at MIT can look into the optimal amount of money required to buy us love.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">URL &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/labs/data/IncomeHappiness.csv&quot;</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>( URL )</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">plot</span>( dat<span class="op">$</span>income, dat<span class="op">$</span>happiness, </a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Income (Thousands of Dollars)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Hapiness Scale&quot;</span>,</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">      <span class="dt">main=</span><span class="st">&quot;Does Money Make You Happy?&quot;</span>,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">      <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">      <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> )</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">axis</span>( <span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">50000</span>,<span class="dv">100000</span>,<span class="dv">150000</span>,<span class="dv">200000</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;$0&quot;</span>,<span class="st">&quot;$50k&quot;</span>,<span class="st">&quot;$100k&quot;</span>,<span class="st">&quot;$150k&quot;</span>,<span class="st">&quot;$200k&quot;</span>) )</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">lines</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">200000</span>, y_hat, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.3</span>,<span class="fl">0.5</span>), <span class="dt">lwd=</span><span class="dv">6</span> )</a></code></pre></div>
+<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+</div>
+<div id="questions" class="section level2">
+<h2>Questions</h2>
+<div id="q1.-read-the-study-below-and-then-use-the-dataset-called-incomehappiness.csv-to-estimate-the-following-model" class="section level3">
+<h3>Q1. Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:</h3>
+<p><span class="math inline">\(Happiness = b_0+b_1 Income+ b_2 (Income)^2+e\)</span></p>
+<p>Report your results in a regression table.</p>
+</div>
+<div id="q2.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-15k" class="section level3">
+<h3>Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?</h3>
+</div>
+<div id="q3.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-75k" class="section level3">
+<h3>Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?</h3>
+</div>
+<div id="q4.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-100k" class="section level3">
+<h3>Q4. How much happiness do you gain making an extra $10k when your initial income is $100k?</h3>
+</div>
+</div>
+</div>
+<div id="part-ii-outliers" class="section level1">
+<h1>Part II: Outliers</h1>
+<p>For this part of the final assignment you will be using a dataset that examines compensation of nonprofit executive directors from the years 2012-2013. The data is extracted from the IRS E-Filer database available on AWS.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">URL &lt;-<span class="st"> &quot;https://github.com/DS4PS/cpp-523-fall-2019/blob/master/labs/data/np-comp-data.rds?raw=true&quot;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">gzcon</span>(<span class="kw">url</span>( URL )))</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">set.seed</span>( <span class="dv">1234</span> )</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">d2 &lt;-<span class="st"> </span><span class="kw">sample_n</span>( dat, <span class="dv">2000</span> )</a></code></pre></div>
+<p>Codebook:</p>
+<ul>
+<li>FILEREIN – Tax ID of the nonprofit</li>
+<li>TAXYR – Year of the tax record (this data is from 2012 and 2013)<br />
+</li>
+<li>FILERNAME1 – Name of the nonprofit</li>
+<li>STATE – Location of the nonprofit</li>
+<li>RULEDATE – Year and month the nonprofit was granted status<br />
+</li>
+<li>NPAGE – Nonprofit age<br />
+</li>
+<li>REVENUE – Total annual revenue for the nonprofit<br />
+</li>
+<li>ASSETS – Total assets of the nonprofit<br />
+</li>
+<li>PERSONNM – Name of the Executive Director<br />
+</li>
+<li>TITLETXT – Title of the Executive Director<br />
+</li>
+<li>AVGHRS – Average hours worked each week</li>
+<li>SALARY – Annual salary for the Executive Director</li>
+<li>GENDER – Typical gender for someone with that first name</li>
+<li>PROPORTION_FEMALE – The proportion of babies born with that first name that are female M2012CEO – Was there a male executive director in 2012? 1=yes, 0=no<br />
+</li>
+<li>TREAT – Did the organization hire a new CEO in 2013 with a different gender?</li>
+<li>POST – Dummy variable for the second year: 1=2013, 0=2012</li>
+<li>NTMAJ12 – Subsector of the nonprofit
+<ul>
+<li>AR Arts, culture, and humanities</li>
+<li>BH Education, higher</li>
+<li>ED Education</li>
+<li>EH Hospitals</li>
+<li>EN Environment</li>
+<li>HE Health</li>
+<li>HU Human services</li>
+<li>IN International</li>
+<li>MU Mutual benefit</li>
+<li>PU Public and societal benefit</li>
+<li>RE Religion</li>
+<li>UN Unknown</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>,</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">abline</span>( <span class="dt">v=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">25</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="dt">lwd=</span><span class="dv">3</span> )</a></code></pre></div>
+<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">cex=</span><span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span> )</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw">points</span>( <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>REVENUE)), <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>SALARY)), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">         <span class="dt">cex=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">         <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span> )</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw">text</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>), </a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">      <span class="dt">pos=</span><span class="dv">4</span>, <span class="dt">offset=</span><span class="fl">1.2</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>  )</a></code></pre></div>
+<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<div id="q1.-what-is-the-likely-impact-of-the-outlier-a-on-the-regression-line" class="section level4">
+<h4>Q1. What is the likely impact of the outlier “A” on the regression line?</h4>
+<ul>
+<li>Will is make the slope larger or smaller?</li>
+<li>Would it contribute to a Type I or Type II error?</li>
+</ul>
+</div>
+<div id="q2.-what-is-the-likely-impact-of-the-outlier-b-on-the-regression-line" class="section level4">
+<h4>Q2. What is the likely impact of the outlier “B” on the regression line?</h4>
+<ul>
+<li>Will is make the slope larger or smaller?</li>
+<li>Would it contribute to a Type I or Type II error?</li>
+</ul>
+</div>
+<div id="q3.-the-average-logged-revenue-of-a-nonprofit-in-this-data-is-14.44879.-what-does-that-translate-to-in-normal-dollars-use-the-exp-function." class="section level4">
+<h4>Q3. The average logged revenue of a nonprofit in this data is 14.44879. What does that translate to in normal dollars? Use the <strong><code>exp()</code></strong> function.</h4>
+</div>
+<div id="q4.-what-would-be-the-typical-salary-for-a-director-of-a-nonprofit-of-this-size" class="section level4">
+<h4>Q4. What would be the typical salary for a director of a nonprofit of this size?</h4>
+<p><span class="math inline">\(log(Salary) = 6.367 + 0.343 \cdot log(Revenue)\)</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( <span class="kw">log</span>(SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(REVENUE), <span class="dt">data=</span>d2 )</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">stargazer</span>( m, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span> )</a></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+log(SALARY)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(REVENUE)
+</td>
+<td>
+0.343<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.008)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+6.367<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.121)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+2,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.460
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Standard errors in parentheses
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="submission-instructions" class="section level1">
+<h1>Submission Instructions</h1>
+<p>After you have completed your lab submit via Canvas. Login to the ASU portal at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Lab-02 tab on the Schedule page.</p>
+<p>Remember to name your files according to the convention: <strong>Lab-##-LastName.xxx</strong></p>
+<p><br> <br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
