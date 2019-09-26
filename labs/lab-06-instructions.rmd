@@ -95,7 +95,7 @@ lines( 1:200000, y_hat, col=gray(0.3,0.5), lwd=6 )
 
 ## Questions 
 
-### Q1. Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:
+#### Q1. Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:
 
 $Happiness = b_0+b_1 Income+ b_2 (Income)^2+e$
 
@@ -103,11 +103,11 @@ Report your results in a regression table.
 
 
 
-### Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?
+#### Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?
 
-### Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?  
+#### Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?  
 
-### Q4. How much happiness do you gain making an extra $10k when your initial income is $100k?  
+#### Q4. How much happiness do you gain making an extra $10k when your initial income is $100k?  
 
 
 
