@@ -875,6 +875,23 @@ Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp
 
 *** { @unit = "TUES Oct-01", @title = "Lab 06", @assignment  }
 
+<br>
+<br>
+
+# Lab 06
+
+This lab gives you a chance to practice non-linear regression models. 
+
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-06-instructions.html">Lab-05 Instructions</a>
+
+When you are complete:
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments">Submit Lab-06</a>
+
+<br>
+<br>
+
+
 
 
 
