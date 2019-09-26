@@ -14,11 +14,9 @@ output:
 knitr::opts_chunk$set(echo=T, fig.width=9, fig.height=6, warning=F, message=F )
 ```
 
-#### [CPP 523: Program Eval I](https://ds4ps.org/cpp-523-fall-2019/schedule/)
 
-<br>
 
-You will submit your solutions as an RMD document (specifically the HTML file created from the document). You can create a new RMarkdown file, or download the **LAB-04 RMD template**: 
+You will submit your solutions as an RMD document (specifically the HTML file created from the document). You can create a new RMarkdown file, or download the **LAB-06 RMD template**: 
 
 [![](figures/download.png)](https://www.dropbox.com/s/yakecqclo5qd40i/lab-06-template.rmd?dl=1)
 
@@ -39,7 +37,7 @@ library( stargazer )
 
 
 
-# Part I: 
+# Part I: Quadratic Models
 
 ## Do We Need $75,000 a Year to Be Happy?
 
