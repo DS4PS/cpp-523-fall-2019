@@ -308,9 +308,74 @@ summary {
 <h4>Q1. Read the study below, and then use the dataset called “IncomeHappiness.csv” to estimate the following model:</h4>
 <p><span class="math inline">\(Happiness = b_0+b_1 Income+ b_2 (Income)^2+e\)</span></p>
 <p>Report your results in a regression table.</p>
+<p>Helpful advice - since income becomes quite large the coefficient b2 will become quite small.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">y.happy &lt;-<span class="st"> </span>dat<span class="op">$</span>happiness</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">x.income &lt;-<span class="st"> </span>dat<span class="op">$</span>income </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">x2.income.sq &lt;-<span class="st"> </span>x.income<span class="op">*</span>x.income</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">options</span>( <span class="dt">scipen=</span><span class="dv">8</span> )</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">summary</span>( <span class="kw">lm</span>( y.happy <span class="op">~</span><span class="st"> </span>x.income <span class="op">+</span><span class="st"> </span>x2.income.sq ) )</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y.happy ~ x.income + x2.income.sq)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.1420  -3.9703  -0.0493   3.9720  20.4357 
+## 
+## Coefficients:
+##                       Estimate        Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  35.34826872249551  0.36139931707627   97.81   &lt;2e-16 ***
+## x.income      0.00073610233669  0.00000887024309   82.99   &lt;2e-16 ***
+## x2.income.sq -0.00000000251607  0.00000000004385  -57.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.806 on 1997 degrees of freedom
+## Multiple R-squared:  0.8829, Adjusted R-squared:  0.8828 
+## F-statistic:  7529 on 2 and 1997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>It’s fine, the math will still work out. You just need to report a lot of significant digits in your table.</p>
+<p>You can avoid this issue by scaling income by a constant (dividing by 10,000):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># divide income by 10,000</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">y.happy &lt;-<span class="st"> </span>dat<span class="op">$</span>happiness</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">x.income &lt;-<span class="st"> </span>dat<span class="op">$</span>income <span class="op">/</span><span class="st"> </span><span class="dv">10000</span>  </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">x2.income.sq &lt;-<span class="st"> </span>x.income<span class="op">*</span>x.income</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">summary</span>( <span class="kw">lm</span>( y.happy <span class="op">~</span><span class="st"> </span>x.income <span class="op">+</span><span class="st"> </span>x2.income.sq ) )</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y.happy ~ x.income + x2.income.sq)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.1420  -3.9703  -0.0493   3.9720  20.4357 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  35.348269   0.361399   97.81   &lt;2e-16 ***
+## x.income      7.361023   0.088702   82.99   &lt;2e-16 ***
+## x2.income.sq -0.251607   0.004385  -57.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.806 on 1997 degrees of freedom
+## Multiple R-squared:  0.8829, Adjusted R-squared:  0.8828 
+## F-statistic:  7529 on 2 and 1997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The only change to the slope is it will be 10,000 times larger to offset the incomes that are 10,000 times smaller, thus not changing the interpretation of impact. Standard errors are also scaled by the same amount so that confidence intervals would also stay the same. So the only different is the definition of “one-unit change” in each model.</p>
+<p>In the first case one-unit is one dollar, in the second one-unit is $10k.</p>
 </div>
 <div id="q2.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-15k" class="section level4">
 <h4>Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">b0 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">b1 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">b2 &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">happy<span class="fl">.15</span>k &lt;-<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1<span class="op">*</span>x <span class="op">+</span><span class="st"> </span>b2<span class="op">*</span>x<span class="op">*</span>x</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">x &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">happy<span class="fl">.25</span>k &lt;-<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1<span class="op">*</span>x <span class="op">+</span><span class="st"> </span>b2<span class="op">*</span>x<span class="op">*</span>x</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">happy<span class="fl">.25</span>k <span class="op">-</span><span class="st"> </span>happy<span class="fl">.15</span>k  <span class="co"># marginal effect of $10k increase at $15k starting salary</span></a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
 </div>
 <div id="q3.-how-much-happiness-do-you-gain-making-an-extra-10k-when-your-initial-income-is-75k" class="section level4">
 <h4>Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?</h4>
@@ -323,10 +388,10 @@ summary {
 <div id="part-ii-outliers" class="section level1">
 <h1>Part II: Outliers</h1>
 <p>For this part of the final assignment you will be using a dataset that examines compensation of nonprofit executive directors from the years 2012-2013. The data is extracted from the IRS E-Filer database available on AWS.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">URL &lt;-<span class="st"> &quot;https://github.com/DS4PS/cpp-523-fall-2019/blob/master/labs/data/np-comp-data.rds?raw=true&quot;</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">gzcon</span>(<span class="kw">url</span>( URL )))</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">set.seed</span>( <span class="dv">1234</span> )</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">d2 &lt;-<span class="st"> </span><span class="kw">sample_n</span>( dat, <span class="dv">2000</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">URL &lt;-<span class="st"> &quot;https://github.com/DS4PS/cpp-523-fall-2019/blob/master/labs/data/np-comp-data.rds?raw=true&quot;</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">gzcon</span>(<span class="kw">url</span>( URL )))</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">set.seed</span>( <span class="dv">1234</span> )</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">d2 &lt;-<span class="st"> </span><span class="kw">sample_n</span>( dat, <span class="dv">2000</span> )</a></code></pre></div>
 <p>Codebook:</p>
 <ul>
 <li>FILEREIN – Tax ID of the nonprofit</li>
@@ -369,27 +434,27 @@ summary {
 <li>UN Unknown</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>,</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">abline</span>( <span class="dt">v=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">25</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="dt">lwd=</span><span class="dv">3</span> )</a></code></pre></div>
-<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">cex=</span><span class="fl">1.2</span>,</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span> )</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="kw">points</span>( <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>REVENUE)), <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>SALARY)), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">         <span class="dt">cex=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">         <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span> )</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw">text</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>), </a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">      <span class="dt">pos=</span><span class="dv">4</span>, <span class="dt">offset=</span><span class="fl">1.2</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>  )</a></code></pre></div>
-<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>,</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">abline</span>( <span class="dt">v=</span><span class="kw">seq</span>( <span class="dv">1</span>, <span class="dv">25</span>, <span class="fl">0.5</span> ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">lwd=</span><span class="dv">1</span> )</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="dt">lwd=</span><span class="dv">3</span> )</a></code></pre></div>
+<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-9-1.png" width="864" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE), <span class="kw">log</span>(d2<span class="op">$</span>SALARY), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>,<span class="fl">0.2</span>), <span class="dt">cex=</span><span class="fl">1.2</span>,</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">      <span class="dt">xlab=</span><span class="st">&quot;Nonprofit Revenue (logged)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Executive Director Salary (logged)&quot;</span>,</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">16</span>))</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="kw">abline</span>( <span class="kw">lm</span>( <span class="kw">log</span>(d2<span class="op">$</span>SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(d2<span class="op">$</span>REVENUE) ), <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span> )</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">points</span>( <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>REVENUE)), <span class="kw">mean</span>(<span class="kw">log</span>(d2<span class="op">$</span>SALARY)), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkorange&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">         <span class="dt">cex=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="kw">points</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]),</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">         <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span> )</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="kw">text</span>( <span class="kw">log</span>(d2<span class="op">$</span>REVENUE[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">log</span>(d2<span class="op">$</span>SALARY[<span class="kw">c</span>(<span class="dv">1446</span>,<span class="dv">1681</span>)]), <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>), </a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">      <span class="dt">pos=</span><span class="dv">4</span>, <span class="dt">offset=</span><span class="fl">1.2</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>  )</a></code></pre></div>
+<p><img src="lab-06-instructions_files/figure-html/unnamed-chunk-10-1.png" width="864" /></p>
 <div id="q1.-what-is-the-likely-impact-of-the-outlier-a-on-the-regression-line" class="section level4">
 <h4>Q1. What is the likely impact of the outlier “A” on the regression line?</h4>
 <ul>
@@ -410,10 +475,10 @@ summary {
 <div id="q4.-what-would-be-the-typical-salary-for-a-director-of-an-averaged-size-nonprofit-log14.44879-in-revenue-a-year" class="section level4">
 <h4>Q4. What would be the typical salary for a director of an averaged-size nonprofit (log(14.44879) in revenue a year)?</h4>
 <p><span class="math inline">\(log(Salary) = 6.367 + 0.343 \cdot log(Revenue)\)</span></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( <span class="kw">log</span>(SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(REVENUE), <span class="dt">data=</span>d2 )</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">stargazer</span>( m, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">lm</span>( <span class="kw">log</span>(SALARY) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(REVENUE), <span class="dt">data=</span>d2 )</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">stargazer</span>( m, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>),</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">           <span class="dt">notes.label =</span> <span class="st">&quot;Standard errors in parentheses&quot;</span> )</a></code></pre></div>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -530,7 +595,7 @@ Standard errors in parentheses
 </div>
 <div id="submission-instructions" class="section level1">
 <h1>Submission Instructions</h1>
-<p>After you have completed your lab submit via Canvas. Login to the ASU portal at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Lab-02 tab on the Schedule page.</p>
+<p>After you have completed your lab submit via Canvas. Login to the ASU portal at <a href="http://canvas.asu.edu" class="uri">http://canvas.asu.edu</a> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Schedule page.</p>
 <p>Remember to name your files according to the convention: <strong>Lab-##-LastName.xxx</strong></p>
 <p><br> <br></p>
 </div>

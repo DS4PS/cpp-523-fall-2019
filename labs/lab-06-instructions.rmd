@@ -99,9 +99,50 @@ $Happiness = b_0+b_1 Income+ b_2 (Income)^2+e$
 
 Report your results in a regression table.
 
+Helpful advice - since income becomes quite large the coefficient b2 will become quite small. 
+
+```{r}
+y.happy <- dat$happiness
+x.income <- dat$income 
+x2.income.sq <- x.income*x.income
+options( scipen=8 )
+summary( lm( y.happy ~ x.income + x2.income.sq ) )
+```
+
+It's fine, the math will still work out. You just need to report a lot of significant digits in your table. 
+
+You can avoid this issue by scaling income by a constant (dividing by 10,000):
+
+```{r}
+# divide income by 10,000
+y.happy <- dat$happiness
+x.income <- dat$income / 10000  
+x2.income.sq <- x.income*x.income
+summary( lm( y.happy ~ x.income + x2.income.sq ) )
+```
+
+The only change to the slope is it will be 10,000 times larger to offset the incomes that are 10,000 times smaller, thus not changing the interpretation of impact. Standard errors are also scaled by the same amount so that confidence intervals would also stay the same. So the only different is the definition of "one-unit change" in each model. 
+
+In the first case one-unit is one dollar, in the second one-unit is $10k. 
+
 
 
 #### Q2. How much happiness do you gain making an extra $10k when your initial income is $15k?
+
+```{r}
+b0 <- 1
+b1 <- 1
+b2 <- 1
+
+x <- 1
+happy.15k <- b0 + b1*x + b2*x*x
+
+x <- 2
+happy.25k <- b0 + b1*x + b2*x*x
+
+happy.25k - happy.15k  # marginal effect of $10k increase at $15k starting salary
+```
+
 
 #### Q3. How much happiness do you gain making an extra $10k when your initial income is $75k?  
 
@@ -236,7 +277,7 @@ stargazer( m, type="html",
 
 # Submission Instructions
 
-After you have completed your lab submit via Canvas. Login to the ASU portal at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Lab-02 tab on the Schedule page. 
+After you have completed your lab submit via Canvas. Login to the ASU portal at <http://canvas.asu.edu> and navigate to the assignments tab in the course repository. Upload your RMD and your HTML files to the appropriate lab submission link. Or else use the link from the Schedule page. 
 
 Remember to name your files according to the convention: **Lab-##-LastName.xxx**
 
