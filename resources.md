@@ -32,7 +32,7 @@ title: Resources
   - [confidence intervals](https://rpsychologist.com/d3/CI/)
   
 
-## Creating Nice Tables in R
+## Creating Nice Tables in RMD
 
 * [stargazer cheatsheet](https://www.jakeruss.com/cheatsheets/stargazer/)
 * [xtable gallery](https://cran.r-project.org/web/packages/xtable/vignettes/xtableGallery.pdf) 
