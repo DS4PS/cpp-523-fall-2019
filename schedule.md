@@ -312,7 +312,7 @@ And the dashboard example in R can be found here:
 
 
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout  }
 
 ## Description 
 
@@ -447,7 +447,7 @@ If you have questions, please post them to the [Assignment Discussion Board](htt
 
 ** Week 2 - Effect Size and Confidence Intervals 
 
-*** { @unit = "", @title = "Unit Overview", @foldout }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout }
 
 ## Description 
 
@@ -550,7 +550,7 @@ When you are complete:
 
 ** Week 3 - Control Variables 
 
-*** { @unit = "", @title = "Unit Overview". @foldout }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout }
 
 ## Description 
 
@@ -631,7 +631,7 @@ When you are complete:
 
 ** Week 4 - Omitted Variable Bias 
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout  }
 
 ## Description 
 
@@ -736,7 +736,7 @@ When you are complete:
 
 ** Week 5 - Dummy Variables: Revisiting Hypothesis Tests 
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout  }
 
 <br>
 
@@ -812,9 +812,13 @@ When you are complete:
 
 
 
+
+
+
+
 ** Week 6 - Specification
 
-*** { @unit = "", @title = "Unit Overview", @foldout  }
+*** { @unit = "", @title = "Unit Overview", @reading, @foldout  }
 
 <br>
 <br>
