@@ -870,7 +870,6 @@ Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp
 
 <br><br>
 
-*** { @unit = "SUN Sept-29", @title = "Mini-Assessment", @assignment  }
 
 
 *** { @unit = "WED Oct-02", @title = "Lab 06", @assignment, @foldout  }
@@ -891,6 +890,7 @@ When you are complete:
 <br>
 <br>
 
+*** { @unit = "", @title = "No Mini-Assessment This Week", @assignment  }
 
 
 
@@ -901,7 +901,10 @@ When you are complete:
 
 *** { @unit = "", @title = "Review", @lecture }
 
-*** { @unit = "THURS Oct-03", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "FRI Oct-04", @title = "Mini-Assessment", @assignment  }
+
+
+
 
 
 ** FINAL EXAM
