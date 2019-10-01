@@ -889,7 +889,7 @@ This lab gives you a chance to practice non-linear regression models.
 
 When you are complete:
 
-<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments">Submit Lab-06</a>
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/808325">Submit Lab-06</a>
 
 <br>
 <br>
