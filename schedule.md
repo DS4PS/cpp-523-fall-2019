@@ -894,7 +894,42 @@ When you are complete:
 <br>
 <br>
 
-*** { @unit = "WED Oct-02", @title = "Measurement Error", @lecture, @foldout  }
+
+
+*** { @unit = "", @title = "No Mini-Assessment This Week", @assignment  }
+
+
+
+
+
+
+** Week 7 - Review!
+
+
+
+*** { @unit = "", @title = "Review", @lecture, @foldout }
+
+<br>
+<br>
+
+Please post questions on the discussion board if you are not sure of the correct solutions for questions on lectures or practice exams. 
+
+[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
+
+[Practice Exam](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Practice%20Exam.pdf)  
+
+[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf)  
+
+[Indirect Effects Example](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/indirect-effect-example.pdf)  
+
+<br>
+<br>
+
+
+
+
+
+*** { @unit = "", @title = "Measurement Error", @lecture, @foldout  }
 
 <br>
 <br>
@@ -925,32 +960,8 @@ When you are complete:
 
 
 
-*** { @unit = "", @title = "No Mini-Assessment This Week", @assignment  }
 
 
-
-
-
-
-** Week 7 - Review!
-
-*** { @unit = "", @title = "Review", @lecture, @foldout }
-
-<br>
-<br>
-
-Please post questions on the discussion board if you are not sure of the correct solutions for questions on lectures or practice exams. 
-
-[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
-
-[Practice Exam](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Practice%20Exam.pdf)  
-
-[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf)  
-
-[Indirect Effects Example](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/indirect-effect-example.pdf)  
-
-<br>
-<br>
 
 
 *** { @unit = "FRI Oct-04", @title = "Mini-Assessment", @assignment  }
