@@ -934,9 +934,9 @@ Please post questions on the discussion board if you are not sure of the correct
 <br>
 <br>
 
-### The impact of measurement error. 
+# The impact of measurement error
 
-**Measurement Error in the DV**
+## Measurement Error in the DV
 
 ![](assets/img/measurement-error-in-dv-large.gif) 
 
@@ -945,7 +945,7 @@ Please post questions on the discussion board if you are not sure of the correct
 
 <br>
 
-**Measurement Error in the IV**
+## Measurement Error in the IV
 
 ![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv.gif) 
 
