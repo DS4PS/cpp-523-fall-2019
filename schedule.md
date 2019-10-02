@@ -941,7 +941,7 @@ Please post questions on the discussion board if you are not sure of the correct
 ![](assets/img/measurement-error-in-dv-large.gif) 
 
 
-*Increase in standard errors. No slope bias. 
+*Increase in standard errors. No slope bias.* 
 
 <br>
 
