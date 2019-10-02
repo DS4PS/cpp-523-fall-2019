@@ -894,6 +894,37 @@ When you are complete:
 <br>
 <br>
 
+*** { @unit = "WED Oct-02", @title = "Measurement Error", @lecture, @foldout  }
+
+<br>
+<br>
+
+### The impact of measurement error. 
+
+**Measurement Error in the DV**
+
+![](assets/img/measurement-error-in-dv-large.gif) 
+
+
+*Increase in standard errors. No slope bias. 
+
+<br>
+
+**Measurement Error in the IV**
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv.gif) 
+
+<br>
+
+![](https://github.com/lecy/regression-simulations/raw/master/GIFS/measurement%20error%20iv%202.gif) 
+
+*Attenuation of the slope (tilts toward zero), but also a decrease in standard errors that offset the shift of the slope toward zero.*
+
+<br>
+<br>
+
+
+
 *** { @unit = "", @title = "No Mini-Assessment This Week", @assignment  }
 
 
@@ -903,7 +934,24 @@ When you are complete:
 
 ** Week 7 - Review!
 
-*** { @unit = "", @title = "Review", @lecture }
+*** { @unit = "", @title = "Review", @lecture, @foldout }
+
+<br>
+<br>
+
+Please post questions on the discussion board if you are not sure of the correct solutions for questions on lectures or practice exams. 
+
+[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
+
+[Practice Exam](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Practice%20Exam.pdf)  
+
+[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf)  
+
+[Indirect Effects Example](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/indirect-effect-example.pdf)  
+
+<br>
+<br>
+
 
 *** { @unit = "FRI Oct-04", @title = "Mini-Assessment", @assignment  }
 
