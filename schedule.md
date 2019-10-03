@@ -854,25 +854,6 @@ For this lab you will run and interpret a quadratic regression, and interpret co
 
 
 
-*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture, @foldout   }
-
-<br>
-<br>
-
- 
-Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
-
-* Selection 
-* Omitted variable bias 
-* Measurement error 
-* Specification 
-* Group Heterogeneity 
-* Multi-collinearity 
-* Simultenaeity 
-
-Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
-
-<br><br>
 
 
 
@@ -927,6 +908,25 @@ Please post questions on the discussion board if you are not sure of the correct
 
 
 
+*** { @unit = "", @title = "The Seven Deadly Sins of Regression", @lecture, @foldout   }
+
+<br>
+<br>
+
+ 
+Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
+
+* Selection 
+* Omitted variable bias 
+* Measurement error 
+* Specification 
+* Group Heterogeneity 
+* Multi-collinearity 
+* Simultenaeity 
+
+Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
+
+<br><br>
 
 
 *** { @unit = "", @title = "Measurement Error", @lecture, @foldout  }
