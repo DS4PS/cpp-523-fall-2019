@@ -885,7 +885,7 @@ Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp
 
 This lab gives you a chance to practice non-linear regression models. 
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-06-instructions.html">Lab-05 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-06-instructions.html">Lab-06 Instructions</a>
 
 When you are complete:
 
