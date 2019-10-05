@@ -23,9 +23,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -101,6 +100,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -115,7 +117,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -135,6 +136,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -156,13 +194,73 @@ $(document).ready(function () {
 });
 </script>
 
-
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
@@ -175,7 +273,6 @@ $(document).ready(function () {
   window.initializeCodeFolding("hide" === "show");
 });
 </script>
-
 
 
 
@@ -2581,22 +2678,99 @@ text( 5, log.y4[6], &quot;Slope of -0.69 : e^-0.69 - 1 = -50% ROI&quot;, cex=0.8
 </div>
 <div id="when-should-we-use-log-transformations" class="section level2">
 <h2>When Should We Use Log Transformations?</h2>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-27-1.png" width="768" /><img src="specification-bias_files/figure-html/unnamed-chunk-27-2.png" width="768" /></p>
+<p>If we want to model rates of change, then consider using the actual investment values in a model versus the logged value of each portfolio. In this example, each stock is growing at an annual rate of 80 percent, but the stock prices start at different values at time 0: $1, $2, $7, and $10.</p>
+<pre class="r"><code>time &lt;- 0:5
+y1 &lt;- 10*(1+0.80)^time
+y2 &lt;- 1*(1+0.80)^time
+y3 &lt;- 2*(1+0.80)^time
+y4 &lt;- 7*(1+0.80)^time
+x &lt;- c(time,time,time,time)
+y &lt;- c(y1,y2,y3,y4)
+
+
+par( mfrow=c(1,2) )
+plot( time, y1, ylab=&quot;Price Per Share&quot;, xlab=&quot;Time&quot;, type=&quot;b&quot;, bty=&quot;n&quot;, pch=19, cex=2,
+      main=&quot;Value of 4 Stocks Over Time&quot;, ylim=c(-30,200))
+points( time, y2, type=&quot;b&quot;, pch=19, col=&quot;gray30&quot;, cex=2 )
+points( time, y3, type=&quot;b&quot;, pch=19, col=&quot;gray50&quot;, cex=2 )
+points( time, y4, type=&quot;b&quot;, pch=19, col=&quot;gray70&quot;, cex=2 )
+abline( lm(y~x), col=&quot;firebrick&quot;, lwd=3 )
+
+
+plot( x, log(y), ylab=&quot;Price Per Share (logged)&quot;, xlab=&quot;Time&quot;, type=&quot;p&quot;, bty=&quot;n&quot;, pch=19, cex=2,
+      main=&quot;Value of 4 Stocks Over Time&quot; )
+points( time, log(y1), type=&quot;b&quot;, pch=19, col=&quot;black&quot;, cex=2 )
+points( time, log(y2), type=&quot;b&quot;, pch=19, col=&quot;gray30&quot;, cex=2 )
+points( time, log(y3), type=&quot;b&quot;, pch=19, col=&quot;gray50&quot;, cex=2 )
+points( time, log(y4), type=&quot;b&quot;, pch=19, col=&quot;gray70&quot;, cex=2 )
+abline( lm(log(y)~x), col=&quot;firebrick&quot;, lwd=3 )</code></pre>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
+<p>Note that our model of stock values is pretty poor. We over-value stocks in early periods and under-value stocks in later periods.</p>
+<p>Our model of price growth is pretty accurate, though. Although the stocks have different initial values, they all grow at similar rates. If we are trying to model changes in a market over time we now have a good sense of the rate at which firms in a market are all growing.</p>
+<pre class="r"><code>m1 &lt;- lm(y~x)
+m2 &lt;- lm(log(y)~x)
+
+summary(m1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -57.693 -24.822   0.764  14.034 112.368 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)   -7.813     13.614  -0.574   0.5718   
+## x             16.880      4.497   3.754   0.0011 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 37.62 on 22 degrees of freedom
+## Multiple R-squared:  0.3905, Adjusted R-squared:  0.3628 
+## F-statistic: 14.09 on 1 and 22 DF,  p-value: 0.001097</code></pre>
+<pre class="r"><code>summary(m2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = log(y) ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.23541 -0.71555  0.08412  0.79967  1.06717 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.2354     0.3517   3.512  0.00196 ** 
+## x             0.5878     0.1162   5.060 4.56e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.972 on 22 degrees of freedom
+## Multiple R-squared:  0.5378, Adjusted R-squared:  0.5168 
+## F-statistic:  25.6 on 1 and 22 DF,  p-value: 4.561e-05</code></pre>
+<pre class="r"><code># annual rate of return
+exp(0.5878) - 1</code></pre>
+<pre><code>## [1] 0.800024</code></pre>
+<p>0.800024</p>
+<p>Furthermore, we can now make predictions for future stock values that follow this similar trend since we know rates of change.</p>
+<p>In policy, an example might be something like trying to predict future traffic patterns for a bunch of roads that have different current levels of usage, but traffic is growing at constant rates across the city. We can now combine the different datasets to model overall increase in demand over time, and we can use the parameter to forecast future demand.</p>
 <pre class="r"><code>plot( dat$POP/1000, dat$NPOs, 
       xlab=&quot;County Population (Thousands)&quot;, ylab=&quot;Number of Nonprofits&quot;, 
       pch=19, col=gray(0.5,0.5), bty=&quot;n&quot;, main=&quot;Level-Level Model&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
 <pre class="r"><code>plot( log(dat$POP), dat$NPOs, 
       xlab=&quot;County Population (Logged)&quot;, ylab=&quot;Number of Nonprofits&quot;, 
       pch=19, col=gray(0.5,0.5), bty=&quot;n&quot;, main=&quot;Level-Log Model&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-29-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-32-1.png" width="768" /></p>
 <pre class="r"><code>plot( dat$POP, log(dat$NPOs+1), 
       xlab=&quot;County Population&quot;, ylab=&quot;Number of Nonprofits (Logged)&quot;, 
       pch=19, col=gray(0.5,0.5), bty=&quot;n&quot;, main=&quot;Log-Level Model&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-30-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-33-1.png" width="768" /></p>
 <pre class="r"><code>plot( log(dat$POP), log(dat$NPOs+1), 
       xlab=&quot;County Population (Logged)&quot;, ylab=&quot;Number of Nonprofits (Logged)&quot;, 
       pch=19, col=gray(0.5,0.5), bty=&quot;n&quot;, main=&quot;Log-Log Model&quot;)</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-34-1.png" width="768" /></p>
 <p>Recall that log functions are very useful when our data is skewed:</p>
 <pre class="r"><code>par( mfrow=c(1,2) )
 
@@ -2605,7 +2779,7 @@ plot( dat$REVENUE, dat$SALARY, xlab=&quot;REVENUE&quot;, ylab=&quot;SALARY&quot;
 
 plot( log(dat$REVENUE), log(dat$SALARY), xlab=&quot;REVENUE (log)&quot;, ylab=&quot;SALARY(log)&quot;, bty=&quot;n&quot;,
       main=&quot;Log-Log Model&quot;, col=gray(0.5,0.5), pch=19, cex=1.5 )</code></pre>
-<p><img src="specification-bias_files/figure-html/unnamed-chunk-33-1.png" width="768" /></p>
+<p><img src="specification-bias_files/figure-html/unnamed-chunk-36-1.png" width="768" /></p>
 <p>The main challenge is that using logs changes the interpretation of the data because our data now represents growth rates, not levels. We can no longer say that a one-unit change in X results in a B1 change in Y. Slopes now represent rates of change, not levels of change.</p>
 <p>We can, however, convert logged models back into level units if we desire to interpret them directly.</p>
 <table style="text-align:center">
