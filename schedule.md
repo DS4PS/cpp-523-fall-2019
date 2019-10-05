@@ -988,4 +988,21 @@ It is recommended you complete it before you final exam to get a sense of the ty
 
 ** FINAL EXAM
 
-*** { @unit = "Open Oct-06 to 09", @title = "Final Exam", @assignment }
+*** { @unit = "MON Oct 7 12pm AZ", @title = "Review Session", @lecture, @foldout }
+
+<br>
+<br>
+
+There will be a review session for the final exam at 12pm on Monday. It is a chance to bring questions from the practice exams and discuss material before taking the exam.
+
+Please post questions on the discussion board, or email me for a Zoom call if you want help before the exam. 
+
+<br>
+<br>
+
+*** { @unit = "Open Oct-06 to 10", @title = "Final Exam", @assignment}
+
+
+<br>
+<br>
+
