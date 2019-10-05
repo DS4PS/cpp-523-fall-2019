@@ -964,7 +964,23 @@ Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp
 
 
 
-*** { @unit = "FRI Oct-04", @title = "Mini-Assessment", @assignment  }
+*** { @unit = "MON Oct 07", @title = "Mini-Assessment", @assignment, @foldout  }
+
+<br>
+<br>
+
+## Mini Assessment-05 
+
+This mini assessment covers material from the [Taxonomy of Controls](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf).
+
+And on [Measurement Error](https://ds4ps.org/cpp-523-fall-2019/schedule/). 
+
+It is recommended you complete it before you final exam to get a sense of the types of questions to expect. I have left it open all week, though, if you need extra time. 
+
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/232465">Mini Assessment 05</a>
+
+<br>
+<br>
 
 
 
