@@ -1000,7 +1000,7 @@ Please post questions on the discussion board, or email me for a Zoom call if yo
 <br>
 <br>
 
-*** { @unit = "Open Oct-06 to 10", @title = "Final Exam", @assignment}
+*** { @unit = "Open Oct-06 to 10", @title = "Final Exam", @assignment, @foldout}
 
 
 <br>
