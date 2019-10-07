@@ -1006,3 +1006,13 @@ Please post questions on the discussion board, or email me for a Zoom call if yo
 <br>
 <br>
 
+<a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/232776">Take the Final Exam</a>
+
+<br>
+<br>
+
+-------
+
+<br>
+<br>
+
