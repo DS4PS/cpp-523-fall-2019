@@ -1000,11 +1000,17 @@ Please post questions on the discussion board, or email me for a Zoom call if yo
 <br>
 <br>
 
-*** { @unit = "Open Oct-06 to 10", @title = "Final Exam", @assignment, @foldout}
+*** { @unit = "Open Oct-07 to 12", @title = "Final Exam", @assignment, @foldout}
 
 
 <br>
 <br>
+
+You can start the exam any time between Monday and Saturday Oct 12th. You have 4 hours to complete the exam once it is started. 
+
+You are allowed to look back over your notes and use a calculator for help with math.
+
+You are NOT allowed to work together on the final exam. Do not discuss questions after you have take it. 
 
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/quizzes/232776">Take the Final Exam</a>
 
