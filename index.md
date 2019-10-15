@@ -215,7 +215,16 @@ Your grade will be based on your performance in the following areas:
 - Weekly labs
 - Final exam
 
-Letter grades comport with a traditional set of intervals (100 – 98% = A+, 97 – 94% = A, 93 – 90% = A-,  89 – 87% = B+, 86 – 84% = B, 83 – 80% = B-,etc.).  The assigned work for the term comes in the form of four elements, described below:
+Letter grades comport with a traditional set of intervals:
+
+* 100 – 98% = A+ 
+*  97 – 94% = A 
+*  93 – 90% = A- 
+*  89 – 87% = B+ 
+*  86 – 84% = B 
+*  83 – 80% = B-  
+
+The assigned work for the term comes in the form of four elements, described below:
 
 - **Rapid Assessments (10%):** Some lecturse will be accompanied by a short (1-5 question) multiple choice or regression-based quiz. These are designed to ensure that you are grasping the important concepts associated with each lecture. The content in this class is cumulative, the material each week building upon the previous week. We cover complex topics with a lot of nuances, so you may feel uncomfortable if you don't understand everything from a lecture. Don't worry – we will revisit a lot of this material many times through the program to reinforce important ideas and introduce more detail in subsequent stages. These quizzes are designed to give you immediate feedback about whether you grasped the core concepts so that you can spend more time on some material or seek help when necessary.
 
