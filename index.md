@@ -217,8 +217,8 @@ Your grade will be based on your performance in the following areas:
 
 Letter grades comport with a traditional set of intervals:
 
-* 100 – 98% = A+ 
-*  97 – 94% = A 
+* 100 – 99% = A+ 
+*  98 – 94% = A 
 *  93 – 90% = A- 
 *  89 – 87% = B+ 
 *  86 – 84% = B 
