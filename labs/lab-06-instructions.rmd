@@ -184,7 +184,7 @@ abline( lm( log(d2$SALARY) ~ log(d2$REVENUE) ), col=gray(0.5,0.5), lwd=3 )
 
 
 
-```{r}
+```{r, eval=F}
 plot( log(d2$REVENUE), log(d2$SALARY), bty="n", pch=19, col=gray(0.5,0.2), cex=1.2,
       xlab="Nonprofit Revenue (logged)", ylab="Executive Director Salary (logged)",
       xlim=c(5,25), ylim=c(5,16))
@@ -201,7 +201,7 @@ text( log(d2$REVENUE[c(1446,1681)]), log(d2$SALARY[c(1446,1681)]), c("A","B"),
 ```
 
 
-
+![](figures/outliers.png)
 
 #### Q1. What is the likely impact of the outlier "A" on the regression line?
 
