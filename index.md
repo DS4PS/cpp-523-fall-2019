@@ -5,13 +5,13 @@ title: Syllabus
 index:
     title: Foundations of Program Evaluation II
     image: distribution.svg
-    subtitle: Research design using quasi-experimental frameworks and counter-factual analysis.
+    subtitle: Regression analysis for the study of program impact.
     
 info: 
  program_title: Program Evaluation and Data Analytics
  program_website: 
- course_title: Foundations of Program Evaluation Part II
- course_number: CPP 524 
+ course_title: Foundations of Program Evaluation Part I
+ course_number: CPP 523 
  course_level: Graduate 
  course_website: 'https://canvas.asu.edu/courses/29527'
  course_start_end_dates: Aug 22 to Oct 11, 2019  
