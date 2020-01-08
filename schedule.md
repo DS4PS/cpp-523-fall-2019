@@ -110,7 +110,7 @@ Just listen to this summary of current knowledge on the topic, then try to succi
 
 This course provides foundational skills in quantitative program evaluation:
 
-**Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]**
+**Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]**
 
 ## The Broader Field of Evaluation 
 
@@ -118,11 +118,11 @@ Program evaluation is a large field that deploys a diversity of methodologies be
 
 For some useful context on evaluation as a field, this short (6-page overview) is helpful:
 
-**McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/A-Basic-Guide-to-Program-Evaluation.pdf) ]**
+**McNamara, C. (2008). Basic guide to program evaluation. Free Management Library. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/A-Basic-Guide-to-Program-Evaluation.pdf) ]**
 
 And to get a flavor for debates around approaches to measuring program impact in evaluation:
 
-**White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Reflections-on-Impact-Evaluation-White.pdf) ]**
+**White, H. (2010). A contribution to current debates in impact evaluation. Evaluation, 16(2), 153-164. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Reflections-on-Impact-Evaluation-White.pdf) ]**
 
 
 <br>
@@ -146,7 +146,7 @@ And to get a flavor for debates around approaches to measuring program impact in
 ## Stats Review
 
 
-*OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf). 
+*OpenIntro Statistics* is an excellent resource for a clear chapter on regression analysis [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf). 
 
 - Chapter 8 - Linear Regression 
 - *Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro Statistics.*
@@ -193,7 +193,7 @@ As a result, lecture notes are good for understanding these topics, but will not
 If you want to invest in a textbook, these are some texts that present this content using algebra instead of calculus or matrix algebra notations.
 
 * OpenStax free [Introductory Statistics textbook](https://cnx.org/contents/30189442-6998-4686-ac05-ed152b91b9de)
-* *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf), especially CH-08 Intro to Regression 
+* *OpenIntro Statistics* [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf), especially CH-08 Intro to Regression 
 * [Discovering Statistics in R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) as a comprehensive guide to using R for a variety of statistical models 
 * [Real Stats: Using Econometrics for Political Science and Public Policy](https://www.amazon.com/Real-Stats-Econometrics-Political-Science/dp/0199981949) for material that presents regression models from a causal and evaluation perspective
 
@@ -201,7 +201,7 @@ If you want to invest in a textbook, these are some texts that present this cont
 
 You are investing in a skill-set that you will build over time. I will reference material throughout the semester that you can add to your reference library for this purpose. 
 
-I will also add books, articles, tutorials and reference sheets to the [Resources](https://ds4ps.org/cpp-523-spr-2020/resources/) page, but I suggest you create your own catalog to do the same! 
+I will also add books, articles, tutorials and reference sheets to the [Resources](https://ds4ps.org/cpp-523-fall-2019/resources/) page, but I suggest you create your own catalog to do the same! 
 
 <br>
 <br>
@@ -245,7 +245,7 @@ We are going to throw a lot at you, but also provide a lot of support. Over thes
 If you find something confusing let me know (likely others will as well). 
 
 * We can jump on a [Zoom call](https://calendly.com/lecy/15min?month=2019-08) to do a screen share if you want to walk through anything.   
-* You can post a question to the homework discussion board for [data science I](https://ds4ps.org/cpp-526-spr-2020/help/) or [program evaluation I](https://ds4ps.org/cpp-523-spr-2020/help/).  
+* You can post a question to the homework discussion board for [data science I](https://ds4ps.org/cpp-526-fall-2019/help/) or [program evaluation I](https://ds4ps.org/cpp-523-fall-2019/help/).  
 * And you can join review sessions each week.  
 
 Reach out if you have questions or feel stuck! 
@@ -257,8 +257,8 @@ Reach out if you have questions or feel stuck!
 
 The course shells for CPP 523 and CPP 526 are located at:
 
-[https://ds4ps.org/cpp-526-spr-2020/](https://ds4ps.org/cpp-526-spr-2020/)  
-[https://ds4ps.org/cpp-523-spr-2020/](https://ds4ps.org/cpp-523-spr-2020/)  
+[https://ds4ps.org/cpp-526-fall-2019/](https://ds4ps.org/cpp-526-fall-2019/)  
+[https://ds4ps.org/cpp-523-fall-2019/](https://ds4ps.org/cpp-523-fall-2019/)  
 
 The *unofficial* program website can be found at:
 
@@ -311,14 +311,14 @@ Once you have completed this section you will be able to conceptually understand
 ### Required:
 
 
-Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
+Reichardt, C. S., & Bormann, C. A. (1994). Using regression models to estimate program effects. Handbook of practical program evaluation, 417-455. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Estimating%20Program%20Effects%20Using%20Regression%20Models.pdf) ]
 
 
 ### For reference:
 
-Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [ [**CH-08 Introduction to Linear Regression**](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/openintro-statistics-sample.pdf) ]
+Diez, D. M., Barr, C. D., & Cetinkaya-Rundel, M. (2012). OpenIntro statistics (pp. 174-175). OpenIntro. [ [**CH-08 Introduction to Linear Regression**](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/openintro-statistics-sample.pdf) ]
 
-Multiple Regression overview chapter [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Multiple%20Regression.pdf) ]
+Multiple Regression overview chapter [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Multiple%20Regression.pdf) ]
 
 
 
@@ -328,7 +328,7 @@ Caffeine and Heart Rates based off of this [caffeine study](https://www.theodyss
 
 ```r
 # paste this code into R
-url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-spr-2020/master/lectures/data/caffeine.csv"
+url <- "https://raw.githubusercontent.com/DS4PS/cpp-523-fall-2019/master/lectures/data/caffeine.csv"
 dat <- read.csv( url, stringsAsFactors=F ) 
 summary( dat )
 plot( dat$caffeine, dat$heart.rate )
@@ -338,7 +338,7 @@ summary( model.01 )
 
 ## Lecture Materials
 
-Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-spr-2020/lectures/caffeine.html) ]
+Lecture: [ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
 Is caffeine good for you? [ [link](https://www.hsph.harvard.edu/news/hsph-in-the-news/coffee-depression-women-ascherio-lucas/) ]
 
@@ -357,7 +357,7 @@ Lab-01 Regression Review covers the following topics:
 
 Good reference for formulas:  
 
-Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
 
@@ -383,11 +383,11 @@ This first lab is meant as a review of some important regression formulas to eit
 
 The lecture notes needed for the lab are available on the course shell:
 
-[ [Building a regression model](https://ds4ps.org/cpp-523-spr-2020/lectures/caffeine.html) ]
+[ [Building a regression model](https://ds4ps.org/cpp-523-fall-2019/lectures/caffeine.html) ]
 
 And the first chapter from Lewis-Beck serves as a reference for specific formulas if needed:
 
-Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
+Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
 -----
@@ -395,7 +395,7 @@ Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vo
 
 For THIS ASSIGNMENT all of the work is done by hand so you can type your answers right into the attached word document:
 
-[Lab-01 Instructions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/labs/Lab-01-Regression-Review.docx)
+[Lab-01 Instructions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/labs/Lab-01-Regression-Review.docx)
 
 Save it using the naming convention:
 
@@ -411,7 +411,7 @@ For future assignments we will be using R Markdown documents so that you can run
 
 Since this is meant as a review (or getting up to speed) assignment it is due Monday. You will, however, have a full week for subsequent labs. 
 
-If you have questions, please post them to the [Assignment Discussion Board](https://ds4ps.org/cpp-523-spr-2020/help/).
+If you have questions, please post them to the [Assignment Discussion Board](https://ds4ps.org/cpp-523-fall-2019/help/).
 
 <a class="uk-button uk-button-primary" href="https://canvas.asu.edu/courses/29527/assignments/745249">Submit Lab-01</a>
 
@@ -449,13 +449,13 @@ Once you have completed this section you should be able to build a confidence in
 
 Please review the following lecture notes:
 
-* [Variance and Covariance](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-01-variance-covariance-slope.pdf)
-* [Partitioning the Variance of Y](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-02-partitioning-variance.pdf)
-* [Standard Errors](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-03-standard-errors.pdf)
-* [Confidence Intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-04-confidence-intervals.pdf)
-* [Effect Size](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf)
+* [Variance and Covariance](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-01-variance-covariance-slope.pdf)
+* [Partitioning the Variance of Y](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-02-partitioning-variance.pdf)
+* [Standard Errors](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-03-standard-errors.pdf)
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf)
 
-You might find this summary of notation helpful [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Common-Statistics-Notation.pdf)
+You might find this summary of notation helpful [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Common-Statistics-Notation.pdf)
 
 ## Assigned and Recommended Articles or Chapters
 
@@ -513,10 +513,10 @@ This lab introduces a case study on education policy that we will be using for t
 
 You will need the formula for confidence intervals, and the concept of visual hypothesis-testing with coefficient plots. 
 
-* [Confidence Intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-04-confidence-intervals.pdf)
-* [Effect Size (+hypothesis tests)](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf)
+* [Confidence Intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-04-confidence-intervals.pdf)
+* [Effect Size (+hypothesis tests)](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf)
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-02-class-size-confidence-intervals.html">Lab-02 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-02-class-size-confidence-intervals.html">Lab-02 Instructions</a>
 
 When you are complete:
 
@@ -553,7 +553,7 @@ None.
 
 ## Lecture Materials
 
-[Lecture 06 on Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+[Lecture 06 on Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
 
 
 
@@ -565,7 +565,7 @@ None.
 <br>
 <br>
 
-This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-05-program-impact.pdf).
+This mini-assessment tests your understanding of the interpretation of [statistical significance using confidence intervals](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-05-program-impact.pdf).
 
 
 ![](assets/img/ci-and-significance.png)
@@ -590,11 +590,11 @@ This mini-assessment tests your understanding of the interpretation of [statisti
 
 This lab introduces the important role of control variables in our models. They can be used to reduce standard errors of the model and thus increase model efficiency, or they can be used to to adjust slopes in the model. The lab draws on material from the lecture 06 notes. 
 
-* [Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+* [Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
 
 I have provided the code for the regression models and scatterplots. This lab focuses on interpretation of results. You do need to create an RMD document, and knit an HTML file to submit your results. 
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-03-instructions.html">Lab-03 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-03-instructions.html">Lab-03 Instructions</a>
 
 When you are complete:
 
@@ -648,8 +648,8 @@ The study in the article was commissioned because of anedcotal evidence of a str
 
 ## Lecture Materials
 
-Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]  
-Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf) ]  
+Lecture Notes: **Omitted Variable Bias** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) ]  
+Lecure Notes: **A Taxonomy of Control Variables** [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf) ]  
 
 <br>
 
@@ -676,7 +676,7 @@ This mini-assessment tests your understanding of the differences between the two
 
 ![](assets/img/two-types-of-controls.png)
 
-[Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-06-control-variables.pdf)
+[Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-06-control-variables.pdf)
 
 <br>
 
@@ -700,11 +700,11 @@ This mini-assessment tests your understanding of the differences between the two
 
 This lab examines the impact of omitted variable bias on our inferences. 
 
-[Omitted Variable Bias](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-07-omitted-variable-bias.pdf) 
+[Omitted Variable Bias](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-07-omitted-variable-bias.pdf) 
 
 A lab solutions RMD template has been provided. Submit your knitted files via Canvas. 
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-04-instructions.html">Lab-04 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-04-instructions.html">Lab-04 Instructions</a>
 
 When you are complete:
 
@@ -745,12 +745,12 @@ Once you have completed this section you will be able to run and interpret regre
 
 ## Assigned Lecture Materials
 
-[Hypothesis-Testing With Groups](https://ds4ps.org/cpp-523-spr-2020/lectures/dummy-variables.html) 
+[Hypothesis-Testing With Groups](https://ds4ps.org/cpp-523-fall-2019/lectures/dummy-variables.html) 
 
 
 ## Lab Preview 
 
-[Practice Questions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Regression%20with%20Interaction%20Effects.pdf)
+[Practice Questions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Regression%20with%20Interaction%20Effects.pdf)
 
 
 
@@ -780,7 +780,7 @@ This mini-assessment tests your understanding of the interpretation of the impac
 
 This lab examines tests your understanding of constructing groups and conducting tests using dummy variables. 
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-05-instructions.html">Lab-05 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-05-instructions.html">Lab-05 Instructions</a>
 
 When you are complete:
 
@@ -824,8 +824,8 @@ Once you have completed this section you will be able to:
 
 ## Lecture Materials
 
-Specification Bias I [ [html](https://ds4ps.org/cpp-523-spr-2020/lectures/specification-bias.html) ]  
-Specification Bias II [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-09-specification.pdf) ]  
+Specification Bias I [ [html](https://ds4ps.org/cpp-523-fall-2019/lectures/specification-bias.html) ]  
+Specification Bias II [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-09-specification.pdf) ]  
 
 
 
@@ -850,7 +850,7 @@ For this lab you will run and interpret a quadratic regression, and interpret co
 
 This lab gives you a chance to practice non-linear regression models. 
 
-<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-spr-2020/labs/lab-06-instructions.html">Lab-06 Instructions</a>
+<a class="uk-button uk-button-default" href="https://ds4ps.org/cpp-523-fall-2019/labs/lab-06-instructions.html">Lab-06 Instructions</a>
 
 When you are complete:
 
@@ -879,13 +879,13 @@ When you are complete:
 
 Please post questions on the discussion board if you are not sure of the correct solutions for questions on lectures or practice exams. 
 
-[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
+[Exam Review with Solutions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Review%20Material%20for%20the%20Final%20Exam%20-%20SOLUTIONS.pdf) 
 
-[Practice Exam](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Practice%20Exam.pdf)  
+[Practice Exam](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Practice%20Exam.pdf)  
 
-[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf)  
+[Taxonomy of Control Variables](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf)  
 
-[Indirect Effects Example](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/indirect-effect-example.pdf)  
+[Indirect Effects Example](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/indirect-effect-example.pdf)  
 
 <br>
 <br>
@@ -898,7 +898,7 @@ Please post questions on the discussion board if you are not sure of the correct
 <br>
 
  
-Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
+Concise summary of the seven most common issues that will corrupt your regression inferences [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/handouts/Seven-Sins-of-Regression-Analysis.pdf) ]  
 
 * Selection 
 * Omitted variable bias 
@@ -908,7 +908,7 @@ Concise summary of the seven most common issues that will corrupt your regressio
 * Multi-collinearity 
 * Simultenaeity 
 
-Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
+Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/p-10-seven-sins-of-regression.pdf) ] 
 
 <br><br>
 
@@ -955,9 +955,9 @@ Some longer notes: Seven Sins of Regression [ [pdf](https://github.com/DS4PS/cpp
 
 ## Mini Assessment-05 
 
-This mini assessment covers material from the [Taxonomy of Controls](https://github.com/DS4PS/cpp-523-spr-2020/raw/master/lectures/taxonomy-of-control-variables.pdf).
+This mini assessment covers material from the [Taxonomy of Controls](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/lectures/taxonomy-of-control-variables.pdf).
 
-And on [Measurement Error](https://ds4ps.org/cpp-523-spr-2020/schedule/). 
+And on [Measurement Error](https://ds4ps.org/cpp-523-fall-2019/schedule/). 
 
 It is recommended you complete it before you final exam to get a sense of the types of questions to expect. I have left it open all week, though, if you need extra time. 
 
