@@ -390,6 +390,9 @@ And the first chapter from Lewis-Beck serves as a reference for specific formula
 Lewis-Beck, C., & Lewis-Beck, M. (2015). Applied regression: An introduction (Vol. 22). Sage publications. [ [pdf](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/pubs/Applied%20Regression%20Lewis-Beck.pdf) ]
 
 
+-----
+
+
 For THIS ASSIGNMENT all of the work is done by hand so you can type your answers right into the attached word document:
 
 [Lab-01 Instructions](https://github.com/DS4PS/cpp-523-fall-2019/raw/master/labs/Lab-01-Regression-Review.docx)
@@ -399,6 +402,10 @@ Save it using the naming convention:
 Lab-##-LastName.doc
 
 And submit via Canvas. Please show your work (include the basic steps for each calculation).
+
+
+-----
+
 
 For future assignments we will be using R Markdown documents so that you can run models and submit the results directly. 
 
