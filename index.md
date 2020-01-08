@@ -3,7 +3,7 @@ layout: index
 title: Syllabus
 
 index:
-    title: Foundations of Program Evaluation II
+    title: Foundations of Program Evaluation I
     image: distribution.svg
     subtitle: Regression analysis for the study of program impact.
     
